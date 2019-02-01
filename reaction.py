@@ -64,7 +64,7 @@ plt.show()
 # Michaelis-Menten reaction
 
 # function that returns dy/dt
-def model(v, s, k, t):
+def mmreaction(v, s, k, t):
     dpdt = (v*s)/(s+k)
     return dpdt
 
@@ -75,12 +75,21 @@ p0 = 0
 t = np.linspace(0,5)
 
 # solve ODE
-y = odeint(model,p0,t)
+y = odeint(mmreaction,p0,t)
 
 # plot results
 plt.plot(t,p)
 plt.xlabel('time')
 plt.ylabel('p(t)')
 plt.show()
+
+# Increasing Hill function
+def hill(ke, x, s, km, l, v, t):
+    dpdt = (l/(l+k)*(v*s)/(s+k))
+    return dpdt
+
+t = np.linspace(0,20)
+y = odeint(hill)
+
 
 
