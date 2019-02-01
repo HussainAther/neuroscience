@@ -14,6 +14,12 @@ def current(N,P,i):
     I_calcium = N*P*i # Calculate the calcium current as a function of N, P, and i
     return I_calcium
 
+"""
+We get the steady state P from macroscopic currents by measuring the other variables and holding them
+constant to observe the relationship between them. Returning membrane potential to a hyperpolarized value between
+depolarizaiton can allow VGICs to recover from inactivation and return to a closed state.
+"""
+
 # initial condition
 y0 = 5
 
