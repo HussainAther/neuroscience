@@ -44,14 +44,20 @@ and the electromagnetic force to get the direction of current flow through a sin
 potential for calcium channels is because they permit the flow fo cations outwards through the central
 ion pore.
 """
+V = 5 # Voltage
+gamma = .5 # conductance
+E = 10 # EM potential.
+
 def ionpore(gamma, V, E):
     current = gamma*(V-E)
     return current
 
-
 """
 We can look at tail currents and max currents to determine the probability of pores open.
 """
+I_tail = 10
+I_max = 15
+
 def P(I_tail, I_max):
     return I_tail/I_max
 
@@ -59,6 +65,9 @@ def P(I_tail, I_max):
 The relationship between P_open and the test pulse is the activation curve for Calcium channels. Similar
 protocls can be used to detemrmine the voltage-dependence of activation of VGICs using the Boltzmann function.
 """
+V_50 = 20
+V_m = 14
+k = 1e-23
 
 def Pv2(V_50, V_m,k):
     den = (1+exp(V_50 - V_m)/k)
@@ -81,6 +90,8 @@ conductance of the plasma membrane to sodium and potassium ions (g_Na and g_K) t
 to the action potential.
 """
 
+
+
 def g_Na(I_Na, V_m, E_Na):
     conductance = I_Na / (V_m - E_Na)
     return conductance
@@ -88,3 +99,4 @@ def g_Na(I_Na, V_m, E_Na):
 def g_K(I_K, V_m, E_K):
     conductance = I_K / (V_m - E_K)
     return conductance
+
