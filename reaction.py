@@ -63,26 +63,24 @@ plt.show()
 
 # Michaelis-Menten reaction
 
-
-
 # function that returns dy/dt
-def model(y,t):
-    dydt = -y + 1.0
-    return dydt
+def model(v, s, k, t):
+    dpdt = (v*s)/(s+k)
+    return dpdt
 
 # initial condition
-y0 = 0
+p0 = 0
 
 # time points
 t = np.linspace(0,5)
 
 # solve ODE
-y = odeint(model,y0,t)
+y = odeint(model,p0,t)
 
 # plot results
-plt.plot(t,y)
+plt.plot(t,p)
 plt.xlabel('time')
-plt.ylabel('y(t)')
+plt.ylabel('p(t)')
 plt.show()
 
 
