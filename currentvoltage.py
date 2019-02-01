@@ -77,5 +77,14 @@ plt.show()
 The interdependence of g, V, and I when VGICs are activated posed a significant challenge to
 early biophysiicsts in their quest to deterine the ionic basis of suprathreshold changes in the
 membrane potential. Biophysicists wanted to observe adn quantify the voltage and time-dependent changes in
-conductance of the plasma membrane to sodium and potassium ions (
+conductance of the plasma membrane to sodium and potassium ions (g_Na and g_K) they believed gave rise
+to the action potential.
 """
+
+def g_Na(I_Na, V_m, E_Na):
+    conductance = I_Na / (V_m - E_Na)
+    return conductance
+
+def g_K(I_K, V_m, E_K):
+    conductance = I_K / (V_m - E_K)
+    return conductance
