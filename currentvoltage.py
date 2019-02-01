@@ -9,11 +9,10 @@ i, the amplitude of current flowing through a single channel, and P, the average
 which is a function of voltage and time.
 """
 
-# function that returns dy/dt
-def model(y,t):
-    k = 0.3
-    dydt = -k * y
-    return dydt
+# function that returns current
+def current(N,P,i):
+    I_calcium = N*P*i # Calculate the calcium current as a function of N, P, and i
+    return I_calcium
 
 # initial condition
 y0 = 5
@@ -22,7 +21,7 @@ y0 = 5
 t = np.linspace(0,20)
 
 # solve ODE
-y = odeint(model,y0,t)
+y = odeint(current,y0,t)
 
 # plot results
 plt.plot(t,y)
