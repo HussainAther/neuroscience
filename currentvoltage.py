@@ -47,5 +47,11 @@ def ionpore(gamma, V, E):
     current = gamma*(V-E)
     return current
 
+# solve ODE
+y = odeint(ionpore,y0,t)
 
-
+# plot results
+plt.plot(t,y)
+plt.xlabel('time')
+plt.ylabel('y(t)')
+plt.show()
