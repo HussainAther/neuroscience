@@ -47,6 +47,13 @@ def ionpore(gamma, V, E):
     current = gamma*(V-E)
     return current
 
+
+"""
+We can look at tail currents and max currents to determine the probability of pores open.
+"""
+def P(I_tail, I_max):
+    return I_tail/Imax
+
 # solve ODE
 y = odeint(ionpore,y0,t)
 
