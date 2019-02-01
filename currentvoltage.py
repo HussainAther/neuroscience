@@ -39,9 +39,13 @@ plt.show()
 
 """
 We can use the current product of single channel conductance (gamma) and the driving force (V-E) between the voltage
-and the electromagnetic force to get the direction of current flow through a single channel.
+and the electromagnetic force to get the direction of current flow through a single channel. The reversing
+potential for calcium channels is because they permit the flow fo cations outwards through the central
+ion pore.
 """
 def ionpore(gamma, V, E):
     current = gamma*(V-E)
     return current
+
+
 
