@@ -18,6 +18,7 @@ def current(N,P,i):
 We get the steady state P from macroscopic currents by measuring the other variables and holding them
 constant to observe the relationship between them. Returning membrane potential to a hyperpolarized value between
 depolarizaiton can allow VGICs to recover from inactivation and return to a closed state.
+
 """
 
 # initial condition
@@ -34,3 +35,13 @@ plt.plot(t,y)
 plt.xlabel('time')
 plt.ylabel('y(t)')
 plt.show()
+
+
+"""
+We can use the current product of single channel conductance (gamma) and the driving force (V-E) between the voltage
+and the electromagnetic force to get the direction of current flow through a single channel.
+"""
+def ionpore(gamma, V, E):
+    current = gamma*(V-E)
+    return current
+
