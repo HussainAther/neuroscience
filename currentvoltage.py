@@ -1,4 +1,5 @@
 import numpy as np
+import math
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 
@@ -52,7 +53,16 @@ def ionpore(gamma, V, E):
 We can look at tail currents and max currents to determine the probability of pores open.
 """
 def P(I_tail, I_max):
-    return I_tail/Imax
+    return I_tail/I_max
+
+"""
+The relationship between P_open and the test pulse is the activation curve for Calcium channels. Similar
+protocls can be used to detemrmine the voltage-dependence of activation of VGICs using the Boltzmann function.
+"""
+
+def Pv2(V_50, V_m,k):
+    den = (1+exp(V_50 - V_m)/k)
+    retrn 1/den
 
 # solve ODE
 y = odeint(ionpore,y0,t)
