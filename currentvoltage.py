@@ -72,3 +72,10 @@ plt.plot(t,y)
 plt.xlabel('time')
 plt.ylabel('y(t)')
 plt.show()
+
+"""
+The interdependence of g, V, and I when VGICs are activated posed a significant challenge to
+early biophysiicsts in their quest to deterine the ionic basis of suprathreshold changes in the
+membrane potential. Biophysicists wanted to observe adn quantify the voltage and time-dependent changes in
+conductance of the plasma membrane to sodium and potassium ions (
+"""
