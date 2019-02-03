@@ -2,6 +2,9 @@ import numpy as np
 import math
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
+from gekko import GEKKO
+
+m = GEKKO()
 
 """
 The sign of a synaptic action can be predicted by knowledge of the relationship between resting potential (V) and
@@ -19,7 +22,7 @@ def total_conductance(gamma, P, N)
     g_syn = gamma*P*N # Add conductances in parallel for simultaneous activation
     return g_syn
 
-# Similarly, we can find the urrent of this setup.
+# Similarly, we can find the current of this setup.
 g_syn = 20
 V = 20
 E = 30
