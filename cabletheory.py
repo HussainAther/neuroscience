@@ -49,3 +49,6 @@ dx = xpos[1]−xpos[0]
 
 # Equation
 m.Equation(V == (r_m/r_i) * (V[0].dt() == c**2))
+
+# Solve it!
+m.solve()
