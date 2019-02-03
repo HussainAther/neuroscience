@@ -11,7 +11,19 @@ conductances and currents. We can determine the total conductance change produce
 synpases. Gamma is the single-channel conductance, P is the probabilty of opening a single channel, and N is the total
 number of ligand-gated channels in the post-synaptic conductacne
 """
+gamma = 5
+P = 10
+N = 15
 # function that returns total conductance
 def total_conductance(gamma, P, N)
     g_syn = gamma*P*N # Add conductances in parallel for simultaneous activation
     return g_syn
+
+# Similarly, we can find the urrent of this setup.
+g_syn = 20
+V = 20
+E = 30
+def I(g_syn, V, E):
+    return g_syn*(V-E)
+
+
