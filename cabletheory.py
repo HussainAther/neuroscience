@@ -20,3 +20,12 @@ in acccordance with the simple linear equation E = IR (current times resisntace)
 # electromagnetic potential (E)
 def V(V_m, E):
     return V_m - E
+
+
+"""
+In the steady-state, we ignore membrane capacitance and usually the resting membrane potential.
+In the simplest case, the electrotonic potential (V) is relative to a uniform resting potential (E).
+Electrotonic current divides between internal and membrane resistance. Axial resistance is inversely
+proportional to diameter while membrane resistance is inversely proportional to membrane surface area.
+The external medium along the process is assumed to have zero resistivity.
+"""
