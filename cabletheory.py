@@ -28,4 +28,5 @@ In the simplest case, the electrotonic potential (V) is relative to a uniform re
 Electrotonic current divides between internal and membrane resistance. Axial resistance is inversely
 proportional to diameter while membrane resistance is inversely proportional to membrane surface area.
 The external medium along the process is assumed to have zero resistivity.
+We assume driving forces on membrane conductances are constant, and cables have different boundary conditions
 """
