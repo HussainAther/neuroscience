@@ -12,6 +12,8 @@ by several means. We can inject current, use extracellular currents, and
 discover changes in membrane conductance caused by driving forces.
 
 As such, the current in the neuron behaves in accordance with mathematical theory.
+We also posit that the electrotonic current is ohmic. By this, the passive electrotonic current flow us assuemd to be
+in acccordance with the simple linear equation E = IR (current times resisntace), as dictated by Ohm's Law.
 """
 
 # Electrotonic potential measured as a differnece of membrane potential (V_m) and
