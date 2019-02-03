@@ -37,6 +37,10 @@ and by conservation of current, the sum of the branches must equal zero.
 
 We can create a differnetial equation to explain this behavior.
 """
+# Set variable values
+I_L = 5
+I_syn = 5
+C = 10
 
 # integration time points
 m.time = np.linspace(0,10)
@@ -50,3 +54,15 @@ eq = m.Param(value=0)
 # Equation for
 m.Equation(C(dVdt) + I_L + I_syn == eq)
 
+#Objective
+m.Obj(V = E) # If the ligand-gated channels open by release of a transmitter
+# from a presynaptci neuron, this equalizes
+
+# Set global options
+m.options.IMODE = 3 # Steady state optimization
+
+# Results
+m.solve() # use public server
+
+# Solve
+print("C: " + str(C.value))
