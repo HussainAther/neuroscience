@@ -36,6 +36,7 @@ We assume driving forces on membrane conductances are constant, and cables have 
 With these assumptions and rules, we rerpesent internal resistance (r_i) connected to the r_i of neighboring segments and
 through the membrane resistance (r_m) to the ground. We use differential equations to
 describe the spread of electrotonic potential under steady-state conditions.
+Electrotonic spreads depends on the characteristci length constant.
 """
 
 # Set variable values
@@ -52,3 +53,34 @@ m.Equation(V == (r_m/r_i) * (V[0].dt() == c**2))
 
 # Solve it!
 m.solve()
+
+
+"""
+When constructing a compartmental model of the passive electrical properties of a dendritic branch,
+we need to understand how a endritic segments interacts with its organelles. From an abstract model,
+we can look at the membrane capacitance (c_m), membrane resistance (r_m), resting membrane potentail (E),
+and internal resistance (r_i). If we have a steady-state current input at point x = 0, the electrotonic potential (V)
+along the cable is proportional to the second derivative of the potential (d^2V) with respect to the ratio of membrane resistance (r_m) to
+the internal resistance (r_i) and distance to this membrane. We obtain an exponential euler relationship.
+"""
+
+# Set variable values
+x = 5
+lambda = 10 # Square root of (r_m/r_i)
+V = [m.Var(value = np.sin(2*xpos[i])) for i in range(npx)]
+
+# Discretization of space
+xpos = np.linspace(0,10,1)
+dx = xpos[1]−xpos[0]
+
+# Equation
+m.Equation(V == V_0 * exp((-x)/lambda))
+
+# Solve it!
+m.solve()
+
+"""
+When x = lambda, the ration of V to V_0 is exp(-1) or about .37. Lambda is the characteristc
+length constant of the cable at this point. The decay of membrane potential along an infinte dendritic
+cable is described by the length constant.
+"""
