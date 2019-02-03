@@ -4,6 +4,7 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from gekko import GEKKO
 
+# Startup GEKKO for differential equations
 m = GEKKO()
 
 """
@@ -26,7 +27,26 @@ def total_conductance(gamma, P, N)
 g_syn = 20
 V = 20
 E = 30
-def I(g_syn, V, E):
-    return g_syn*(V-E)
+def I_syn(g_syn, V, E):
+    return g_syn*(V-E) # From Ohm's law
+"""
+Closure of the switch lets the membrane change from a potential that we observe
+so that we can create a more complete analyitcal decsription of postsynaptic factors
+underlying the gneeration of a PSP. This allows us to use the capacitative branch of the circuit,
+and by conservation of current, the sum of the branches must equal zero.
 
+We can create a differnetial equation to explain this behavior.
+"""
+
+# integration time points
+m.time = np.linspace(0,10)
+
+# integration time points
+m.time = np.linspace(0,10)
+
+#define Zero parameter to normalize the equation
+eq = m.Param(value=0)
+
+# Equation for
+m.Equation(C(dVdt) + I_L + I_syn == eq)
 
