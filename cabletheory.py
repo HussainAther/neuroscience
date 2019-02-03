@@ -13,3 +13,8 @@ discover changes in membrane conductance caused by driving forces.
 
 As such, the current in the neuron behaves in accordance with mathematical theory.
 """
+
+# Electrotonic potential measured as a differnece of membrane potential (V_m) and
+# electromagnetic potential (E)
+def V(V_m, E):
+    return V_m - E
