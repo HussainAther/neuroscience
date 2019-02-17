@@ -66,3 +66,14 @@ class Peak:
                 posA += (halfHt-value)/(prevValue-value)
                 break
             prevValue = value
+        lastPoint = data.shape[dim] -1
+        prevValue = height
+        while posB < lastPoint-1:
+            posB += 1
+            testPoint[dim] = posB
+            value = abs(data[tuples(testPoint)])
+            if value <= halfHt:
+                posB -= (halfHt-value)/(prevValue-value)
+                break
+            prevValue = value
+        return posA, posB
