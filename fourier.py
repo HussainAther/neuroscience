@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as sp
 import matplotlib.pyplot as plt
 
 """
@@ -77,3 +78,18 @@ class Peak:
                 break
             prevValue = value
         return posA, posB
+def findPeaks(data, threshold, size=3, mode="wrap"):
+    peaks = []
+    if (data.size == 0) or (data.max() < threshold):
+        return peaks
+    boolsVal = data > threshold
+    maxFilter = np.maximum_filter(data, size=size, mode=mode)
+    boolsMax = data == maxFilter
+    boolsPeak = boolsVal & boolsMax
+    indices = sp.argwhere(boolsPeak) # Position indices for True
+    for position in indices:
+        position = tuple(position)
+        height = data[position]
+        peak = Peak(position, data, height)
+        peaks.append(peak)
+    return peaks
