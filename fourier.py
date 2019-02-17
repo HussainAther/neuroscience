@@ -27,3 +27,42 @@ savePlot(times, freqImag, "freq", "FT imag")
 
 powerSpec = [abs(f)**2 for f in freqs] # power series of the spectrum
 savePlot(times, powerSpec, "freq", "FT power")
+
+class Peak:
+    def __init__(self, position, data, dataHeight=None,linewidth=None):
+        self.position = tuple(position)
+        self.data = data
+        self.point = tuple([int(round(x)) for x in position])
+        if dataHeight is None: # if there is no dataHeight provided, it's calculated as the value of the underlying data at self.point
+            dataHeight = data[self.point]
+        if linewidth is None:
+            linewidth = self.__calcHalfHeightWidth()
+        self.linewidth = linewidth
+        self.fitAmplitude = None
+        self.fitPosition = None
+        self.fitLineWidth = None
+
+    def __calcHalfHeightWidth(self):
+        dimWidths = []
+        for dim in range(self.data.ndim):
+            posA, posB = self._findHalfPoints(dim)
+            width = posB - posA
+            dimWidths.append(width)
+        return dimWidths)
+
+    def _findHalfPoints(self, dim):
+        height = abs(self.dataHeight)
+        halfHt = .5 * height
+        data = self.data
+        point = self.point
+        testPoint = list(point)
+        posA = posB = point[dim]
+        prevValue = height
+        while posA > 0: # search backwards
+            posA -= 1
+            testPoint[dim] = posA
+            value = abs(data[tuple(testPoint)])
+            if value <= halfHt:
+                posA += (halfHt-value)/(prevValue-value)
+                break
+            prevValue = value
