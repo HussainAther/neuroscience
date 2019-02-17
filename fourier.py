@@ -42,6 +42,7 @@ class Peak:
         self.fitAmplitude = None
         self.fitPosition = None
         self.fitLineWidth = None
+        self.fitData = self._getRegionData(region) / self.dataHeight
 
     def __calcHalfHeightWidth(self):
         dimWidths = []
@@ -78,7 +79,67 @@ class Peak:
                 break
             prevValue = value
         return posA, posB
+
+    def _getRegionData(self, region):
+        slices = tuple([slice(start, end) for start,end in region])
+        return self.data[slices]
+
+    def _fitFunc(self, region, params):
+        ndim = self.data.ndim
+        amplitudeScale = params[0]
+        offset = params[1:1+ndim]
+        linewidthScale = params[1+ndim:]
+        sliceData = ndim * [0]
+        for dim in range(ndim):
+            linewidth = linewidthScale[dim] * self.linewidth[dim]
+            testPos = offset[dim] + self.position[dim]
+            (start, end) = region[dim]
+        if linewidth > 0:
+            x = np.array(range(start,end))
+            x = (x - testPos) / linewidth
+            slice1d = 1.0 / (1.0 + 4.0*x*x)
+        else:
+            slice1d = np.zeros(end-start)
+        sliceData[dim] = slice1d
+        heights = amplitudeScale * self._outerProduct(sliceData)
+        diff2 = ((heights-self.fitData)**2).mean()
+        return np.sqrt(diff2)
+
+    def _outerProduct(self,data):
+        size = [d.shape[0] for d in data]
+        product = data[0]
+        for dim in range(1, len(size)):
+            product = outer(product, data[dim])
+
+    def fit(self, fitWidth=2):
+
+        region = []
+        numPoints = self.data.shape
+        for dim, point in enumerate(peak.position):
+            start = max(point-fitWidth, 0)
+            end = min(point+fitWidth+1, numPoints[dim])
+            region.append((start,end))
+        amplitudeScale = 1.0
+        offset = 0.0
+        linewidthScale = 1.0
+        ndim = self.data.ndim
+        params = [amplitudeScale]
+        params.extend(ndim*[offset])
+        params.extend(ndim*[linewidthScale])
+        fitFunc= = lambda params: self._fitFunc(region, params)
+        result = sp.optimize.fmin(fitFunc, params, xtol=0.01)
+        amplitudeScale = result[0]
+        offset = result[1:ndim+1]
+        linewidthScale = result[ndim+1:]
+        peak.fitAmplitude = float(amplitudeScale * peak.dataHeight)
+        peak.fitPosition = list(peak.position + offset)
+        peak.fitLineWidth = list(linewidthScale * peak.linewidth)
+
 def findPeaks(data, threshold, size=3, mode="wrap"):
+    """
+    Look for local maxima above a specified threshold. It works well for
+    data that is not especially noisy or crowded.
+    """
     peaks = []
     if (data.size == 0) or (data.max() < threshold):
         return peaks
@@ -93,3 +154,8 @@ def findPeaks(data, threshold, size=3, mode="wrap"):
         peak = Peak(position, data, height)
         peaks.append(peak)
     return peaks
+
+
+
+    
+
