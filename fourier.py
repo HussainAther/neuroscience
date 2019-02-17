@@ -110,6 +110,8 @@ class Peak:
         product = data[0]
         for dim in range(1, len(size)):
             product = outer(product, data[dim])
+        product = product.reshape(size)
+        return product
 
     def fit(self, fitWidth=2):
 
