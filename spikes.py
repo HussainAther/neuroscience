@@ -46,4 +46,18 @@ plt.hist(y, 10)
 plt.show()
 
 # Intervals over large sum
-sum([random.expovariate(lmbda) for i in range(count)])/count
+sum([random.expovariate(T) for i in range(count)])/count
+
+# Distribute time events
+intervals = [expovariate(lmbda) for i in range(1000)]
+timestamps = [0.0]
+timestamp = 0.0
+for t in intervals:
+    timestamp += t
+    timestamps.append(timestamp)
+timestamps[:10]
+
+deltas = [y - x for x, y in zip(timestamps, timestamps[1:])]
+plt.figure(figsize=(16, 4))
+plt.plot(deltas, 'r+')
+plt.show()
