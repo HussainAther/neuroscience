@@ -1,9 +1,6 @@
 """
 Utilities to resample a Nifti Image
 """
-# Author: Gael Varoquaux, Alexandre Abraham
-# License: simplified BSD
-
 
 import numpy as np
 from scipy import ndimage, linalg
