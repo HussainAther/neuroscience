@@ -1,10 +1,5 @@
-import sys, re
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import patsy as pt
-import pymc3 as pm
+from neuronpy.graphics import spikeplot
 
 """
 Simple, approximate descriptions of spike statistics. They can be useful for analytic statements about the
@@ -15,11 +10,18 @@ We can begin with a Poisson model. One spike firing with some probability per un
 but no explicitly on the occurrence times of the other spikes.
 """
 
-# Poisson theta values
-theta_spike_bin = .7 # a spike occurs
-theta_nospike = .3 # there is no spike
-theta_
+# Poisson theta values: these are decided such that the model is Poisson-like
+spikes = []
+num_cells = 10
+num_spikes_per_cell = 20
+frequency = 20
 
-# samples
-q = 1000
-df = pd.DataFrame({)
+for i in range(num_cells):
+    isi = np.random.poisson(frequency, num_spikes_per_cell)
+    spikes.append(numpy.cumsum(isi))
+
+# spikes is now a list of lists where each cell has a list of spike
+# times. Now, let's plot these spikes.
+sp = spikeplot.SpikePlot()
+sp.plot_spikes(spikes)
+
