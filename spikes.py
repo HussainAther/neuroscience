@@ -1,5 +1,7 @@
 import numpy as np
 from neuronpy.graphics import spikeplot
+import math
+import random
 
 """
 Simple, approximate descriptions of spike statistics. They can be useful for analytic statements about the
@@ -25,3 +27,10 @@ for i in range(num_cells):
 sp = spikeplot.SpikePlot()
 sp.plot_spikes(spikes)
 
+"""
+Real spike trains can't be exactly Poisson processes. Spikes can't come too close together in time because the
+spike-generating mechanism of all cells is refractory.
+"""
+
+def nextTime(rateParameter):
+    return -math.log(1.0 - random.random()) / rateParameter
