@@ -30,7 +30,20 @@ sp.plot_spikes(spikes)
 """
 Real spike trains can't be exactly Poisson processes. Spikes can't come too close together in time because the
 spike-generating mechanism of all cells is refractory.
+
+With a stochastic process of N spikes over T time period, we can create a distribution of event.
 """
 
-def nextTime(rateParameter):
-    return -math.log(1.0 - random.random()) / rateParameter
+N = 1000.0
+T = 2.0
+
+count = int(1E6)
+x = np.arange(count)
+y = -np.log(1.0 - np.random.random_sample(len(x))) / T
+np.average(y)
+
+plt.hist(y, 10)
+plt.show()
+
+# Intervals over large sum
+sum([random.expovariate(lmbda) for i in range(count)])/count
