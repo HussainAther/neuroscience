@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from IPython.disply import Image
 
 """
 In 1952 Hubel and Wiesel made an interesting discovery. When they inserted thin electrodes into cat's visual cortex and presented small spots of light on a screen in front of the cat, some of the cells responded by firing spikes only when the spot was at a particular positions.
@@ -9,3 +10,39 @@ The responses of such neurons were fully characterised by the inhibitory and exc
 They also found another type of cells that manifested more complex responses. These cells, called complex cells, would respond only to a visual object of a particular shape and orientation no matter where it was positioned in the visual field. If the image was slightly rotated
 or its shape was changed, the response was supressed.
 """
+
+
+"""
+Receptive field is the set of the stimuli that evoke responses in single neurons. In case of visual receptive fields these are patches of light impaling on retina that are most effecitve in driving a neuron. It is customary to represent visual receptive field as images showing the preffered stimuli.
+
+We will now generate a sample receptive field using numpy. We start with a periodic pattern of light and dark regions along one axis. To represent it as an image we need a two-dimensional grid of $x$ and $y$ coordinates — one pair per pixel — which we store in two numpy arrays XX and YY each containing
+only one of the coordinates. This is best illustrated by the following schematics:
+"""
+
+xmin, xmax, dx = -20, 20, 0.04 #degree
+ymin, ymax, dy = -20, 20, 0.04
+
+YY, XX = np.mgrid[xmin:xmax:dx, ymin:ymax:dy]
+
+"""
+Generate sine pattern in x-direction.
+"""
+
+spatial_freq = 0.1
+rf = np.sin(2 * np.pi * spatial_freq * XX)
+plt.matshow(rf)
+plt.gray()
+
+
+rf_angle = np.pi/3.
+
+"""
+Use rotated system of coordinates.
+"""
+
+x_r = XX * np.cos(rf_angle) + YY * np.sin(rf_angle)
+y_r = -XX * np.sin(rf_angle) + YY * np.cos(rf_angle)
+
+rf = np.cos(2 * np.pi * spatial_freq * x_r)
+plt.matshow(rf)
+plt.gray()
