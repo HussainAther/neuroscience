@@ -1,4 +1,4 @@
-
+import itertools
 
 """
 When we observe spike train of a sensory neuron, we learn about many different aspects of the stimulus.
@@ -13,4 +13,11 @@ def totalProb(variableProbs):
     The additivity of information mean that for any distribution of N independent variables,
     the probability of each of them occuring is the product of each of the individual variables.
     """
-    return product(variableProbs)
+    return itertools.product(variableProbs)
+
+def entropy(variables):
+    """
+    Intuititive notion of entropy as logarithm of the number of possible states the systme can occupy.
+    """
+
+def totalEntropy(
