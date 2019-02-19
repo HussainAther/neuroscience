@@ -152,6 +152,7 @@ def instantaneous_rate(spiketrain, sampling_period, kernel='auto',
                                   t_stop=t_stop, trim=trim)
 
 
+spiketrains = 
 arrivaltimes = instantaneous_rate(spiketrain, sampling_period) # Elephant function of the first kind of real order and complex argument
 T = 30 # limit of time we integrate over
 
