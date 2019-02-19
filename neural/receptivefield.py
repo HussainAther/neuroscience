@@ -89,3 +89,46 @@ def bar(XX, YY, length, width, angle):
     x_r = XX * np.cos(angle) + YY * np.sin(angle)
     y_r = -XX * np.sin(angle) + YY * np.cos(angle)
     return  1 * (np.abs(x_r) < length / 2) * (np.abs(y_r) < width / 2)
+
+
+bar_length = 10.
+bar_width = 3.
+bar_angle = np.pi/2.
+bar_lumosity = 1
+b = bar(XX, YY, bar_length, bar_width, bar_angle)
+plt.imshow(b, extent=(xmin, xmax, ymin, ymax))
+plt.gray()
+
+def rectify(x):
+    return x * (x > 0)
+
+def simple_cell_model(receptive_field, baseline_rate, dxy):
+    dx, dy = dxy
+    def _response(stim):
+        r = np.sum(stim * receptive_field) * dx * dy + baseline_rate
+        return rectify(r)
+    return _response
+
+
+baseline_rate = 20
+simple_cell = simple_cell_model(W, 20, (dx, dy))
+
+r = simple_cell(b)
+print("Output firing rate: {:.1f} Hz".format(r))
+print("Change from baseline: {:.1f} Hz".format(r - baseline_rate))
+
+plt.figure(figsize=(3, 3))
+plt.imshow(W, extent=(xmin, xmax, ymin, ymax))
+b1 = bar(XX, YY, bar_length, bar_width, bar_angle)
+b2 = bar(XX - bar_width, YY, bar_length, bar_width, bar_angle)
+plt.contour(XX[0,:], YY[:,0], b1)
+plt.contour(XX[0,:], YY[:,0], b2)
+plt.xlabel('azimuth (deg)')
+plt.ylabel('longlitude (deg)')
+
+r1 = simple_cell(b1) - baseline_rate
+r2 = simple_cell(b2) - baseline_rate
+r1and2 = simple_cell(b1 + b2) - baseline_rate
+plt.bar(range(4), [r1, r2, r1+r2, r1and2])
+plt.xticks(np.arange(4) + 0.5, ["Bar 1", "Bar 2", "sum of\n responses", "Bar 1 + 2"])
+plt.ylabel('change of firing rate (Hz)')
