@@ -18,6 +18,43 @@ estimated signal, and finally calcualte lower bound to information rate from the
 """
 
 # Information provided to us by spike-train
+def fanofactor(spiketrains):
+    """
+    Evaluates the empirical Fano factor F of the spike counts of
+    a list of `neo.core.SpikeTrain` objects.
+
+    Given the vector v containing the observed spike counts (one per
+    spike train) in the time window [t0, t1], F is defined as:
+
+                        F := var(v)/mean(v).
+
+    The Fano factor is typically computed for spike trains representing the
+    activity of the same neuron over different trials. The higher F, the larger
+    the cross-trial non-stationarity. In theory for a time-stationary Poisson
+    process, F=1.
+
+    Parameters
+    ----------
+    spiketrains : list of neo.SpikeTrain objects, quantity arrays, numpy arrays or lists
+        Spike trains for which to compute the Fano factor of spike counts.
+
+    Returns
+    -------
+    fano : float or nan
+        The Fano factor of the spike counts of the input spike trains. If an
+        empty list is specified, or if all spike trains are empty, F:=nan.
+    """
+    # Build array of spike counts (one per spike train)
+    spike_counts = np.array([len(t) for t in spiketrains])
+
+    # Compute FF
+    if all([count == 0 for count in spike_counts]):
+        fano = np.nan
+    else:
+        fano = spike_counts.var() / spike_counts.mean()
+    return fano
+
+
 def instantaneous_rate(spiketrain, sampling_period, kernel='auto',
                        cutoff=5.0, t_start=None, t_stop=None, trim=False):
     """
@@ -115,7 +152,7 @@ def instantaneous_rate(spiketrain, sampling_period, kernel='auto',
                                   t_stop=t_stop, trim=trim)
 
 
-arrivaltimes = instantaneous_rate(spiketrain, sampling_period # Bessel function of the first kind of real order and complex argument
+arrivaltimes = instantaneous_rate(spiketrain, sampling_period) # Elephant function of the first kind of real order and complex argument
 T = 30 # limit of time we integrate over
 
-I = integrate.quad(lambda x: arrivaltimes, 0, T) * integate.quad(
+I = integrate.quad(lambda x: arrivaltimes, 0, T) * integate.quad(fanofactor(spiketrains))
