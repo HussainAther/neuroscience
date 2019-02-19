@@ -5,6 +5,7 @@ import quantities as pq
 import scipy.stats
 import scipy.signal
 import neo
+from neo import io
 from neo.core import SpikeTrain
 import elephant.conversion as conv
 import elephant.kernels as kernels
@@ -16,6 +17,112 @@ the signal from spikes (using the noise-reduction approaches), then we compute n
 signal (measuring the random errors and removing them), after that we compute the signal-to-noise-ratio of the
 estimated signal, and finally calcualte lower bound to information rate from the signal-to-noise ratio.
 """
+class AsciiSpikeTrainIO(BaseIO):
+    """
+    Class for reading/writing SpikeTrains in a text file.
+    Each Spiketrain is a line.
+    Usage:
+        >>> from neo import io
+        >>> r = io.AsciiSpikeTrainIO( filename = 'File_ascii_spiketrain_1.txt')
+        >>> seg = r.read_segment()
+        >>> print seg.spiketrains     # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+        [<SpikeTrain(array([ 3.89981604,  4.73258781,  0.608428  ,  4.60246277,  1.23805797,
+        ...
+    """
+
+    is_readable = True
+    is_writable = True
+
+    supported_objects = [Segment, SpikeTrain]
+    readable_objects = [Segment]
+    writeable_objects = [Segment]
+
+    has_header = False
+    is_streameable = False
+
+    read_params = {
+        Segment: [
+            ('delimiter', {'value': '\t', 'possible': ['\t', ' ', ',', ';']}),
+            ('t_start', {'value': 0., }),
+        ]
+    }
+    write_params = {
+        Segment: [
+            ('delimiter', {'value': '\t', 'possible': ['\t', ' ', ',', ';']}),
+        ]
+    }
+
+    name = None
+    extensions = ['txt']
+
+    mode = 'file'
+
+    def __init__(self, filename=None):
+        """
+        This class read/write SpikeTrains in a text file.
+        Each row is a spiketrain.
+        **Arguments**
+        filename : the filename to read/write
+        """
+        BaseIO.__init__(self)
+        self.filename = filename
+
+    def read_segment(self,
+                     lazy=False,
+                     delimiter='\t',
+                     t_start=0. * pq.s,
+                     unit=pq.s,
+                     ):
+        """
+        Arguments:
+            delimiter  :  columns delimiter in file  '\t' or one space or two space or ',' or ';'
+            t_start : time start of all spiketrain 0 by default
+            unit : unit of spike times, can be a str or directly a Quantities
+        """
+        assert not lazy, 'Do not support lazy'
+
+        unit = pq.Quantity(1, unit)
+
+        seg = Segment(file_origin=os.path.basename(self.filename))
+
+        f = open(self.filename, 'Ur')
+        for i, line in enumerate(f):
+            alldata = line[:-1].split(delimiter)
+            if alldata[-1] == '':
+                alldata = alldata[:-1]
+            if alldata[0] == '':
+                alldata = alldata[1:]
+
+            spike_times = np.array(alldata).astype('f')
+            t_stop = spike_times.max() * unit
+
+            sptr = SpikeTrain(spike_times * unit, t_start=t_start, t_stop=t_stop)
+
+            sptr.annotate(channel_index=i)
+            seg.spiketrains.append(sptr)
+        f.close()
+
+        seg.create_many_to_one_relationship()
+        return seg
+
+    def write_segment(self, segment,
+                      delimiter='\t',
+                      ):
+        """
+        Write SpikeTrain of a Segment in a txt file.
+        Each row is a spiketrain.
+         Arguments:
+            segment : the segment to write. Only analog signals will be written.
+            delimiter  :  columns delimiter in file  '\t' or one space or two space or ',' or ';'
+            information of t_start is lost
+        """
+
+        f = open(self.filename, 'w')
+        for s, sptr in enumerate(segment.spiketrains):
+            for ts in sptr:
+                f.write('%f%s' % (ts, delimiter))
+            f.write('\n')
+        f.close()
 
 # Information provided to us by spike-train
 def fanofactor(spiketrains):
@@ -152,7 +259,7 @@ def instantaneous_rate(spiketrain, sampling_period, kernel='auto',
                                   t_stop=t_stop, trim=trim)
 
 
-spiketrains = 
+spiketrains =
 arrivaltimes = instantaneous_rate(spiketrain, sampling_period) # Elephant function of the first kind of real order and complex argument
 T = 30 # limit of time we integrate over
 
