@@ -7,7 +7,7 @@ When we observe spike train of a sensory neuron, we learn about many different a
 This way, we gain information. Shannon entropy is closely related to information. We can think about information transmission by sensory neurons in terms of
 various parts of the spike train as part of stimulus space.
 
-
+In classical mechanics, particles can take on a continuous range of positions and velocities. There's no natural scale for the precisino of the measurements.
 """
 
 def totalProb(variableProbs):
