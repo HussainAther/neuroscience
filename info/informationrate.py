@@ -264,3 +264,4 @@ arrivaltimes = instantaneous_rate(spiketrain, sampling_period) # Elephant functi
 T = 30 # limit of time we integrate over
 
 I = integrate.quad(lambda x: arrivaltimes, 0, T) * integate.quad(fanofactor(spiketrains))
+
