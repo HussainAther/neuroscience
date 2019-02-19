@@ -28,7 +28,7 @@ def entropySum(variableProbs, k):
     S *= -k
     return S
 
-def integrand(p):
+def entropyIntIntegrand(p):
     """
     The inside of the integral for the integral notion of entropy.
     """
@@ -38,7 +38,7 @@ def entropyInt(variableProbs, k):
     """
     Integral notion of entropy.
     """
-    S = sp.integrate(integrand(prob for prob in variableProbs), 0, 1)
+    S = sp.integrate(entropyIntIntegrand(prob for prob in variableProbs), 0, 1)
     return S *= -k
 
 def entropyDiscrete(deltaV, sigma):
@@ -48,9 +48,16 @@ def entropyDiscrete(deltaV, sigma):
     """
     return (1/2)*np.log2(2*np.pi*exp((sigma**2/(deltaV**2)))
 
-def entropyConditional(
+def entropyConditionalIntegrand(P):
+    """
+    Entropy conditional integrand
+    """
+    return P*np.log2(P))
+    
+def entropyConditional(conditionalProbs):
     """
     Conditional entropy uses a conditional distribution of probabilities that measure rrelative
     likelihood of different input signals x given that we have observed a particular output value y.
     """
+    return -sp.integrate(entropyConditionalIntegrand(prob for prob in conditionalProbs), 0, 1)
     
