@@ -30,7 +30,7 @@ def entropySum(variableProbs, k):
 
 def integrand(p):
     """
-    The inside of the integral for hte integral notion of entropy.
+    The inside of the integral for the integral notion of entropy.
     """
     return p * np.log(p))
 
@@ -38,9 +38,7 @@ def entropyInt(variableProbs, k):
     """
     Integral notion of entropy.
     """
-    min = min(variableProbs)
-    max = max(variableProbs)
-    S = sp.integrate(integrand(prob for prob in variableProbs), min, max)
+    S = sp.integrate(integrand(prob for prob in variableProbs), 0, 1)
     return S *= -k
 
 def totalEntropy(
