@@ -80,3 +80,24 @@ def cn(n):
 def fourier(x, Nh):
    f = np.array([2*cn(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)])
    return f.sum()
+
+"""
+To compute the information transmission for signals in the presence of noise,
+we note that since different fourier coefficients are independent, the information carried by each
+coefficient can just be added up to give the total information. Once more we look at signals and noise in a fixed time
+window 0 < t < T.
+"""
+
+omega = 3
+
+def omega(ratio):
+    return omega
+
+def informationTransmission(ratio):
+    """
+    As described above. ratio is the signal to noise ratio for the discrete frequencies (omega).
+    """
+    I = 0
+    for n in range(-np.inf, np.inf):
+        I += (1/2) * np.log2(1 + omega(n))
+    return I
