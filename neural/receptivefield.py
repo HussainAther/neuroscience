@@ -126,6 +126,13 @@ plt.contour(XX[0,:], YY[:,0], b2)
 plt.xlabel('azimuth (deg)')
 plt.ylabel('longlitude (deg)')
 
+"""
+The two bars are superimposed on the receptive field using white lines. In order to plot them we used contour plot from matplotlib library, which shows contour lines of constant levels in a two dimensional map.
+
+Let us compare the responses of this simple neuron to presentations of each of the bar separately (Bar 1 and 2), sum of the responses, and the response to both bars presented together (Bar 1+2). Since we are only
+interested in change from the baseline firing rate, we first subtract the baseline.
+"""
+
 r1 = simple_cell(b1) - baseline_rate
 r2 = simple_cell(b2) - baseline_rate
 r1and2 = simple_cell(b1 + b2) - baseline_rate
