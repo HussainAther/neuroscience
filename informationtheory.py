@@ -105,9 +105,21 @@ def informationTransmission(ratio):
 """
 If each photon counted by a receptor cell triggers a sterotyped voltage pulse, or "quantum bump", then if the photons
 arrive from an ordinary light source we will have the a spectrum of constant noise equal to 1/R in which R is the photon counting rate.
+
+Given the effective contrast noise psectra of the receptor cells and of the large monoopolar cells, we can compute how much information these cells
+provide us about the visual world.
 """
 def N_eff(N_v, T):
     """
     N_v is the spectrum of the voltage noise. T is the response of the cell to a contrast pulse at time 0.
     """
-    
+    return N_v / abs(T)**2
+
+
+"""
+Maximizing the rate of information transmission is done with noisewhitening. To transmit hte maximum amount of information possible given a fixed total signal variance, the power spectrum
+of the signals should be matched to the power spectrum of the noise in the system.
+
+Both the photoreceptor and the large monopolar cell produce graded responses but there is an element of discreteness to synaptic transmission itself.
+Chemical synapses release transmitters packaged in vesicles.
+"""
