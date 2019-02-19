@@ -101,3 +101,4 @@ def informationTransmission(ratio):
     for n in range(-np.inf, np.inf):
         I += (1/2) * np.log2(1 + omega(ratio, n))
     return I
+
