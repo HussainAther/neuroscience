@@ -123,3 +123,13 @@ of the signals should be matched to the power spectrum of the noise in the syste
 Both the photoreceptor and the large monopolar cell produce graded responses but there is an element of discreteness to synaptic transmission itself.
 Chemical synapses release transmitters packaged in vesicles.
 """
+def probDist(n, a):
+    return n * a
+
+def infoSpikeCount(prob, n, a):
+    """
+    Given probability prob of a certain amplitude, a probability distribution probDist, and amplitude A of the stimulus,
+    the information the spike counts provides about the stimulus amplitude can be calculated.
+    """
+    prob_n = (1/K) * probDist(n, a) # Overall probability of observing n spkes
+    return prob * np.log2(prob/prob_n)
