@@ -46,3 +46,17 @@ y_r = -XX * np.sin(rf_angle) + YY * np.cos(rf_angle)
 rf = np.cos(2 * np.pi * spatial_freq * x_r)
 plt.matshow(rf)
 plt.gray()
+
+"""
+To make the receptive field spatially-limited we mask it with a Gaussian along the stripes and with a rectangle across the stripes.
+"""
+
+rf_height = 6.
+rf_width = 7.5
+
+mask_x = (np.abs(x_r) < rf_width)
+mask_y = np.exp(-(y_r**2/rf_height**2))
+
+rf *= mask_x * mask_y
+
+plt.matshow(rf)
