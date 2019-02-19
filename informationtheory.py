@@ -1,5 +1,6 @@
 import itertools
 import numpy as np
+import scipy as sp
 
 """
 When we observe spike train of a sensory neuron, we learn about many different aspects of the stimulus.
@@ -16,15 +17,30 @@ def totalProb(variableProbs):
     """
     return itertools.product(variableProbs)
 
-def entropy(variableProbs, k):
+def entropySum(variableProbs, k):
     """
-    Intuititive notion of entropy as logarithm of the number of possible states the systme can occupy.
+    Summation notion of entropy as logarithm of the number of possible states the systme can occupy.
     k is a constant.
     """
-    summation = 0
+    S = 0
     for prob in variableProbs:
-        summation += (prob * np.log(prob))
-    summation *= k
+        S += (prob * np.log(prob))
+    S *= -k
+    return S
 
+def integrand(p):
+    """
+    The inside of the integral for hte integral notion of entropy.
+    """
+    return p * np.log(p))
+
+def entropyInt(variableProbs, k):
+    """
+    Integral notion of entropy.
+    """
+    min = min(variableProbs)
+    max = max(variableProbs)
+    S = sp.integrate(integrand(prob for prob in variableProbs), min, max)
+    return S *= -k
 
 def totalEntropy(
