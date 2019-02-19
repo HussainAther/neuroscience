@@ -90,7 +90,7 @@ window 0 < t < T.
 
 omega = 3
 
-def omega(ratio):
+def omega(ratio, n):
     return omega
 
 def informationTransmission(ratio):
@@ -99,5 +99,5 @@ def informationTransmission(ratio):
     """
     I = 0
     for n in range(-np.inf, np.inf):
-        I += (1/2) * np.log2(1 + omega(n))
+        I += (1/2) * np.log2(1 + omega(ratio, n))
     return I
