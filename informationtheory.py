@@ -71,7 +71,7 @@ def probReadout(y):
 """
 To use these signals in a biological context we need to generalize a bit and consider signals that vary in time.
 We use time-dependent signals. We want to describe a function of time f(t) and confine our attentino to a time interval of size T with
-0 < t < T. We can use a fourier series, sum of sine and cosine functions.
+0 < t < T. We can use a fourier series, sum of sine and cosine functions. They later become helpful in constructing power spectral density.
 """
 def cn(n):
    c = y*np.exp(-1j*2*n*np.pi*time/period)
