@@ -102,3 +102,12 @@ def informationTransmission(ratio):
         I += (1/2) * np.log2(1 + omega(ratio, n))
     return I
 
+"""
+If each photon counted by a receptor cell triggers a sterotyped voltage pulse, or "quantum bump", then if the photons
+arrive from an ordinary light source we will have the a spectrum of constant noise equal to 1/R in which R is the photon counting rate.
+"""
+def N_eff(N_v, T):
+    """
+    N_v is the spectrum of the voltage noise. T is the response of the cell to a contrast pulse at time 0.
+    """
+    
