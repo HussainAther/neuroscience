@@ -80,3 +80,12 @@ plt.plot(XX[500,:], W[500, :])
 plt.xlabel('position (deg)')
 cbar.set_label('receptive field')
 plt.tight_layout()
+
+"""
+Response of a simple cell to the receptive field.
+"""
+
+def bar(XX, YY, length, width, angle):
+    x_r = XX * np.cos(angle) + YY * np.sin(angle)
+    y_r = -XX * np.sin(angle) + YY * np.cos(angle)
+    return  1 * (np.abs(x_r) < length / 2) * (np.abs(y_r) < width / 2)
