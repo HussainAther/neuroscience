@@ -69,5 +69,14 @@ def probReadout(y):
     return (1/np.sqrt(2 * np.pi * np.var(y)**2)) * exp(-y**2)/(2*np.var(y**2))
 
 """
-To use these signals in a biological context we need to generalize a bit and consider signals that vary in time. 
+To use these signals in a biological context we need to generalize a bit and consider signals that vary in time.
+We use time-dependent signals. We want to describe a function of time f(t) and confine our attentino to a time interval of size T with
+0 < t < T. We can use a fourier series, sum of sine and cosine functions.
 """
+def cn(n):
+   c = y*np.exp(-1j*2*n*np.pi*time/period)
+   return c.sum()/c.size
+
+def fourier(x, Nh):
+   f = np.array([2*cn(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)])
+   return f.sum()
