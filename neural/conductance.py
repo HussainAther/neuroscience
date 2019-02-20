@@ -68,5 +68,18 @@ def lif_run(g_e, g_i):
     return v
 
 """
-Response to a single spike from an excitatory neuron
+Response to a single spike from an excitatory neuron.
+Alpha-function shaped post-synpatic conductance.
 """
+
+def alpha_psp(a, tau, tmax=None):
+    """Return alpha-function-shaped PSC
+    Arguments:
+    - a - amplitude
+    - tau - time scale
+    - tmax - duration (optional)
+    """
+    if tmax is None:
+        tmax = 10 * tau
+    time = np.arange(int(tmax / dt)) * dt
+    return a * time / tau * np.exp(1 - time / tau)
