@@ -29,3 +29,13 @@ uS = 1e-6 * S
 mV = 1e-3 * V
 pF = 1e-12 * F
 ms = 1e-3 * s
+
+dt = 0.01 * ms # integration time step (ms)
+E_e = 0*mV # reversal potential
+E_i = -75*mV # reversal potential
+E_l = -70*mV # reversal potential
+g_l = 1./60*uS # leak conductance
+C = 250*pF # membrane capacitance
+v_reset = -60*mV # resetting potential
+threshold = -50*mV # spike threshold
+tau_ref = 2*ms # refractory period
