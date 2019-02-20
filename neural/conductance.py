@@ -96,3 +96,61 @@ plt.xlabel('time (ms)')
 plt.ylabel('membrane potential (mV)')
 plt.axhline(threshold/mV, ls='--', color='k')
 plt.text(100, -49.5, 'threshold');
+
+v = -70 * mV
+gi_const = 10 * nS
+ge_const = (-g_l * (E_l - v) - gi_const * (E_i - v)) / (E_e - v)
+vmem_high_conductance = lif_run(g_e + ge_const, g_i + 10*nS)
+plt.plot(t / ms, vmem / mV)
+plt.plot(t / ms, vmem_high_conductance / mV)
+plt.axhline(threshold/mV, ls='--', color='k')
+plt.xlabel('time (ms)')
+plt.ylabel('membrane potential (ms)');
+
+# Response under synaptic bombardment
+tmax = 10 * s   # simulation time (ms)
+tau_e = 0.2 * ms  # width of excitatory PSC (ms)
+tau_i = 2 * ms    # width of inhibitory PSC (ms)
+B_e = 7.1 * nS    # peak excitatory conductance (nS)
+B_i = 3.7 * nS    # peak inhibitory conductance (nS)
+fr_e = 9655 * Hz    # total firing rate of excitatory population (Hz)
+fr_i = 4473 * Hz     # total firing rate of excitatory population (Hz)
+
+epsp = alpha_psp(B_e, tau_e)
+ipsp = alpha_psp(B_i, tau_i)
+
+
+t = np.arange(len(epsp)) * dt
+plt.plot(t / ms, epsp / nS, 'r-')
+t = np.arange(len(ipsp)) * dt
+plt.plot(t / ms, ipsp / nS, 'b-')
+plt.xlabel('time (ms)')
+plt.ylabel('conductance (nS)');
+
+poisson_spikes = np.random.rand(100*ms/dt) < 100 * Hz * dt
+plt.figure(figsize=(10, 0.5))
+plt.subplot(111, frameon=False)
+plt.plot(poisson_spikes)
+plt.xticks([])
+plt.yticks([]);
+
+conductance_trace = np.convolve(poisson_spikes, epsp, 'valid')
+plt.figure(figsize=(10, 0.5))
+plt.subplot(111, frameon=False)
+plt.plot(conductance_trace / nS)
+plt.xticks([])
+plt.yticks([]);
+
+def shot_noise(fr, kernel, tmax, dt):
+    poisson_spikes = np.random.rand(tmax/dt) < fr * dt
+    shot_noise_trace = np.convolve(poisson_spikes, kernel, 'full')
+    return shot_noise_trace[:len(poisson_spikes)]
+
+g_i = shot_noise(fr_i, ipsp, tmax, dt)
+g_e = shot_noise(fr_e, epsp, tmax, dt)
+t = np.arange(len(g_i)) * dt
+plt.plot(t / ms, g_i / nS, 'b')
+plt.plot(t / ms, g_e / nS, 'r')
+plt.xlim([20, 80])
+plt.xlabel('time (ms)')
+plt.ylabel('conductance (nS)');
