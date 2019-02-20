@@ -157,3 +157,8 @@ plt.ylabel('conductance (nS)');
 
 # Simulate LIF neuron
 vmem = lif_run(g_e, g_i)
+
+def estimate_firing_rate(vmem):
+    return np.mean(vmem>threshold) / dt
+def estimate_mean_free_pot(vmem):
+    return np.mean(vmem[vmem<threshold])
