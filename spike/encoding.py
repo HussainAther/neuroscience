@@ -35,3 +35,31 @@ plt.plot(t,stim)
 plt.plot(t,response)
 plt.xlabel('Time (s)')
 plt.legend(['Stimulus','response'])
+
+# Running average
+N= 10
+response = np.zeros(len(stim))
+
+for i in range(N, len(stim)):
+        response[i] += np.sum(stim[(i-N):i])/N
+
+plt.plot(t, stim)
+plt.plot(t, response)
+plt.xlabel('Time (s)')
+plt.legend(['Stimulus','response'])
+
+# Leaky average
+response = np.zeros(len(stim))
+alpha = 30
+
+la_filter = np.exp(-alpha*np.arange(0,N))
+la_filter = la_filter/np.sum(la_filter)
+
+for i in range(N, len(stim)):
+    for k in range(N):
+        response[i] += stim[i-k]*la_filter[k]
+
+plt.plot(t, stim)
+plt.plot(t, response)
+plt.xlabel('Time (s)')
+plt.legend(['Stimulus','response'])
