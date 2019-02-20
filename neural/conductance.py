@@ -154,3 +154,6 @@ plt.plot(t / ms, g_e / nS, 'r')
 plt.xlim([20, 80])
 plt.xlabel('time (ms)')
 plt.ylabel('conductance (nS)');
+
+# Simulate LIF neuron
+vmem = lif_run(g_e, g_i)
