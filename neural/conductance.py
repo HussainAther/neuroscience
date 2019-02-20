@@ -10,3 +10,22 @@ let some ions flow through the membrane, thus increasing the membrane conductanc
 In contrast to the current-based inputs, the response to the conductance change depends on the membrane potential. This leads to several
 consequences for the dynamics and the excitability of the neuron, which we will investigate in detail in this tutorial.
 """
+# Neuron model
+#SI base units
+s = 1
+kg = 1
+m = 1
+A = 1
+
+#derived units
+S = s**3*A**2/(kg*m**2)
+V = kg*m**2*s**-3*A**-1
+F = s**4 * A**2 * m**-2 * kg ** -1
+Hz = 1/s
+
+#with prefixes
+nS = 1e-9 * S
+uS = 1e-6 * S
+mV = 1e-3 * V
+pF = 1e-12 * F
+ms = 1e-3 * s
