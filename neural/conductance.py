@@ -83,3 +83,16 @@ def alpha_psp(a, tau, tmax=None):
         tmax = 10 * tau
     time = np.arange(int(tmax / dt)) * dt
     return a * time / tau * np.exp(1 - time / tau)
+
+g_e = np.r_[np.zeros(10*ms/dt), alpha_psp(15*nS, 5*ms, 100*ms)]
+g_i = np.zeros(len(g_e))
+
+
+# vmem - membranne potential
+t = np.arange(len(g_e)) * dt
+vmem = lif_run(g_e, g_i)
+plt.plot(t / ms, vmem / mV)
+plt.xlabel('time (ms)')
+plt.ylabel('membrane potential (mV)')
+plt.axhline(threshold/mV, ls='--', color='k')
+plt.text(100, -49.5, 'threshold');
