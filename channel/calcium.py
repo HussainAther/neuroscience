@@ -6,7 +6,7 @@ Calcium parabolic bursting
 """
 
 
-gentype = 'radau' # 'dopri' # 'vode'
+gentype = 'radau' # Radau C-based integrator
 
 par_args = {'gr': 26, 'gc': 3.25, 'gx': 1.93,
             'tau_r': 5.6, 'tau_c': 125, 'tau_x': 300, 'tau_v': 0.97,
