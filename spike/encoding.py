@@ -63,3 +63,22 @@ plt.plot(t, stim)
 plt.plot(t, response)
 plt.xlabel('Time (s)')
 plt.legend(['Stimulus','response'])
+
+# Retinal ganglion cells
+[X,Y] = np.meshgrid(np.arange(-2,2,0.1),np.arange(-2,2,0.1))
+B = 1.3
+sigma_c = 0.3
+sigma_s = 0.4
+
+rgc = (1/(2*np.pi*sigma_c**2))*np.exp(- (X**2 + Y**2)/(2*sigma_c**2)) - (B/(2*np.pi*sigma_s**2))*np.exp(- (X**2 + Y**2)/(2*sigma_s**2))
+
+plt.subplot(1,2,1)
+plt.imshow(rgc)
+plt.axhline(20,color='g')
+plt.title('On center ganglion cell')
+plt.axis('off')
+plt.subplot(1,2,2)
+plt.plot(rgc[20,:])
+plt.axis('off')
+plt.axhline(0,color='k')
+plt.title('Receptive field cross section')
