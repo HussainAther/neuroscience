@@ -186,3 +186,28 @@ def calc_fi(fe, v):
     fi = -((E_e - v)*int_ge * fe + (E_l - v) * g_l)/((E_i - v) * int_gi)
     
     return fi
+
+mean_free_pot = []
+firing_rate = []
+min_rate, max_rate = np.log10(1200) * Hz, 5 * Hz
+n_points = 20
+target_potential = -55 * mV
+exc_rates = np.logspace(min_rate, max_rate, n_points)
+for fe in exc_rates:
+    fi = calc_fi(fe, target_potential)
+    g_e = shot_noise(fe, epsp, tmax, dt)
+    g_i = shot_noise(fi, ipsp, tmax, dt)
+    vmem = lif_run(g_e, g_i)
+    mean_free_pot.append(estimate_mean_free_pot(vmem))
+    firing_rate.append(estimate_firing_rate(vmem))
+firing_rate = np.array(firing_rate)
+mean_free_pot = np.array(mean_free_pot)
+
+plt.subplot(211)
+plt.semilogx(exc_rates, mean_free_pot / mV)
+plt.axhline(target_potential / mV, color='k', ls='--')
+plt.ylabel('free mem pot (mV)')
+plt.subplot(212)
+plt.semilogx(exc_rates, firing_rate / Hz)
+plt.ylabel('firing rate (Hz)')
+plt.xlabel('excitatory firing rate (Hz)')
