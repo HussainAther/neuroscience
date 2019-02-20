@@ -45,7 +45,6 @@ Model neuron with leaky integrate-and-fire model. It uses a one-dimensional diff
 the evolution of the membrane potential V.
 """
 
-
 def _lif_update(v, refractory, ge, gi):
     if refractory:
         refractory -= 1
@@ -58,3 +57,16 @@ def _lif_update(v, refractory, ge, gi):
         v = -45 * mV
         refractory = int(tau_ref/dt)
     return v, refractory
+
+def lif_run(g_e, g_i):
+    n = np.minimum(len(g_e), len(g_i))
+    v = np.zeros(n) * mV
+    v[0] = E_l
+    refractory = 0
+    for i in range(1, n):
+        v[i], refractory = _lif_update(v[i-1], refractory, g_e[i], g_i[i])
+    return v
+
+"""
+Response to a single spike from an excitatory neuron
+"""
