@@ -39,3 +39,22 @@ C = 250*pF # membrane capacitance
 v_reset = -60*mV # resetting potential
 threshold = -50*mV # spike threshold
 tau_ref = 2*ms # refractory period
+
+"""
+Model neuron with leaky integrate-and-fire model. It uses a one-dimensional differential equation that defines
+the evolution of the membrane potential V.
+"""
+
+
+def _lif_update(v, refractory, ge, gi):
+    if refractory:
+        refractory -= 1
+        v = v_reset
+        return v, refractory
+    v = v + (g_l * (E_l - v) +
+             ge * (E_e - v) +
+             gi * (E_i - v)) * dt / C
+    if v > threshold:
+        v = -45 * mV
+        refractory = int(tau_ref/dt)
+    return v, refractory
