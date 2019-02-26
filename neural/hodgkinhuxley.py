@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from scipy.integrate import odeint
+from numpy import zeros
 
 # Set random seed (for reproducibility)
 np.random.seed(1000)
