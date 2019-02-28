@@ -18,5 +18,11 @@ We can integrate this over time to find the number of times the cell fired.
 
 R_m = 5
 
-def V_m(t):
-    return
+def V_m(t): # potential function
+    result = []
+    for i in range(t):
+        result.append(i*3 + 2)
+    return result
+
+
+
