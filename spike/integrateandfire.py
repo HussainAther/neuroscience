@@ -41,5 +41,5 @@ def I_syn(T):
     I_i = 10 # peak synaptic current
     tau_syn = 5 # synapse time constant
     for i in T:
-        result += I_i*exp(-())
+        result += I_i*exp(-i/tau_syn)
     return result
