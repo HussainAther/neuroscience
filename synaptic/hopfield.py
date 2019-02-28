@@ -1,0 +1,4 @@
+
+"""
+John Hopfield generalized 
+"""
