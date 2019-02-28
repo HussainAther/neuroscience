@@ -103,4 +103,31 @@ torch.manual_seed(args.seed)
 
 device = torch.device("cuda" if use_cuda else "cpu")
 
+kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
+train_loader = torch.utils.data.DataLoader(
+    datasets.MNIST('../data', train=True, download=True,
+                   transform=transforms.Compose([
+                       transforms.ToTensor(),
+                       transforms.Normalize((0.1307,), (0.3081,))
+                   ])),
+    batch_size=args.batch_size, shuffle=True, **kwargs)
+test_loader = torch.utils.data.DataLoader(
+    datasets.MNIST('../data', train=False, transform=transforms.Compose([
+                       transforms.ToTensor(),
+                       transforms.Normalize((0.1307,), (0.3081,))
+                   ])),
+    batch_size=args.test_batch_size, shuffle=True, **kwargs)
 
+
+model = Net().to(device)
+optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+start=time.time()
+for epoch in range(1, args.epochs + 1):
+    start_e = time.time()
+    train(args, model, device, train_loader, optimizer, epoch)
+    #test(args, model, device, test_loader)
+    end_e=time.time()
+    t=end_e-start_e
+    print('Time taken for %d th is %d seconds'%(epoch,t))
+end=time.time()
+print('Time for all the epochs is %d'%(end-start))
