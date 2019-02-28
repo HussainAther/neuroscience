@@ -25,9 +25,20 @@ def deltaW(r_i, q_j):
 
 """
 We can express the rule using vectors and find an outer product. In this case,
-r and q are vector components
+r and q are vector components. Sensory-motor matching can explain learning associations
+between different sensory modalities. We can sum the outer product of the vectors r and
+q to determine the vector of the weight matrix.
 """
 
 def deltaWvec(r, q):
+    """
+    Returns a weight matrix using the restriction of requireing orthogonal memories
+    for learning as the readout of the learning is done using the original coordinate
+    system.
+    """
     result = 0
+    for i in np.outer(r, q):
+        result += i
+    return result
+
 
