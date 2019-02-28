@@ -1,4 +1,4 @@
-
+import numpy as np
 
 """
 
@@ -21,4 +21,13 @@ def deltaW(r_i, q_j):
     phi_pre = 10
     phi = 12
     return alpha * (q_j - phi_pre) * (r_i - phi)
+
+
+"""
+We can express the rule using vectors and find an outer product. In this case,
+r and q are vector components
+"""
+
+def deltaWvec(r, q):
+    result = 0
 
