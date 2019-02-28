@@ -24,5 +24,6 @@ def V_m(t): # potential function
         result.append(i*3 + 2)
     return result
 
+def I_syn(t): # synpatic current
 
 
