@@ -15,4 +15,10 @@ messy, noisy data into spike trains that can be analyzed.
 A = [1,2,3,4,5,6,7,8,9]
 b = [1,2,3]
 
-np.convolve(A, b)
+np.convolve(A, b) # numpy's built-in convolution operator
+
+"""
+Interspike interval (ISI) is the time between spikes. ISI rate can be used to calcualte the number
+of spikes over time. Then we can calculate a peri-stimulus time histogram (PSTH) from many trials of the
+same experiment.
+"""
