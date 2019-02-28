@@ -16,7 +16,15 @@ f(I) = (0 if I <= I_th) or ([t_ref - R_m*C_m*log(1 - V_th/(I*R_m)) if I > I_th)
 We can integrate this over time to find the number of times the cell fired.
 """
 
-R_m = 5
+R_m = 5 # membrane resistnace
+tau_m = 10 # membrane time constant
+V_dot = 4 # derivative of Voltage with respect to time
+
+"""
+The standard passive membrane equaiton tells us:
+
+tau_m * V = -V + R * I_syn
+"""
 
 def V_m(t): # potential function
     result = []
@@ -24,6 +32,14 @@ def V_m(t): # potential function
         result.append(i*3 + 2)
     return result
 
-def I_syn(t): # synpatic current
-
-
+def I_syn(T):
+    """
+    Synpatic current.
+    T is an array of the arrival time for each presynaptic input.
+    """
+    result = 0
+    I_i = 10 # peak synaptic current
+    tau_syn = 5 # synapse time constant
+    for i in T:
+        result += I_i*exp(-())
+    return result
