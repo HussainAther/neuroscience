@@ -37,7 +37,9 @@ def deltaWvec(r, q):
     system.
     """
     result = 0
-    for i in np.outer(r, q):
+    phi_pre = 5*np.ones(len(r))
+    phi = 6*np.ones(len(q))
+    for i in np.outer(r-phi, q-phi_pre):
         result += i
     return result
 
