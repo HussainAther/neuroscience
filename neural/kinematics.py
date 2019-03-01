@@ -200,3 +200,21 @@ def find_isi(I_Ext):
     for i in arange(size(peaks)-1):
         isi = append(isi, t[peaks[i+1]]-t[peaks[i]])
     return isi,t,state[:,0]
+
+plt.figure()
+isi1, t1, soma1 = find_isi(2.0e-09)
+plt.subplot(3,1,1)
+plt.plot(t1,soma1)
+plt.title("I_Ext = 2.0e-09")
+isi2, t2, soma2 = find_isi(4.0e-09)
+plt.subplot(3,1,2)
+plt.plot(t2,soma2)
+plt.title("I_Ext = 4.0e-09")
+isi3, t3, soma3 = find_isi(6.0e-09)
+plt.subplot(3,1,3)
+plt.plot(t3,soma3)
+plt.title("I_Ext = 6.0e-09")
+
+print(isi1)
+print(isi2)
+print(isi3)
