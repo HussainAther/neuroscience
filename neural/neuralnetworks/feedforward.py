@@ -49,3 +49,34 @@ n_grid = 20
 g_grid = np.linspace(-1.0, 2.0, n_grid)
 g1,g2 = np.meshgrid(g_grid, g_grid)
 plt.figure()
+
+# train
+for i in range(maxepochs):
+    net_out = np.zeros(shape(xor_out))
+    for j in range(shape(xor_in)[0]): # for each training example
+        # forward pass
+        act_inp = xor_in[j,:]
+        act_hid = tansig( (act_inp * w_hid) + b_hid )
+        act_out = tansig( (act_hid * w_out) + b_out )
+        net_out[j,:] = act_out[0,:]
+
+        # error gradients starting at outputs and working backwards
+        err_out = (act_out - xor_out[j,:])
+        deltas_out = multiply(dtansig(act_out), err_out)
+        err_hid = deltas_out * transpose(w_out)
+        deltas_hid = multiply(dtansig(act_hid), err_hid)
+
+        # update the weights and bias units
+        w_out_change = -2.0 * transpose(act_hid)*deltas_out
+        w_out = w_out + (N * w_out_change) + (M * w_out_prev_change)
+        w_out_prev_change = w_out_change
+        b_out_change = -2.0 * deltas_out
+        b_out = b_out + (N * b_out_change) + (M * b_out_prev_change)
+        b_out_prev_change = b_out_change
+
+        w_hid_change = -2.0 * transpose(act_inp)*deltas_hid
+        w_hid = w_hid + (N * w_hid_change) + (M * w_hid_prev_change)
+        w_hid_prev_change = w_hid_change
+        b_hid_change = -2.0 * deltas_hid
+        b_hid = b_hid + (N * b_hid_change) + (M * b_hid_prev_change)
+        b_hid_prev_change = b_hid_change
