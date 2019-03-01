@@ -92,7 +92,7 @@ def neuron(state, t, params):
     # external current (from "voltage clamp", other compartments, other neurons, etc)
     I_ext = Epar["I_ext"]
 
-    # calculate Na rate functions and I_Na. from
+    # calculate Na rate functions and I_Na. from Ekeberg, et al., 1991.
     # Na activation
     alpha_act = Na["A_alpha_m_act"] * (E-Na["B_alpha_m_act"]) / (1.0 - exp((Na["B_alpha_m_act"]-E) / Na["C_alpha_m_act"]))
     beta_act = Na["A_beta_m_act"] * (Na["B_beta_m_act"]-E) / (1.0 - exp((E-Na["B_beta_m_act"]) / Na["C_beta_m_act"]) )
@@ -101,6 +101,17 @@ def neuron(state, t, params):
     alpha_inact = Na["A_alpha_m_inact"] * (Na["B_alpha_m_inact"]-E) / (1.0 - exp((E-Na["B_alpha_m_inact"]) / Na["C_alpha_m_inact"]))
     beta_inact  = Na["A_beta_m_inact"] / (1.0 + (exp((Na["B_beta_m_inact"]-E) / Na["C_beta_m_inact"])))
     dhdt = ( alpha_inact*(1.0 - h) ) - ( beta_inact*h )
+    
     # Na-current:
     I_Na =(Na["Na_E"]-E) * Na["Na_G"] * (m**Na["k_Na_act"]) * h
 
+
+    # calculate K rate functions and I_K
+    alpha_kal = K["A_alpha_m_act"] * (E-K["B_alpha_m_act"]) / (1.0 - exp((K["B_alpha_m_act"]-E) / K["C_alpha_m_act"]))
+    beta_kal = K["A_beta_m_act"] * (K["B_beta_m_act"]-E) / (1.0 - exp((E-K["B_beta_m_act"]) / K["C_beta_m_act"]))
+    dndt = ( alpha_kal*(1.0 - n) ) - ( beta_kal*n )
+    
+    # K current
+    I_K = (K["k_E"]-E) * K["k_G"] * n**K["k_K"]
+
+    
