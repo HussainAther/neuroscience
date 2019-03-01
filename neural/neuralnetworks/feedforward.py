@@ -19,7 +19,6 @@ def tansig(x):
 
 # derivative of sigmoid function
 def dtansig(x):
-    # in case x is a vector, multiply() will do element-wise multiplication
     return 1.0 - (np.multiply(x,x))
 
 # numpy matrix of input examples
