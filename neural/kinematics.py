@@ -139,3 +139,18 @@ def neuron(state, t, params):
     statep = [dEdt, dmdt, dhdt, dndt, dqdt, dCaAPdt]
 
     return statep
+
+# simulate the neuron
+
+# external current
+params["E_params"]["I_ext"] = 2.0e-09
+
+# set initial states and time vector
+state0 = [-70e-03, 0, 1, 0, 0, 0]
+t = arange(0, 0.2, 0.0001)
+
+# run simulation
+state = odeint(neuron, state0, t, args=(params,))
+
+# plot soma potential over time
+plot(t, state[:,0])
