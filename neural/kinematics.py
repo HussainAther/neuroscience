@@ -169,11 +169,34 @@ for i in arange(1,size(t)-1):
 
 # plot lines on figure to verify
 for i in peaks:
-    plt.plot([t[i],t[i]],[-0.08,0.06],'r-')
+    plt.plot([t[i],t[i]],[-0.08,0.06],"r-")
 
 # compute inter-spike intervals
-
 isi = array([])
 for i in arange(size(peaks)-1):
     isi = append(isi, t[peaks[i+1]]-t[peaks[i]])
 
+# repeat for I_Ext = 4.0e-09 and then 6.0e-09
+# to be efficient let's make a function that wraps the simulation and the isi calculation
+
+def find_isi(I_Ext):
+    """
+    We can change the external current to determine the spike intervals.
+    """
+    params["E_params"]["I_ext"] = I_Ext
+    state0 = [-70e-03, 0, 1, 0, 0, 0]
+    t = arange(0, 0.2, 0.0001)
+    state = odeint(neuron, state0, t, args=(params,))
+    soma = state[:,0]
+    vt = 0.02
+    peaks = array([])
+    for i in arange(1,size(t)-1):
+        v0 = soma[i-1]
+        v1 = soma[i]
+        v2 = soma[i+1]
+        if ((v2 > vt) & (v0 < v1) & (v2 < v1)):
+            peaks = append(peaks, i)
+    isi = array([])
+    for i in arange(size(peaks)-1):
+        isi = append(isi, t[peaks[i+1]]-t[peaks[i]])
+    return isi,t,state[:,0]
