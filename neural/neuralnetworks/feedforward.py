@@ -42,3 +42,10 @@ maxepochs = 1000
 errors = np.zeros((maxepochs,1))
 N = 0.01 # learning rate parameter
 M = 0.10 # momentum parameter
+
+# plot the network's performance over the course of learning
+# inputs will be a regular grid of [inp1,inp2] points
+n_grid = 20
+g_grid = np.linspace(-1.0, 2.0, n_grid)
+g1,g2 = np.meshgrid(g_grid, g_grid)
+plt.figure()
