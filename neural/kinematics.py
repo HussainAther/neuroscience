@@ -114,4 +114,28 @@ def neuron(state, t, params):
     # K current
     I_K = (K["k_E"]-E) * K["k_G"] * n**K["k_K"]
 
+
+    # Ca rate functions and Ca current
+    alpha_Ca_act = (Ca["Ca_act_alpha_A"]*(E-Ca["Ca_act_alpha_B"]))/(1-exp((Ca["Ca_act_alpha_B"]-E)/Ca["Ca_act_alpha_C"]))
+    beta_Ca_act = (Ca["Ca_act_beta_A"]*(Ca["Ca_act_beta_B"]-E))/(1-exp((E-Ca["Ca_act_beta_B"])/Ca["Ca_act_beta_C"]))
+    dqdt = alpha_Ca_act*(1-q) - beta_Ca_act*q
     
+    # Ca current
+    I_Ca = (Ca["E_Ca"] - E)*Ca["G_Ca"]*(q**5)
+
+
+    # Ca2+ gated K channels
+    dCaAPdt = (Ca["E_Ca"] - E)*Ca["Ca_rho"]*(q**5) - Ca["Ca_delta"]*CaAP
+    E_K = K["k_E"]
+    # Ca2+ gated K current
+    I_KCA = (K["k_E"] - E)*Ca["G_KCA"]*CaAP
+
+
+    # leak current
+    I_leak = (Epar["E_leak"]-E) * Epar["G_leak"]
+
+    # calculate derivative of E
+    dEdt = (I_leak + I_K + I_Na + I_ext + I_Ca + I_KCA) / Epar["C_m"]
+    statep = [dEdt, dmdt, dhdt, dndt, dqdt, dCaAPdt]
+
+    return statep
