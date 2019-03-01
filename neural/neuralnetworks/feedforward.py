@@ -90,7 +90,7 @@ for i in range(maxepochs):
     # compute errors across all targets
     errors[i] = 0.5 * sum(np.square(net_out - xor_out))
     if ((i % 2)==0):
-        print "*** EPOCH %4d/%4d : SSE = %6.5f" % (i,maxepochs,errors[i])
+        print "*** Epoch %4d/%4d : SS_error = %6.5f" % (i,maxepochs,errors[i])
         print net_out
         # now do our plotting
         net_perf = np.zeros(np.shape(g1))
