@@ -1,4 +1,5 @@
 from scipy.integrate import odeint
+import matplotlib.pyplot as plt
 
 """
 In neuroscience, we use kinetmatic  transformations to determine sensory-motor questions
@@ -153,4 +154,26 @@ t = arange(0, 0.2, 0.0001)
 state = odeint(neuron, state0, t, args=(params,))
 
 # plot soma potential over time
-plot(t, state[:,0])
+plt.plot(t, state[:,0])
+
+# what is the inter-spike interval between spike 1-2, 2-3 and 3-4?
+soma = state[:,0]
+vt = 0.02
+peaks = array([])
+for i in arange(1,size(t)-1):
+    v0 = soma[i-1]
+    v1 = soma[i]
+    v2 = soma[i+1]
+    if ((v2 > vt) & (v0 < v1) & (v2 < v1)):
+        peaks = append(peaks, i)
+
+# plot lines on figure to verify
+for i in peaks:
+    plt.plot([t[i],t[i]],[-0.08,0.06],'r-')
+
+# compute inter-spike intervals
+
+isi = array([])
+for i in arange(size(peaks)-1):
+    isi = append(isi, t[peaks[i+1]]-t[peaks[i]])
+
