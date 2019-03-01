@@ -36,3 +36,8 @@ w_out_prev_change = zeros(shape(w_out))
 b_out_prev_change = zeros(shape(b_out))
 w_hid_prev_change = zeros(shape(w_hid))
 b_hid_prev_change = zeros(shape(b_hid))
+
+maxepochs = 1000
+errors = zeros((maxepochs,1))
+N = 0.01 # learning rate parameter
+M = 0.10 # momentum parameter
