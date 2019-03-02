@@ -1,4 +1,6 @@
 import numpy as np
+from scipy.misc import factorial
+
 """
 Estimate static stimulus values on the basis of spike-counting firing rates.
 We estimate such a stimulus from the sequence of firing times of the spikes that the stimulus evokes.
@@ -13,16 +15,18 @@ for the population is the product of the individual probabilities:
 
 """
 
-def popProb():
+def popProb(problist, T, r):
     """
-    population probability.
+    population probability of firing. problist is the lsit of probabilities
+    for each nueron. T is the time period. r is the firing rate.
     """
     result = 1
     for prob in problist:
         factor = exp(-prob*T)
-
+        factor *= (prob*T)**(r*T)
+        factor / np.factorial(r*T)
         result *= factor
-
+    return result
 """
 
 The Cramér-Rao bound sets a limit of the variance of any estimate s_est according to:
