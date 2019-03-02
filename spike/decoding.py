@@ -22,10 +22,12 @@ Fisher information, a measure of encoding accuracy. Through this, the Fisher inf
 accuracy with which any decoding scheme can extract an estimate of an encoded quantity.
 """
 
-def fisherInformation(xvals, sigmavals, npar):
+def fisherInformation(xvals, sigmavals):
     """
-    
+    xvals is the list of x positions at which the spikes are measured,
+    sigmavals is the list of the x position uncertainties.
     """
+    npar = len(xvals)
     F = numpy.zeros([npar,npar])
     for x,sigma in zip(xvals,sigmavals):
         for i in range(npar):
