@@ -3,12 +3,8 @@ import numpy as np
 Estimate static stimulus values on the basis of spike-counting firing rates.
 We estimate such a stimulus from the sequence of firing times of the spikes that the stimulus evokes.
 
-Decode a single neuron.
+
 """
-
-tau =
-
-def decode(T):
 
 
 
@@ -28,7 +24,7 @@ def fisherInformation(xvals, sigmavals):
     sigmavals is the list of the x position uncertainties.
     """
     npar = len(xvals)
-    F = numpy.zeros([npar,npar])
+    F = np.zeros([npar,npar])
     for x,sigma in zip(xvals,sigmavals):
         for i in range(npar):
             if i==0:
