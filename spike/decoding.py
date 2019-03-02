@@ -1,0 +1,42 @@
+import numpy as np
+"""
+Estimate static stimulus values on the basis of spike-counting firing rates.
+We estimate such a stimulus from the sequence of firing times of the spikes that the stimulus evokes.
+
+Decode a single neuron.
+"""
+
+tau =
+
+def decode(T):
+
+
+
+"""
+The Cramér-Rao bound sets a limit of the variance of any estimate s_est according to:
+
+(sigma_est)^2 >= (1 + b'_est(s))^2 / I_F(s)
+
+in which b'_est(s) is the derivative of b_est(s), the bias on all stimulus variables. I_F(s) is the
+Fisher information, a measure of encoding accuracy. Through this, the Fisher infomration limits the
+accuracy with which any decoding scheme can extract an estimate of an encoded quantity.
+"""
+
+def fisherInformation(xvals, sigmavals, npar):
+    """
+    
+    """
+    F = numpy.zeros([npar,npar])
+    for x,sigma in zip(xvals,sigmavals):
+        for i in range(npar):
+            if i==0:
+                dfdpi = x
+            else:
+                dfdpi = 1
+        for j in range(npar):
+            if j==0:
+                dfdpj = x
+            else:
+                dfdpj = 1
+            F[i,j] += sigma**-2*dfdpi*dfdpj
+    return np.mat(F).I
