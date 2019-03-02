@@ -13,8 +13,8 @@ n_trials = 500 # Total number of trials
 isi = np.zeros(0) # spike intervals
 spike_count = np.zeros(n_trials)
 for t in range(n_trials):
-    spikes = np.random.rand(int(T/dt))
-    spikes[spikes < p] = 1
+    spikes = np.random.rand(int(T/dt)) # simulation
+    spikes[spikes < p] = 1 # convert to spikes
     spikes[spikes < 1] = 0
     spike_count[t] = np.sum(spikes)
     isi = np.append(isi,np.diff(np.where(spikes==1)[0]))
