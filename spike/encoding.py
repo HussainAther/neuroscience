@@ -5,8 +5,6 @@ from numpy import zeros
 """
 Encoding models address the question of how the firing rate of a neuron is related to the stimulus that is presented.
 
-
-
 A biological example would be where we stimulate a neuron with a particular light intensity.
 If the firing rate depends linearly on this light intensity then the first property tells us
 that doubling (or halving) the light intensity should double (or halve) the firing rate of the neuron.
