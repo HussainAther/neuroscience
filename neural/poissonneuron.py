@@ -7,8 +7,7 @@ T = 2 # Total simulation time
 r = 5  # Firing rate in spikes per second
 p = r*dt # Probability of a spike in a very small time interval
 
-n_trials = 500 # Total number of trials that we will simulate
-
+n_trials = 500 # Total number of trials
 
 # Run poisson spike neuron simulations
 isi = np.zeros(0) # spike intervals
@@ -33,7 +32,7 @@ plt.show()
 
 # Plot the inter-spike interval distribution
 bins = np.arange(np.min(isi),np.max(isi),10)
-plt.hist(isi,bins,normed = True, histtype='barstacked')
+plt.hist(isi,bins,normed = True, histtype="barstacked")
 plt.plot(bins,r*dt*np.exp(-r*bins*dt),":k",linewidth=3.0)
 plt.title("ISI histogram")
 plt.xlabel("ISI interval (ms)")
