@@ -119,10 +119,10 @@ for i in range(2, len(t)+1):
     tau_a = 0.3632*1e-3 + 1.158e-3/(1 + exp(0.0497 * (Vm + 55.96)))
 
     b_inf = (1/(1 + exp(0.0688 * (Vm + 53.3))))^4
-    tau_b = 1.24e-3 + 2.678e-3/(1+exp(0.0624*(Vm+50)));
+    tau_b = 1.24e-3 + 2.678e-3/(1 + exp(0.0624 * (Vm + 50)));
 
-    a(i) = a(i-1) + (a_inf-a(i-1))*dt/tau_a # Update a
-    b(i) = b(i-1) + (b_inf-b(i-1))*dt/tau_b # Update b
+    a[i-1] = a[i-2] + (a_inf-a[i-2])*dt/tau_a # Update a
+    b[i-1] = b[i-2] + (b_inf-b[i-2])*dt/tau_b # Update b
 
     I_Na = g_Na*m[i-1]*m[i-1]*m[i-1]*h[i-1]*(E_Na-V[i-2]) # total sodium current
 
