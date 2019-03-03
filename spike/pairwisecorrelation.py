@@ -52,12 +52,21 @@ def covariance(i, j):
 
 def spikeTTC(i ,j):
     """
-    For spike trains i and j, compute the spike time tiling coefficient.
+    For spike trains i and j, compute the spike time tiling coefficient following Cutts & Eglen (2014).
+    It's sensitive to firing patterns, not confounded by firing rate, can distinguish lack of correlation
+    from anti-correlation, and has periods of silence not add to the correlation.
     """
-    pa = 0 # proportion a
-    pb = 0 # proportion b
+    pa = 0 # proportion factor for spike train i
+    pb = 0 # proportion factor for spike train j
+    ta = 0 # total recording time for spike train i
+    tb = 0 # total recording time for spike train j 
     dt = 5 # time differential
-    count = 0
     for spike in i:
         if spike in range(-dt, dt):
-            
+            pa += 1
+    pa = pa/len(i) # normalize it over the number of spikes
+    for spike in j:
+        if spike in range(-dt, dt):
+            pb += 1
+    pb = pb/len(j)
+
