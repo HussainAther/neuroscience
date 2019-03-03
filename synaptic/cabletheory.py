@@ -24,7 +24,6 @@ in acccordance with the simple linear equation E = IR (current times resisntace)
 def V(V_m, E):
     return V_m - E
 
-
 """
 In the steady-state, we ignore membrane capacitance and usually the resting membrane potential.
 In the simplest case, the electrotonic potential (V) is relative to a uniform resting potential (E).
@@ -83,4 +82,21 @@ m.solve()
 When x = lambda, the ration of V to V_0 is exp(-1) or about .37. Lambda is the characteristc
 length constant of the cable at this point. The decay of membrane potential along an infinte dendritic
 cable is described by the length constant.
+
+Current flows within a neuron due to voltage gradients. At any point along a cable of radius a and intracellular
+resistivity r_L, the longitudinal current I_L flowing in the direction of increasing x is as follows.
+"""
+a = 5
+r_L = 3
+
+# Equation
+m.Equation(I_L == -(np.pi*a**2/r_L) * (V.dx()))
+
+# Solve it!
+m.solve()
+
+"""
+We determine the membrane potential V(x,t) by solving a partial differential equation of the cable equaiton
+that describes how the currents entering, leaving, adn flowing within a neuron affect the rate of change of the
+membrane potential.
 """
