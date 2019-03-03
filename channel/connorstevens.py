@@ -24,6 +24,11 @@ vlength = 0.5 # length of voltage step
 V0 = -0.080 # initial voltage before step
 Ve = -0.040 # value of votage stepped to
 
+V_L = -0.070 # leak reversal potential
+E_Na = 0.055 # reversal for sodium channels
+E_K = -0.072 # reversal for potassium channels
+E_A = -0.075 # reversal for A-type potassium channels
+
 
 def I_m():
     """
