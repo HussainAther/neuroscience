@@ -65,7 +65,7 @@ the internal resistance (r_i) and distance to this membrane. We obtain an expone
 
 # Set variable values
 x = 5
-lambda = 10 # Square root of (r_m/r_i)
+lmbda = 10 # Square root of (r_m/r_i)
 V = [m.Var(value = np.sin(2*xpos[i])) for i in range(npx)]
 
 # Discretization of space
@@ -73,7 +73,7 @@ xpos = np.linspace(0,10,1)
 dx = xpos[1]−xpos[0]
 
 # Equation
-m.Equation(V == V_0 * exp((-x)/lambda))
+m.Equation(V == V_0 * exp((-x)/lmbda))
 
 # Solve it!
 m.solve()
@@ -111,6 +111,9 @@ in which i_e is the inhibitory current.
 tau_m = 5
 lmbda = 10
 r_m = 4
+V = [m.Var(value = np.sin(2*xpos[i])) for i in range(npx)]
 
-# Equation
-m.Equation(I_L == -(np.pi*a**2/r_L) * (V.dx()))
+# Solve second-order differential equation
+v == v0 * exp((-x*t)/lmbda)
+
+d2vdx2 = x**2 * t**2 * v0 * exp((-x*t)/lmbda)
