@@ -15,12 +15,17 @@ We can determine the correlation index between two spike trains A and B as the f
 of neuron A increases over its mean value if measured within a fixed window of spikes frmo neuron B.
 """
 
-def corrCoef(a, b,):
+def corrCoef(i, j):
     """
-    For each pair of spike trains (equal-sized arrays a and b), we determine the correlation by binning i and j
-    at the desired bin size. Let b_i and b_j denote teh binary vectors adn m_i and m_j their respective averages.
+    Calculate the NxN matrix of pairwise Pearson's correlation coefficients between all combinations of N binned
+    spike trains. For each pair of spike trains (equal-sized arrays i and j), we determine the correlation by binning i and j
+    at the desired bin size. Let b_i and b_j denote the binary vectors and m_i and m_j their respective averages.
     """
-    m_i = sum(a)/len(a) # average of a
-    m_j = sum(b)/len(b) # average of b
-    for i in len(a):
-        np.multiply(b_i)
+    m_i = sum(i)/len(i) # average of a
+    m_j = sum(j)/len(j) # average of b
+    b_i = np.where(i > 0.5, 1, 0) # binary vector of i
+    b_j = np.where(j > 0.5, 1, 0) # binary vector of i
+    for a in len(i):
+        for b in len(i):
+            
+
