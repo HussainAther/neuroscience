@@ -49,6 +49,10 @@ h = np.zeros(len(t)) #  h: sodim inactivation gating variable
 a = np.zeros(len(t)) # A-current activation gating variable
 b = np.zeros(len(t)) # A-current inactivation gating variable
 
+Iapp = np.zeros(len(t)) # Applied current, relevant in current-clamp mode
+if iclamp_flag: # i.e. if in current-clamp mode
+    for i in range(round(istart/dt)+1, round((istart+ilength)/dt)) # make non-zero for duration of current pulse
+        Iapp[i] = Ie
 
 def I_m():
     """
