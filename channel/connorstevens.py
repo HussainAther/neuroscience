@@ -11,6 +11,9 @@ conductances have properties somewhat different. The C-S model als ohas an extra
 dt = 0.000005
 tmax = 2
 
+iclamp_flag = 1 # if this is 1, run under current clamp conditions
+vclamp_flag = 0 # otherwise this should be 1, for voltage clamp conditions
+
 def I_m():
     """
     Membrane current for Connor-Stevens Model.
