@@ -28,8 +28,8 @@ def corrCoef(i, j):
     result = np.zeros((1,len(i),len(i)))
     for a in range(len(i)):
         for b in range(len(j)):
-            num = np.multiply(b_i[a]-m_i[a], b_j[b]-m_j[b])
-            den = np.sqrt(np.multiply(b_i[a]-m_i[a], b_i[b]-m_i[b]) * np.multiply(b_j[a]-m_j[a], b_j[b]-m_j[b]))
+            num = np.multiply(b_i[a]-m_i[a], b_j[b]-m_j[b]) # numerator of Pearson correlation coefficient function
+            den = np.sqrt(np.multiply(b_i[a]-m_i[a], b_i[b]-m_i[b]) * np.multiply(b_j[a]-m_j[a], b_j[b]-m_j[b])) # denominator
             result[a][b] = num / den
     return result
 
@@ -43,4 +43,10 @@ def covariance(i, j):
     b_i = np.where(i > 0.5, 1, 0) # binary vector of i
     b_j = np.where(j > 0.5, 1, 0) # binary vector of i
     result = np.zeros((1,len(i),len(i)))
+    for a in range(len(i)):
+        for b in range(len(j)):
+            num = np.multiply(b_i[a]-m_i[a], b_j[b]-m_j[b]) # numerator of covariance
+            den = (len(i)) # denominator
+            result[a][b] = num / den
+    return result
 
