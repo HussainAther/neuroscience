@@ -27,8 +27,8 @@ def popProb(problist, T, r):
         factor / np.factorial(r*T)
         result *= factor
     return result
-"""
 
+"""
 The Cramér-Rao bound sets a limit of the variance of any estimate s_est according to:
 
 (sigma_est)^2 >= (1 + b'_est(s))^2 / I_F(s)
