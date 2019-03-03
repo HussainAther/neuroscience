@@ -29,10 +29,15 @@ E_Na = 0.055 # reversal for sodium channels
 E_K = -0.072 # reversal for potassium channels
 E_A = -0.075 # reversal for A-type potassium channels
 
+g_L = 3e-6 # specific leak conductance
+g_Na = 1.2e-3 # specific sodium conductance
+g_K = 2e-4 # specific potassium conductance
+g_A = 4.77e-4 # specific A-tpe potassium conductance
+g_A = 0.0 # if g_A is zero it switches off the A-current
+
 
 def I_m():
     """
     Membrane current for Connor-Stevens Model.
     """
-    g_L =.003
-    g_Na =
+
