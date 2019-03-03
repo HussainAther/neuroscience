@@ -34,6 +34,7 @@ g_Na = 1.2e-3 # specific sodium conductance
 g_K = 2e-4 # specific potassium conductance
 g_A = 4.77e-4 # specific A-tpe potassium conductance
 g_A = 0.0 # if g_A is zero it switches off the A-current
+cm = 10e-9 # specific membrane capacitance
 
 
 def I_m():
