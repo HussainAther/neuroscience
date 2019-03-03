@@ -111,9 +111,12 @@ in which i_e is the inhibitory current.
 tau_m = 5
 lmbda = 10
 r_m = 4
-V = [m.Var(value = np.sin(2*xpos[i])) for i in range(npx)]
+i_e = 8
+t = 6
+v0 = 10
 
-# Solve second-order differential equation
-v == v0 * exp((-x*t)/lmbda)
+# Second-order differential equation
+v = v0 * exp((-x*t)/lmbda)
+dvdt = -v0 * t * exp((-x*t)/lmbda) / lmbda
+d2vdx2 = x**2 * t**2 * v0 * exp((-x*t)/lmbda) / (lmbda**2)
 
-d2vdx2 = x**2 * t**2 * v0 * exp((-x*t)/lmbda)
