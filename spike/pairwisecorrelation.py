@@ -50,7 +50,14 @@ def covariance(i, j):
             result[a][b] = num / den
     return result
 
-def spikeTTc(i ,j):
+def spikeTTC(i ,j):
     """
     For spike trains i and j, compute the spike time tiling coefficient.
     """
+    pa = 0 # proportion a
+    pb = 0 # proportion b
+    dt = 5 # time differential
+    count = 0
+    for spike in i:
+        if spike in range(-dt, dt):
+            
