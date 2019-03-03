@@ -99,4 +99,18 @@ m.solve()
 We determine the membrane potential V(x,t) by solving a partial differential equation of the cable equaiton
 that describes how the currents entering, leaving, adn flowing within a neuron affect the rate of change of the
 membrane potential.
+
+We can create the second-order partial differential linearized cable equation by grouping the constants together
+and expressing tau_m (time constant) and lambda (length constant, or sqrt((a*r_m)/(2*r_L)) ) as our constants.
+
+tau_m * dv/dt = lambda^2 * d^2v/dx^2 - v + r_m * i_e
+
+in which i_e is the inhibitory current.
 """
+
+tau_m = 5
+lmbda = 10
+r_m = 4
+
+# Equation
+m.Equation(I_L == -(np.pi*a**2/r_L) * (V.dx()))
