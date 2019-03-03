@@ -19,6 +19,12 @@ ilength = 1 # length of applied current pulse
 Ie=2.405e-7 # magnitude of applied current pulse
 Ie = 0.78e-7 # threshold for constant spiking with no A-current
 
+vstart = 0.25 # time to step voltage
+vlength = 0.5 # length of voltage step
+V0 = -0.080 # initial voltage before step
+Ve = -0.040 # value of votage stepped to
+
+
 def I_m():
     """
     Membrane current for Connor-Stevens Model.
