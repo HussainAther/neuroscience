@@ -25,7 +25,12 @@ def corrCoef(i, j):
     m_j = sum(j)/len(j) # average of b
     b_i = np.where(i > 0.5, 1, 0) # binary vector of i
     b_j = np.where(j > 0.5, 1, 0) # binary vector of i
-    for a in len(i):
-        for b in len(i):
-            
+    result = np.zeros((1,len(i),len(i)))
+    for a in range(len(i)):
+        for b in range(len(i)):
+            num = np.multiply(b_i[a]-m_i[a], b_j[b]-m_j[b])
+            den = np.sqrt(np.multiply(b_i[a]-m_i[a], b_i[b]-m_i[b]) * np.multiply(b_j[a]-m_j[a], b_j[b]-m_j[b]))
+            result[a][b] = num / den
+    return result
+
 
