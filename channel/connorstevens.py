@@ -14,6 +14,11 @@ tmax = 2
 iclamp_flag = 1 # if this is 1, run under current clamp conditions
 vclamp_flag = 0 # otherwise this should be 1, for voltage clamp conditions
 
+istart = 0.5 # time applied current starts
+ilength = 1 # length of applied current pulse
+Ie=2.405e-7 # magnitude of applied current pulse
+Ie = 0.78e-7 # threshold for constant spiking with no A-current
+
 def I_m():
     """
     Membrane current for Connor-Stevens Model.
