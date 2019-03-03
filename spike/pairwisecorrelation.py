@@ -11,4 +11,16 @@ Much work has focused on assessing the role of this activity in the development 
 are compared between wild-type and mutant genotypes. The results are used to make inferences about which features of the activity are implicated in retinotopic map formation.
 There is strong evidence that correlation between neuronal spike times is involved in this process.
 
+We can determine the correlation index between two spike trains A and B as the factor by which the firing rate
+of neuron A increases over its mean value if measured within a fixed window of spikes frmo neuron B.
 """
+
+def corrCoef(a, b,):
+    """
+    For each pair of spike trains (equal-sized arrays a and b), we determine the correlation by binning i and j
+    at the desired bin size. Let b_i and b_j denote teh binary vectors adn m_i and m_j their respective averages.
+    """
+    m_i = sum(a)/len(a) # average of a
+    m_j = sum(b)/len(b) # average of b
+    for i in len(a):
+        np.multiply(b_i)
