@@ -89,8 +89,8 @@ for i in range(2, len(t)+1):
     if Vm == -45.7:
        alpha_n = 0.02/0.1
     else
-        alpha_n = 0.02 * (Vm + 45.7)/(1 - exp(-0.1 * (Vm + 45.7)));
-    beta_n = 0.25 * exp(-0.0125 * (Vm + 55.7));
+        alpha_n = 0.02 * (Vm + 45.7)/(1 - exp(-0.1 * (Vm + 45.7)))
+    beta_n = 0.25 * exp(-0.0125 * (Vm + 55.7))
 
     # From the alpha and beta for each gating variable we find the steady
     # state values (_inf) and the time constants (tau_) for each m,h and n.
@@ -119,7 +119,7 @@ for i in range(2, len(t)+1):
     tau_a = 0.3632*1e-3 + 1.158e-3/(1 + exp(0.0497 * (Vm + 55.96)))
 
     b_inf = (1/(1 + exp(0.0688 * (Vm + 53.3))))^4
-    tau_b = 1.24e-3 + 2.678e-3/(1 + exp(0.0624 * (Vm + 50)));
+    tau_b = 1.24e-3 + 2.678e-3/(1 + exp(0.0624 * (Vm + 50)))
 
     a[i-1] = a[i-2] + (a_inf-a[i-2])*dt/tau_a # Update a
     b[i-1] = b[i-2] + (b_inf-b[i-2])*dt/tau_b # Update b
