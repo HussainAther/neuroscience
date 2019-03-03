@@ -39,8 +39,8 @@ cm = 10e-9 # specific membrane capacitance
 t = range(0, tmax, dt) # time vector
 V = np.zeros(size(t)) # voltage vector
 
-if ( iclamp_flag ) % i.e. if in current-clamp mode
-    V(1) = V_L;    % set the inititial value of voltage
+if iclamp_flag: # i.e. if in current-clamp mode
+    V(1) = V_L # set the inititial value of voltage
 
 def I_m():
     """
