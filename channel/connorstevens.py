@@ -37,10 +37,18 @@ g_A = 0.0 # if g_A is zero it switches off the A-current
 cm = 10e-9 # specific membrane capacitance
 
 t = range(0, tmax, dt) # time vector
-V = np.zeros(size(t)) # voltage vector
+V = np.zeros(len(t)) # voltage vector
 
 if iclamp_flag: # i.e. if in current-clamp mode
     V(1) = V_L # set the inititial value of voltage
+
+n = np.zeros(len(t)) # n: potassium activation gating variable
+m = np.zeros(len(t)) #  sodium activation gating variable
+h = np.zeros(len(t)) #  h: sodim inactivation gating variable
+
+a = np.zeros(len(t)) # A-current activation gating variable
+b = np.zeros(len(t)) # A-current inactivation gating variable
+
 
 def I_m():
     """
