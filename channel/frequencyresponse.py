@@ -36,4 +36,13 @@ for t in np.arange(h, tstop, h):
 
     # stop injecting current
     if t >= .6*stop:
+        I = 0
 
+    V_trace += [V]
+
+    plt.plot(np.arange(0 t+h, h), V_trace, color="r")
+    plt.xlim(0, tstop)
+    plt.ylim(0, V_inf)
+    plt.draw()
+
+plt.show()
