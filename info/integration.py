@@ -45,5 +45,12 @@ In "Bayesian inference with probabilistic population codes", Wei Ji Ma and colle
 proposed that populations of activity automatically probability distributions and that,
 due to Poisson noise, multisensory integration could be realised very simply just by summing
 the activity of the two populations of activity.
+
+We describe populations with N = 50 neurons and tuning curves that explain the mean spike count
+of each neuron in 1 second as a function of the stimulus direction theta.
 """
 
+f_curve = [] # tuning curve function
+
+for G in range( ):
+    
