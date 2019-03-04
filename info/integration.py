@@ -20,7 +20,21 @@ mu3 = (sigma2^2 / (sigma1^2 + sigma2^2)) * mu1 + (sigma1^2/(sigma1^2+sigma2^2) *
 
 """
 
-def visionDist():
+def visDist(sigma1, K):
     """
-    
+    Compute gain1 of the vision distribution.
     """
+    return 1/((sigma1**2) * K)
+
+
+def auditDist(sigma2, K):
+    """
+    Compute gain2 of the auditory distribution.
+    """
+    return 1/((sigma2**2) * K)
+
+def visuAuditDist(sigma3, K):
+    """
+    Compute gain3 of the visual-auditory distribution.
+    """
+    return visDist(sigma1, K) + auditDist(sigma2, K)
