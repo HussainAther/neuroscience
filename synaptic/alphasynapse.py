@@ -71,3 +71,7 @@ for t in range(tstop):
     # Compute input spike train
     if spike_train[t]: # check for input spike
         t_list = cc([t_list, [1]])
+
+    # Calculate synaptic current due to current and past input spikes
+    g_syn = np.sum(alpha_func[t_list])
+    I_syn = g_syn*(E_syn - V) 
