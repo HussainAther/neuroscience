@@ -32,7 +32,7 @@ def alpha_():
     g_peak = 0.05 # nS (peak synaptic conductance)
     const = g_peak / (t_peak*np.exp(-1));
     t_vec = np.arange(0, t_a + h, h) # time used for plotting
-    alpha_func = const * t_vec * (np.exp(-t_vec/t_peak)) # calculate alpha function 
+    alpha_func = const * t_vec * (np.exp(-t_vec/t_peak)) # calculate alpha function
 
     plt.plot(t_vec[:80], alpha_func[:80])
     plt.xlabel("t (in ms)")
@@ -61,3 +61,13 @@ t_trace = [0]
 fig, axs = plt.subplots(2, 1)
 axs[0].plot(np.arange(0,t_max,h), spike_train)
 axs[0].set_title("Input spike train")
+
+"""
+Perform the simulation on the computed parameters to see how membrane voltage from
+the synpatic current vary over time.
+"""
+
+for t in range(tstop):
+    # Compute input spike train
+    if spike_train[t]: # check for input spike
+        t_list = cc([t_list, [1]])
