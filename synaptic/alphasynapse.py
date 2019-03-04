@@ -98,3 +98,12 @@ for t in range(tstop):
         V = V_spike
         ref = ref_max
         g_ad = g_ad + G_inc
+
+
+    V_trace += [V]
+    t_trace += [t*h]
+
+axs[1].plot(t_trace,V_trace)
+plt.draw()
+axs[1].set_title('Output spike train')
+plt.show()
