@@ -13,7 +13,7 @@ P_s = (P_max*t / tau_s) * exp((1-t)/tau_s)
 in which P_s is the opening probability of a postsynaptic channel. For an isolated snynapse at time t = 0,
 we can generate random spike inputs and compute the membrane voltage using an I & F implementation of dV/dt = - V/RC + I/C.
 Since we're using this I & F implementation, we'll be characterizing the alpha function with a slightly
-different method of finding the conductance. 
+different method of finding the conductance.
 """
 np.random.seed(123)
 
@@ -92,3 +92,9 @@ for t in range(tstop):
         ref -= 1
         V = V_th - 10 # reset voltage after spike
         g_ad = 0
+
+    # Generate spikes
+    if (V > V_th) and not ref:
+        V = V_spike
+        ref = ref_max
+        g_ad = g_ad + G_inc
