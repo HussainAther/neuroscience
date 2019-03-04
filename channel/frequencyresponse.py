@@ -26,5 +26,14 @@ h = .2 # ms (step size)
 V = 0 # mV
 V-trace = [V] # mV
 
+# begin injecting current
 for t in np.arange(h, tstop, h):
+    V = V +h*(- (V/(R*C)) + (I/C)) # Euler up
+    
+    # verfiy the membrane time constant if experimetnal conditions are different
+    if (not tau and (V > 0.6321*V_inf)):
+        tau = t
+
+    # stop injecting current
+    if t >= .6*stop:
 
