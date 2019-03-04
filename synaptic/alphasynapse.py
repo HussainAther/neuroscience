@@ -74,4 +74,10 @@ for t in range(tstop):
 
     # Calculate synaptic current due to current and past input spikes
     g_syn = np.sum(alpha_func[t_list])
-    I_syn = g_syn*(E_syn - V) 
+    I_syn = g_syn*(E_syn - V)
+
+    # Update spike times
+    if np.any(t_list):
+        t_list = t_list + 1
+        if t_list[0] == t_a: # Reached max duration of syn conductance
+            t_list = t_list[1:]
