@@ -54,7 +54,10 @@ beta = 3 # width of the tuning curve
 f_curve = [] # tuning curve function
 K = 5 # spontaneous activity
 G = 50 # maximal firing rate
+theta = 45 # stimulus direction
 
-for theta in range(-180, 180):
-    f_curve.append(G*exp)
+for theta_i in range(-180, 180): # test for each preferred direction directions
+    f_curve.append(G*exp(beta(np.cos(theta-theta)_i))-1+K)
 
+plt(f_curve)
+plt.show()
