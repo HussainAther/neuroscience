@@ -1,10 +1,14 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 """
 A passive neural membrane is a shift-invariant linear system. According to Eq. 8, the membrane
 potential fluctuations (above and below E) may be predicted by convolving the injected current
 with a low-pass filter. The parameters of that low-pass filter, g and C, completely determine the
-behavior of the membrane. We use the membrane potential equation dV/dt = - V/RC + I/C.
+behavior of the membrane.
+
+We use the membrane potential equation dV/dt = - V/RC + I/C. Using the Euler method of derivation,
+V(t+h) = V(t) + h*dV/dt .
 
 We can create the charging and discharging curves as follows.
 """
@@ -16,5 +20,11 @@ R = 100 # leak resistance (ohms)
 tau = R*C  # = time constant
 
 tstop = 150 # ms
-V_inf = I*R
-tau = 0
+V_inf = I*R # peak V (mV)
+tau = 0 # experimental (ms)
+h = .2 # ms (step size)
+V = 0 # mV
+V-trace = [V] # mV
+
+for t in np.arange(h, tstop, h):
+
