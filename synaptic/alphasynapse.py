@@ -6,12 +6,14 @@ import matplotlib.pyplot as plt
 """
 Compute the firing of a neuron via alpha function synapse and a (random) input spike train.
 
-The alpha function is often used for desrcribing synaptic conductance with the expression
+The alpha function is often used for describing synaptic conductance with the expression
 
 P_s = (P_max*t / tau_s) * exp((1-t)/tau_s)
 
 in which P_s is the opening probability of a postsynaptic channel. For an isolated snynapse at time t = 0,
 we can generate random spike inputs and compute the membrane voltage using an I & F implementation of dV/dt = - V/RC + I/C.
+Since we're using this I & F implementation, we'll be characterizing the alpha function with a slightly
+different method of finding the conductance. 
 """
 np.random.seed(123)
 
@@ -81,3 +83,12 @@ for t in range(tstop):
         t_list = t_list + 1
         if t_list[0] == t_a: # Reached max duration of syn conductance
             t_list = t_list[1:]
+
+    # Compute membrane voltage using Euler method: V(t+h) = V(t) + h*dV/dt
+    if not ref:
+        V = V + h*(-((V-E_leak)*(1+R*g_ad)/(R*C)) + (I_syn/C))
+        g_ad = g_ad + h*(-g_ad/tau_ad) # spike rate adaptation
+    else:
+        ref -= 1
+        V = V_th - 10 # reset voltage after spike
+        g_ad = 0
