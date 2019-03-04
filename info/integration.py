@@ -48,6 +48,8 @@ the activity of the two populations of activity.
 
 We describe populations with N = 50 neurons and tuning curves that explain the mean spike count
 of each neuron in 1 second as a function of the stimulus direction theta.
+
+This equation is from "The ventriloquist effect results from nearoptimal bimodal integration."
 """
 
 beta = 3 # width of the tuning curve
