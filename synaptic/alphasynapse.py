@@ -10,7 +10,12 @@ The alpha function is often used for desrcribing synaptic conductance with the e
 
 P_s = (P_max*t / tau_s) * exp((1-t)/tau_s)
 
-in which P_s is the opening probability of a postsynaptic channel.
-
-for an isolated snynapse at time t = 0.
+in which P_s is the opening probability of a postsynaptic channel. For an isolated snynapse at time t = 0,
+we can generate random spike inputs and compute the membrane voltage using an I & F implementation of dV/dt = - V/RC + I/C.
 """
+
+h = 1. # step size, Euler method, = dt ms
+t_max= 200 # ms, simulation time period
+tstop = int(t_max/h) # number of time steps
+ref = 0 # refractory period counter
+
