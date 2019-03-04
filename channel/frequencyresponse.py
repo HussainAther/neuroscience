@@ -10,7 +10,7 @@ behavior of the membrane.
 We use the membrane potential equation dV/dt = - V/RC + I/C. Using the Euler method of derivation,
 V(t+h) = V(t) + h*dV/dt .
 
-We can create the charging and discharging curves as follows.
+We can create the charging and discharging curves of an RC Circuit model as follows.
 """
 
 I = 10 # input current (nA)
@@ -46,3 +46,10 @@ for t in np.arange(h, tstop, h):
     plt.draw()
 
 plt.show()
+
+
+"""
+We may also try other current inputs such as I = sin(2*pi*omega*t) that corresponds to an output
+sinusoidlly modulating membrane potential V = A*(sin(2*pi*ometa*t + phi)). In this case, we can derive
+A = 1 / sqrt(g2 + (2*omega*C)^2) 
+"""
