@@ -38,3 +38,12 @@ def visuAuditDist(sigma3, K):
     Compute gain3 of the visual-auditory distribution.
     """
     return visDist(sigma1, K) + auditDist(sigma2, K)
+
+
+"""
+In "Bayesian inference with probabilistic population codes", Wei Ji Ma and colleagues have
+proposed that populations of activity automatically probability distributions and that,
+due to Poisson noise, multisensory integration could be realised very simply just by summing
+the activity of the two populations of activity.
+"""
+
