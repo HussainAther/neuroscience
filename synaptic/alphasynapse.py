@@ -27,3 +27,10 @@ def alpha_():
     """
     Alpha function for synaptic conductance
     """
+    t_a = 100 # Max duration of syn conductance
+    t_peak = 1 # ms
+    g_peak = 0.05 # nS (peak synaptic conductance)
+    const = g_peak / (t_peak*np.exp(-1));
+    t_vec = np.arange(0, t_a + h, h)
+    alpha_func = const * t_vec * (np.exp(-t_vec/t_peak))
+
