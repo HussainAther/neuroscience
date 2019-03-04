@@ -34,3 +34,15 @@ def alpha_():
     t_vec = np.arange(0, t_a + h, h)
     alpha_func = const * t_vec * (np.exp(-t_vec/t_peak))
 
+    plt.plot(t_vec[:80], alpha_func[:80])
+    plt.xlabel("t (in ms)")
+    plt.title("Alpha Function (Synaptic Conductance for Spike at t=0)")
+    plt.draw()
+
+
+C = 0.5 # capacitance nF
+R = 40 # leak resistance M ohms
+
+g_ad = 0 # conductance
+G_inc = 1/h # spike rate adaptation 
+tau_ad = 2
