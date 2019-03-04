@@ -4,9 +4,8 @@ from numpy import concatenate as cc
 import matplotlib.pyplot as plt
 
 """
-Compute the firing of a neuron via alpha function synapse and a (random) input spike train.
-
-The alpha function is often used for describing synaptic conductance with the expression
+Compute the firing of a neuron via alpha function synapse and a (random) input spike train. The alpha function is often
+used for describing synaptic conductance with the expression
 
 P_s = (P_max*t / tau_s) * exp((1-t)/tau_s)
 
@@ -55,6 +54,7 @@ g_syn = 0 # Current syn conductance
 V_th = -40 # spike threshold mV
 V_spike = 50 # spike value mV
 ref_max = 4/h # Starting value of ref period counter
+
 t_list = np.array([], dtype=int)
 V = E_leak
 V_trace = [V]
