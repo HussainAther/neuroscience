@@ -22,7 +22,7 @@ mu3 = (sigma2^2 / (sigma1^2 + sigma2^2)) * mu1 + (sigma1^2/(sigma1^2+sigma2^2) *
 
 def visDist(sigma1, K):
     """
-    Compute gain1 of the vision distribution.
+    Compute gain1 of the vision distribution. K is the number of spikes and sigma is the variance.
     """
     return 1/((sigma1**2) * K)
 
@@ -50,7 +50,11 @@ We describe populations with N = 50 neurons and tuning curves that explain the m
 of each neuron in 1 second as a function of the stimulus direction theta.
 """
 
+beta = 3 # width of the tuning curve
 f_curve = [] # tuning curve function
+K = 5 # spontaneous activity
+G = 50 # maximal firing rate
 
-for G in range( ):
-    
+for theta in range(-180, 180):
+    f_curve.append(G*exp)
+
