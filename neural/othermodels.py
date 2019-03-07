@@ -1,4 +1,5 @@
 import numpy as np
+from gekko import GEKKO
 
 """
 McCulloch-Pitts replaces the involved Hodgkin-Huxley system by a threshold device
@@ -43,3 +44,19 @@ def mp(simplemodel, theta_i):
         else:
             X.append(0)
     return X
+
+def fn():
+    """
+    FitzHugh-Nagumo approximated the Hodgkin-Huxley equaitons using a general linear relation (h = a-bn)
+    used in combination with coordinate transformation and rescaling to arrive at the Bonhoeffer-Van-der-Pol
+    or FitzHugh-Nagumo equations.
+    """
+    m = GEKKO()
+
+    # integration time points
+    m.time = np.linspace(0,10)
+
+    m.Equation(dU.dt()==Ui - (1/3)*Ui**3 - Wi + Ii)
+    m.Equation(dW.dt()==phi(Ui+a-bWi)) # linear relation
+
+    return m.solve()
