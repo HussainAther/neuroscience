@@ -1,5 +1,5 @@
 import numpy as np
-from gekko import GEKKO
+from scipy.integrate import odeint
 
 """
 McCulloch-Pitts replaces the involved Hodgkin-Huxley system by a threshold device
@@ -45,18 +45,45 @@ def mp(simplemodel, theta_i):
             X.append(0)
     return X
 
-def fn():
+def fn(s):
     """
     FitzHugh and Nagumo approximated the Hodgkin-Huxley equaitons using a general linear relation (h = a-bn)
     used in combination with coordinate transformation and rescaling to arrive at the Bonhoeffer-Van-der-Pol
-    or FitzHugh-Nagumo equations.
+    or FitzHugh-Nagumo equations. Takes in s, an array of states of the voltage for each neuron. It must have
+    the four states: voltage of first synapse, work of the first synapse, voltage of the second, and work of the second.
+    
+    Solve for two synapses using ordinary differential equations.
     """
-    m = GEKKO()
+    (v, w, v2, w2) = (state[0], state[1], state[3], state[4])
+    
+    # these are our constants
+    x = 0.08
+    y = 0.7
+    z = 0.8
 
-    # integration time points
-    m.time = np.linspace(0,10)
+    theta = 0 # voltage of synapse
+    Vs = 2 # applied voltage
+    Iapp = 1.2 # applied current
+    gsyn = 30 # synaptic conductance in pS
+    S = 1
+    lam = -10 # factor to normalize
+ 
+    # Synaptic currents
+    Isyn = gsyn*((v-Vs)*S)/(1+np.power(np.e,(lam*(v2-theta))))
+    Isyn2 = gsyn*((v2-Vs)*S)/(1+np.power(np.e,(lam*(v-theta))))
+    
+    # cell 1
+    vd = v - power(v, 3)/3 - w + Iapp + Isyn
+    wd = x*(v + y - z*w)
+      
+    # cell 2
+    v2d = v2 - power(v2, 3)/3 - w2 + Iapp + Isyn2
+    w2d = x*(v2 + y - z*w2)
 
-    m.Equation(dU.dt()==Ui - (1/3)*Ui**3 - Wi + Ii)
-    m.Equation(dW.dt()==phi(Ui+a-bWi)) # linear relation
+    # return state derivatives that odeint uses
+    return [vd, wd, v2d, w2d]
 
-    return m.solve()
+state0 = ([-1.2, 1.2, -1.2, 1.2])
+t = arange(0.0, 2800.0, 0.01)
+
+odeint(fn, state0, t,rtol=1.49012e-13,atol=1.49012e-13)
