@@ -70,12 +70,12 @@ def fn(s):
     Isyn = gsyn*((v-Vs))/(1+np.power(np.e,(v2-theta)))
     Isyn2 = gsyn*((v2-Vs))/(1+np.power(np.e,(v-theta)))
     
-    # cell 1
-    vd = v - power(v, 3)/3 - w + Iapp + Isyn
+    # synapse 1
+    vd = v - np.power(v, 3)/3 - w + Iapp + Isyn
     wd = x*(v + y - z*w)
       
-    # cell 2
-    v2d = v2 - power(v2, 3)/3 - w2 + Iapp + Isyn2
+    # synapse 2
+    v2d = v2 - np.power(v2, 3)/3 - w2 + Iapp + Isyn2
     w2d = x*(v2 + y - z*w2)
 
     # return state derivatives that odeint uses
