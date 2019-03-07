@@ -56,21 +56,19 @@ def fn(s):
     """
     (v, w, v2, w2) = (state[0], state[1], state[3], state[4])
     
-    # these are our constants
+    # constants used for fitting to general linear relation
     x = 0.08
     y = 0.7
     z = 0.8
 
-    theta = 0 # voltage of synapse
+    theta = 0 # voltage phase shift
     Vs = 2 # applied voltage
     Iapp = 1.2 # applied current
     gsyn = 30 # synaptic conductance in pS
-    S = 1
-    lam = -10 # factor to normalize
  
     # Synaptic currents
-    Isyn = gsyn*((v-Vs)*S)/(1+np.power(np.e,(lam*(v2-theta))))
-    Isyn2 = gsyn*((v2-Vs)*S)/(1+np.power(np.e,(lam*(v-theta))))
+    Isyn = gsyn*((v-Vs))/(1+np.power(np.e,(v2-theta)))
+    Isyn2 = gsyn*((v2-Vs))/(1+np.power(np.e,(v-theta)))
     
     # cell 1
     vd = v - power(v, 3)/3 - w + Iapp + Isyn
