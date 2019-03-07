@@ -14,15 +14,27 @@ Postsynpatic current I_iPSC = - summation of j=1 to n of (w_ij * I_j - I-i)
 
 in which w_ij is the synaptic weight of the connection from unit j to unit i,
 dependent on the synpatic gain g_ij that evolves during learning and reflecting the synaptic plasticity
-and the intracelular resistances. The capacitance is deliberately neglected and I_i is the
+and the intracelular resistances. The capacitance is deliberately neglected and I_iext is the
 externally controlled input to neuron i.
 """
 
-def mp(n, ):
+def simplemodel(w, I):
     """
-    McCulloch-Pitts model. n is number of neurons. w is a list of weights for each neuron.
+    Simple conductance model for some neuron i.
+    w is a list of weights of connection from unit j to i for each neuron.
+    I is a list of currents from each neuron j.
     """
     I_iPSC = 0 # post-synaptic current
-    for j in range(1, n):
-        I_iPSC += w[j] * I_j
+    I_ext = 5 # external current to neuron i
+    for j in range(len(w)): # simple summation
+        I_iPSC += w[j] * I[j]
+    I_iPSC -= I_iext # exteranl current
+    I_iPSC *= -1 # for the opposite direction
+    return I_iPSC
 
+def mp(simplemodel, theta_i):
+    """
+    McCulloch-Pitts model. theta_i is the activation threshold for unit i.
+    """
+    for i in simplemodel:
+        if i - theta_i
