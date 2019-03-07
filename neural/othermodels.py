@@ -126,7 +126,4 @@ def ml(V, w,t):
     dwdt = (w_infty(V) - w) / tau_w(V)
     return dVdt, dwdt
 
-X = odeint(dALLdt(-44, .05) t)
-
-
-odeint(ml)
+X = odeint(ml(-44, .05) t)
