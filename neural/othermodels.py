@@ -1,4 +1,5 @@
 import numpy as np
+import pylab as plt
 from scipy.integrate import odeint
 
 """
