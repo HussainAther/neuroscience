@@ -47,7 +47,7 @@ def mp(simplemodel, theta_i):
 
 def fn(s):
     """
-    FitzHugh and Nagumo approximated the Hodgkin-Huxley equaitons using a general linear relation (h = a-bn)
+    FitzHugh and Nagumo approximated the Hodgkin-Huxley equations using a general linear relation (h = a-bn)
     used in combination with coordinate transformation and rescaling to arrive at the Bonhoeffer-Van-der-Pol
     or FitzHugh-Nagumo equations. Takes in s, an array of states of the voltage for each neuron. It must have
     the four states: voltage of first synapse, work of the first synapse, voltage of the second, and work of the second.
