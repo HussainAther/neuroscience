@@ -101,11 +101,19 @@ E_K  = -70.0
 E_L  = -50.0
 
 
+
 # Channel gating kinetics
 # Functions of membrane voltage
-def m_infty(V): return (1.0 + sp.tanh((V + 1.0) / 15.0)) / 2.0
-def w_infty(V): return (1.0 + sp.tanh(V / 30.0)) / 2.0
-def tau_w(V):   return 5.0 / sp.cosh(V / 60.0)  # in ms
+def m_infty(V):
+    return (1.0 + sp.tanh((V + 1.0) / 15.0)) / 2.0
+def w_infty(V):
+    return (1.0 + sp.tanh(V / 30.0)) / 2.0
+def tau_w(V):
+    return 5.0 / sp.cosh(V / 60.0)  # in ms
+
+# Input voltage
+def I_ext(t):
+    return 10*sp.floor(t/100)
 
 def ml(Ui, Ek, El, Ii):
     m =
