@@ -47,7 +47,7 @@ def mp(simplemodel, theta_i):
 
 def fn():
     """
-    FitzHugh-Nagumo approximated the Hodgkin-Huxley equaitons using a general linear relation (h = a-bn)
+    FitzHugh and Nagumo approximated the Hodgkin-Huxley equaitons using a general linear relation (h = a-bn)
     used in combination with coordinate transformation and rescaling to arrive at the Bonhoeffer-Van-der-Pol
     or FitzHugh-Nagumo equations.
     """
