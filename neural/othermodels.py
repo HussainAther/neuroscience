@@ -81,13 +81,35 @@ def fn(s):
     # return state derivatives that odeint uses
     return [vd, wd, v2d, w2d]
 
-state0 = ([-1.2, 1.2, -1.2, 1.2])
+s = ([-1.2, 1.2, -1.2, 1.2])
 t = np.arange(0.0, 2800.0, 0.01)
 
-odeint(fn, state0, t,rtol=1.49012e-13,atol=1.49012e-13)
+odeint(fn, s, t, rtol=1.49012e-13, atol=1.49012e-13)
 
-def ml():
-    """
-    Morris-Lecar model described spiking dynamics of potassium- and calcium-controlled muscle fibers.
-    
-    """
+"""
+Morris-Lecar model described spiking dynamics of potassium- and calcium-controlled muscle fibers.
+"""
+
+# Constants
+C_m  =   1.0 # membrane capacitance, in uF/cm^2
+g_Ca =   1.1 # maximum conducances, in mS/cm^2
+g_K  =   2.0
+g_L  =   0.5
+E_Ca = 100.0 # Nernst reversal potentials, in mV
+E_K  = -70.0
+E_L  = -50.0
+
+
+# Channel gating kinetics
+# Functions of membrane voltage
+def m_infty(V): return (1.0 + sp.tanh((V + 1.0) / 15.0)) / 2.0
+def w_infty(V): return (1.0 + sp.tanh(V / 30.0)) / 2.0
+def tau_w(V):   return 5.0 / sp.cosh(V / 60.0)  # in ms
+
+def ml(Ui, Ek, El, Ii):
+    m =
+
+    return
+
+
+odeint(ml)
