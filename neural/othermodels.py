@@ -82,6 +82,12 @@ def fn(s):
     return [vd, wd, v2d, w2d]
 
 state0 = ([-1.2, 1.2, -1.2, 1.2])
-t = arange(0.0, 2800.0, 0.01)
+t = np.arange(0.0, 2800.0, 0.01)
 
 odeint(fn, state0, t,rtol=1.49012e-13,atol=1.49012e-13)
+
+def ml():
+    """
+    Morris-Lecar model described spiking dynamics of potassium- and calcium-controlled muscle fibers.
+    
+    """
