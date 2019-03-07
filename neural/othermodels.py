@@ -115,6 +115,9 @@ def tau_w(V):
 def I_ext(t):
     return 10*sp.floor(t/100)
 
+t = sp.arange(0.0, 400.0, 0.1)
+I = I_ext(t)
+
 def ml(Ui, Ek, El, Ii):
     m =
 
