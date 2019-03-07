@@ -36,5 +36,10 @@ def mp(simplemodel, theta_i):
     """
     McCulloch-Pitts model. theta_i is the activation threshold for unit i.
     """
-    for i in simplemodel:
-        if i - theta_i
+    X = [] # state of neuron i
+    for j in simplemodel:
+        if j - theta_i >= 0:
+            X.append(1)
+        else:
+            X.append(0)
+    return X
