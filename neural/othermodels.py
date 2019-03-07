@@ -101,7 +101,6 @@ E_K  = -70.0
 E_L  = -50.0
 
 
-
 # Channel gating kinetics
 # Functions of membrane voltage
 def m_infty(V):
@@ -118,10 +117,16 @@ def I_ext(t):
 t = sp.arange(0.0, 400.0, 0.1)
 I = I_ext(t)
 
-def ml(Ui, Ek, El, Ii):
-    m =
+def ml(V, w,t):
+    """
+    Morris-Lecar using odeint again. V and w are initial conditions.
+    """
+    V, w = X # initial conditions for
+    dVdt = (I_ext(t) - I_Ca(V) - I_K(V, w) - I_L(V)) / C_m
+    dwdt = (w_infty(V) - w) / tau_w(V)
+    return dVdt, dwdt
 
-    return
+X = odeint(dALLdt(-44, .05) t)
 
 
 odeint(ml)
