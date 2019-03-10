@@ -58,4 +58,8 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     e = np.zeros_like(x)
     ao = np.zeros(M+1)
     zi = signal.lfiltic(ao, 1, y=0)
+    ym = np.zeros_like(ao)
+
+    for k, yk in enumerate(y): # filter
+        
 
