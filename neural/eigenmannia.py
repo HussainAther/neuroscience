@@ -14,3 +14,4 @@ x["__header__"] # view info about the MATLAB file.
 x["rho"] # view the rho value for each experiment.
 max(x["stim"]) # max value of the stimulus.
 min(x["stim"]) # min value of the stimulus.
+x["stim"][len(x)/2:] # first half of experiments
