@@ -83,7 +83,23 @@ def I(i):
     """
     return 4 * i
 
+def r(i):
+    """
+    Some function that defines radius for each source/sink.
+    """
+    return (1/2) * i
+
+def h(i):
+    """
+    Some function that defines height for each source/sink.
+    """
+    return 3 * i
+
 constant = (1/(2*np.pi*sigma))
 product = 1
 for i in range(1, n): # in which n is the number of sources/sinks distributed in G1
     num = I(i)
+    den = np.sqrt(r(i)**2 + z + h(i)**2)
+    product *= (num/den)
+
+phi = product
