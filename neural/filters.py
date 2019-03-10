@@ -103,4 +103,11 @@ def lms_ic(r, M, mu, delta=1):
     Least Mean Square (LMS) interference canceller adaptive filter.
     Complete LMS adaptive filter simulation function for the case
     of interference cancellation.
+    
+    M : FIR Filter length (order M-1)
+    delta : Delay used to generate the reference signal
+    mu : LMS step-size
+    delta : decorrelation delay between input and FIR filter input
+    
+    
     """
