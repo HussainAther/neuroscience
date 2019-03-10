@@ -47,4 +47,8 @@ def phi(z, d, R):
 Or, performing the integration, we get:
 """
 
-phi = (j(d) * (2*sigma))
+R = 5 # some value idk
+z = 4 # another value lol
+d = 3
+
+phi = (j(d) * (2*sigma)) * (1 - z/(R**2 + z**2)**(1/2))
