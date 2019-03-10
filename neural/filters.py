@@ -109,5 +109,11 @@ def lms_ic(r, M, mu, delta=1):
     mu : LMS step-size
     delta : decorrelation delay between input and FIR filter input
     
-    
+     n : ndarray Index vector
+     r : ndarray noisy (with interference) input signal
+     r_hat : ndarray filtered output (NB_hat[n])
+     e : ndarray error sequence (WB_hat[n])
+     ao : ndarray final value of weight vector
+     F : ndarray frequency response axis vector
+     Ao : ndarray frequency response of filter
     """
