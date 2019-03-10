@@ -67,4 +67,6 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
         ym = np.hstack((array(yk), ym[0:-1]))
 
     F = np.arange(0,0,5,1/Nfft)
-    w, Ao = signal.frqez(ao, 1, 2*np.pi*F) 
+    w, Ao = signal.frqez(ao, 1, 2*np.pi*F)
+    Ao = 20 * np.log10(abs(Ao))
+    return n, x, x_hat, e, ao, F, Ao
