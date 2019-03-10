@@ -99,4 +99,7 @@ savefig("sol.png", bb_inches="tight")
 """
 Compare the Poisson model to actual data using Fano factors, interspike interval distributions,
 and coefficients of variation.
+
+Fano factor describes relationship between mean spike count over a given interval and the spike-
+count variance.
 """
