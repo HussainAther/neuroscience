@@ -101,4 +101,6 @@ in the scikit-dpscomm module sigsys.
 def lms_ic(r, M, mu, delta=1):
     """
     Least Mean Square (LMS) interference canceller adaptive filter.
+    Complete LMS adaptive filter simulation function for the case
+    of interference cancellation.
     """
