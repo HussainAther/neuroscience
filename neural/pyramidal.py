@@ -75,6 +75,7 @@ I = 20
 
 phi = (1/(2*np.pi*(sigma1 + sigma2))) * I/np.sqrt(r**2 + (z + h)**2)
 
+# We can demonstrate Dirichlet's boundary problem for an EEG
 # G1 has all the current sources an dsinks, so the superposition principle lets us use:
 
 def I(i):
