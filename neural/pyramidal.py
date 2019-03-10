@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.integrate as integrate
 
 """
 Since pyramidal cell are aligned in parallel, they form a dipole layer of thickness d
@@ -39,4 +40,8 @@ def phi(z, d):
     Potential as dependent upon the distance
     """
     constant = j(d) * / (4 * np.pi * sigma)
-    
+    integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5)
+
+"""
+Or, performing the integration, we get:
+"""
