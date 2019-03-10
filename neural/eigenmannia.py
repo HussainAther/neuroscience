@@ -1,5 +1,6 @@
 from scipy.io import loadmat
 import numpy as np
+import matplotlib.pyplot as plt
 
 """
 We're going to use data from experiments described in R. Wessel, C. Koch, and F. Gabbiani, Coding of
@@ -18,3 +19,8 @@ min(x["stim"]) # min value of the stimulus.
 x["stim"][len(x)/2:] # second half of experiments
 x["stim"][:len(x)/2] # first half of experiments
 np.var(x["stim"]) # variance
+
+
+# Plot em
+plt(len(x["stim"]))
+plt.show()
