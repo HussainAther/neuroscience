@@ -104,10 +104,12 @@ Fano factor describes relationship between mean spike count over a given interva
 count variance.
 """
 
-def interspikeInterval(r, tau):
+def interspikeInterval(alpha, beta):
     """
     Gamma distribution is better for modeling interspike intrevals than the exponential Poisson
     distribution. The refractoriness makes short spike intervals less liekly than the
     Poisson model would predict.
-    """
     
+    We use a random variable x that is gamma-distributed with a shape alpha and rate beta
+    """
+    num = (beta**alpha) * 
