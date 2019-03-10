@@ -135,3 +135,4 @@ def lms_ic(r, M, mu, delta=1):
     F = (2*np.pi)
     Ao = 20*np.log10(abs(Ao))
     return np.arange(0, N+1), r, r_hat, e, ao, F, Ao
+
