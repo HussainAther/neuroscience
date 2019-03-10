@@ -54,8 +54,8 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
 
     mu /= M + 1
     y = signal.lfilter([0, 1],1,x)
-    x_hat = zeros_like(x)
-    e = zeros_like(x)
-    ao = zeros(M+1)
-    zi = signal.lfiltic(ao,1,y=0)
+    x_hat = np.zeros_like(x)
+    e = np.zeros_like(x)
+    ao = np.zeros(M+1)
+    zi = signal.lfiltic(ao, 1, y=0)
 
