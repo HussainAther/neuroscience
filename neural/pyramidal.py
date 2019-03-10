@@ -18,8 +18,8 @@ def j(x):
 dI = j * dA
 
 """
-Where the current density j is assumed to be constsnat scalar within one column.
-The differneital of the potential dphi at a distacne z perpendcicular to a cortical column
+Where the current density j is assumed to be constant scalar within one column.
+The differential of the potential dphi at a distacne z perpendcicular to a cortical column
 with radius R cotributed by the current dI is
 """
 
@@ -29,5 +29,6 @@ d = 4 # for some distance
 dphi = (1/4*np.pi*sigma) * j * d *( x - xp) / (x - xp)**3 * dA
 
 """
-
+in which xp (x') varies across the area of the module. We can integrate this integrand over dA to
+dtetermine the potential.
 """
