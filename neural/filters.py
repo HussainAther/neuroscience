@@ -1,4 +1,5 @@
 import numpy as np
+from np.random import randn
 
 """
 We makea a simple Python simulation of Adaptive Line Enhancement using a single
@@ -26,7 +27,7 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     Line Enhancement Algorithm using an IIR filter.
     n,x,x_hat,e,ao,F,Ao = lms_ale(SNR,N,M,mu)
     *******LMS ALE Simulation************
-    SNR = Sinusoid SNR in dB
+    SNR = Sinusoid signal-to-noise ratio in dB
     N = Number of simulation samples
     M = FIR Filter length (order M-1)
     mu = LMS step-size
@@ -44,9 +45,8 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     
     n = arange(0,N+1) # length N+1
     if not(sqwav):
-        x = 1*cos(2*pi*1/20*n) # A = 1, Fo/Fs = 1/20
-        x += sqrt(1/2/(10**(SNR/10)))*randn(N+1)
+        x = 1 * np.cos(2 * np.pi * 1/20 * n) # A = 1, Fo/Fs = 1/20
+        x += np.sqrt(1 / 2/(10 **(SNR/10)))* randn(N+1)
     else:
-        x = 1*sign(cos(2*pi*1/20*n)); # square wave. A = 1, Fo/Fs = 1/20
-
-
+        x = 1 * np.sign(np.cos(2*np.pi*1/20*n)); # square wave. A = 1, Fo/Fs = 1/20
+        x += np.sqrt(1/1/(10**(SNR/10)))*randn(N+1)
