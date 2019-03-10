@@ -39,10 +39,12 @@ def phi(z, d, R):
     """
     Potential as dependent upon the distance z for a cylinder of radius R
     """
-    constant = (2* np.pi j(d) *) / (4 * np.pi * sigma)
+    constant = (2* np.pi * j(d)) / (4 * np.pi * sigma)
     integrated = integrate.quad(lambda x: x / (x**2 + z**2)**(3/2), 0, R)
     return constant * integrated
 
 """
 Or, performing the integration, we get:
 """
+
+phi = (j(d) * (2*sigma))
