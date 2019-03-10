@@ -19,7 +19,7 @@ dI = j * dA
 
 """
 Where the current density j is assumed to be constant scalar within one column.
-The differential of the potential dphi at a distacne z perpendcicular to a cortical column
+The differential of the potential dphi at a distance z perpendicular to a cortical column
 with radius R cotributed by the current dI is
 """
 
@@ -30,5 +30,11 @@ dphi = (1/4*np.pi*sigma) * j * d *( x - xp) / (x - xp)**3 * dA
 
 """
 in which xp (x') varies across the area of the module. We can integrate this integrand over dA to
-dtetermine the potential.
+determine the potential. By taking advantage of symmetric of the cylindrical area, we can re-write
+this as
 """
+
+def phi(z):
+    """
+    Potential as dependent upon the distance
+    """
