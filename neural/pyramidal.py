@@ -24,5 +24,10 @@ with radius R cotributed by the current dI is
 """
 
 sigma = 5.670e10-8 # Stefan-Boltzmann constant
+d = 4 # for some distance
 
-dphi = (1/4*np.pi*sigma) * j * d
+dphi = (1/4*np.pi*sigma) * j * d *( x - xp) / (x - xp)**3 * dA
+
+"""
+
+"""
