@@ -28,4 +28,5 @@ plt(x["rho"], color = "blue")
 plt.show()
 
 # Convolution
-np.convolve(x["stim"], x["rho"])
+np.convolve(x["stim"], x["time"])
+np.convolve(x["rho"], x["time"])
