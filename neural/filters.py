@@ -93,7 +93,7 @@ plt.title(r"ALE Freq. Response for SNR = 10 dB, $\mu = .01/64$")
 plt.grid()
 plt.savefig("ALE_fresp.pdf")
 
-
 """
-With Adaptive Interference Canceling
+With Adaptive Interference Canceling, we implement canceling
+in the scikit-dpscomm module sigsys.
 """
