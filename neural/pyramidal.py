@@ -54,5 +54,8 @@ d = 3
 phi = (j(d) * (2*sigma)) * (1 - z/(R**2 + z**2)**(1/2))
 
 """
-We can extend these queations 
+We can extend these queations of the summed potential resulting fomr the synchronized
+synaptci activity of all pyramidal neurons in a column in a distance z
+above the cortical ggray matter. By integrating over a larger domain of cortical tissue,
+we can get an estimator of the electrocorticogram (ECoG). 
 """
