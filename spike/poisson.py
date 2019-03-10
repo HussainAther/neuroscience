@@ -106,5 +106,8 @@ count variance.
 
 def interspikeInterval(r, tau):
     """
-    
+    Gamma distribution is better for modeling interspike intrevals than the exponential Poisson
+    distribution. The refractoriness makes short spike intervals less liekly than the
+    Poisson model would predict.
     """
+    
