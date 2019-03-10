@@ -14,4 +14,9 @@ dI = j * dA
 """
 Where the current density j is assumed ot be constsnat scalar within one column.
 The differneital of the potential dphi at a distacne z perpendcicular to a cortical column
+with radius R cotributed by the current dI is
 """
+
+sigma = 5.670e10-8 # Stefan-Boltzmann constant
+
+dphi = (1/4*np.pi*sigma)
