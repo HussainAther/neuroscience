@@ -92,3 +92,8 @@ plt.ylabel("r$|W_o(e^{j2\pi f/f_s})|$ (dB)")
 plt.title(r"ALE Freq. Response for SNR = 10 dB, $\mu = .01/64$")
 plt.grid()
 plt.savefig("ALE_fresp.pdf")
+
+
+"""
+With Adaptive Interference Canceling
+"""
