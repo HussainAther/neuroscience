@@ -61,5 +61,5 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     ym = np.zeros_like(ao)
 
     for k, yk in enumerate(y): # filter
-        
+        x_hat[l], zi = signal.lfilter(ap, 1, [yk], zi=zi)
 
