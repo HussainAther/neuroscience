@@ -7,4 +7,4 @@ weakly electric fish Eigenmannia has a special organ that generates an oscillati
 several hundred Hz. It also has an electrosensory organ, with which it is able to sense electric fields.
 """
 
-x = loadmat("fish.mat")
+x = loadmat("fish.mat") # read in the MATLAB data using scipy's function loadmat.
