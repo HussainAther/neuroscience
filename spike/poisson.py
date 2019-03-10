@@ -103,3 +103,8 @@ and coefficients of variation.
 Fano factor describes relationship between mean spike count over a given interval and the spike-
 count variance.
 """
+
+def interspikeInterval(r, tau):
+    """
+    
+    """
