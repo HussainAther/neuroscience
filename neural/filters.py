@@ -84,3 +84,5 @@ plt.grid()
 plt.savefig("ALE_mse.pdf")
 
 # Plot frequency response of the approximately optimum filter
+plt.plot(F, Ao)
+plt.ylim([-40, 2])
