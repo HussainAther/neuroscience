@@ -128,3 +128,4 @@ def lms_ic(r, M, mu, delta=1):
         r_hat[k],z = signal.lfilter(ao, np.array([1]), np.array([y[k]]), zi=z)
         e[k] = r[k] - r_hat[k]
         ao = ao + 2*mu*e[k]*ym
+        ym = np.hstack((np.array([yk]]), ym[:-1]))
