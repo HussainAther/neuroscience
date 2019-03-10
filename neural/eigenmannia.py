@@ -1,4 +1,5 @@
 from scipy.io import loadmat
+import numpy as np
 
 """
 We're going to use data from experiments described in R. Wessel, C. Koch, and F. Gabbiani, Coding of
@@ -16,3 +17,4 @@ max(x["stim"]) # max value of the stimulus.
 min(x["stim"]) # min value of the stimulus.
 x["stim"][len(x)/2:] # second half of experiments
 x["stim"][:len(x)/2] # first half of experiments
+np.var(x["stim"]) # variance
