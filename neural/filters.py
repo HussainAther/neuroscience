@@ -1,7 +1,8 @@
 
 """
 We makea a simple Python simulation of Adaptive Line Enhancement using a single
-sinusoid at normalized frequency plus additive white Gaussian noise 
+sinusoid at normalized frequency plus additive white Gaussian noise. We assume
+we have a narrowband signal buried in broadband additive noise.
 """
 
 
