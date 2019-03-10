@@ -95,3 +95,8 @@ clf()
 imshow(nan_to_num(z), interpolation='bilinear', extent=extent, origin='lower')
 #show()
 savefig("sol.png", bb_inches="tight")
+
+"""
+Compare the Poisson model to actual data using Fano factors, interspike interval distributions,
+and coefficients of variation.
+"""
