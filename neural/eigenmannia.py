@@ -23,8 +23,8 @@ np.var(x["stim"]) # variance
 
 
 # Plot em
-plt(len(x["stim"]), color = "red")
-plt.(len)
+plt(x["stim"], color = "red")
+plt(x["rho"], color = "blue")
 plt.show()
 
 # Convolution
