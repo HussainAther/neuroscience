@@ -1,7 +1,9 @@
-import numpy as np
 from np.random import randn
 from scipy import signal
+
+import numpy as np
 import matplotlib.pyplot as plt
+import sk_dsp_comm.sigsys as ss
 
 """
 We makea a simple Python simulation of Adaptive Line Enhancement using a single
