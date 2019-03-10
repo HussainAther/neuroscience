@@ -11,6 +11,7 @@ several hundred Hz. It also has an electrosensory organ, with which it is able t
 
 x = loadmat("fish.mat") # read in the MATLAB data using scipy's function loadmat.
 
+list(x) # show all column names
 len(x["stim"]) # number of spikes in the whole experiment.
 x["__header__"] # view info about the MATLAB file.
 x["rho"] # view the rho value for each experiment.
@@ -22,7 +23,9 @@ np.var(x["stim"]) # variance
 
 
 # Plot em
-plt(len(x["stim"]))
+plt(len(x["stim"]), color = "red")
+plt.(len)
 plt.show()
 
 # Convolution
+np.convolve(x["stim"], x["rho"])
