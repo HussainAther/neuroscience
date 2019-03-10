@@ -35,12 +35,13 @@ determine the potential. By taking advantage of symmetric of the cylindrical are
 this as
 """
 
-def phi(z, d):
+def phi(z, d, R):
     """
-    Potential as dependent upon the distance
+    Potential as dependent upon the distance z for a cylinder of radius R
     """
-    constant = j(d) * / (4 * np.pi * sigma)
-    integrate.quad(lambda x: special.jv(2.5,x), 0, 4.5)
+    constant = (2* np.pi j(d) *) / (4 * np.pi * sigma)
+    integrated = integrate.quad(lambda x: x / (x**2 + z**2)**(3/2), 0, R)
+    return constant * integrated
 
 """
 Or, performing the integration, we get:
