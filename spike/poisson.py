@@ -118,13 +118,13 @@ a = [ 1.00000000000000000000, 0.57721566490153286061, -0.65587807152025388108,
 
 def gamma(n, product=1):
     """
-    Gamma function for some number n.
+    Gamma function for some number n. Based off distribution.
     """
     y = float(n) - 1.0;
-    sm = a[-1];
+    s = a[-1];
     for an in a[-2::-1]:
-        sm = sm * y + an;
-    return 1.0 / sm;
+        s = s * y + an
+    return 1.0 / sm
 
 def interspikeInterval(x, alpha, beta):
     """
@@ -136,4 +136,6 @@ def interspikeInterval(x, alpha, beta):
     In this case, beta is the time constant, x is the rate of firing, and alpha
     is the refractory exponential.
     """
-    num = (beta**alpha) * x
+    num = (beta**alpha) * (x**(alpha-1)) * np.exp(-beta*x) # numerator
+    den = gamma(alpha) # denominator
+    return num/den
