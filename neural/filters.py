@@ -4,6 +4,18 @@ We makea a simple Python simulation of Adaptive Line Enhancement using a single
 sinusoid at normalized frequency plus additive white Gaussian noise. We assume
 we have a narrowband signal buried in broadband additive noise. For statistically
 stationary inptus, we use a Wiener filter.
+
+The term adaptive filter implies changing the characteristic of a filter in some automated
+fashion to obtain the best possible signal quality in spite of changing signal/system conditions.
+Adaptive filters are usually associated with the broader topic of statistical signal processing.
+
+The operation of signal filtering by definition implies extracting something desired from a signal
+containing both desired and undesired components. With linear FIR and IIR filters the filter output is
+obtained as a linear function of the observation (signal applied) to the input.
+
+An optimum linear filter in the minimum mean square sense can be designed to extract a signal from noise by
+minimizing the error signal formed by subtracting the filtered signal from the desired signal. For noisy
+signals with time varying statistics, this minimization process is often done using an adaptive filter.
 """
 
 
