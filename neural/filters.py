@@ -1,3 +1,4 @@
+import numpy as np
 
 """
 We makea a simple Python simulation of Adaptive Line Enhancement using a single
@@ -21,7 +22,8 @@ signals with time varying statistics, this minimization process is often done us
 
 def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     """
-    lms_ale lms ALE adaptation algorithm using an IIR filter.
+    Least Mean Squares Adaptive
+    Line Enhancement Algorithm using an IIR filter.
     n,x,x_hat,e,ao,F,Ao = lms_ale(SNR,N,M,mu)
     *******LMS ALE Simulation************
     SNR = Sinusoid SNR in dB
@@ -38,3 +40,12 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     F = Frequency response axis vector
     Ao = Frequency response of filter in dB
     **************************************
+
+    n = arange(0,N+1) # length N+1
+    if not(sqwav):
+        x = 1*cos(2*pi*1/20*n) # A = 1, Fo/Fs = 1/20
+        x += sqrt(1/2/(10**(SNR/10)))*randn(N+1)
+    else:
+        x = 1*sign(cos(2*pi*1/20*n)); # square wave. A = 1, Fo/Fs = 1/20
+
+    
