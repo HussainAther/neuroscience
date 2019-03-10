@@ -52,3 +52,7 @@ z = 4 # another value lol
 d = 3
 
 phi = (j(d) * (2*sigma)) * (1 - z/(R**2 + z**2)**(1/2))
+
+"""
+
+"""
