@@ -83,4 +83,4 @@ plt.title(r"Squared Error")
 plt.grid()
 plt.savefig("ALE_mse.pdf")
 
-# 
+# Plot frequency response of the approximately optimum filter
