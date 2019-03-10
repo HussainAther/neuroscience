@@ -20,6 +20,21 @@ signals with time varying statistics, this minimization process is often done us
 
 
 def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
- """
- lms_ale lms ALE adaptation algorithm using an IIR filter.
- n,x,x_hat,e,ao,F,Ao = lms_ale(SNR,N,M,mu)
+    """
+    lms_ale lms ALE adaptation algorithm using an IIR filter.
+    n,x,x_hat,e,ao,F,Ao = lms_ale(SNR,N,M,mu)
+    *******LMS ALE Simulation************
+    SNR = Sinusoid SNR in dB
+    N = Number of simulation samples
+    M = FIR Filter length (order M-1)
+    mu = LMS step-size
+    mode = 0 <=> sinusoid, 1 <=> squarewave
+
+    n = Index vector
+    x = Noisy input
+    x_hat = Filtered output
+    e = Error sequence
+    ao = Final value of weight vector
+    F = Frequency response axis vector
+    Ao = Frequency response of filter in dB
+    **************************************
