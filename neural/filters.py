@@ -63,3 +63,5 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     for k, yk in enumerate(y): # filter
         x_hat[l], zi = signal.lfilter(ap, 1, [yk], zi=zi)
         e[k] = x[k] - x_hat[k]
+        ao = ao + 2*mu*e[k]*ym
+        ym = np.hstack((array(yk), ym[0:-1]))
