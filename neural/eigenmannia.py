@@ -12,4 +12,5 @@ x = loadmat("fish.mat") # read in the MATLAB data using scipy's function loadmat
 len(x["stim"]) # number of spikes in the whole experiment.
 x["__header__"] # view info about the MATLAB file.
 x["rho"] # view the rho value for each experiment.
- max(x["stim"]) # max value of the stimulus.
+max(x["stim"]) # max value of the stimulus.
+min(x["stim"]) # min value of the stimulus.
