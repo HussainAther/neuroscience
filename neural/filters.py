@@ -70,3 +70,6 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     w, Ao = signal.frqez(ao, 1, 2*np.pi*F)
     Ao = 20 * np.log10(abs(Ao))
     return n, x, x_hat, e, ao, F, Ao
+
+Ntaps = 128
+n, x, x_hat, e, ao, F, Ao = lms_ale(10, 1000, Ntaps, 0.01, sqwav=False)
