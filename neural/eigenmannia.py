@@ -10,3 +10,4 @@ several hundred Hz. It also has an electrosensory organ, with which it is able t
 x = loadmat("fish.mat") # read in the MATLAB data using scipy's function loadmat.
 
 len(x["stim"]) # number of spikes in the whole experiment.
+x["__header__"] # view info about the MATLAB file.
