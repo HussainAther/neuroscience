@@ -104,10 +104,15 @@ Fano factor describes relationship between mean spike count over a given interva
 count variance.
 """
 
-def gamma(alpha):
+def gamma(alpha, product=1):
     """
     Gamma function for some number alpha.
     """
+    if alpha == 1/2:
+        return product * np.sqrt(np.pi)
+    if alpha % 2 == 0:
+        
+
 
 def interspikeInterval(x, alpha, beta):
     """
