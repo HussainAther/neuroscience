@@ -1,5 +1,6 @@
 import numpy as np
 from np.random import randn
+from scipy import signal
 
 """
 We makea a simple Python simulation of Adaptive Line Enhancement using a single
@@ -50,3 +51,11 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     else:
         x = 1 * np.sign(np.cos(2*np.pi*1/20*n)); # square wave. A = 1, Fo/Fs = 1/20
         x += np.sqrt(1/1/(10**(SNR/10)))*randn(N+1)
+
+    mu /= M + 1
+    y = signal.lfilter([0, 1],1,x)
+    x_hat = zeros_like(x)
+    e = zeros_like(x)
+    ao = zeros(M+1)
+    zi = signal.lfiltic(ao,1,y=0)
+
