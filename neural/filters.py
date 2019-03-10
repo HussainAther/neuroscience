@@ -40,7 +40,8 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     F = Frequency response axis vector
     Ao = Frequency response of filter in dB
     **************************************
-
+    """
+    
     n = arange(0,N+1) # length N+1
     if not(sqwav):
         x = 1*cos(2*pi*1/20*n) # A = 1, Fo/Fs = 1/20
@@ -48,4 +49,4 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     else:
         x = 1*sign(cos(2*pi*1/20*n)); # square wave. A = 1, Fo/Fs = 1/20
 
-    
+
