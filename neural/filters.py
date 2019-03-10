@@ -75,9 +75,12 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
 Ntaps = 128
 n, x, x_hat, e, ao, F, Ao = lms_ale(10, 1000, Ntaps, 0.01, sqwav=False)
 
+# Plot how the ALE filters noisy input and clean output
 plt.plot(n,e**2)
 plt.ylabel(r"$e^2[n]$")
 plt.xlabel(r"Index $n$")
 plt.title(r"Squared Error")
 plt.grid()
 plt.savefig("ALE_mse.pdf")
+
+# 
