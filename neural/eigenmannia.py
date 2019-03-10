@@ -6,3 +6,5 @@ time-varying electric field amplitude modulations in a wave-type electric fish. 
 weakly electric fish Eigenmannia has a special organ that generates an oscillating electric field with a frequency of
 several hundred Hz. It also has an electrosensory organ, with which it is able to sense electric fields.
 """
+
+x = loadmat("fish.mat")
