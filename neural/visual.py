@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.io import loadmat
+from scipy.stats import norm
+np.random.seed(0)
 
 """
 We can use Gaussians in one dimension to model spatial receptive fields
@@ -16,3 +18,4 @@ min(x["stim"]) # min value of the stimulus.
 x["stim"][len(x)/2:] # second half of experiments
 x["stim"][:len(x)/2] # first half of experiments
 np.var(x["stim"]) # variance
+
