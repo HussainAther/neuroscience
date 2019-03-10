@@ -34,7 +34,9 @@ determine the potential. By taking advantage of symmetric of the cylindrical are
 this as
 """
 
-def phi(z):
+def phi(z, d):
     """
     Potential as dependent upon the distance
     """
+    constant = j(d) * / (4 * np.pi * sigma)
+    
