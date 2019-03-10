@@ -97,3 +97,8 @@ plt.savefig("ALE_fresp.pdf")
 With Adaptive Interference Canceling, we implement canceling
 in the scikit-dpscomm module sigsys.
 """
+
+def lms_ic(r, M, mu, delta=1):
+    """
+    Least Mean Square (LMS) interference canceller adaptive filter.
+    """
