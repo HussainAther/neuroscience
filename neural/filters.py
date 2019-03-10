@@ -125,3 +125,4 @@ def lms_ic(r, M, mu, delta=1):
     z = np.zeros(M)
     ym = np.zeros(M+1)
     for k in range(N+1):
+        r_hat[k],z = signal.lfilter(ao, np.array([1]), np.array([y[k]]), zi=z)
