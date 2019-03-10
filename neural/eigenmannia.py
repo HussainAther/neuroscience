@@ -24,3 +24,5 @@ np.var(x["stim"]) # variance
 # Plot em
 plt(len(x["stim"]))
 plt.show()
+
+# Convolution
