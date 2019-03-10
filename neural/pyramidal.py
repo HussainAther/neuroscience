@@ -77,6 +77,13 @@ phi = (1/(2*np.pi*(sigma1 + sigma2))) * I/np.sqrt(r**2 + (z + h)**2)
 
 # G1 has all the current sources an dsinks, so the superposition principle lets us use:
 
+def I(i):
+    """
+    Some function that defines current for each source/sink.
+    """
+    return 4 * i
+
 constant = (1/(2*np.pi*sigma))
 product = 1
-fro i in range(1, n): # in which n is the number of sources/sinks distributed in G1
+for i in range(1, n): # in which n is the number of sources/sinks distributed in G1
+    num = I(i)
