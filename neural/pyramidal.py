@@ -68,5 +68,10 @@ we can solve it with:
 # G2 is an islate so we can set
 sigma2 = 0
 sigma1 = sigma
+r = 5
+z = 8
+h = 10
+I = 20
 
 phi = (1/(2*np.pi*(sigma1 + sigma2))) * I/np.sqrt(r**2 + (z + h)**2)
+
