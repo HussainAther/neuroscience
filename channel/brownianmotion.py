@@ -85,5 +85,9 @@ brownian(x[:,0], N, dt, delta, out=x[:,1:])
 Lévy characterisation involves using a theorem that gives a necessry and sufficient
 condition for a continuous R^n-valued stochastic process X to actually be n-dimensional
 Brownian motion.
+Let X = (X1...Xn) be a continuous stoachstic process on a probability space taking values in R^n.
+The following two statements are equivalent:
+1. X is a Brownian motion w. r. t. P, i.e., the law of X w.r.t. P is the same as the law of an n-dimensional
+Brownian motion, i.e., the push-forward measure X*(P) is a classical Wiener measure on C_o([0, +inf]; R^n)
+2. 
 """
-
