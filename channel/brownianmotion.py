@@ -7,10 +7,7 @@ import numpy.random as nrand
 import matplotlib.pyplot as plt
 
 """
-It's like walking when you're drunk. Don't try this at home. 
-
-Using built-in functions. Eventually want to re-write this to include more fundamental
-implementations.
+It's like walking when you're drunk. Don't try this at home.
 """
 
 def brownian_motion_log_returns(param):
@@ -31,3 +28,14 @@ def brownian_motion_levels(param):
     :return: returns a price sequence which follows a brownian motion
     """
     return convert_to_prices(param, brownian_motion_log_returns(param))
+
+"""
+In dynamic equilibrium, speed of the particles must be equal to mu*m*g. We can
+calculate the density of Brownian particles rho at point x at time t to
+satisfy the diffusion equation:
+
+∂ρ/∂t = D * ∂^2ρ/∂x^2
+
+in which D is the mass diffusivity defined as a function of Δ, the probability
+of displacement.
+"""
