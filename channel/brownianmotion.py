@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 
 """
 It's like walking when you're drunk. Don't try this at home. 
+
+Using built-in functions. Eventually want to re-write this to include more fundamental
+implementations.
 """
 
 def brownian_motion_log_returns(param):
