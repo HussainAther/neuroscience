@@ -10,6 +10,17 @@ import matplotlib.pyplot as plt
 It's like walking when you're drunk. Don't try this at home.
 """
 
+def brownian(x0, n, dt, delta):
+    """
+    Use Wiener prcoess from mathematics to simulate Brownian motion.
+    """
+    x0 = np.asarray(x0) # initialize array using numpy
+    r = norm.rvs(size=x0.shape + (n,), scale=delta*sqrt(dt))# normalize using Gaussian
+    out = np.empty(r.shape) # output result
+    np.cumsum(r, axis=-1, out=out) # use cumulative sum as an approximation of Brownian motion
+    out += np.expand_dims(x0, axis=-1) # initial condition
+    return out
+
 def brownian_motion_log_returns(param):
     """
     This method returns a Wiener process. The Wiener process is also called Brownian motion. For more information
@@ -52,3 +63,20 @@ x = 1
 
 # in one dimension
 rho = (N/np.sqrt(4*np.pi*D*t)) * np.exp((-x**2)/(4*D*t))
+
+"""
+As stated above, we use the Wiener process to describe a continuous-time stochastic process,
+a type of Lévy process that we find in describing the activity of a population of neurons.
+They're used to study neural coding and can form generative models of brain imaging data.
+Used in decision making in the brain can be fitted to behavioral data and used as regressors
+in computational fMRI.
+"""
+
+delta = 0.25 # Wiener process parameter.
+T = 30.0 # time
+N = 500 # number of steps, related to time
+dt = T/N # from T and N, deduce step size for integration
+x = np.empty((2,N+1)) # initialize some values for x.
+x[:, 0] = 0.0
+
+brownian(x[:,0], N, dt, delta, out=x[:,1:])
