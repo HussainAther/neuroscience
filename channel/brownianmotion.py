@@ -87,7 +87,8 @@ condition for a continuous R^n-valued stochastic process X to actually be n-dime
 Brownian motion.
 Let X = (X1...Xn) be a continuous stoachstic process on a probability space taking values in R^n.
 The following two statements are equivalent:
-1. X is a Brownian motion w. r. t. P, i.e., the law of X w.r.t. P is the same as the law of an n-dimensional
+(1.) X is a Brownian motion w. r. t. P, i.e., the law of X w.r.t. P is the same as the law of an n-dimensional
 Brownian motion, i.e., the push-forward measure X*(P) is a classical Wiener measure on C_o([0, +inf]; R^n)
-2. 
+(2.) both (a.) X is a martingale w.r.t. P (and its own natural filtration) and (b.) for all 1 <= i, j <= n,
+X_i(t)X_j(t) - δ_ijt is a martingale w.r.t. P (and its own natural filtration) where δ_ij dentoes the Kronecker delta.
 """
