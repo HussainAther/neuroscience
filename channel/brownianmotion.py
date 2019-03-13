@@ -66,7 +66,7 @@ rho = (N/np.sqrt(4*np.pi*D*t)) * np.exp((-x**2)/(4*D*t))
 
 """
 As stated above, we use the Wiener process to describe a continuous-time stochastic process,
-a type of Lévy process that we find in describing the activity of a population of neurons.
+a type of Lévy process (explained below) that we find in describing the activity of a population of neurons.
 They're used to study neural coding and can form generative models of brain imaging data.
 Used in decision making in the brain can be fitted to behavioral data and used as regressors
 in computational fMRI.
@@ -80,3 +80,10 @@ x = np.empty((2,N+1)) # initialize some values for x.
 x[:, 0] = 0.0
 
 brownian(x[:,0], N, dt, delta, out=x[:,1:])
+
+"""
+Lévy characterisation involves using a theorem that gives a necessry and sufficient
+condition for a continuous R^n-valued stochastic process X to actually be n-dimensional
+Brownian motion.
+"""
+
