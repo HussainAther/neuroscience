@@ -1,5 +1,5 @@
 import math
-import numpy
+import numpy as np
 import random
 import decimal
 import scipy.linalg
@@ -40,5 +40,15 @@ in which D is the mass diffusivity defined as a function of Δ, the probability
 of displacement.
 
 D = integral from -inf to +inf of ((Δ^2)/2)(2*τ)•φ(Δ) dΔ
-"""
 
+We solve this equation for N particles starting at the origin (t=0)
+
+ρ(x, t) = (N/sqrt(4πDt))exp(-x^2 / 4Dt)
+"""
+D = 0.0016 # Diffusion coefficient for water in mm^2/s
+N = 100
+t = 1
+x = 1
+
+# in one dimension
+rho = (N/np.sqrt(4*np.pi*D*t)) * np.exp((-x**2)/(4*D*t))
