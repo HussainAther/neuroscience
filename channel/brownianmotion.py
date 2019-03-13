@@ -38,4 +38,7 @@ satisfy the diffusion equation:
 
 in which D is the mass diffusivity defined as a function of Δ, the probability
 of displacement.
+
+D = integral from -inf to +inf of ((Δ^2)/2)(2*τ)•φ(Δ) dΔ
 """
+
