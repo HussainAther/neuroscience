@@ -147,4 +147,7 @@ def dv2dx2(v, r, i, lmbda, solve=True):
 """
 Rall model is a highly simplified model that captures important elements that affect the responses
 of real neurons. Most neurons receive their synaptic inputs over complex dendritic trees.
+In the Rall model, a compartment is a compact soma region that connects to a single equivalent
+cylindrical cable replacing the entire dendritic region of the neuron. We can create equations that
+relate the radii of the various branches with other parts of the tree.
 """
