@@ -120,3 +120,22 @@ v = v0 * exp((-x*t)/lmbda)
 dvdt = -v0 * t * exp((-x*t)/lmbda) / lmbda
 d2vdx2 = x**2 * t**2 * v0 * exp((-x*t)/lmbda) / (lmbda**2)
 
+
+"""
+Solutions to the linear cable equaiton are functions of both positon and time.
+If the current injected is constant, the membrane potential settles to a steady-
+state solution independent of time. This is an ordinary differential equation
+we can solve.
+"""
+
+def dv2dx2(v, r, i, lmbda):
+    """
+    0 is everywehre except in small region of size delta x around the injection site.
+    General solution to this equaiton is v(x) = B1*exp(-x/lmbda) + B2*exp*x/lmbda) with
+    coefficients undetermined B1 and B2.
+    
+    lmbda (lambda) is the length over which the localized electrode currents decay.
+    v (velocity) is the speed at which ions travel across the membrane.
+    
+    """
+
