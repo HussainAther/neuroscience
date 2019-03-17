@@ -166,4 +166,4 @@ Rsoma = R1 + R2
 # a third and fourth branches on the opposite side of Rsoma
 R3 = Rlambda*np.sinh(x/lmbda)
 
-R4 = (Rlambda*np.sinh(x/lmbda) * np.cosh((L-x)/lmbda))
+R4 = (Rlambda*np.sinh(x/lmbda) * np.cosh((L-x)/lmbda)) / (np.cosh(L/lmbda) - np.cosh((L-x)/lmbda))
