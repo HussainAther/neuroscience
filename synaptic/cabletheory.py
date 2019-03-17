@@ -158,3 +158,7 @@ L = 1.5*lmbda # for some cable length
 x = 5 # at some distance along the cable
 
 R1 = (Rlambda *(np.cosh(L/lmbda) - np.cosh(L-x)/lmbda)) / np.sinh(L/lmbda)
+R2 = (Rlambda * np.cosh((L-x)/lmbda)) / np.sinh(L/lmbda)
+
+# Because Rsoma acts in series with the two cable branches
+Rsoma = R1 + R2
