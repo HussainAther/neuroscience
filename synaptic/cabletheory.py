@@ -162,3 +162,6 @@ R2 = (Rlambda * np.cosh((L-x)/lmbda)) / np.sinh(L/lmbda)
 
 # Because Rsoma acts in series with the two cable branches
 Rsoma = R1 + R2
+
+# a third branch
+R3 =
