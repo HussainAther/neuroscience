@@ -144,3 +144,7 @@ def dv2dx2(v, r, i, lmbda, solve=True):
     return  (v-r*i)/lmbda**2 # just return the d2vdx2 term
 
 
+"""
+Rall model is a highly simplified model that captures important elements that affect the responses
+of real neurons. Most neurons receive their synaptic inputs over complex dendritic trees.
+"""
