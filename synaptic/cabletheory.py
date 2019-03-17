@@ -128,7 +128,7 @@ state solution independent of time. This is an ordinary differential equation
 we can solve.
 """
 
-def dv2dx2(v, r, i, lmbda):
+def dv2dx2(v, r, i, lmbda, solve=True):
     """
     0 is everywehre except in small region of size delta x around the injection site.
     General solution to this equaiton is v(x) = B1*exp(-x/lmbda) + B2*exp*x/lmbda) with
@@ -136,6 +136,12 @@ def dv2dx2(v, r, i, lmbda):
     
     lmbda (lambda) is the length over which the localized electrode currents decay.
     v (velocity) is the speed at which ions travel across the membrane.
-    
+    r (resistance) is the membrane resistance and
+    i (current) is the localized current we are studying.
     """
+    if solve: # solve the equation
+        return (np.exp(-x/lmbda), np.exp(x/lmbda))
+    return  (v-r*i)/lmbda**2 # just return the d2vdx2 term
+
+    
 
