@@ -109,7 +109,7 @@ in which i_e is the inhibitory current.
 """
 
 tau_m = 5
-lmbda = 10
+lmbda = 10 # lenght constant: indicates how far a stationary current will influence the voltage along the cable
 r_m = 4
 i_e = 8
 t = 6
@@ -149,5 +149,12 @@ Rall model is a highly simplified model that captures important elements that af
 of real neurons. Most neurons receive their synaptic inputs over complex dendritic trees.
 In the Rall model, a compartment is a compact soma region that connects to a single equivalent
 cylindrical cable replacing the entire dendritic region of the neuron. We can create equations that
-relate the radii of the various branches with other parts of the tree.
+relate the radii of the various branches with other parts of the tree. We use the geometry of the
+various lengths and radii to construct relationships among the resistances of them.
 """
+
+Rlambda = 4 # resistance of the cable of length constant lambda
+L = 1.5*lmbda # for some cable length
+x = 5 # at some distance along the cable
+
+R1 = (Rlambda *(np.cosh(L/lmbda) - np.cosh(L-x)/lmbda)) / np.sinh(L/lmbda)
