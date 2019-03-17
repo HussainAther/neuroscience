@@ -140,8 +140,7 @@ def dv2dx2(v, r, i, lmbda, solve=True):
     i (current) is the localized current we are studying.
     """
     if solve: # solve the equation
-        return (np.exp(-x/lmbda), np.exp(x/lmbda))
+        return (np.exp(-x/lmbda), np.exp(x/lmbda)) # the terms in front of the coefficients B1 and B2
     return  (v-r*i)/lmbda**2 # just return the d2vdx2 term
 
-    
 
