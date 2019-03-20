@@ -157,7 +157,7 @@ def synergy(a, b, t):
     trainA = 0 # spike train A
     trainB = 0 # spike train B
     for i in a: # for spike trains a and b, sum up the unit impulses (given as Dirac delta functions) over time
-        trainA += diracdelta(t-i)
-    for i in b:
+        trainA += diracdelta(t-i) # if we average train A and train B over multiple trials
+    for i in b:                   # we can get a time-dependent spike rate.
         trainB += diracdelta(t-i)
 
