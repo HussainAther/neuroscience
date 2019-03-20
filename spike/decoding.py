@@ -1,4 +1,6 @@
 import numpy as np
+import scipy.stats as stats
+
 from scipy.misc import factorial
 
 """
@@ -66,7 +68,12 @@ Encoding and Decoding" (2006). We start with DPth = phi(d'/2) where phi(x) is th
 cumulative normal function and d' = sqrt(deltaf^T (sigma^(-1)*(deltaf))) as the
 signal-to-noise ratio generalized for a population of neurons. deltaf is the vector
 joining the means of the population responses in the two stimulus conditions and 
-sigma is the stimulus-invariant noise covariance matrix of the neuronal population. 
+sigma is the stimulus-invariant noise covariance matrix of the neuronal population.
+We re-write the equation by rotating the original N-dimensional neural response
+space along the eigenvectors of the covariance matrix such that we get:
+
+DPth = phi((1/2)* |deltaf| * sqrt(summation from i to N of cos^2(thetai/sigmai^2))  
 """
+def dp(deltaf, 
 
 
