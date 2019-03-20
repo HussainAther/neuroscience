@@ -85,7 +85,7 @@ def vangle(v1, v2):
 
 def dp(data):
      """
-     For 1D or 2D data array, calculate the decoding performance. 
+     For 1D or 2D data array of vectors, calculate the decoding performance. 
      """
      data = np.matrix(data) # convert to numpy matrix
      if data.shape[0] == 1: # if the matrix is one-dimensional
@@ -96,10 +96,16 @@ def dp(data):
      else:
           raise ValueError
      c = np.cov(xvals, data) # get the covariance matrix of the neuronal population
+     eigenvectors, eigenvalues = np.linalg.eig(xvals, data) # compute eigenvectors and eigenvalues
      xvalsmean = mean(xvals) # mean of the xvalues
      datamean = mean(data) # mean of the data
      deltaf_abs = abs(datamean - xvalsmean) # absolute value of deltaf, connecting the two means
+     summed = 0 
+
+     for i in range(len(c):
+          num = np.cos(c[i],  i
+          den = 
      [angle for angle in vangle( 
-     x = .5 * abs(deltaf) np.sqrt(
-     stats.norm.cdf(
+     x = .5 * np.sqrt(
+     return stats.norm.cdf(x) # return the cumulative normal distribution function of f.
 
