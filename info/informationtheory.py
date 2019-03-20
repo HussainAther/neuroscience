@@ -137,3 +137,22 @@ def infoSpikeCount(prob, n, a):
 """
 In more complicated experiments, we can measure the synergy among individual spike trains.
 """
+
+def diracdelta(a=1, x):
+    """
+    Dirac delta function is a generalized function to model the density of an idealized point mass
+    or point charge as a function equal to zero every except for at x = 0. It has an integral over
+    the entire real line equal to one.  
+    """
+    if x != 0:
+        return 0
+    else:
+        return (1/np.pi)*np.exp(x)**2
+
+def synergy(a, b, t):
+    """
+    For time intervals 
+    """
+    trainA = 0 # spike train A
+    trainB = 0 # spike train B
+    for i in 
