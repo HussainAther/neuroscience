@@ -161,3 +161,9 @@ def synergy(a, b, t):
     for i in b:                   # we can get a time-dependent spike rate.
         trainB += diracdelta(t-i)
 
+def jpsth():
+    """
+    We can use the joint perstimulus time histogram (jpsth) to investigate the dynamics
+    of correlation and to provide a bit more sensitive means of detecting correlation than
+    a one-dimensional crosscorrelogram could.
+    """
