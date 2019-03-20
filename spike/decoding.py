@@ -98,6 +98,7 @@ def dp(data):
      c = np.cov(xvals, data) # get the covariance matrix of the neuronal population
      xvalsmean = mean(xvals) # mean of the xvalues
      datamean = mean(data) # mean of the data
+     deltaf_abs = abs(datamean - xvalsmean) # absolute value of deltaf, connecting the two means
      [angle for angle in vangle( 
      x = .5 * abs(deltaf) np.sqrt(
      stats.norm.cdf(
