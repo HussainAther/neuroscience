@@ -92,13 +92,13 @@ def dp(data):
           xvals = range(len(data.shape[0])) # set the xvalues for the covariance matrix as the range of integers over the length of data
      elif data.shape[0] == 2: # if the matrix is two-dimensional
           xvals = data[0] # set the xvalues as the first array
+          data = data[1] # set the data equal to the response variables
      else:
           raise ValueError
-     c = np.cov(xvals, data) # covariance matrix of the data
-     summed = 0 # summation
-     
-     N = len(theta)
-     for i in range(N)
+     c = np.cov(xvals, data) # get the covariance matrix of the neuronal population
+     xvalsmean = mean(xvals) # mean of the xvalues
+     datamean = mean(data) # mean of the data
+     [angle for angle in vangle( 
      x = .5 * abs(deltaf) np.sqrt(
      stats.norm.cdf(
 
