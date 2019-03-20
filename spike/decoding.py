@@ -58,3 +58,9 @@ def fisherInformation(xvals, sigmavals):
                 dfdpj = 1
             F[i,j] += sigma**-2*dfdpi*dfdpj
     return np.mat(F).I
+
+"""
+We define the theoretical decoding performance (DPth) of a linear classifier
+derived from Averbeck and Lee's "Effects of Noise Correlations on Information
+Encoding and Decoding" (2006).
+"""
