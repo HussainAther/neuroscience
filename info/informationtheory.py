@@ -133,3 +133,7 @@ def infoSpikeCount(prob, n, a):
     """
     prob_n = (1/K) * probDist(n, a) # Overall probability of observing n spkes
     return prob * np.log2(prob/prob_n)
+
+"""
+In more complicated experiments, we can measure the synergy among individual spike trains.
+"""
