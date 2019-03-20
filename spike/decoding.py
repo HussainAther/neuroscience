@@ -85,7 +85,9 @@ def vangle(v1, v2):
 
 def dp(data):
      """
-     For 1D or 2D data array of vectors, calculate the decoding performance. 
+     For 1D or 2D data array of vectors, calculate the decoding performance.
+     It's a method of finding the amount of informaiton encoded in a neuronal
+     population responses. 
      """
      data = np.matrix(data) # convert to numpy matrix
      if data.shape[0] == 1: # if the matrix is one-dimensional
@@ -109,6 +111,6 @@ def dp(data):
            num = np.cos(angles[i])**2 # numerator: take the cosine of each angle and square it
            den = eval[i]**2 # denominator: square each eigenvalue 
            summed += num/den # get the summation by adding each one up
-     x = .5 * np.sqrt(
+     x = .5 * deltaf_abs * np.sqrt(summed) 
      return stats.norm.cdf(x) # return the cumulative normal distribution function of f.
 
