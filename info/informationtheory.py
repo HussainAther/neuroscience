@@ -161,9 +161,17 @@ def synergy(a, b, t):
     for i in b:                   # we can get a time-dependent spike rate.
         trainB += diracdelta(t-i)
 
-def jpsth():
+def psth(binwidth=3, spikes=np.array([0.8, 1.3, 6, 6.2, 7, 10, 11.2, 15.7, 16]), triggers=np.array([0, 5, 15]), counts=[0]*binwidth, t-1):
     """
-    We can use the joint perstimulus time histogram (jpsth) to investigate the dynamics
+    We can use the perstimulus time histogram (psth) to investigate the dynamics
     of correlation and to provide a bit more sensitive means of detecting correlation than
     a one-dimensional crosscorrelogram could.
     """
+    # create a perstimulus histogram for example purposes
+    for i in range(triggers.size - 1):
+        tmpCounts, tmpEdges = np.histogram(spikes, bins = bin_width, range = (triggers[i], triggers[i+1]))
+        counts += t
+
+"""
+Combining two perstimulus time histgrams we can create a joint perstimulus time histogram (jpsth).
+"""
