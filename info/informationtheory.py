@@ -151,8 +151,13 @@ def diracdelta(a=1, x):
 
 def synergy(a, b, t):
     """
-    For time intervals 
+    For a certain time point t, calcualte the synergy between two synaptic signals in which
+    a and b are given arrays of time points for spike a and spike b.
     """
     trainA = 0 # spike train A
     trainB = 0 # spike train B
-    for i in 
+    for i in a: # for spike trains a and b, sum up the unit impulses (given as Dirac delta functions) over time
+        trainA += diracdelta(t-i)
+    for i in b:
+        trainB += diracdelta(t-i)
+
