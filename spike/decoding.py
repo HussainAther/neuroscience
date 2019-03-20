@@ -62,5 +62,11 @@ def fisherInformation(xvals, sigmavals):
 """
 We define the theoretical decoding performance (DPth) of a linear classifier
 derived from Averbeck and Lee's "Effects of Noise Correlations on Information
-Encoding and Decoding" (2006).
+Encoding and Decoding" (2006). We start with DPth = phi(d'/2) where phi(x) is the 
+cumulative normal function and d' = sqrt(deltaf^T (sigma^(-1)*(deltaf))) as the
+signal-to-noise ratio generalized for a population of neurons. deltaf is the vector
+joining the means of the population responses in the two stimulus conditions and 
+sigma is the stimulus-invariant noise covariance matrix of the neuronal population. 
 """
+
+
