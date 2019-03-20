@@ -99,13 +99,15 @@ def dp(data):
      xvalsmean = mean(xvals) # mean of the xvalues
      datamean = mean(data) # mean of the data
      deltaf_abs = abs(datamean - xvalsmean) # absolute value of deltaf, connecting the two means
-     angle = angle(np.subtract(datamean, xvalsmean)) # angle direction of the stimulus vector deltaf
-     theta = np.linalg.eig(c, 
-     summed = 0 
-     for i in range(len(c):
-          num = np.cos(c[i],  i
-          den = 
-     [angle for angle in vangle( 
+     deltaf_ang = np.angle(datamean - xvalsmean) # angle given by deltaf 
+     eval, evec = np.linalg.eig(c) # eigenvalues and eigenvectors of the covariance matrix
+     angles = []
+     for i in range(len(evec)): # for each eigenvector 
+         angles.append(vangle((i[0], i[1]), deltaf_ang)) # angles between each eigenvector and the deltaf angle
+     summed = 0
+     for i in range(len(eval)): # for each eigenvalue  
+           num = np.cos(angles[i])**2 # numerator: take the cosine of each angle and square it
+           den = eval[i]**2 # denominator: square each eigenvalue 
      x = .5 * np.sqrt(
      return stats.norm.cdf(x) # return the cumulative normal distribution function of f.
 
