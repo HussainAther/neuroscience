@@ -96,12 +96,12 @@ def dp(data):
      else:
           raise ValueError
      c = np.cov(xvals, data) # get the covariance matrix of the neuronal population
-     eigenvectors, eigenvalues = np.linalg.eig(xvals, data) # compute eigenvectors and eigenvalues
      xvalsmean = mean(xvals) # mean of the xvalues
      datamean = mean(data) # mean of the data
      deltaf_abs = abs(datamean - xvalsmean) # absolute value of deltaf, connecting the two means
+     angle = angle(np.subtract(datamean, xvalsmean)) # angle direction of the stimulus vector deltaf
+     theta = np.linalg.eig(c, 
      summed = 0 
-
      for i in range(len(c):
           num = np.cos(c[i],  i
           den = 
