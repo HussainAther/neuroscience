@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import scipy.stats as stats
 
 from scipy.misc import factorial
@@ -72,8 +73,25 @@ sigma is the stimulus-invariant noise covariance matrix of the neuronal populati
 We re-write the equation by rotating the original N-dimensional neural response
 space along the eigenvectors of the covariance matrix such that we get:
 
-DPth = phi((1/2)* |deltaf| * sqrt(summation from i to N of cos^2(thetai/sigmai^2))  
-"""
-def dp(deltaf, 
+DPth = phi((1/2)* |deltaf| * sqrt(summation from i to N of cos^2(thetai/sigmai^2)) 
 
+in which sigmai^2 is the ith eigenvalue of the covariance matrix. 
+"""
+def vangle(v1, v2):
+    """
+    Return the angle between two vectors.
+    """
+    return math.acos(dotproduct(v1, v2) / (length(v1) * length(v2)))
+
+def dp(deltaf, data):
+     """
+     For 1D or 2D data array, calculate the decoding performance. 
+     """
+     c = np.cov(data) # covariance matrix of the data
+     summed = 0 # summation
+     
+     N = len(theta)
+     for i in range(N)
+     x = .5 * abs(deltaf) np.sqrt(
+     stats.norm.cdf(
 
