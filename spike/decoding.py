@@ -108,6 +108,7 @@ def dp(data):
      for i in range(len(eval)): # for each eigenvalue  
            num = np.cos(angles[i])**2 # numerator: take the cosine of each angle and square it
            den = eval[i]**2 # denominator: square each eigenvalue 
+           summed += num/den # get the summation by adding each one up
      x = .5 * np.sqrt(
      return stats.norm.cdf(x) # return the cumulative normal distribution function of f.
 
