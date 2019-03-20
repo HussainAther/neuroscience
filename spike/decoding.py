@@ -83,11 +83,18 @@ def vangle(v1, v2):
     """
     return math.acos(dotproduct(v1, v2) / (length(v1) * length(v2)))
 
-def dp(deltaf, data):
+def dp(data):
      """
      For 1D or 2D data array, calculate the decoding performance. 
      """
-     c = np.cov(data) # covariance matrix of the data
+     data = np.matrix(data) # convert to numpy matrix
+     if data.shape[0] == 1: # if the matrix is one-dimensional
+          xvals = range(len(data.shape[0])) # set the xvalues for the covariance matrix as the range of integers over the length of data
+     elif data.shape[0] == 2: # if the matrix is two-dimensional
+          xvals = data[0] # set the xvalues as the first array
+     else:
+          raise ValueError
+     c = np.cov(xvals, data) # covariance matrix of the data
      summed = 0 # summation
      
      N = len(theta)
