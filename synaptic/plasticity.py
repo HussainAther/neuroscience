@@ -24,7 +24,7 @@ exponentially with t. This will cause an overflow with x and y values greater th
 Finnish computer scientist Erkki Oja proposed an alternative. Like Hebb's rule, we use the vector w that converges
 to the C eigenvector, but, in this case, to a finite (small) number.
 
-Δw_i = α y(x_i - w_iy)
+Δw_i = α y(x̄_i - w̅_iy)
 """
 
 # create the dataset
@@ -60,3 +60,17 @@ while np.linalg.norm(prevwoja - woja) > eps:
     prevwoja = woja.copy()
     Ys = np.dot(Xs, woja) # get the dot-product with the Oja weights
     woja += a * np.sum(Ys*Xs - np.square(Ys)*woja.T, axis=0).reshape((2,1)) # perform the calculation and add to overall Oja weights
+
+"""
+We may extend Oja's rule to mnulti-output networks by the Sanger (Sanger's) rule
+which is also known as the Generalized Hebbian Algorithm.
+
+Δw_ij = α (y_i x_j - y_i summation from k=1 to i of w_kj y_k)
+
+such that the update rule is now
+
+Δw =  α (y̅ . x̄^T - tril(y̅ x y̅^T) . w̅)
+
+in which tril is a function that returns the lower triangle of a square matrix.
+"""
+
