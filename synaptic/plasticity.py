@@ -56,4 +56,6 @@ prevwoja = np.ones((2,1)) # previous Oja weights to keep track as we go along
 a = .0001 # alpha: learning rate
 eps = 1e-8 # epsilon: tolerance
 
-
+while np.linalg.norm(prevwoja - woja) > eps:
+    prevwoja = woja.copy()
+    Ys = np.dot(Xs, woja) # get the dot-product with the Oja weights
