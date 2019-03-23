@@ -59,3 +59,4 @@ eps = 1e-8 # epsilon: tolerance
 while np.linalg.norm(prevwoja - woja) > eps:
     prevwoja = woja.copy()
     Ys = np.dot(Xs, woja) # get the dot-product with the Oja weights
+    woja += a * np.sum(Ys*Xs - np.square(Ys)*woja.T, axis=0).reshape((2,1)) # perform the calculation and add to overall Oja weights
