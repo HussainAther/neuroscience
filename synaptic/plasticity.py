@@ -51,3 +51,6 @@ u, v = np.linalg.eig(q)
 
 # Oja's rule
 woja = np.random.normal(scale=.25, size=(2,1)) # get the weights for a normal distribution
+prevwoja = np.ones((2,1)) # previous Oja weights to keep track as we go along
+
+
