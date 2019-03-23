@@ -4,7 +4,9 @@ import numpy as np
 The Wilson-Cowan model describes dynamics of interactions between simple exchitatory
 and inhibitory model neurons. It's used in modeling neuronal popuatlions with phase
 plane methods and numerical solutions to describe the responses of neuronal populations
-to stimuli.
+to stimuli. H.R. Wilson and Jack D. Cowan created the model in the 1970s to prove the existence
+of limit cycle dynamics in response to one class of stimuli implies the existence
+of multiple stable states and hysteresis in response to a different class of stimuli.
 """
 
 def sig(x)
