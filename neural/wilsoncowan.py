@@ -6,3 +6,11 @@ and inhibitory model neurons. It's used in modeling neuronal popuatlions with ph
 plane methods and numerical solutions to describe the responses of neuronal populations
 to stimuli.
 """
+
+def sig(x)
+    """
+    Sigmoid function of some value x.
+    """
+    return 1 / (1 + np.exp(-x))
+
+    
