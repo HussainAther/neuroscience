@@ -62,7 +62,7 @@ while np.linalg.norm(prevwoja - woja) > eps:
     woja += a * np.sum(Ys*Xs - np.square(Ys)*woja.T, axis=0).reshape((2,1)) # perform the calculation and add to overall Oja weights
 
 """
-We may extend Oja's rule to mnulti-output networks by the Sanger (Sanger's) rule
+We may extend Oja's rule to multi-output networks by the Sanger (Sanger's) rule
 which is also known as the Generalized Hebbian Algorithm.
 
 Δw_ij = α (y_i x_j - y_i summation from k=1 to i of w_kj y_k)
@@ -74,3 +74,8 @@ such that the update rule is now
 in which tril is a function that returns the lower triangle of a square matrix.
 """
 
+n = 3000 # number of iterations
+t = 0 # initial time
+
+wsanger = np.random.normal(scale=.01, size(2,2)) # Sanger's rule
+prevw = np.ones((2,2)) # keep track of previous values
