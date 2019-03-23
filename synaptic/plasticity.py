@@ -79,3 +79,15 @@ t = 0 # initial time
 
 wsanger = np.random.normal(scale=.01, size(2,2)) # Sanger's rule
 prevw = np.ones((2,2)) # keep track of previous values
+
+for i in range(n):
+    prevw = wsanger.copy()
+    dw = np.zeros((2,2)) # delta w
+    t += 1
+    for j in range(Xs.shape[0]):
+        Ysj = np.dot(sanger, Xs[j]).reshape((2,1))
+        tril = np.tril(np.dot(Ysj, Ysj.T)) # lower triangle of square matrix
+        dw += np.dot(Ysj, Xs[j].reshape(1,2))) - np.dot(tril, wsanger)
+
+    wsanger += (alpha/t) * dw
+    wsanger /= np.linalg.norm(wsanger, axis=1).reshape((2,1))
