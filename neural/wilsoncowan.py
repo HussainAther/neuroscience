@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 """
 The Wilson-Cowan model describes dynamics of interactions between simple exchitatory
@@ -13,4 +14,7 @@ def sig(x)
     """
     return 1 / (1 + np.exp(-x))
 
-    
+def fire():
+    """
+    Each variable represents a different neuron and function in our firing model.
+    """
