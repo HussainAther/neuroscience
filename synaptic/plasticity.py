@@ -45,4 +45,9 @@ def scale(x):
 # scale the dataset
 Xs = scale(X)
 
+# compute the covariance, eigenvalues, and eigenvectors
+q = np.cov(Xs.T)
+u, v = np.linalg.eig(q)
+
+# Oja's rule
 
