@@ -50,4 +50,4 @@ q = np.cov(Xs.T)
 u, v = np.linalg.eig(q)
 
 # Oja's rule
-
+woja = np.random.normal(scale=.25, size=(2,1)) # get the weights for a normal distribution
