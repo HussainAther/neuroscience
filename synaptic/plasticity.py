@@ -53,4 +53,7 @@ u, v = np.linalg.eig(q)
 woja = np.random.normal(scale=.25, size=(2,1)) # get the weights for a normal distribution
 prevwoja = np.ones((2,1)) # previous Oja weights to keep track as we go along
 
+a = .0001 # alpha: learning rate
+eps = 1e-8 # epsilon: tolerance
+
 
