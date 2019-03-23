@@ -57,6 +57,11 @@ taua = 1 # tau decay parameter for a
 aplus = .1 # value by which we increase concentration [a] at each arrival of a presynaptic spike
 
 tf = [1,2,3,6,7] # presynaptic firing times
+tr = range(10) # total time range
 
-summed = 0
-for 
+summed = 0 # total concentration [a] over firing time t
+
+for i in tf:
+    for j in tr:
+        summed += aplus*np.exp((-j-i)/taua) # we get this from integrating the number of spikes over a time interval
+
