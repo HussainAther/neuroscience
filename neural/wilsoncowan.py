@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 """
 The Wilson-Cowan model describes dynamics of interactions between simple exchitatory
