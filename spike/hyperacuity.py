@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as sp
 
 """
 In some cases of studying the reliability of neural computation,
@@ -36,4 +37,16 @@ def d2I0dx(x):
     """
     return -np.sin(x)
 
-deltaI = (1/8) * (l**2) * d2I0dx 
+deltaI = (1/8) * (l**2) * d2I0dx # pattern of light on retina
+
+"""
+If photon shot noise and other noise in the photoreceptors can be summarized by an 
+effective spatial white noise added to the image, thne the signal to noise ration
+for discrimination between two signals is an integral of the squared intensity
+differences over the entire image.
+"""
+
+N0 = 10 # effective noise level
+a = 100 # image size
+integrand = (d**2) * x * (deltaI)**2
+snr = (1/N0) * sp.integrate.quad(integrand, 0, a)
