@@ -305,4 +305,7 @@ def nfs(t, eps=1e-9):
   
 t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
 signal = nfs(t) # 1. Estimate signal from spikes
+
+# the power spectral density of a spike train during spontaneous activity is the noise spectrum of the neuron
+
 # 2. Compute noise in estimate
