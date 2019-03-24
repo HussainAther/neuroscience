@@ -17,6 +17,7 @@ the signal from spikes (using the noise-reduction approaches), then we compute n
 signal (measuring the random errors and removing them), after that we compute the signal-to-noise-ratio of the
 estimated signal, and finally calcualte lower bound to information rate from the signal-to-noise ratio.
 """
+
 class AsciiSpikeTrainIO(BaseIO):
     """
     Class for reading/writing SpikeTrains in a text file.
