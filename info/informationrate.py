@@ -11,6 +11,8 @@ import elephant.conversion as conv
 import elephant.kernels as kernels
 import warnings
 
+from bartlett import bartlett # from bartlett.py import the Bartlett's method function
+
 """
 We can measure the information rate of spike firing using the following method. First, we estimate
 the signal from spikes (using the noise-reduction approaches), then we compute noise in the estimated
@@ -308,4 +310,4 @@ signal = nfs(t) # 1. Estimate signal from spikes
 
 # the power spectral density of a spike train during spontaneous activity is the noise spectrum of the neuron
 
-# 2. Compute noise in estimate
+fr, pd = bartlett(signal) # 2. Compute noise in estimate
