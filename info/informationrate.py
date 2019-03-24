@@ -266,3 +266,22 @@ T = 30 # limit of time we integrate over
 
 I = integrate.quad(lambda x: arrivaltimes, 0, T) * integate.quad(fanofactor(spiketrains))
 
+
+"""
+As a strategy for measuring information rate of stimulus signals, we can generally
+1. Estimate signal from spikes
+2. Comptue noise in estimate
+3. Compure signal to noise ratio of estimates
+4. Calculate lower bound to information rate from signal to noise ratio.
+"""
+
+# estimate noise from spikes
+def nfs(t):
+    """
+    Noise from spike. We can remove the highest spike from an array t of spikes.
+    """
+     
+
+  
+t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
+noise = s(t)
