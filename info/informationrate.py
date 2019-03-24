@@ -276,11 +276,21 @@ As a strategy for measuring information rate of stimulus signals, we can general
 """
 
 # estimate noise from spikes
-def nfs(t):
+def nfs(t, eps=1e-9):
     """
     Noise from spike. We can remove the highest spike from an array t of spikes.
+    Eps (epsilon) is accuracy.
     """
-     
+    n = len(t)
+    x = np.arange(n)
+    c = np.argmax(t) # find the max of our spike train array
+    d = abs(np.diff(t)) # find the differences (intervals) between the spikes
+    try:
+        l = c - 1 - np.where(d[c-1::-1]<eps)[0][0] # find the locations in that we include in our accuracy from the left side of the max
+        r = c + np.where(d[c:]<eps)[0][0] + 1 # on the right side
+    except:
+        return False # no spike found
+    
 
   
 t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
