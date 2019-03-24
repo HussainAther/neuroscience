@@ -310,6 +310,13 @@ def nfs(t, eps=1e-9):
 t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
 signal = nfs(t) # 1. Estimate signal from spikes
 
+"""
+Other methods of separating the signal from spike trains (raw input data) involve
+finding the entropy of the stimulus distribution and the corresponding conditional distribution
+averaged over the distribution of spike trains. The entropy is determined by 
+the setup of hte experiment.
+"""
+
 # the power spectral density of a spike train during spontaneous activity is the noise spectrum of the neuron
 
 fr, pd = bartlett(signal) # 2. Compute noise in estimate
