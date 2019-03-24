@@ -23,4 +23,17 @@ def I0(x):
 # and x as the distance between the points on the retina itself.
 x = 5
 l = 20
-I = (1/2)*(I0(x-l/2) + I0(x+ l/2) # we add each half of the intensity into a total intensity.
+I = (1/2) * (I0(x-l/2) + I0(x+ l/2) # we add each half of the intensity into a total intensity.
+
+"""
+For small displacements l, the differnece between the patterns from one point sources
+and the pattern from two points sources can be found by expanding I2 in a Taylor series
+and keeping only the leading term.
+"""
+def d2I0dx(x):
+    """
+    Return the second derivative of I0 with respect to x.
+    """
+    return -np.sin(x)
+
+deltaI = (1/8) * (l**2) * d2I0dx 
