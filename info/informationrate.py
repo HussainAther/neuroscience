@@ -270,7 +270,7 @@ I = integrate.quad(lambda x: arrivaltimes, 0, T) * integate.quad(fanofactor(spik
 """
 As a strategy for measuring information rate of stimulus signals, we can generally
 1. Estimate signal from spikes
-2. Comptue noise in estimate
+2. Compute noise in estimate
 3. Compure signal to noise ratio of estimates
 4. Calculate lower bound to information rate from signal to noise ratio.
 """
@@ -304,4 +304,5 @@ def nfs(t, eps=1e-9):
     return t 
   
 t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
-noise = s(t)
+signal = nfs(t) # 1. Estimate signal from spikes
+# 2. Compute noise in estimate
