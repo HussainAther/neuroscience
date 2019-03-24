@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import numpy as np
 import quantities as pq
+import scipy as sp
 import scipy.stats
 import scipy.signal
 import neo
@@ -10,6 +11,7 @@ from neo.core import SpikeTrain
 import elephant.conversion as conv
 import elephant.kernels as kernels
 import warnings
+import math
 
 from bartlett import bartlett # from bartlett.py import the Bartlett's method function
 
@@ -312,6 +314,14 @@ signal = nfs(t) # 1. Estimate signal from spikes
 
 fr, pd = bartlett(signal) # 2. Compute noise in estimate
 
-snr = sp.stats.signaltonoise(t) # 3. Compure signal to noise ratio of estimates
+snr = signaltonoise(t) # 3. Compure signal to noise ratio of estimates
 
+# Shannon-Hartley theorem gives us a maximum rate at which information can be transmitted over a 
+# communications channel of a specified bandwidth in the presence of noise.
+# We treat signal as bandwidth in this case.
 
+C = t * math.log2(1 + signal/fr) # maximum data rate C
+
+# 4. Calculate lower bound to information rate from signal to noise ratio.
+
+R_info = (1/2) * np.polyint(math.log2(1 + snr)/(2*np.pi)) # np.polyint is the indefinite integral (antiderivative)  
