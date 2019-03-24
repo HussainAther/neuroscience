@@ -290,8 +290,18 @@ def nfs(t, eps=1e-9):
         r = c + np.where(d[c:]<eps)[0][0] + 1 # on the right side
     except:
         return False # no spike found
-    
-
+    if (r-l) <= 3: # if the gap around the spike is too small to make meaningful intervals
+        l -= 1
+        r += 1
+    s = int(round((r-l)/2)) # interval around which we make gaps 
+    lx = l - s
+    rx = r + s
+    xgap = np.concatenate((x[lx:l], x[r:rx])) # make gaps at the spike areas
+    tgap = np.concatenate((t[lx:l], t[r:rx]))
+    z = np.polyfit(xgap, tgap, x) # quadratic fit the gapped array 
+    p = np.poly1d(z) # get the p polynomial fit in one dimension
+    t[l:r] = p(x[l:r]) # convert our array t accordingly. 
+    return t 
   
 t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
 noise = s(t)
