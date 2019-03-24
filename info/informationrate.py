@@ -311,3 +311,7 @@ signal = nfs(t) # 1. Estimate signal from spikes
 # the power spectral density of a spike train during spontaneous activity is the noise spectrum of the neuron
 
 fr, pd = bartlett(signal) # 2. Compute noise in estimate
+
+snr = sp.stats.signaltonoise(t) # 3. Compure signal to noise ratio of estimates
+
+
