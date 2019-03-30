@@ -90,8 +90,6 @@ conductance of the plasma membrane to sodium and potassium ions (g_Na and g_K) t
 to the action potential.
 """
 
-
-
 def g_Na(I_Na, V_m, E_Na):
     conductance = I_Na / (V_m - E_Na)
     return conductance
