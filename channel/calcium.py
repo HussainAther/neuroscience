@@ -7,6 +7,7 @@ Calcium parabolic bursting
 
 gentype = 'radau' # Radau C-based integrator
 
+# parameter arguments for PDSTool of making a Hodgkin-Huxley neuron
 par_args = {'gr': 26, 'gc': 3.25, 'gx': 1.93,
             'tau_r': 5.6, 'tau_c': 125, 'tau_x': 300, 'tau_v': 0.97,
                 'Ena': 0.48, 'Er': -0.95, 'Ec': -0.95, 'Ex': 1.4,
