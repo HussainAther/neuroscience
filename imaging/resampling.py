@@ -19,22 +19,14 @@ def to_matrix_vector(transform):
     the inverse of from_matrix_vector, transform[-1, -1] must equal 1, and
     transform[-1, :-1] must equal 0.
 
-    Parameters
-    ----------
     transform: numpy.ndarray
         Homogeneous transform matrix. Example: a (4, 4) transform representing
         linear transformation and translation in 3 dimensions.
-
-    Returns
-    -------
-    matrix, vector: numpy.ndarray
+    Return matrix, vector: numpy.ndarray
         The matrix and vector components of the transform matrix.  For
         an (N, N) transform, matrix will be (N-1, N-1) and vector will be
         a 1D array of shape (N-1,).
 
-    See Also
-    --------
-    from_matrix_vector
     """
 
     ndimin = transform.shape[0] - 1
@@ -49,23 +41,12 @@ def from_matrix_vector(matrix, vector):
 
     Combine a rotation matrix and translation vector into a transform
     in homogeneous coordinates.
+    matrix: numpy.ndarray (N, N) representing the rotation matrix.
 
-    Parameters
-    ----------
-    matrix: numpy.ndarray
-        An (N, N) array representing the rotation matrix.
+    vector: numpy.ndarray (1, N) array representing the translation.
 
-    vector: numpy.ndarray
-        A (1, N) array representing the translation.
-
-    Returns
-    -------
-    xform: numpy.ndarray
+    Returns xform: numpy.ndarray
         An (N+1, N+1) transform matrix.
-
-    See Also
-    --------
-    nilearn.resampling.to_matrix_vector
     """
 
     nin, nout = matrix.shape
@@ -80,9 +61,6 @@ def get_bounds(shape, affine):
     """Return the world-space bounds occupied by an array given an affine.
 
     The coordinates returned correspond to the **center** of the corner voxels.
-
-    Parameters
-    ==========
     shape: tuple
         shape of the array. Must have 3 integer values.
 
@@ -90,9 +68,7 @@ def get_bounds(shape, affine):
         affine giving the linear transformation between voxel coordinates
         and world-space coordinates.
 
-    Returns
-    =======
-    coord: list of tuples
+    Return coord: list of tuples
         coord[i] is a 2-tuple giving minimal and maximal coordinates along
         i-th axis.
     """
@@ -116,9 +92,6 @@ def get_bounds(shape, affine):
 def resample_img(niimg, target_affine=None, target_shape=None,
                  interpolation='continuous', copy=True, order="F"):
     """ Resample a Nifti Image
-
-    Parameters
-    ----------
     niimg: nilearn nifti image
         Path to a nifti file or nifti-like object
 
@@ -143,9 +116,7 @@ def resample_img(niimg, target_affine=None, target_shape=None,
         Data ordering in output array. This function is slightly faster with
         Fortran ordering.
 
-    Returns
-    =======
-    resampled: nibabel.Nifti1Image
+    Return resampled: nibabel.Nifti1Image
         input image, resampled to have respectively target_shape and
         target_affine as shape and affine.
     """
