@@ -7,7 +7,6 @@ from scipy import ndimage, linalg
 from nibabel import Nifti1Image
 import nibabel
 
-
 def to_matrix_vector(transform):
     """Split an homogeneous transform into its matrix and vector components.
 
