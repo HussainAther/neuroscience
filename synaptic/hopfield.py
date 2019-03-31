@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 """
 John Hopfield combined a generalized form of the Hebb rule with simple activation
