@@ -88,7 +88,13 @@ We can use a stochastic process on a probability distribution using the sigmoid 
 Each neuron is activated according to a probability function.
 """
 
-def prob():
+def sigmoid(x):
+  return 1 / (1 + np.exp(-x))
+
+def prob(T):
     """
-    Each neuron has a threshold set ot null that can be activated.
+    Each neuron has a threshold set to null that can be activated for some temperature T for N number of neurons.
     """
+    summ = 0
+    for i in range(N):
+          w
