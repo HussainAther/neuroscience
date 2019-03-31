@@ -314,7 +314,7 @@ signal = nfs(t) # 1. Estimate signal from spikes
 Other methods of separating the signal from spike trains (raw input data) involve
 finding the entropy of the stimulus distribution and the corresponding conditional distribution
 averaged over the distribution of spike trains. The entropy is determined by 
-the setup of hte experiment.
+the setup of the experiment.
 """
 
 # the power spectral density of a spike train during spontaneous activity is the noise spectrum of the neuron
