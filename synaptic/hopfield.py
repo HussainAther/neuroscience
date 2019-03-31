@@ -34,6 +34,7 @@ iter = 20 # number of iterations
 
 x = np.zeros(p, w, *l)) # data of binary grid pattern 
 
+# make some patterns
 x[0] = [-1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1]
 x[1] = [-1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, -1, 1, -1]
 x[2] = [-1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1]
@@ -48,4 +49,17 @@ for i in range(p):
     ax[i].set_xticks([])
     ax[i].set_yticks([])
 
+plt.show()
 
+# train
+w = np.zeros((w * l, w*l))
+
+for i in range(w*l):
+    for j in range(w*l):
+        if i == j or w[i, j] != 0:
+            continue
+        w = 0
+        for n in range(p):
+            w += x[n, i] * x[n, j]
+        w[i, j] = w/x.shape[0]
+        w[j, i] = w[i, j] # as expressed in the equation for the synaptic weights 
