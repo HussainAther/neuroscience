@@ -43,7 +43,7 @@ def entropyInt(variableProbs, k):
 
 def entropyDiscrete(deltaV, sigma):
     """
-    If we measure voltage V in milliVolts then we can take hte continuous voltage variable and place it in discrete bins of size
+    If we measure voltage V in milliVolts then we can take the continuous voltage variable and place it in discrete bins of size
     ΔV. This equation works if ΔV is very small. sigma is the variance.
     """
     return (1/2)*np.log2(2*np.pi*exp((sigma**2/(deltaV**2)))
