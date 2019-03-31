@@ -23,7 +23,12 @@ We can define hte energy of a Hopfield network as :
 
 E = (-1/2)*(summation of i)(summation of j) of w_ij*x_i*x_j + (summation of i) of θ_i * x_i
 
-We're going to use Hopfield networks to improve the pattern performance of a few 5x5 grids patterns. 
+We're going to use Hopfield networks to improve the pattern performance of a few 5x5 binary grids patterns. 
 """
 
-p = 4
+p = 5 # number of patterns
+w = 5 # width
+l = 5 # height
+iter = 20 # number of iterations
+
+x = np.zeros(p, w, *l)) 
