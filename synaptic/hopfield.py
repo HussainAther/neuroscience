@@ -82,3 +82,13 @@ ax[1].set_xticks([])
 ax[1].set_yticks([])
 
 plt.show()
+
+"""
+We can use a stochastic process on a probability distribution using the sigmoid function.
+Each neuron is activated according to a probability function.
+"""
+
+def prob():
+    """
+    Each neuron has a threshold set ot null that can be activated.
+    """
