@@ -58,8 +58,27 @@ for i in range(w*l):
     for j in range(w*l):
         if i == j or w[i, j] != 0:
             continue
-        w = 0
+        w = 0 # weight for the synapse
         for n in range(p):
-            w += x[n, i] * x[n, j]
-        w[i, j] = w/x.shape[0]
+            w += x[n, i] * x[n, j] # add each value to the weight as the summation dictates
+        w[i, j] = w/x.shape[0] # normalize with resepct to the size of our grid 
         w[j, i] = w[i, j] # as expressed in the equation for the synaptic weights 
+
+# try to recover the pattern
+x_test = np.array([1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1])
+
+# score the test
+for i in range(iter):
+    for j in range(w * l):
+        x_test = 1 if np.dot(w[i], x_test) > 0 else -1
+
+# show the recovered pattern
+fig, ax = plt.subplots(1, 2, figsize=(15,10))
+
+# plot 'em
+ax[1].matshow(x_test.reshape(h, l), cmap="gray")
+ax[1].set_title("Recovered pattern")
+ax[1].set_xticks([])
+ax[1].set_yticks([])
+
+plt.show()
