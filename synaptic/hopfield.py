@@ -19,7 +19,7 @@ For N neurons, the activation function for each neuron is:
 f_A(x) = 1 if summation from j=1 to N of w_ij*x_j > θ_i 
          -1 otherwise
 
-We can define hte energy of a Hopfield network as :
+We can define the energy of a Hopfield network as :
 
 E = (-1/2)*(summation of i)(summation of j) of w_ij*x_i*x_j + (summation of i) of θ_i * x_i
 
@@ -91,10 +91,12 @@ Each neuron is activated according to a probability function.
 def sigmoid(x):
   return 1 / (1 + np.exp(-x))
 
-def prob(T):
+def prob(N, i, w, x):
     """
-    Each neuron has a threshold set to null that can be activated for some temperature T for N number of neurons.
+    Each neuron has a threshold set to null that can be activated for N number of neurons at some row i with
+    some weight matrix w and x values (activation state).
     """
     summ = 0
-    for i in range(N):
-          w
+    for j in range(N):
+          summ += w[i][j] * x[j] # sum each weight with each x value (as described above).
+    return sigmoid(summ) 
