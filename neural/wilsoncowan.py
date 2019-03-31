@@ -26,7 +26,7 @@ def fire(ie0, ie1, ii0, ii1, w, t, dt, uu, vv, wee, wei, wie, wii, ze, zi):
         neurons based on the two letters.
         Use these to create a spatially homogenous weighing function.
     u and v = proportion of exchitatory and inhibitory cells firing, respectively.
-    z_e and z_e = constant modulatory currents applied ot hte populations.
+    z_e and z_e = constant modulatory currents applied ot the populations.
     """
     i_e = ie0 + ie1 * np.sin(w*t) # current through excitatory neuron
     i_i = ii0 + ii1 * np.sin(w*t) # current through inhibitory neuron
