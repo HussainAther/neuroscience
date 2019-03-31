@@ -12,6 +12,11 @@ They're used in associative memory. The synaptic weights have the following cond
 
 w_ij = wji ∀ i,j ∈ {1,...,N}
 w_ii = 0 ∀ i ∈ {1,...,N}
+
+For N neurons, the activation function for each neuron is:
+
+f_A(x) = 1 if summation from j=1 to N of w_ij*x_j > θ_i 
+         -1 otherwise
 """
 
 
