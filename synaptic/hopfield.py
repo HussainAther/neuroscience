@@ -29,7 +29,7 @@ By binary, we're using 1's and -1's in accordance with the activation functions.
 
 p = 5 # number of patterns
 w = 5 # width
-l = 5 # height
+l = 5 # length
 iter = 20 # number of iterations
 
 x = np.zeros(p, w, *l)) # data of binary grid pattern 
@@ -42,3 +42,10 @@ x[4] = [1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, -1, 1, 1
 
 # plot 'em
 fig, ax = plt.subplots(1, p, figsize=(15,10))
+
+for i in range(p):
+    ax[i].matshow(x[i].reshape((w, l)), cmap="gray") # show the axis w/color map cmap
+    ax[i].set_xticks([])
+    ax[i].set_yticks([])
+
+
