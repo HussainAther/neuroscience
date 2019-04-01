@@ -12,6 +12,7 @@ in which j_i is the number of ions of type i per area per time crossing the memb
 j_qi is the electric charge flux, z_ie is the charge on one ion, and g_i is the constant
 of proportionality of conductance per area.
 """
+
 g_K = 1 # conductance per area normalize with respect to potassium
 g_Na = 25 # sodium, based on  Hodgkin and B. Katz (1948)
 e = -1 # charge of electron
