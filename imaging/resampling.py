@@ -1,11 +1,12 @@
+import numpy as np
+import nibabel
+
+from scipy import ndimage, linalg
+from nibabel import Nifti1Image
+
 """
 Utilities to resample a Nifti Image
 """
-
-import numpy as np
-from scipy import ndimage, linalg
-from nibabel import Nifti1Image
-import nibabel
 
 def to_matrix_vector(transform):
     """Split an homogeneous transform into its matrix and vector components.
