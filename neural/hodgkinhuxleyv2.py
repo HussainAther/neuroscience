@@ -1,5 +1,6 @@
 import scipy as sp
 import pylab as plt
+
 from scipy.integrate import odeint
 
 class HodgkinHuxley():
@@ -57,11 +58,6 @@ class HodgkinHuxley():
         """
         Membrane current (in uA/cm^2)
         Sodium (Na = element name)
-
-        |  :param V:
-        |  :param m:
-        |  :param h:
-        |  :return:
         """
         return self.g_Na * m**3 * h * (V - self.E_Na)
 
@@ -69,33 +65,20 @@ class HodgkinHuxley():
         """
         Membrane current (in uA/cm^2)
         Potassium (K = element name)
-
-        |  :param V:
-        |  :param h:
-        |  :return:
         """
         return self.g_K  * n**4 * (V - self.E_K)
+    
     #  Leak
     def I_L(self, V):
         """
         Membrane current (in uA/cm^2)
         Leak
-
-        |  :param V:
-        |  :param h:
-        |  :return:
         """
         return self.g_L * (V - self.E_L)
 
     def I_inj(self, t):
         """
         External Current
-
-        |  :param t: time
-        |  :return: step up to 10 uA/cm^2 at t>100
-        |           step down to 0 uA/cm^2 at t>200
-        |           step up to 35 uA/cm^2 at t>300
-        |           step down to 0 uA/cm^2 at t>400
         """
         return 10*(t>100) - 10*(t>200) + 35*(t>300) - 35*(t>400)
 
@@ -103,10 +86,6 @@ class HodgkinHuxley():
     def dALLdt(X, t, self):
         """
         Integrate
-
-        |  :param X:
-        |  :param t:
-        |  :return: calculate membrane potential & activation variables
         """
         V, m, h, n = X
 
