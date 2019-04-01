@@ -115,7 +115,9 @@ class Peak:
         return product
 
     def fit(self, fitWidth=2):
-
+        """
+        Fit our data to the model prediction.
+        """
         region = []
         numPoints = self.data.shape
         for dim, point in enumerate(peak.position):
@@ -157,8 +159,3 @@ def findPeaks(data, threshold, size=3, mode="wrap"):
         peak = Peak(position, data, height)
         peaks.append(peak)
     return peaks
-
-
-
-    
-
