@@ -71,7 +71,7 @@ def probReadout(y):
 """
 To use these signals in a biological context we need to generalize a bit and consider signals that vary in time.
 We use time-dependent signals. We want to describe a function of time f(t) and confine our attentino to a time interval of size T with
-0 < t < T. We can use a fourier series, sum of sine and cosine functions. They later become helpful in constructing power spectral density.
+0 < t < T. We can use a Fourier series, sum of sine and cosine functions. They later become helpful in constructing power spectral density.
 """
 def cn(n):
    c = y*np.exp(-1j*2*n*np.pi*time/period)
@@ -83,7 +83,7 @@ def fourier(x, Nh):
 
 """
 To compute the information transmission for signals in the presence of noise,
-we note that since different fourier coefficients are independent, the information carried by each
+we note that since different Fourier coefficients are independent, the information carried by each
 coefficient can just be added up to give the total information. Once more we look at signals and noise in a fixed time
 window 0 < t < T.
 """
