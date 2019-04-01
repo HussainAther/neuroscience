@@ -25,9 +25,7 @@ def to_matrix_vector(transform):
         The matrix and vector components of the transform matrix.  For
         an (N, N) transform, matrix will be (N-1, N-1) and vector will be
         a 1D array of shape (N-1,).
-
     """
-
     ndimin = transform.shape[0] - 1
     ndimout = transform.shape[1] - 1
     matrix = transform[0:ndimin, 0:ndimout]
