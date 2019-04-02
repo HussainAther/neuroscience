@@ -109,8 +109,10 @@ def uni(x, y):
     yn = 0 # for y 
     (ux, uy) = (np.std(x), np.std(y)) # standard error for x and y
     for i in range(len(x)):
-        ax, ay = lrcoef(x[:i], y[:i]) # model parameters for x and y of the linear regression model
-        xn += ax*x[len(x)-i] + ux
+        ax, ay = lrcoef(range(i), x[:i]) # model parameters for x of the linear regression model
+        xn += ax*x[len(x)-i] + ux # univariate formula
+    for i in range(len(y)): # mutatis mutandis for y
+        ax, ay = lrcoef(range(i), y[:i])  
         yn += ay*y[len(y)-i] + uy 
     return xn, yn
 
@@ -118,6 +120,21 @@ def biv(x, y):
     """
     Bivariate model to predict. Compare with past prediction of the other signal to improve (if there is an improvement).
     """
+    xn1 = 0 # same as for uni function but we split our summation into two components. One for each lr coefficient
+    yn1 = 0
+    xn2 = 0
+    yn2 = 0 
+    uxy = np.std(x) - np.std(y) # compare the two methods of standard error 
+    uyx = np.std(y) - np.std(x)  
+    for i in range(len(x)):
+        axy, bxy = lrcoef(x[:i], y[:i]) # model parameters for x and y of the linear regression model
+        xn1 += axy*x[len(x)-i] # bivariate formula for y
+        xn2 += bxy*y[len(x)-i] + uxy
+    for i in range(len(y)):
+        ayx, byx = lrcoef(y[:i], x[:i]) # model parameters for y and x of the linear regression model. we flip the direction
+        yn1 += ayx*x[len(x)-i] # bivariate formula for y
+        yn2 += byx*y[len(x)-i] + uyx
+    return (xn1+xn2), (yn1+yn2)
 
 def granger(x, y):
     """
