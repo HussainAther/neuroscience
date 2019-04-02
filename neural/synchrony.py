@@ -138,6 +138,6 @@ def biv(x, y):
 
 def granger(x, y):
     """
-     
+    Use linear regression of stochastic processes. Popular in economics. Only recently examined for potential in neuroscience.  
     """
     return biv(x, y) - uni(x,y) # Return the differences between the bivariate models of x and y with the univariate models of x and y.
