@@ -12,7 +12,7 @@ principal component analysis), we can determine whether unsupervised learning le
 performanance than networks that are completely connected within themselves. 
 """
 
-def impulse():
+def impulse(x, Nh):
     """
     Input signal has a real and imaginary component representing orthogonal directions. We can
     use a complex number that results fomr the convolution of the Fourier transform of the harmonic
@@ -21,3 +21,8 @@ def impulse():
     c = y*np.exp(-1j*2*n*np.pi*time/period) # convolution
     f = np.array([2*c(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)]) # Fourier transform
     return f.sum
+
+def gabor():
+    """
+    Gabor filters with different frequencies to return features from an image in two dimensions.
+    """
