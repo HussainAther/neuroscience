@@ -104,7 +104,16 @@ def lrcoef(x,y):
 def uni(x, y):
     """
     Univariate models uses the information from within the x and y data to predict.
-    """
+    """ 
+    xn = 0 # output univariate model for x
+    yn = 0 # for y 
+    (ux, uy) = (np.std(x), np.std(y)) # standard error for x and y
+    for i in range(len(x)):
+        ax, ay = lrcoef(x[:i], y[:i]) # model parameters for x and y of the linear regression model
+        xn += ax*x[len(x)-i] + ux
+        yn += ay*y[len(y)-i] + uy 
+    return xn, yn
+
 
 def granger(x, y):
     """
