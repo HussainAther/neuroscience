@@ -153,7 +153,27 @@ embedding theorem, the state reconstructed from the recorded signals by temporal
 ...xn-(m-1)d) and yn = (yn,...yn-(m-1)d) with m and d representing the embedding dimension and the time lag, respectively.
 """ 
 
-def nonlininter():
+def knn(trainingSet, testInstance, k):
     """
-    Return a normalized measure of directed nonlinear interdependence between systems X and Y.
+    Return k-nearets neighbors.
     """
+    distances = []
+    length = len(testInstance)-1
+    for x in range(len(trainingSet)):
+        dist = euclideanDistance(testInstance, trainingSet[x], length)
+        distances.append((trainingSet[x], dist))
+    distances.sort(key=operator.itemgetter(1))
+    neighbors = []
+    for x in range(k):
+        neighbors.append(distances[x][0])
+    return neighbors
+
+
+def nonlininter(X, Y, tau, m):
+    """
+    Return a normalized measure of directed nonlinear interdependence between systems X and Y for number of vectors N
+    with some time lag tau and embedding dimension m.
+    """
+    RnX = 0 # Euclidean distance between vectors in X
+    RnXY = [] # Euclidean distance between vectors in X and Y
+    for i in  
