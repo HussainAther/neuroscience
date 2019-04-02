@@ -49,6 +49,11 @@ Between a nonlinear relationship of X and Y, we can use uncertainty of a probabi
 based on Shannon entropy.
 """
 
+def jointprob(a):
+    """
+    Given a 2-D array a, return the joint probability distribution. For use in the uncertainty function.
+    """
+
 def uncertainty(j):
     """
     Use the Shannon entropy of a marginal distribution and Shannon entropy of the joint distribution
@@ -69,4 +74,4 @@ def uncertainty(j):
         for j in y:
             Hxy += (i*j)*np.log(i*j)
     Hxy = -Hxy
-    return Hx + Hy - Hxy
+    return Hx + Hy - Hxy # This can be a measure of mutual information from a joint probability distribution
