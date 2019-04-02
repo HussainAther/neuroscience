@@ -22,7 +22,9 @@ def impulse(x, Nh):
     f = np.array([2*c(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)]) # Fourier transform
     return f.sum
 
-def gabor():
+def gabor(sigma, theta, Lambda, psi, gamma):
     """
     Gabor filters with different frequencies to return features from an image in two dimensions.
     """
+     
+    Gcos = 
