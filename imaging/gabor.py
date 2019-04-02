@@ -32,3 +32,10 @@ def gabor(sigma, theta, Lambda, psi, gamma):
     sigmax = sigma
     sigmay = float(sigma) / gamma 
     nstds = 3 # number of standard deviation sigma
+    xmax = max(abs(nstds * sigma_x * np.cos(theta)), abs(nstds * sigma_y * np.sin(theta)))
+    xmax = np.ceil(max(1, xmax)) # ceiling function returns the smallest integer i such that i >= x.
+    ymax = max(abs(nstds * sigma_x * np.sin(theta)), abs(nstds * sigma_y * np.cos(theta)))
+    ymax = np.ceil(max(1, ymax))
+    xmin = -xmax # flip the sign to get the minimum in the x direction
+    ymin = -ymax # same
+    (y, x) = np.meshgrid(np.arange(ymin, ymax + 1), np.arange(xmin, xmax + 1))
