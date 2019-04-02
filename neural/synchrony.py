@@ -1,5 +1,7 @@
 import numpy as np
 
+from scipy.stats.contingency import margins
+
 """
 Linear measures of neuronal signal synchrony estimate the synchrony between two or sometimes
 more continuous time series of brain activitiy which yield low values for independent time
@@ -52,3 +54,8 @@ def uncertainty(X, Y):
     Use the Shannon entropy of a marginal distribution and Shannon entropy of the joint distribution
     to calculate nonlinear dependence using our uncertainty of a probability distribution.
     """
+    tot = len(X) + len(Y) # total discrete variables in our data
+    px = [] # For a pair of discrete random variables X and Y having nonzero mutual information,
+    py = [] # we calculate the joint distributions and use these arrays px and py for the marginal distributions.
+    Hx = 0 # Shannon entropy of the marginal distribution
+    for i in range
