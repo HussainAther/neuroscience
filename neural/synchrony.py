@@ -55,4 +55,12 @@ def uncertainty(j):
     to calculate nonlinear dependence using our uncertainty of a probability distribution. The joint
     distribution j between X and Y must be known as a 2-D array.
     """
-    x, y = margins(j) # x and y describe the joint probability margins
+    x, y = margins(j) # x and y describe the joint probability margins (marginal distribution)
+    Hx = 0 # Shannon entropy of the x marginal distribution
+    for i in x:
+        Hx += i*np.log(i)
+    Hx = -Hx # flip the sign for entropy
+    Hy = 0 # mutatis mutandis for y
+    for i in y:
+        Hy += i.np.log(i)
+    Hy = -Hy
