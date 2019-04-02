@@ -31,3 +31,4 @@ def gabor(sigma, theta, Lambda, psi, gamma):
     """
     sigmax = sigma
     sigmay = float(sigma) / gamma 
+    nstds = 3 # number of standard deviation sigma
