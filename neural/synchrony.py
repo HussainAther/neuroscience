@@ -12,6 +12,8 @@ def crosscorrelation(tau, x, n):
     """
     For some time lag tau derived from normalized signals x and y of length N and with zero mean, we
     can calculate the unit variance as linear cross correlation and use that as a measure of synchronization.
+    The absolute value is symmetric in the x and y directions and reaches a maxixmum of 1 for complete lag 
+    synchronization.
     """
     if tau < 0:
         tau = -tau # flip the sign so we're looking at time lag in the same direction every time we run this function
@@ -19,3 +21,8 @@ def crosscorrelation(tau, x, n):
     for i in range(N-tau):
         summ += x[i+tau] * y[n] # account for time lag tau
     return (1/(N-tau)) * summ
+
+def coherence():
+    """
+    We can quantify linear correlations in the frequency domain with the cross spectrum.
+    """
