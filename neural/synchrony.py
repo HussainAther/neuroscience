@@ -46,3 +46,9 @@ If our information is nonlinear, we can use a few more complicated techniques to
 Between a nonlinear relationship of X and Y, we can use uncertainty of a probability distribution
 based on Shannon entropy.
 """
+
+def uncertainty(X, Y):
+    """
+    Use the Shannon entropy of a marginal distribution and Shannon entropy of the joint distribution
+    to calculate nonlinear dependence using our uncertainty of a probability distribution.
+    """
