@@ -101,6 +101,11 @@ def lrcoef(x,y):
   
     return(b_0, b_1)
 
+def uni(x, y):
+    """
+    Univariate models uses the information from within the x and y data to predict.
+    """
+
 def granger(x, y):
     """
      
