@@ -83,5 +83,25 @@ def uncertainty(j):
 We can use Granger causality using the same principle from transfer entropy to test whether the prediction of a 
 signal that relies only on its own past (univariate model) can be improved by incorporating past
 information from the other signal (bivariate). We simply compare the univariate model to bivariate.
-
 """
+
+def lrcoef(x,y):
+    """
+    For variable arrays x and y, estimate the coefficients of linear regression.
+    """
+    n = np.size(x) # size
+  
+    m_x, m_y = np.mean(x), np.mean(y) # get the means
+
+    SS_xy = np.sum(y*x) - n*m_y*m_x # cross derivation
+    SS_xx = np.sum(x*x) - n*m_x*m_x
+  
+    b_1 = SS_xy / SS_xx # regression coefficients
+    b_0 = m_y - b_1*m_x
+  
+    return(b_0, b_1)
+
+def granger(x, y):
+    """
+     
+    """
