@@ -64,7 +64,7 @@ def entropyConditional(conditionalProbs):
 def probReadout(y):
     """
     Readout y is porportional to s with some gain g. This is the mutual information of the Gaussian channel. si s a signal and we have an s-detector
-    that gives us a readout y with some gain g. y is a list of values of which we calculate the arviacne for this function.
+    that gives us a readout y with some gain g. y is a list of values of which we calculate the variacne for this function.
     """
     return (1/np.sqrt(2 * np.pi * np.var(y)**2)) * exp(-y**2)/(2*np.var(y**2))
 
