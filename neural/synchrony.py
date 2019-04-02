@@ -176,13 +176,20 @@ def knn(trainingSet, testInstance, k):
         neighbors.append(distances[x][0])
     return neighbors
 
-def theiler(C, w):
+def theiler(C, e, w):
     """
     Theiler's (Theiler) correction seeks to mitigate the effect of how choosing neighbors in a small neighbor about a point
     forces the inclusion of temporally correlated points. We get rid of this bias that would cause a lower dimension  
-    estimate. For an input correlation matrix C and dimension w, correct it this way.
+    estimate. For an input correlation matrix C, radius e, and correction factor w, correct it this way.
     """
-    return 
+    x = C[0]
+    y = C[1]
+    N = len(x) 
+    summ = 0 
+    for i in range(N-w):
+        for j in range(N):
+            summ += np.heaviside(e-x[i], e-x[j])
+    return (2/((N-w)*(N-w-1)))*summ
 
 def nonlininter(x, y, tau, m, k):
     """
@@ -191,5 +198,5 @@ def nonlininter(x, y, tau, m, k):
     """
     RnX = 0 # Mean squared Euclidean distance to knn
     for i in range(k):
-        RnX += 
+        RnX += x knn(  
     
