@@ -16,7 +16,8 @@ def impulse():
     """
     Input signal has a real and imaginary component representing orthogonal directions. We can
     use a complex number that results fomr the convolution of the Fourier transform of the harmonic
-    (sinusoidal) function. For some x input 
+    (sinusoidal) function. For some x input over range Nh. 
     """
     c = y*np.exp(-1j*2*n*np.pi*time/period) # convolution
-    f = np.array([2*c(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)])
+    f = np.array([2*c(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)]) # Fourier transform
+    return f.sum
