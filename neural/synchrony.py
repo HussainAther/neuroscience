@@ -176,6 +176,12 @@ def knn(trainingSet, testInstance, k):
         neighbors.append(distances[x][0])
     return neighbors
 
+def theiler(C, w):
+    """
+    Theiler's correction seeks to mitigate the effect of how choosing neighbors in a small neighbor about a point
+    forces the inclusion of temporally correlated points. We get rid of this bias that would cause a lower dimension  
+    estimate
+    """
 
 def nonlininter(X, Y, tau, m):
     """
@@ -184,4 +190,4 @@ def nonlininter(X, Y, tau, m):
     """
     RnX = 0 # Euclidean distance between vectors in X
     RnXY = [] # Euclidean distance between vectors in X and Y
-    for i in  
+    
