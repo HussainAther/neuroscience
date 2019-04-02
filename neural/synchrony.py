@@ -24,5 +24,6 @@ def crosscorrelation(tau, x, n):
 
 def coherence():
     """
-    We can quantify linear correlations in the frequency domain with the cross spectrum.
+    We can quantify linear correlations in the frequency domain with the cross spectrum for some signal w.
     """
+    crossspec = np.fft.fft(w)*np.fft.ifft(w) # multiply the discrete fourier transform of the signal by its complex conjugate.
