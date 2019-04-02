@@ -152,18 +152,18 @@ We can calculate a nonlinear interdependence M that relies on space reconstructi
 embedding theorem, the state reconstructed from the recorded signals by temporal sequences of delay vectors xn = (xn,
 ...xn-(m-1)d) and yn = (yn,...yn-(m-1)d) with m and d representing the embedding dimension and the time lag, respectively.
 """ 
-def euclideanDistance(instance1, instance2, length):
+def euDist(instance1, instance2, length):
     """
     Return Euclidean distance of length between two arrays of numbers.
     """
     distance = 0
     for x in range(length):
         distance += pow((instance1[x] - instance2[x]), 2)
-    return math.sqrt(distance)
+    return np.sqrt(distance)
 
 def knn(trainingSet, testInstance, k):
     """
-    Return k-nearets neighbors.
+    Return k nearest neighbors. (K nearest neighbors) 
     """
     distances = []
     length = len(testInstance)-1
@@ -178,16 +178,18 @@ def knn(trainingSet, testInstance, k):
 
 def theiler(C, w):
     """
-    Theiler's correction seeks to mitigate the effect of how choosing neighbors in a small neighbor about a point
+    Theiler's (Theiler) correction seeks to mitigate the effect of how choosing neighbors in a small neighbor about a point
     forces the inclusion of temporally correlated points. We get rid of this bias that would cause a lower dimension  
-    estimate
+    estimate. For an input correlation matrix C and dimension w, correct it this way.
     """
+    return 
 
-def nonlininter(X, Y, tau, m):
+def nonlininter(x, y, tau, m, k):
     """
     Return a normalized measure of directed nonlinear interdependence between systems X and Y for number of vectors N
-    with some time lag tau and embedding dimension m.
+    for x and y arrays of delay vectors with some time lag tau and embedding dimension m and k number of nearest neighbors.
     """
-    RnX = 0 # Euclidean distance between vectors in X
-    RnXY = [] # Euclidean distance between vectors in X and Y
+    RnX = 0 # Mean squared Euclidean distance to knn
+    for i in range(k):
+        RnX += 
     
