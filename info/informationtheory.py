@@ -117,7 +117,7 @@ def N_eff(N_v, T):
 
 
 """
-Maximizing the rate of information transmission is done with noisewhitening. To transmit hte maximum amount of information possible given a fixed total signal variance, the power spectrum
+Maximizing the rate of information transmission is done with noisewhitening. To transmit the maximum amount of information possible given a fixed total signal variance, the power spectrum
 of the signals should be matched to the power spectrum of the noise in the system.
 
 Both the photoreceptor and the large monopolar cell produce graded responses but there is an element of discreteness to synaptic transmission itself.
