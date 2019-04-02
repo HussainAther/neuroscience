@@ -105,3 +105,4 @@ def granger(x, y):
     """
      
     """
+    return biv(x, y) - uni(x,y) # Return the differences between the bivariate models of x and y with the univariate models of x and y.
