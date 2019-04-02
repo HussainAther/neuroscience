@@ -55,5 +55,20 @@ let us localize and extract text-only regions from complex document images. We c
 iris recognition, and fingerprint recognition.
 
 Dennis Gabor also introduced Gaboe wavelets that use complex functions to serve as a basis for Fourier
-transforms in information theory application.
+transforms in information theory application. They're non-orthongonal, so it's difficult to create efficient
+decomposition into the basis.
 """
+
+def wavelet(x):
+    """
+    We use a 1-D Gaussian modulated by a complex exponential for our Gabor wavelet.
+    x0 is the center of the x distribution, k0 is the rate of modulation, and alpha is the rate of the exponential
+    drop-off as the Gabor function becoms exponentially suppressed. Use input x for the position of the wavelet in one
+    dimension. 
+    """
+    x0 = 0
+    k0 = 1
+    alpha = 10
+    exp1 = -(x-x0)**2 # first exponential term
+    exp2 = -np.imag(k0*(x-x0) # second exponential term
+    return np.exp(exp1) * np.exp(exp2)
