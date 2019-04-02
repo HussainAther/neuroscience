@@ -51,8 +51,11 @@ based on Shannon entropy.
 
 def jointprob(a):
     """
-    Given a 2-D array a, return the joint probability distribution. For use in the uncertainty function.
+    Given a N-D array a, return the joint probability distribution. For use in the uncertainty function.
     """
+    N = a.shape[0]
+    jointProbs, edges = np.histogramdd(a, bins=N)
+    return JointProbs / jointProbs.sum()
 
 def uncertainty(j):
     """
