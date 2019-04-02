@@ -13,6 +13,6 @@ According to Jahr and Stevens (1990) paper, the dependence can be described by t
 def G_NMDA(Mg2, V):
     """
     Compute G_NMDA factor due to the way NMDA receptors conduct Ca2+ ions as well as monovalent cations.
-    Mg2 is the concentration of Mg2+ (Magnesium ion) and V is the membrane potential.git 
+    Mg2 is the concentration of Mg2+ (Magnesium ion) and V is the membrane potential. 
     """
     return (1 + ([Mg2]/3.57) * exp(-V/16.13))**-1
