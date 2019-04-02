@@ -40,3 +40,9 @@ def coherence(w):
     num = abs(crossspec(w))**2 # numerator
     den = abs(np.fft.fft(w)*np.fft.fft(w)) * abs(np.fft.ifft(w) * np.fft.ifft(w)) 
     return num / den
+
+"""
+If our information is nonlinear, we can use a few more complicated techniques to measure synchrony.
+Between a nonlinear relationship of X and Y, we can use uncertainty of a probability distribution
+based on Shannon entropy.
+"""
