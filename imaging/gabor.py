@@ -39,3 +39,8 @@ def gabor(sigma, theta, Lambda, psi, gamma):
     xmin = -xmax # flip the sign to get the minimum in the x direction
     ymin = -ymax # same
     (y, x) = np.meshgrid(np.arange(ymin, ymax + 1), np.arange(xmin, xmax + 1))
+
+    # Rotation in accordance with our theta variable to extract features in both directions. 
+    x_theta = x * np.cos(theta) + y * np.sin(theta)
+    y_theta = -x * np.sin(theta) + y * np.cos(theta)
+
