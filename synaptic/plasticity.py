@@ -1,6 +1,7 @@
 import numpy as np
 
 from sklearn import make_blobs
+
 """
 Synaptic plasticity with Hebbian Learning. Using neurons of the brain as processing units
 using cable theory as extensions, we can simulate models of neurons firing using action potentials
@@ -57,6 +58,7 @@ a = .0001 # alpha: learning rate
 eps = 1e-8 # epsilon: tolerance
 
 while np.linalg.norm(prevwoja - woja) > eps:
+    # perform the iteration to calculate the Ys values of the Oja weights. 
     prevwoja = woja.copy()
     Ys = np.dot(Xs, woja) # get the dot-product with the Oja weights
     woja += a * np.sum(Ys*Xs - np.square(Ys)*woja.T, axis=0).reshape((2,1)) # perform the calculation and add to overall Oja weights
