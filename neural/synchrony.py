@@ -146,4 +146,9 @@ def granger(x, y):
         print("Bivariate % " % biv(x, y))
     else:
         print("Stick with univariate % " % uni(x,y))
-    
+   
+"""
+We can calculate a nonlinear interdependence M that relies on space reconstruction. According to Takens' time delay
+embedding theorem, the state reconstructed from the recorded signals by temporal sequences of delay vectors xn = (xn,
+...xn-(m-1)d) and yn = (yn,...yn-(m-1)d) with m and d representing the embedding dimension and the time lag, respectively.
+""" 
