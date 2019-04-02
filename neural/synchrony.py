@@ -22,8 +22,21 @@ def crosscorrelation(tau, x, n):
         summ += x[i+tau] * y[n] # account for time lag tau
     return (1/(N-tau)) * summ
 
-def coherence():
+def crossspec(w):
+    """
+    Return cross-spectrum of some signal w by performing Discrete Fourier transform as the x direction and its inverse for the y.
+    """
+    return np.fft.fft(w)*np.fft.ifft(w) # multiply the discrete fourier transform of the signal by its complex conjugate.
+
+def coherence(w):
     """
     We can quantify linear correlations in the frequency domain with the cross spectrum for some signal w.
     """
-    crossspec = np.fft.fft(w)*np.fft.ifft(w) # multiply the discrete fourier transform of the signal by its complex conjugate.
+    cross = crossspec(w)
+    """
+    If we normalize the amplitdue of the power spectrum of both the x and y systems, the we can calculate the 
+    cross-spectrum as the coherence function:
+    """
+    num = abs(crossspec(w))**2 # numerator
+    den = abs(np.fft.fft(w)*np.fft.fft(w)) * abs(np.fft.ifft(w) * np.fft.ifft(w)) 
+    return num / den
