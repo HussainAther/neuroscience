@@ -1,7 +1,8 @@
 import time
 import numpy as np
-from numpy import concatenate as cc
 import matplotlib.pyplot as plt
+
+from numpy import concatenate as cc
 
 """
 Compute the firing of a neuron via alpha function synapse and a (random) input spike train. The alpha function is often
@@ -24,7 +25,7 @@ ref = 0 # refractory period counter
 thr = 0.9 # threshold for random spikes
 spike_train = np.random.rand(tstop) > thr
 
-def alpha_():
+def alphasynapse():
     """
     Alpha function for synaptic conductance
     """
