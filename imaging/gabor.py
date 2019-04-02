@@ -48,3 +48,9 @@ def gabor(sigma, theta, Lambda, psi, gamma):
     gb = np.exp(-.5 * (x_theta ** 2 / sigma_x ** 2 + y_theta ** 2 / sigma_y ** 2)) * np.cos(2 * np.pi / Lambda * x_theta + psi)
    
     return gb
+
+"""
+Gabor fatures can identify the script of a word in a multilingual document. Different frequencies and rotatiosn of Gabor functions
+let us localize and extract text-only regions from complex document images. We can also use it in optical character recognition,
+iris recognition, and fingerprint recognition.
+"""
