@@ -114,6 +114,10 @@ def uni(x, y):
         yn += ay*y[len(y)-i] + uy 
     return xn, yn
 
+def biv(x, y):
+    """
+    Bivariate model to predict. Compare with past prediction of the other signal to improve (if there is an improvement).
+    """
 
 def granger(x, y):
     """
