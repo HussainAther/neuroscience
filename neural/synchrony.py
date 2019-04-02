@@ -78,3 +78,10 @@ def uncertainty(j):
             Hxy += (i*j)*np.log(i*j)
     Hxy = -Hxy
     return Hx + Hy - Hxy # This can be a measure of mutual information from a joint probability distribution
+
+"""
+We can use Granger causality using the same principle from transfer entropy to test whether the prediction of a 
+signal that relies only on its own past (univariate model) can be improved by incorporating past
+information from the other signal (bivariate). We simply compare the univariate model to bivariate.
+
+"""
