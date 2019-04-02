@@ -49,13 +49,10 @@ Between a nonlinear relationship of X and Y, we can use uncertainty of a probabi
 based on Shannon entropy.
 """
 
-def uncertainty(X, Y):
+def uncertainty(j):
     """
     Use the Shannon entropy of a marginal distribution and Shannon entropy of the joint distribution
-    to calculate nonlinear dependence using our uncertainty of a probability distribution.
+    to calculate nonlinear dependence using our uncertainty of a probability distribution. The joint
+    distribution j between X and Y must be known as a 2-D array.
     """
-    tot = len(X) + len(Y) # total discrete variables in our data
-    px = [] # For a pair of discrete random variables X and Y having nonzero mutual information,
-    py = [] # we calculate the joint distributions and use these arrays px and py for the marginal distributions.
-    Hx = 0 # Shannon entropy of the marginal distribution
-    for i in range
+    x, y = margins(j) # x and y describe the joint probability margins
