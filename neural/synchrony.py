@@ -180,7 +180,8 @@ def theiler(C, e, w):
     """
     Theiler's (Theiler) correction seeks to mitigate the effect of how choosing neighbors in a small neighbor about a point
     forces the inclusion of temporally correlated points. We get rid of this bias that would cause a lower dimension  
-    estimate. For an input correlation matrix C, radius e, and correction factor w, correct it this way.
+    estimate. For an input correlation matrix C, radius e, and correction factor w, correct it this way and return 
+    a corrected correlation matrix.
     """
     x = C[0]
     y = C[1]
@@ -191,12 +192,47 @@ def theiler(C, e, w):
             summ += np.heaviside(e-x[i], e-x[j])
     return (2/((N-w)*(N-w-1)))*summ
 
+def RnX(N, x):
+    """
+    Mean squared Euclidean distance to all N remaining vectors in x.
+    """
+    result = 0
+    for i in range(N):
+        result += (x-x[i])**2
+    return result /= N
+
+def RnkX(x, k):
+    """
+    Return the mean squared Euclidean distance to its k neighbors.
+    """
+    result = 0
+    for i in range(k):
+         result += (x - knn(range(len(x), x, i)))**2 # sum up the distances to each neighbor
+    return result / k # normalize 
+
+def RnkXY(x, y, k):
+    """
+    Replace the nearest neighbors by the equal time partners of the closest neighbors of y (denoted by snj). 
+    Return the y-conditioned mean squared Euclidean distance
+    """
+    result = 0
+    for i in range(k):
+        result += (x - knn(x, y, i))**2 # sum them up
+    return result / k # normalize
+
 def nonlininter(x, y, tau, m, k):
     """
     Return a normalized measure of directed nonlinear interdependence between systems X and Y for number of vectors N
     for x and y arrays of delay vectors with some time lag tau and embedding dimension m and k number of nearest neighbors.
+
+    If closeness in y implies closeness in x, then RnkX ~ RnkXY << RnX that lets us approximate the nonlinear interdepenedence ~ 1 
+    (for identical synchronization = 1). In the other extreme, RnkX << RnkXY ~ RnX with output 0 for independent systems.
     """
-    RnX = 0 # Mean squared Euclidean distance to knn
-    for i in range(k):
-        RnX += x knn(  
-    
+    N = len(x)
+    (x, y, z) = theiler((x,y), 5, 10) # perform Theiler correction on the input x and y
+    result = 0 # output normalized measure of nonlinear interdependence
+    for i in range(N): 
+        num = RnX(i, x[:i]) - RnkXY(x[:i], y[:i], k)
+        den = RnX(i, x[:i]) - RnkX(x[Li], k) 
+        result += num/den
+   return result / N 
