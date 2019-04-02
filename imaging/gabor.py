@@ -11,3 +11,10 @@ of a neural network with random Gabor filters or train them with unsupervised me
 principal component analysis), we can determine whether unsupervised learning leads to better
 performanance than networks that are completely connected within themselves. 
 """
+
+def impulse():
+    """
+    Input signal has a real and imaginary component representing orthogonal directions. We can
+    use a complex number that results fomr the convolution of the Fourier transform of the harmonic
+    (sinusoidal) function.
+    """
