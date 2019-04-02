@@ -64,3 +64,9 @@ def uncertainty(j):
     for i in y:
         Hy += i.np.log(i)
     Hy = -Hy
+    Hxy = 0 # Shannon entropy of the joint distribution
+    for i in x:
+        for j in y:
+            Hxy += (i*j)*np.log(i*j)
+    Hxy = -Hxy
+    return Hx + Hy - Hxy
