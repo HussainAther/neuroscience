@@ -140,4 +140,10 @@ def granger(x, y):
     """
     Use linear regression of stochastic processes. Popular in economics. Only recently examined for potential in neuroscience.  
     """
-    return biv(x, y) - uni(x,y) # Return the differences between the bivariate models of x and y with the univariate models of x and y.
+    if biv(x, y) - uni(x, y) > uni(x, y): # if predictability is improved with the bivariate model
+        print("Improvement value %" % (biv(x,y) - uni(x,y))
+        print("Univariate % " % uni(x,y))
+        print("Bivariate % " % biv(x, y))
+    else:
+        print("Stick with univariate % " % uni(x,y))
+    
