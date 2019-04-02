@@ -25,6 +25,11 @@ def impulse(x, Nh):
 def gabor(sigma, theta, Lambda, psi, gamma):
     """
     Gabor filters with different frequencies to return features from an image in two dimensions.
+    sigma, theta, Lambda, psi, and gamma are the resulting variables of the complex number 
+    of the Fourier transform. In this transformation, Lambda is the sine factor wavelength, 
+    theta is the normal orientation to the parallel stripes of a Gabor function,
+    psi is the phase offset, sigma is the standard deviation of the Gaussian envelope, and
+    gamma is the spatial aspect ratio of the ellipticity of the Gabor function support.
     """
-     
-    Gcos = 
+    sigmax = sigma
+    sigmay = float(sigma) / gamma 
