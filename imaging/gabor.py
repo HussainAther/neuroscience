@@ -53,4 +53,7 @@ def gabor(sigma, theta, Lambda, psi, gamma):
 Gabor fatures can identify the script of a word in a multilingual document. Different frequencies and rotatiosn of Gabor functions
 let us localize and extract text-only regions from complex document images. We can also use it in optical character recognition,
 iris recognition, and fingerprint recognition.
+
+Dennis Gabor also introduced Gaboe wavelets that use complex functions to serve as a basis for Fourier
+transforms in information theory application.
 """
