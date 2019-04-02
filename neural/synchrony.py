@@ -152,6 +152,14 @@ We can calculate a nonlinear interdependence M that relies on space reconstructi
 embedding theorem, the state reconstructed from the recorded signals by temporal sequences of delay vectors xn = (xn,
 ...xn-(m-1)d) and yn = (yn,...yn-(m-1)d) with m and d representing the embedding dimension and the time lag, respectively.
 """ 
+def euclideanDistance(instance1, instance2, length):
+    """
+    Return Euclidean distance of length between two arrays of numbers.
+    """
+    distance = 0
+    for x in range(length):
+        distance += pow((instance1[x] - instance2[x]), 2)
+    return math.sqrt(distance)
 
 def knn(trainingSet, testInstance, k):
     """
