@@ -26,7 +26,10 @@ The standard passive membrane equaiton tells us:
 tau_m * V = -V + R * I_syn
 """
 
-def V_m(t): # potential function
+def V_m(t): 
+    """
+    Return the potential over some range in time t.
+    """
     result = []
     for i in range(t):
         result.append(i*3 + 2)
