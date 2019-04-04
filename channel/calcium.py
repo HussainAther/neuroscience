@@ -21,6 +21,9 @@ HH = makeHHneuron('HH_Ca', par_args, ic_args, const_I=True,
 HH.set(tdata=[0,1500])
 
 def test_I(I):
+    """
+    Test our function to simulate calcium parabolic bursting.
+    """
     HH.set(pars={'Iapp': I})
     traj = HH.compute('test')
     pts = traj.sample()
