@@ -14,7 +14,13 @@ class Brownian:
     """
     For storing objects and functions related to Brownian (brownian) motion.
     """
-        
+    def __init__(self, param):
+        self.param = param
+
+    def param(self, sigma, delta, time):
+        param.all_sigma = sigma # uncertainty assocaited with each measurement according to the Gaussian distributino
+        param.all_delta = delta # difference in movement at each step
+        param.all_time = time # time over which we simulate Brownian motion
 
 def brownian(x0, n, dt, delta):
     """
@@ -31,9 +37,7 @@ def brownian_motion_log_returns(param):
     """
     This method returns a Wiener process. The Wiener process is also called Brownian motion. For more information
     about the Wiener process check out the Wikipedia page: http://en.wikipedia.org/wiki/Wiener_process
-    Param is hte model parameters object.    
-:param param: the model parameters object
-    :return: brownian motion log returns
+    Param is hte model parameters object. Return the Brownian motion log values. 
     """
     sqrt_delta_sigma = math.sqrt(param.all_delta) * param.all_sigma
     return nrand.normal(loc=0, scale=sqrt_delta_sigma, size=param.all_time)
@@ -42,8 +46,6 @@ def brownian_motion_log_returns(param):
 def brownian_motion_levels(param):
     """
     Returns a price sequence whose returns evolve according to a brownian motion
-    :param param: model parameters object
-    :return: returns a price sequence which follows a brownian motion
     """
     return convert_to_prices(param, brownian_motion_log_returns(param))
 
