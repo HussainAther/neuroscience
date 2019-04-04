@@ -23,6 +23,12 @@ of spikes over time. Then we can calculate a peri-stimulus time histogram (PSTH)
 same experiment.
 """
 
+def interspike_interval_histogram(self, bins):
+    """
+    Return ISI in discrete time bins bins.
+    """
+    intervals = self.interspike_intervals()
+    return np.diff([np.count_nonzero(intervals < (t / 1000.)) for t in [0] + list(bins)]) / float(intervals.size)
 
 
 """
