@@ -27,7 +27,7 @@ def popProb(problist, T, r):
     for prob in problist:
         factor = exp(-prob*T)
         factor *= (prob*T)**(r*T)
-        factor / np.factorial(r*T)
+        factor / factorial(r*T)
         result *= factor
     return result
 
