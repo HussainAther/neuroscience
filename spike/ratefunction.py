@@ -22,3 +22,20 @@ Interspike interval (ISI) is the time between spikes. ISI rate can be used to ca
 of spikes over time. Then we can calculate a peri-stimulus time histogram (PSTH) from many trials of the
 same experiment.
 """
+
+
+
+"""
+We can take into account the Fano factor with every counting interval.
+"""
+
+def fano_factor(self, counting_intervals):
+    """
+    Compute the Fano factor sigma^2_n / mean_n with every given interval. It measures the 
+    dsipersion of a probability distributino of Fano noise. 
+    """
+    ls = []
+    for i in counting_intervals:
+        counts = self.spike_counts(i)
+        ls.append(np.var(counts) / np.mean(counts))
+    return np.asarray(ls)
