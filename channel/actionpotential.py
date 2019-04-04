@@ -180,7 +180,7 @@ for i in arange(size(peaks)-1):
 
 def find_isi(I_Ext):
     """
-    We can change the external current to determine the spike intervals.
+    We can change the external current to determine the interspike intervals (ISI).
     """
     params["E_params"]["I_ext"] = I_Ext
     state0 = [-70e-03, 0, 1, 0, 0, 0]
