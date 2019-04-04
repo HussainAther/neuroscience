@@ -50,6 +50,6 @@ plt.show()
 
 """
 We may also try other current inputs such as I = sin(2*pi*omega*t) that corresponds to an output
-sinusoidlly modulating membrane potential V = A*(sin(2*pi*ometa*t + phi)). In this case, we can derive
-A = 1 / sqrt(g2 + (2*omega*C)^2) 
+sinusoidlly modulating membrane potential V = A*(sin(2*pi*omega*t + phi)). In this case, we can derive
+A = 1 / sqrt(g2 + (2*omega*C)^2) 
 """
