@@ -10,6 +10,12 @@ import matplotlib.pyplot as plt
 It's like walking when you're drunk. Don't try this at home.
 """
 
+class Brownian:
+    """
+    For storing objects and functions related to Brownian (brownian) motion.
+    """
+        
+
 def brownian(x0, n, dt, delta):
     """
     Use Wiener prcoess from mathematics to simulate Brownian motion.
@@ -25,7 +31,8 @@ def brownian_motion_log_returns(param):
     """
     This method returns a Wiener process. The Wiener process is also called Brownian motion. For more information
     about the Wiener process check out the Wikipedia page: http://en.wikipedia.org/wiki/Wiener_process
-    :param param: the model parameters object
+    Param is hte model parameters object.    
+:param param: the model parameters object
     :return: brownian motion log returns
     """
     sqrt_delta_sigma = math.sqrt(param.all_delta) * param.all_sigma
