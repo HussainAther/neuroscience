@@ -10,17 +10,14 @@ import matplotlib.pyplot as plt
 It's like walking when you're drunk. Don't try this at home.
 """
 
-class Brownian:
+class param:
     """
-    For storing objects and functions related to Brownian (brownian) motion.
+    For storing objects and functions related to Brownian (brownian) motion. This is the param object.
     """
-    def __init__(self, param):
-        self.param = param
-
-    def param(self, sigma, delta, time):
-        param.all_sigma = sigma # uncertainty assocaited with each measurement according to the Gaussian distributino
-        param.all_delta = delta # difference in movement at each step
-        param.all_time = time # time over which we simulate Brownian motion
+    def __init__(self, sigma, delta, time):
+        self.all_sigma = sigma # uncertainty assocaited with each measurement according to the Gaussian distributino
+        self.all_delta = delta # difference in movement at each step
+        self.all_time = time # time over which we simulate Brownian motion
 
 def brownian(x0, n, dt, delta):
     """
