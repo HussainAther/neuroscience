@@ -5,8 +5,7 @@ from scipy.integrate import odeint
 
 """
 Use a model of a voltage-gated ion channel in a single neuron to simulate action potentials.
-The model is based on the work by Hodgkin & Huxley model.
-
+The model is based on the work by Hodgkin & Huxley model. (Hodgkin-Huxley HH hodgkin huxley)
 """
 
 # Set up some parameters that we can work with.
