@@ -1,7 +1,8 @@
 import numpy as np
 import math
-from scipy.integrate import odeint
 import matplotlib.pyplot as plt
+
+from scipy.integrate import odeint
 
 """
 We can use steady-state current-voltage relationships of axonal sodium and potassium channels
@@ -10,8 +11,10 @@ i, the amplitude of current flowing through a single channel, and P, the average
 which is a function of voltage and time.
 """
 
-# function that returns current
 def current(N,P,i):
+    """
+    Return the current across a Calcium (Ca 2+) ion channel
+    """
     I_calcium = N*P*i # Calculate the calcium current as a function of N, P, and i
     return I_calcium
 
@@ -44,11 +47,15 @@ and the electromagnetic force to get the direction of current flow through a sin
 potential for calcium channels is because they permit the flow fo cations outwards through the central
 ion pore.
 """
+
 V = 5 # Voltage
 gamma = .5 # conductance
 E = 10 # EM potential.
 
 def ionpore(gamma, V, E):
+    """
+    Current across an ion pore with a gamma conductance. 
+    """
     current = gamma*(V-E)
     return current
 
@@ -59,17 +66,24 @@ I_tail = 10
 I_max = 15
 
 def P(I_tail, I_max):
+    """
+    Probability of open pores.
+    """
     return I_tail/I_max
 
 """
 The relationship between P_open and the test pulse is the activation curve for Calcium channels. Similar
-protocls can be used to detemrmine the voltage-dependence of activation of VGICs using the Boltzmann function.
+protocols can be used to detemrmine the voltage-dependence of activation of VGICs using the Boltzmann function.
 """
+
 V_50 = 20
-V_m = 14
-k = 1e-23
+V_m = 14 # membrane voltage
+k = 1e-23 # Boltzmann function
 
 def Pv2(V_50, V_m,k):
+    """
+    Probability of open pores across this membrane in the relationship of open pores and a test pulse. 
+    """
     den = (1+exp(V_50 - V_m)/k)
     retrn 1/den
 
@@ -91,10 +105,16 @@ to the action potential.
 """
 
 def g_Na(I_Na, V_m, E_Na):
+    """
+    Gamma of sodium probability with interdependent voltages, currents, and gammas.
+    """
     conductance = I_Na / (V_m - E_Na)
     return conductance
 
 def g_K(I_K, V_m, E_K):
+    """
+    Potassium gamma.
+    """
     conductance = I_K / (V_m - E_K)
     return conductance
 
