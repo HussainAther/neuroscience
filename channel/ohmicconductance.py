@@ -1,7 +1,7 @@
 import numpy as np
 
 """
-In states of nonequilibrium the Nernst potential (V_n) doesn't need to equal the actual
+In states of nonequilibrium the Nernst (nernst) potential (V_n) doesn't need to equal the actual
 potential jump across a membrane. The flux of ions through a membrane will be dissipative and
 proportional to a net driving force.
 
