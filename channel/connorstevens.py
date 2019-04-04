@@ -9,8 +9,8 @@ conductances (as the HH model does), but the Na+ and K+ conductances have proper
 somewhat different. The C-S model also has an extra K+ conductance (known as the A-current) that is transient.
 """
 
-dt = 0.000005
-tmax = 2
+dt = 0.000005 # step size for time
+tmax = 2 # max time
 
 iclamp_flag = 1 # if this is 1, run under current clamp conditions
 vclamp_flag = 0 # otherwise this should be 1, for voltage clamp conditions
