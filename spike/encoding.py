@@ -14,12 +14,12 @@ not hold really well in reality as neural firing rates cannot increase indefinit
 """
 
 # Definition of the stimulus
-dt = 0.01                # Time step [s]
-T  = 2                   # Total duration of the simulation
-t = np.arange(0, 2, dt)  # Time points
+dt = 0.01 # Time step [s]
+T  = 2  # Total duration of the simulation
+t = np.arange(0, 2, dt) # Time points
 
 f = 0.5 # Frequency
-A = 1   # Amplitude
+A = 1 # Amplitude
 stim = A*np.sin(2*np.pi*f*t) + np.random.normal(0.0, 0.05, len(t))
 
 # Delayed amplification
