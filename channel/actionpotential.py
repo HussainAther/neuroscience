@@ -1,6 +1,7 @@
-from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import numpy as np
+
+from scipy.integrate import odeint
 
 """
 Use a model of a voltage-gated ion channel in a single neuron to simulate action potentials.
