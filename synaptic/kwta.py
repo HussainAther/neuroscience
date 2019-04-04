@@ -7,5 +7,9 @@ sort of "winner takes all" approach). We capture the "set point" nature of inhib
 feedback as analogous to the desired temperature for the  unit.
 """
 
-theta = # action potential threshold at which a neuron will fire an action
-        # potential ooutput to another neuron
+l = range(10) # original list of values
+
+theta = 10 # action potential threshold at which a neuron will fire an action
+        # potential output to another neuron
+
+
