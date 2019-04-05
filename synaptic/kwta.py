@@ -12,7 +12,7 @@ l = range(10) # original list of values
 k = 1 # some arbitrary k
 
 theta = 10 # action potential threshold at which a neuron will fire an action
-        # potential output to another neuron
+           # potential output to another neuron
 
 j = int(len(l)*k) # number of elements whose maximum we want 
 threshold = sorted(l)[j] # the jth element in the sorted list.
