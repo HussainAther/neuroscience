@@ -31,6 +31,7 @@ For small displacements l, the differnece between the patterns from one point so
 and the pattern from two points sources can be found by expanding I2 in a Taylor series
 and keeping only the leading term.
 """
+
 def d2I0dx(x):
     """
     Return the second derivative of I0 with respect to x.
