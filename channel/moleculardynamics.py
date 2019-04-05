@@ -34,4 +34,8 @@ def potential(k, bonds, angles, torsions, eps, sigma, eq, qi, rij):
         gamma = torsions[i][2] # gamma for dihedral angle
         bondsum += (bonds[i] - li0)**2 *(k[i]/2)
         anglesum += (angles[i] - thetai0)**2 *(k[i]/2)
-        torsionsum += (1 + np.cos(n*omega-gamma)) * (V/2) 
+        torsionsum += (1 + np.cos(n*omega-gamma)) * (V/2i)
+    ljcsum = 0 # Lennard-Jones Coulomb sum
+    for i in range(m):
+        for j in range(i+1, m):
+ 
