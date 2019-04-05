@@ -13,7 +13,8 @@ which is a function of voltage and time.
 
 def current(N,P,i):
     """
-    Return the current across a Calcium (Ca 2+) ion channel
+    Return the current across a Calcium (Ca 2+) ion channel for number of pores N,
+    probability P, and individual pore current i
     """
     I_calcium = N*P*i # Calculate the calcium current as a function of N, P, and i
     return I_calcium
