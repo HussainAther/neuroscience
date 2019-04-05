@@ -22,3 +22,9 @@ def V(E, g, gl):
         num += E[i][0]*g[i][0] + E[i][1]*g[i][1]
         den += g[i][0] + g[i][1] + gl
     return num / den
+
+"""
+As the membrane potential saturates, we can calulate the activation ratio of the opposing inputs (exchitation and inhibition).
+
+c ~= cos(R - phi(omega)) / cos(R + phi(omega))
+"""
