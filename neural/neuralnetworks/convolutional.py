@@ -13,7 +13,7 @@ import time
 
 
 """
-Convolutional neural netowkr using torch.
+Convolutional neural network using torch.
 """
 
 imageDim = 28 # image dimension
