@@ -13,4 +13,5 @@ def V():
     """
     bondsum = 0 # summation of bond energies
     anglesum = 0 # summation of angle energies
-    for l 
+    li0 = 10 # refernce bond length
+    for l
