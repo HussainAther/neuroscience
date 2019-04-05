@@ -41,3 +41,12 @@ def potential(k, bonds, angles, torsions, eps, sigma, qi, qj, r):
         for j in range(i+1, m):
             ljcsum += 4*eps[ij] *(((sigma[i][j]/r[i][j]) **12 - (sigma[i][j]/r[i][j])**6)) + qi[i]qj[j]/(4.np.pi*np.finfo(float).eps*r[i][j])
     return bondsum + anglesum + torsionsum + ljcsum 
+
+"""
+We can use the Nernst-Planck equation to describe flux of ions driven by an electrochemical
+potential gradient across the ion channel. The flux is:
+
+J = -D_i(r) [deltan_i(r,t) + (n_i(r, t)/kT) deltamu_i(r)]
+"""
+
+def pnp (
