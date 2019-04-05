@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from scipy.integrate import odeint
-from numpy import zeros
 
 # Set random seed (for reproducibility)
 np.random.seed(1000)
@@ -76,8 +75,10 @@ def Id(t):
         return 50.0
     return 0.0
 
-# Compute derivatives
 def compute_derivatives(y, t0):
+    """
+    Use the definition of a derivative to compute the derivates at each point.
+    """
     dy = np.zeros((4,))
     
     Vm = y[0]
@@ -106,6 +107,6 @@ def compute_derivatives(y, t0):
 # State (Vm, n, m, h)
 Y = np.array([0.0, n_inf(), m_inf(), h_inf()])
 
-# Solve ODE system
+# Solve ODE system using scipy
 # Vy = (Vm[t0:tmax], n[t0:tmax], m[t0:tmax], h[t0:tmax])
 Vy = odeint(compute_derivatives, Y, T)
