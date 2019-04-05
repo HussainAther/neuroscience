@@ -61,7 +61,7 @@ m.Equation(C(dVdt) + I_L + I_syn == eq)
 
 #Objective
 m.Obj(V = E) # If the ligand-gated channels open by release of a transmitter
-# from a presynaptci neuron, this equalizes
+# from a presynaptic neuron, this equalizes
 
 # Set global options
 m.options.IMODE = 3 # Steady state optimization
