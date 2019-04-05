@@ -17,7 +17,6 @@ The mean and variance of posterior mu and sigma combine the auditory and visual 
 mu3 = (sigma2^2 / (sigma1^2 + sigma2^2)) * mu1 + (sigma1^2/(sigma1^2+sigma2^2) * mu2
 
 1/(sigma3^2) = 1/sigma1^2 + 1/sigma2^2
-
 """
 
 def visDist(sigma1, K):
@@ -38,7 +37,6 @@ def visuAuditDist(sigma3, K):
     Compute gain3 of the visual-auditory distribution.
     """
     return visDist(sigma1, K) + auditDist(sigma2, K)
-
 
 """
 In "Bayesian inference with probabilistic population codes," Wei Ji Ma and colleagues have
