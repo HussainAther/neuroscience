@@ -1,7 +1,8 @@
 import numpy as np
-from neuronpy.graphics import spikeplot
 import math
 import random
+
+from neuronpy.graphics import spikeplot
 
 """
 Simple, approximate descriptions of spike statistics. They can be useful for analytic statements about the
