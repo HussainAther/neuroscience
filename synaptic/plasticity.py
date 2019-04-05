@@ -16,7 +16,6 @@ Hebb's rule can be expressed as:
 
 Δw_i = α x_i y
 
-
 in which we use w as the weight, α as the learning rate, x as each value, and y as the linear combination of w and
 x for a particular input value. This rule is unstable because when expressed using vectors (Δw = αC . w), when
 we solve for the eigenvalues of C (a positive semidefinite matrix), we get eigenvectors that increase
