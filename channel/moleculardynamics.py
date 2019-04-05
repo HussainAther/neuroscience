@@ -58,6 +58,7 @@ We can combine it with the Poisson equation to derive:
 delta[eps(r)deltaph(r) = -4*pi[rho(r) + summation from i=1 to N of z_i*en(r)]
 
 in which the first right-side term is charge density of the fixed charges, and the second term is average charge density of mobile charges.
+This is also derived from Fick's (fick Fick) law of diffusion.
 """
 
 def arrhenius_solid(D0, Ea, T):
