@@ -1,5 +1,7 @@
 import numpy as np
 
+from scipy.constants import *
+
 """
 We use the atomistic simulation technique of ion channels as a general example of molecular dyanmics.
 We use empirical potentisl to simulate interactions between all atoms in the system with an example
@@ -80,5 +82,10 @@ def pnp_ss(r, D0, Ea, T):
     If the flux value is zero, return True. Otherwise return False. 
     """
     N = len(r) # number of inputs
+    pnpsum = 0 # sum of the flux values
     for i in range(N):
-        Di = arrhenius(D0, Ea[i], T) 
+        pnpsum += arrhenius(D0, Ea[i], T) + mu(i)/Boltzmann*T
+    print(pnpsum)
+    if pnpsum == 0:
+        return True
+    return False 
