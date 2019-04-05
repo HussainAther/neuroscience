@@ -16,6 +16,7 @@ conductances and currents. We can determine the total conductance change produce
 synpases. Gamma is the single-channel conductance, P is the probabilty of opening a single channel, and N is the total
 number of ligand-gated channels in the post-synaptic conductacne
 """
+
 gamma = 5
 P = 10
 N = 15
