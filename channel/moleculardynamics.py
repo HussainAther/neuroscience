@@ -10,3 +10,5 @@ def V():
     """
     Example molecular dynamics potential V.
     """
+    bondsum = 0 # summation of bond energies
+    anglesum = 0 # summation of angle energies
