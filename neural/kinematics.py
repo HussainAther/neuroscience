@@ -1,6 +1,7 @@
-from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import numpy as np
+
+from scipy.integrate import odeint
 
 """
 In neuroscience, we use kinetmatic  transformations to determine sensory-motor questions
@@ -41,23 +42,24 @@ l1 = 0.34
 l2 = 0.46
 angs = np.array([30.0,60.0,90.0]) * np.pi/180
 plt.figure(figsize=(5,10))
+
 for i in range(3):
-  for j in range(3):
-    a1 = angs[i]
-    a2 = angs[j]
-    plt.subplot(2,1,1)
-    plt.plot(a1*180/pi,a2*180/pi,"r+")
-    ex,ey,hx,hy = joints_to_hand(a1,a2,l1,l2)
-    plt.subplot(2,1,2)
-    plt.plot(hx,hy,"r+")
-    for k in range(20):
-      a1n = a1 + randn()*(sqrt(3)*pi/180)
-      a2n = a2 + randn()*(sqrt(3)*pi/180)
-      plt.subplot(2,1,1)
-      plt.plot(a1n*180/pi,a2n*180/pi,"b.")
-      ex,ey,hx,hy = joints_to_hand(a1n,a2n,l1,l2)
-      plt.subplot(2,1,2)
-      plt.plot(hx,hy,"b.")
+    for j in range(3):
+        a1 = angs[i]
+        a2 = angs[j]
+        plt.subplot(2,1,1)
+        plt.plot(a1*180/pi,a2*180/pi,"r+")
+        ex,ey,hx,hy = joints_to_hand(a1,a2,l1,l2)
+        plt.subplot(2,1,2)
+        plt.plot(hx,hy,"r+")
+        for k in range(20):
+            a1n = a1 + randn()*(sqrt(3)*pi/180)
+            a2n = a2 + randn()*(sqrt(3)*pi/180)
+            plt.subplot(2,1,1)
+            plt.plot(a1n*180/pi,a2n*180/pi,"b.")
+            ex,ey,hx,hy = joints_to_hand(a1n,a2n,l1,l2)
+            plt.subplot(2,1,2)
+            plt.plot(hx,hy,"b.")
 
 plt.subplot(2,1,1)
 plt.axis("equal")
