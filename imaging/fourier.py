@@ -107,6 +107,9 @@ class Peak:
         return np.sqrt(diff2)
 
     def _outerProduct(self,data):
+        """
+        Outer product of two coordinate vectors.
+        """
         size = [d.shape[0] for d in data]
         product = data[0]
         for dim in range(1, len(size)):
