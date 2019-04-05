@@ -15,6 +15,7 @@ we can generate random spike inputs and compute the membrane voltage using an I 
 Since we're using this I & F implementation, we'll be characterizing the alpha function with a slightly
 different method of finding the conductance.
 """
+
 np.random.seed(123)
 
 h = 1. # step size, Euler method, = dt ms
