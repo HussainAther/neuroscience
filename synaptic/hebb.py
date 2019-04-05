@@ -3,7 +3,8 @@ import numpy as np
 """
 "When the axon of cell A is near enough to excite a cell B and repeatedly or persistently
 takes part in firing it, some growth process or metabolic change takes place in one or
-both cells such the A's efficiency, as one of the cells firing B, is increased." - Psychologist Donald Hebb in "The Organization of Behavior"
+both cells such the A's efficiency, as one of the cells firing B, is increased." 
+- Psychologist Donald Hebb in "The Organization of Behavior"
 
 Long term increases in potentiation in synaptic strength can be called the LTP (long term potentiation).
 """
@@ -62,6 +63,8 @@ tr = range(10) # total time range
 summed = 0 # total concentration [a] over firing time t
 
 for i in tf:
+    # for each presynaptic firing time
     for j in tr:
+        # over the entire time range
         summed += aplus*np.exp((-j-i)/taua) # we get this from integrating the number of spikes over a time interval
 
