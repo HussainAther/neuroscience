@@ -16,3 +16,9 @@ def V(E, g, gl):
     Given a list of excitatory and inhibitory potentials E (tuple array) and excitatory and inhibitory conductances g 
     (tuple array) and a leak conductance gl, calcualte the membrane potential V.
     """
+    num = 0
+    den = 0
+    for i in range(len(E)):
+        num += E[i][0]*g[i][0] + E[i][1]*g[i][1]
+        den += g[i][0] + g[i][1] + gl
+    return num / den
