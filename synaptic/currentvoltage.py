@@ -23,7 +23,6 @@ def current(N,P,i):
 We get the steady state P from macroscopic currents by measuring the other variables and holding them
 constant to observe the relationship between them. Returning membrane potential to a hyperpolarized value between
 depolarizaiton can allow VGICs to recover from inactivation and return to a closed state.
-
 """
 
 # initial condition
