@@ -13,13 +13,13 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
-def potential(k, bonds, angles, torsions, eps, sigma, eq, qi, rij):
+def potential(k, bonds, angles, torsions, eps, sigma, qi, qj, r):
     """
     Example molecular dynamics potential V. We use harmonic terms for bonds and angles, a cosine expansion
     for torsion angles, and Lennard-Jones and Coulomb interactions for non-bonded interactions. k is an array of the
     harmonic force constants. bonds is the list of bond lengths, angles is the list of angles (in degree), torsions 
     are 3-piece tuple to describe the dihedral angles (rotations around a central bond: n, V, gamma), eps and sigma are Lennard-
-    Jones parameters in 2-D array form, qi and qj are partial atomic charges (arrays), and rij is the distance between 
+    Jones parameters in 2-D array form, qi and qj are partial atomic charges (1-D arrays), and r is the distance between 
     the two atoms (2-D array). 
     """
     bondsum = 0 # summation of bond energies
@@ -39,4 +39,5 @@ def potential(k, bonds, angles, torsions, eps, sigma, eq, qi, rij):
     ljcsum = 0 # Lennard-Jones Coulomb sum
     for i in range(m):
         for j in range(i+1, m):
-            ljcsum += 4*eps[ij] 
+            ljcsum += 4*eps[ij] *(((sigma[i][j]/r[i][j]) **12 - (sigma[i][j]/r[i][j])**6)) + qi[i]qj[j]/(4.np.pi*np.finfo(float).eps*r[i][j])
+    return bondsum + anglesum + torsionsum + ljcsum 
