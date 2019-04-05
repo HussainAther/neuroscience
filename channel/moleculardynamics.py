@@ -58,14 +58,24 @@ delta[eps(r)deltaph(r) = -4*pi[rho(r) + summation from i=1 to N of z_i*en(r)]
 in which the first right-side term is charge density of the fixed charges, and the second term is average charge density of mobile charges.
 """
 
-def chempot(i):
+def arrhenius(D0, Ea, T):
     """
-    Return the chemical potential for for each species i.
+    Use the Arrhenius equation to derive the diffusion coefficient for some maximal diffusion
+    coefficient D0, activation energy Ea, gas constant R, and absolute termperature T. This equation
+    holds true for solids.
     """
+    R = 8.314
+    return D0 * np.exp(-Ea/(R*T))
+
+def mu(i):
+    """
+    Return the chemical potential mu for for each species i.
+    """
+    return np.sin(i)
 
 def pnp_ss():
     """
     When deltaJ equals zero, we get the steady-state equation for drift-diffusino to accomodate the fluxes of mobile ions. 
     """
     N = len(
-    for i in range(N)
+    for i in range(N):
