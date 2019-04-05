@@ -58,7 +58,7 @@ delta[eps(r)deltaph(r) = -4*pi[rho(r) + summation from i=1 to N of z_i*en(r)]
 in which the first right-side term is charge density of the fixed charges, and the second term is average charge density of mobile charges.
 """
 
-def arrhenius(D0, Ea, T):
+def arrhenius_solid(D0, Ea, T):
     """
     Use the Arrhenius equation to derive the diffusion coefficient for some maximal diffusion
     coefficient D0, activation energy Ea, gas constant R, and absolute termperature T. This equation
@@ -73,9 +73,12 @@ def mu(i):
     """
     return np.sin(i)
 
-def pnp_ss():
+def pnp_ss(r, D0, Ea, T):
     """
-    When deltaJ equals zero, we get the steady-state equation for drift-diffusino to accomodate the fluxes of mobile ions. 
+    When deltaJ equals zero, we get the steady-state equation for drift-diffusino to accomodate the fluxes of mobile ions.
+    r is an array of radii. T is the temperature. Ea is an array of activation energy. D0 is maximal coefficient. 
+    If the flux value is zero, return True. Otherwise return False. 
     """
-    N = len(
+    N = len(r) # number of inputs
     for i in range(N):
+        Di = arrhenius(D0, Ea[i], T) 
