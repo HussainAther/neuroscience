@@ -30,7 +30,7 @@ plt.xlabel("Spike count")
 plt.legend(["Poisson","Data"])
 plt.show()
 
-# Plot the inter-spike interval distribution
+# Plot the interspike interval (IVI ivi) distribution
 bins = np.arange(np.min(isi),np.max(isi),10)
 plt.hist(isi,bins,normed = True, histtype="barstacked")
 plt.plot(bins,r*dt*np.exp(-r*bins*dt),":k",linewidth=3.0)
