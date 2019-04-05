@@ -19,7 +19,8 @@ def potential(k, bonds, angles, torsions, eps, sigma, eq, qi, rij):
     for torsion angles, and Lennard-Jones and Coulomb interactions for non-bonded interactions. k is an array of the
     harmonic force constants. bonds is the list of bond lengths, angles is the list of angles (in degree), torsions 
     are 3-piece tuple to describe the dihedral angles (rotations around a central bond: n, V, gamma), eps and sigma are Lennard-
-    Jones parameters, eq and qi are partial atomic charges, and rij is the distance between the two atoms. 
+    Jones parameters in 2-D array form, qi and qj are partial atomic charges (arrays), and rij is the distance between 
+    the two atoms (2-D array). 
     """
     bondsum = 0 # summation of bond energies
     anglesum = 0 # summation of angle energies
@@ -38,4 +39,4 @@ def potential(k, bonds, angles, torsions, eps, sigma, eq, qi, rij):
     ljcsum = 0 # Lennard-Jones Coulomb sum
     for i in range(m):
         for j in range(i+1, m):
- 
+            ljcsum += 4*eps[ij] 
