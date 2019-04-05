@@ -47,6 +47,25 @@ We can use the Nernst-Planck equation to describe flux of ions driven by an elec
 potential gradient across the ion channel. The flux is:
 
 J = -D_i(r) [deltan_i(r,t) + (n_i(r, t)/kT) deltamu_i(r)]
+
+D_i is diffusion coefficient of species i, n_i is position depdendent number density, q_i is the charge, phi is 
+the electrostatic potential.
+
+We can combine it with the Poisson equation to derive:
+
+delta[eps(r)deltaph(r) = -4*pi[rho(r) + summation from i=1 to N of z_i*en(r)]
+
+in which the first right-side term is charge density of the fixed charges, and the second term is average charge density of mobile charges.
 """
 
-def pnp (
+def chempot(i):
+    """
+    Return the chemical potential for for each species i.
+    """
+
+def pnp_ss():
+    """
+    When deltaJ equals zero, we get the steady-state equation for drift-diffusino to accomodate the fluxes of mobile ions. 
+    """
+    N = len(
+    for i in range(N)
