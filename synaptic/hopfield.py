@@ -89,7 +89,10 @@ Each neuron is activated according to a probability function.
 """
 
 def sigmoid(x):
-  return 1 / (1 + np.exp(-x))
+    """
+    Return the value of the sigmoid function.
+    """
+    return 1 / (1 + np.exp(-x))
 
 def prob(N, i, w, x):
     """
