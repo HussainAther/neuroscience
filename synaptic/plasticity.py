@@ -82,7 +82,7 @@ wsanger = np.random.normal(scale=.01, size(2,2)) # Sanger's rule
 prevw = np.ones((2,2)) # keep track of previous values
 
 for i in range(n):
-    prevw = wsanger.copy()
+    prevw = wsanger.copy() # store the previous value for the next iteration. 
     dw = np.zeros((2,2)) # delta w
     t += 1
     for j in range(Xs.shape[0]):
