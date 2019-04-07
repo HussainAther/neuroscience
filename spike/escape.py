@@ -32,4 +32,10 @@ def SRM(t, times):
     integrand = lambda s: kappa(s) # intergate the kappa function over all possible vvalues
     return sp.integrate.quad(integrand, 0, np.inf) * Idet
 
-def 
+def escaperate(t, times, delay):
+    """
+    Measure the spike times with a probability density of the escape rate
+    that depends on the momentary distance between the noiseless membrane potential
+    and the threshold.
+    """
+    return SRM(t, times) - delay
