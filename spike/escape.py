@@ -29,5 +29,7 @@ def SRM(t, times):
     Idet = 10 # known deterministic driving current
     for time in times:
         summ += eta(t-time)
-    integrand = lambda s: kappa(s)
-    integrated = sp.integrate.quad(integrand, 0, np.inf)
+    integrand = lambda s: kappa(s) # intergate the kappa function over all possible vvalues
+    return sp.integrate.quad(integrand, 0, np.inf) * Idet
+
+def 
