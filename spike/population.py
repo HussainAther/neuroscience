@@ -17,7 +17,8 @@ def activity(t, N):
     Population activity of population of N neurons (array of spikes with 0s and 1s) at time t.  
     Spike train is the sum of Dirac delta functions (using sigma).
     """
-    deltat = .5 # some small time interval
+    deltat = .5 # some time interval
     sigma = 0
     for i in N:
-         sigma += delta(i)
+        sigma += delta(i)
+    return sigma / (deltat*len(N)) 
