@@ -20,11 +20,13 @@ def eta(t):
     """
     return np.cos(np.pi*t)
 
-def SRM(t):
+def SRM(t, times):
     """
-    Membrane potential of an SRM at some point t.
+    Membrane potential of an SRM at some time point t with past firing times times.
     """
     summ = 0
     Idet = 10 # known deterministic driving current
-    kappa =
+    for time in times:
+        summ += eta(t-time)
+        
 
