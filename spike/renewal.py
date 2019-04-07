@@ -38,4 +38,13 @@ def delta(n):
         return 1
     return 0
 
-def normauto 
+def autopoiss(s):
+    """
+    Autocorrelation of a poisson process. We can take the Fourier transform of this with absolute refractoriness
+    (deltax = 5 ms) and constant simulation (v = 100 Hz). Takes array of firing times (0s and 1s) as input s.
+    """
+    sigma = 0 
+    for i in s:
+         sigma += delta(i)
+    return sigma/T + (sigma/T) **2
+
