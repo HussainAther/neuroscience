@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as sp
 
 """
 In the escape noise model, the integrate-and-fire neuron with a threshold (theta) that fires even though the formal
@@ -8,15 +9,15 @@ This Spike Response Model (SRM) is a type of generalized integrate-and-fire mode
 We're going to talk about an escape rate that follows from it.
 """
 
-def kappa(t):
+def kappa(s):
     """
-    Response of the membrane to an incoming pulse.
+    Response of the membrane to an incoming pulse at time s.
     """
-    return np.sin(np.pi*t)
+    return np.sin(np.pi*s)
 
 def eta(t):
     """
-    Response of the membrane to an outgoing spike.
+    Response of the membrane to an outgoing spike at time t.
     """
     return np.cos(np.pi*t)
 
@@ -28,5 +29,5 @@ def SRM(t, times):
     Idet = 10 # known deterministic driving current
     for time in times:
         summ += eta(t-time)
-        
-
+    integrand = lambda s: kappa(s)
+    integrated = sp.integrate.quad(integrand, 0, np.inf)
