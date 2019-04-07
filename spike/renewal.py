@@ -1,3 +1,6 @@
+import numpy as np
+import scipy as sp
+
 """
 We use Markov renewal processes to generalize Markov jump processes. Renewal processes are stochastic
 point processes to describe a sequence of events in time. In the narrow sense, they presuppose stationary 
@@ -24,4 +27,5 @@ def survivor(t, t_hat):
     The survivor function defines the probability that the neuron stays quiescent between t_hat and t.
     It's the probability a neuron "survives" from t_hat to t without firing.
     """
-    
+    x0 = lambda x: P0(x) 
+    return 1 - sp.integrate.quad(x0, t, t_hat) 
