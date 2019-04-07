@@ -40,9 +40,10 @@ def escaperate(t, times, delay):
     """
     return SRM(t, times) - delay
 
-def escapeexp(beta, tau0):
+def escapeexp(beta, tau0, t, times, delay):
     """
     For some parameter beta and time constant tau0, we choose the exponential escape function.
     It fits as beta approaches infinity, the threshold turns into a sharp one so that we return
     to the noiseless model. 
     """
+    return (1/tau0)*np.exp(beta(escape(t, times, delay)))
