@@ -48,3 +48,17 @@ def autopoiss(s):
          sigma += delta(i)
     return sigma/T + (sigma/T) **2
 
+"""
+As noted, we take the Fourier transform of the autopoiss function to get a flat spectrum with a sigma peak at zero.	
+""" 
+
+def C_hat(omega, v):
+    """
+    C_hat indicates this is the Fourier transform of the autocorrelaiton function of a homogeneous Poisson process.
+    Across spike times omega and velocity v.
+    """
+    sigma = 0
+    for i in omega:
+        sigma += delta(i)
+    return v + 2*np.pi*(v**2)*sigma 
+ 
