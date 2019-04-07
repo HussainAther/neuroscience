@@ -28,4 +28,14 @@ def survivor(t, t_hat):
     It's the probability a neuron "survives" from t_hat to t without firing.
     """
     x0 = lambda x: P0(x) 
-    return 1 - sp.integrate.quad(x0, t, t_hat) 
+    return 1 - sp.integrate.quad(x0, t, t_hat)
+
+def delta(n):
+    """
+    Dirac delta function.
+    """
+    if n == 0:
+        return 1
+    return 0
+
+def normauto 
