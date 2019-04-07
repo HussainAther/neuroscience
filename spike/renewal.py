@@ -50,12 +50,15 @@ def autopoiss(s):
 
 """
 As noted, we take the Fourier transform of the autopoiss function to get a flat spectrum with a sigma peak at zero.	
+If we have absolute refractoriness (delta_abs > 0) the noise spectrum is no longer flat, and we can calculate the mean
+interval of a Poisson neuron with absolute refractoriness <s> = delta_abs + r^-1. In this case, the mean firing rate v
+is v = r/(1 + delta_abs * r)
 """ 
 
 def C_hat(omega, v):
     """
     C_hat indicates this is the Fourier transform of the autocorrelaiton function of a homogeneous Poisson process.
-    Across spike times omega and velocity v.
+    Across spike times omega and mean firing rate v.
     """
     sigma = 0
     for i in omega:
