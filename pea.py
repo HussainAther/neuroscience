@@ -18,6 +18,6 @@ def peaalg(ni, ne, mit, mey, siy, sey, sii, sie, sei, see):
     PEA method. We can calculate PEA for MFE neurons with a probability from the Bernoulli random variable pi_k over the
     time interval [kdt, kdt+dt].
     """
-    rho_vt = (miy * siy)/ni + (mey * sey)/ne # probability of a single neuron spiking
+    rho_vt = (miy * siy)/ni + (mey * sey)/ne # probability of a single neuron spiking dependent upon velocity and time
     for i in range(10): # time step range
-        mean, var, skew, kurt = bernoulli.stats(i, moments="mvsk") 
+        pi_k = bernoulli.rvs(rho_vt, size=1) # if MFE has occured: 0 or 1
