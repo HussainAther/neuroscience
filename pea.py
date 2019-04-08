@@ -11,6 +11,11 @@ versions of the Hodgkin-Huxley type of neuronal model. We introduce an algorithm
 to describe this IF network that has homogeneity and total synchrony.
 """
 
+def mastereq():
+    """
+    Master equaton to evolve a probability.
+    """
+
 def peaalg(ni, ne, mit, mey, siy, sey, sii, sie, sei, see):
     """
     For network sizes of inhibitory and excitatory (ni and ne) neurons, feedfoward input rates (miy, mey) and input
@@ -21,3 +26,5 @@ def peaalg(ni, ne, mit, mey, siy, sey, sii, sie, sei, see):
     rho_vt = (miy * siy)/ni + (mey * sey)/ne # probability of a single neuron spiking dependent upon velocity and time
     for i in range(10): # time step range
         pi_k = bernoulli.rvs(rho_vt, size=1) # if MFE has occured: 0 or 1
+        if pi_k == 0:
+            
