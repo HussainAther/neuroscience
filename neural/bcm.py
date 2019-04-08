@@ -23,5 +23,9 @@ def bcm(x_i, y, theta, tau_w, tau_theta):
 """
 In contrast to Hebbian learning, which depends only on 2nd-order statitistics and fails to converge
 in whitened environments, BCM depends on higher-order statistics and can find structure in nearly
-any environment.
+any environment. With Hebbian, more input of uncorrelated noise into the closed eye for deprivation
+slows the deprivation effect. With BCM, more of this input increases the deprivation effect. Hebbian learning
+requires an asymmetry in either the neural architecture or the temporal structure to get direction
+selectivity, not simultaneously. With BCM, spatio-temporal correlations on the order of the receptive
+field size are required to achieve both strong orientation and direction selectivity.
 """
