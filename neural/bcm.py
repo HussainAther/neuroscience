@@ -7,7 +7,7 @@ model to analyze this process computationallly. We model the BCM plasticity mode
 with N synapses. 
 """
 
-def bcm(x, y):
+def bcm(x_i, y, theta, tau_w, tau_theta):
     """
     We create an (N+1)-dimensional system with two equations. We assume N is even, use input strength
     at input i that is x_i, the neuron's output rate y, and we use a linear relation between input
@@ -18,3 +18,10 @@ def bcm(x, y):
     """
     1/tau_theta gives us the threshold update rate, and 1/tau_w is the learning rate.
     """
+    return dwdt, dthetadt
+
+"""
+In contrast to Hebbian learning, which depends only on 2nd-order statitistics and fails to converge
+in whitened environments, BCM depends on higher-order statistics and can find structure in nearly
+any environment.
+"""
