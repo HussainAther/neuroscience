@@ -18,19 +18,28 @@ def IPSC(O, N, g, U, E):
 
 def theta(t):
     """
-    Postsynaptic potential (PSP) we use ise Heaviside jump function.
+    Postsynaptic potential (PSP) we use ise Heaviside (heaviside) jump function.
     """
     if t <=0:
         return 0
     return 1
+
+def sigma(t):
+    """
+    Dirac delta function at some time t.
+    """
+    if t == 0:
+        return 1
+    return 0
 
 def UPSC(t, t1, I0, tau, C_m):
     """
     We can easily compute the postsynaptic potential evoked by an arbitrary spike train.
     We solve the following equation using Green's function (U_PSP = G(t, t')):
     tau*dUdt + U = - I_PSC / C_m .
-    with  
+    with times t, t1, capacitcance C_m, time constant tau, and initial current I0.  
     """
-    G = theta(t-t1) * I0 * np.exp(-t-t1/tau) / C_m 
+    G = theta(t-t1) * I0 * np.exp(-t-t1/tau) / C_m
+    I = I0*sigma(t-t1)
     return np.convolve(G, I)
      
