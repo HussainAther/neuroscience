@@ -9,6 +9,12 @@ with N synapses.
 
 def bcm(x, y):
     """
-    We create an (N+1)-dimensional system with two equations. 
+    We create an (N+1)-dimensional system with two equations. We assume N is even, use input strength
+    at input i that is x_i, the neuron's output rate y, and we use a linear relation between input
+    and output y = summation of i for (w_i*x_i). w(t) is the synaptic weight vector. 
     """
-     
+    dwdt = x_i*y(y-theta)/tau_w
+    dthetadt = -(theta+y**2) /tau_theta 
+    """
+    1/tau_theta gives us the threshold update rate, and 1/tau_w is the learning rate.
+    """
