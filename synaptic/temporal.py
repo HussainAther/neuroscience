@@ -14,4 +14,23 @@ def IPSC(O, N, g, U, E):
     U is the synaptic potential, and E is the reversal potential of the G protein-gated
     potassium channels. 
     """ 
-    return 
+    return O*g*(U-E)/N
+
+def theta(t):
+    """
+    Postsynaptic potential (PSP) we use ise Heaviside jump function.
+    """
+    if t <=0:
+        return 0
+    return 1
+
+def UPSC(t, t1, I0, tau, C_m):
+    """
+    We can easily compute the postsynaptic potential evoked by an arbitrary spike train.
+    We solve the following equation using Green's function (U_PSP = G(t, t')):
+    tau*dUdt + U = - I_PSC / C_m .
+    with  
+    """
+    G = theta(t-t1) * I0 * np.exp(-t-t1/tau) / C_m 
+    return np.convolve(G, I)
+     
