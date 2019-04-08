@@ -1,4 +1,5 @@
-import numpy np
+import numpy as np
+from scipy.stats import bernoulli
 
 """
 We use the partition ensemble average (PEA pea) framework in reducing a system.
@@ -14,5 +15,9 @@ def peaalg(ni, ne, mit, mey, siy, sey, sii, sie, sei, see):
     """
     For network sizes of inhibitory and excitatory (ni and ne) neurons, feedfoward input rates (miy, mey) and input
     strengths (siy, sey), and network synaptic coupling strengths (sii, sie, sei, see) we perform an algorithm for our
-    PEA method.
-    """ 
+    PEA method. We can calculate PEA for MFE neurons with a probability from the Bernoulli random variable pi_k over the
+    time interval [kdt, kdt+dt].
+    """
+    rho_vt = (miy * siy)/ni + (mey * sey)/ne # probability of a single neuron spiking
+    for i in range(10): # time step range
+        mean, var, skew, kurt = bernoulli.stats(i, moments="mvsk") 
