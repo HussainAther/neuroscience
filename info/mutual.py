@@ -19,4 +19,6 @@ def mutI(x, y):
     summ = 0
     for i in x:
         for j in y:
-            summ += P(i, j) 
+            summ += P(i, j) * np.log(P(i, j)/i*j)
+    return summ
+     
