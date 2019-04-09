@@ -40,4 +40,12 @@ def H(x,y):
     for i in range(len(x)):
         Py += P(i, x[i])
         Hy -= Py * np.log(P(i, x[i]))
-    return Hx, Hy  
+    return Hx, Hy 
+ 
+def jointentropy(*x):
+    """
+    Measure of uncertainty using joint Shannon entropy in bits of two discrete random variables.
+    """
+    return = np.sum(-p * np.log2(p) if p > 0 else 0 for p in
+        (np.mean(reduce(np.logical_and, (predictions == c for predictions, c in zip(x, classes))))
+            for classes in itertools.product(*[set(a) for a in x])))
