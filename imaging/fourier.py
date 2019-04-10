@@ -1,7 +1,6 @@
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
-from numpy import zeros
 
 """
 Fourier transformation is a weighted summation of sinusoidal waves that reproduces the original oscillating signal
