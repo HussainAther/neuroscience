@@ -93,10 +93,16 @@ class Peak:
         return posA, posB
 
     def _getRegionData(self, region):
+        """
+        Extract specific regions from the data.
+        """
         slices = tuple([slice(start, end) for start,end in region])
         return self.data[slices]
 
     def _fitFunc(self, region, params):
+        """
+        Fit the function across the parameters for our region in the model data.
+        """
         ndim = self.data.ndim
         amplitudeScale = params[0]
         offset = params[1:1+ndim]
