@@ -30,7 +30,13 @@ powerSpec = [abs(f)**2 for f in freqs] # power series of the spectrum
 savePlot(times, powerSpec, "freq", "FT power")
 
 class Peak:
+    """
+    Peak class for analyzing and graphing.
+    """
     def __init__(self, position, data, dataHeight=None,linewidth=None):
+        """
+        Initialize with graph quantitites.
+        """
         self.position = tuple(position)
         self.data = data
         self.point = tuple([int(round(x)) for x in position])
@@ -45,6 +51,9 @@ class Peak:
         self.fitData = self._getRegionData(region) / self.dataHeight
 
     def __calcHalfHeightWidth(self):
+        """
+        For marking the graph get the half-height and widths.
+        """
         dimWidths = []
         for dim in range(self.data.ndim):
             posA, posB = self._findHalfPoints(dim)
@@ -53,6 +62,9 @@ class Peak:
         return dimWidths)
 
     def _findHalfPoints(self, dim):
+        """
+        Get half-points under each bar.
+        """
         height = abs(self.dataHeight)
         halfHt = .5 * height
         data = self.data
