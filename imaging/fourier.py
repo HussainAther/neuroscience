@@ -2,6 +2,8 @@ import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
 
+from numpy.random import standard_normal as normal
+
 """
 Fourier transformation is a weighted summation of sinusoidal waves that reproduces the original oscillating signal
 used in collecting neuroimaging data. The transformed frequency spectrum plot is the graph of the amount of each frequency
@@ -9,6 +11,20 @@ found. A uniform signal can have a timestep in between each measurements such th
 where k is the time index (from 0 to N-1). The Fast fourier transformation determines the discrete fourier transform
 when N is a power of 2. This reduces the number of operations from O(N^2) to O(NlogN).
 """
+
+I = 1j # square root of -1 
+
+def createSignal(parameters, tStep, nPoints, noise):
+    """
+    Generate the amplitude of the signal with noise.
+    """
+    sig = np.zeros(nPoints, dtype=complex)
+    t = tStep * np.arange(nPoints, dtype=float)
+    for amplitude, frequency, decay in parameters:
+        sig += amplitude * np.exp(2*np.pi*I*frequency*t) * np.exp(-decay*t)
+    noise *= np.sqrt(.5)
+    sig += noise*(normal(nPoints) + I*normal(nPoints))
+    return sig
 
 def savePlot(x, y, xlabel, ylabel):
     plt.plot(x, y, color="k")
@@ -18,20 +34,18 @@ def savePlot(x, y, xlabel, ylabel):
     plt.savefig(fileName)
     plt.close()
 
-# Seed the random number generator
-np.random.seed(1234)
+sigParams = ((1, .1, .01), (2.5, .7, .05)) # amplitude, frequency, decay
 
-time_step = 0.02
-period = 5.
+nPoints = 100
+tStep = 1
+noise = .5
 
-time_vec = np.arange(0, 20, time_step)
-sig = (np.sin(2 * np.pi / period * time_vec)
-       + 0.5 * np.random.randn(time_vec.size))
+sig = createSignal(sigParams, tStep, nPoints, noise)
 
-plt.figure(figsize=(6, 5))
-plt.plot(time_vec, sig, label='Original signal')
+times = [i*tStep for i in range(nPoints)]
+savePlot(times, sig, "time", "signal")
 
-freqs = np.fft(sig)
+freqs = np.fft.fft(sig)
 
 freqReal = [f.real for f in freqs] # frequency of real numbers
 savePlot(times, freqReal, "freq", "FT real")
