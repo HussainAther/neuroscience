@@ -18,6 +18,19 @@ def savePlot(x, y, xlabel, ylabel):
     plt.savefig(fileName)
     plt.close()
 
+# Seed the random number generator
+np.random.seed(1234)
+
+time_step = 0.02
+period = 5.
+
+time_vec = np.arange(0, 20, time_step)
+sig = (np.sin(2 * np.pi / period * time_vec)
+       + 0.5 * np.random.randn(time_vec.size))
+
+plt.figure(figsize=(6, 5))
+plt.plot(time_vec, sig, label='Original signal')
+
 freqs = np.fft(sig)
 
 freqReal = [f.real for f in freqs] # frequency of real numbers
@@ -59,7 +72,7 @@ class Peak:
             posA, posB = self._findHalfPoints(dim)
             width = posB - posA
             dimWidths.append(width)
-        return dimWidths)
+        return dimWidths
 
     def _findHalfPoints(self, dim):
         """
@@ -151,7 +164,7 @@ class Peak:
         params = [amplitudeScale]
         params.extend(ndim*[offset])
         params.extend(ndim*[linewidthScale])
-        fitFunc= = lambda params: self._fitFunc(region, params)
+        fitFunc = lambda params: self._fitFunc(region, params)
         result = sp.optimize.fmin(fitFunc, params, xtol=0.01)
         amplitudeScale = result[0]
         offset = result[1:ndim+1]
