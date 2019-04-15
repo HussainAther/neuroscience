@@ -103,3 +103,19 @@ X_i(t)X_j(t) - δ_ijt is a martingale w.r.t. P (and its own natural filtration) 
 We can look at geometric Brownian motion (GBM gbm) of a continuous-time stochastic process in which
 the logarithm of the randomly varying quantity follows Brownian motion with drift.
 """
+
+def gbm(So, mu, sigma, W, n):   
+    """
+    Geometric Brownian motion with an initial value (So), returns drift coefficient (mu),
+    voltaility diffusion coefficient (sigma), brownian motion (W), and number of steps (n) 
+    """ 
+    trange = np.linspace(0, 1, n+1)
+    S = []
+    S.append(So)
+    for i in xrange(1, int(n+1)):
+        drift = (mu - 0.5 * sigma**2) * trange[i] # drift equation
+        diffusion = sigma * W[i-1] # diffusion of the motion by taking a step
+        S_temp = So * np.exp(drift + diffusion) # next S value with drift and diffusion
+        S.append(S_temp)
+    return S, trange
+
