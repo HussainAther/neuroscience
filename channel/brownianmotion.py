@@ -98,3 +98,8 @@ Brownian motion, i.e., the push-forward measure X*(P) is a classical Wiener meas
 (2.) both (a.) X is a martingale w.r.t. P (and its own natural filtration) and (b.) for all 1 <= i, j <= n,
 X_i(t)X_j(t) - δ_ijt is a martingale w.r.t. P (and its own natural filtration) where δ_ij dentoes the Kronecker delta.
 """
+
+"""
+We can look at geometric Brownian motion (GBM gbm) of a continuous-time stochastic process in which
+the logarithm of the randomly varying quantity follows Brownian motion with drift.
+"""
