@@ -107,5 +107,5 @@ for t in range(tstop):
 
 axs[1].plot(t_trace,V_trace)
 plt.draw()
-axs[1].set_title('Output spike train')
+axs[1].set_title("Output spike train")
 plt.show()
