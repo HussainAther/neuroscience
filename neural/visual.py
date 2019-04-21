@@ -1,6 +1,8 @@
 import numpy as np
+
 from scipy.io import loadmat
 from scipy.stats import norm
+
 np.random.seed(0)
 
 """
