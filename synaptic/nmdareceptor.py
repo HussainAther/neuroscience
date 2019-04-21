@@ -1,7 +1,7 @@
 import numpy as np
 
 """
-The NMDA receptor conductance effects the postsynaptic potnetial not normally
+The NMDA (nmda) receptor conductance effects the postsynaptic potnetial not normally
 seen in other conductances. The NMDA receptor current uses a factor that
 depends on postsynpatic potential V. We write it as g_NMDA * G_NMDA(V) * P(V-E_NMDA) in which
 the factor G_NMDA(V) describes an extra voltage dependence due ot the fact that when the
