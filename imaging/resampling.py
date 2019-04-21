@@ -27,7 +27,6 @@ def to_matrix_vector(transform):
     vector = transform[0:ndimin, ndimout]
     return matrix, vector
 
-
 def from_matrix_vector(matrix, vector):
     """
     Combine a matrix and vector into a homogeneous transform.
@@ -44,21 +43,15 @@ def from_matrix_vector(matrix, vector):
     t[0:nin, nout] = vector
     return t
 
-
 def get_bounds(shape, affine):
-    """Return the world-space bounds occupied by an array given an affine.
-
+    """
+    Return the world-space bounds occupied by an array given an affine.
     The coordinates returned correspond to the **center** of the corner voxels.
-    shape: tuple
-        shape of the array. Must have 3 integer values.
-
-    affine: numpy.ndarray
-        affine giving the linear transformation between voxel coordinates
-        and world-space coordinates.
-
-    Return coord: list of tuples
-        coord[i] is a 2-tuple giving minimal and maximal coordinates along
-        i-th axis.
+    shape (tuple) is the shape of the array. Must have 3 integer values.
+    affine (numpy.ndarray) is the affine giving the linear transformation 
+    between voxel coordinates and world-space coordinates.
+    Return coord (list of tuples), a 2-tuple giving minimal and maximal coordinates 
+    along the i-th axis.
     """
     adim, bdim, cdim = shape
     adim -= 1
@@ -76,37 +69,21 @@ def get_bounds(shape, affine):
     box = np.dot(affine, box)[:3]
     return zip(box.min(axis=-1), box.max(axis=-1))
 
-
-def resample_img(niimg, target_affine=None, target_shape=None,
-                 interpolation='continuous', copy=True, order="F"):
-    """ Resample a Nifti Image
-    niimg: nilearn nifti image
-        Path to a nifti file or nifti-like object
-
-    target_affine: numpy.ndarray, optional
-        If specified, the image is resampled corresponding to this new affine.
-        target_affine can be a 3x3 or a 4x4 matrix
-
-    target_shape: tuple or list, optional
-        If specified, the image will be resized to match this new shape.
-        len(target_shape) must be equal to 3.
-        A target_affine has to be specified jointly with target_shape.
-
-    interpolation: str, optional
-        Can be continuous' (default) or 'nearest'. Indicate the resample method
-
-    copy: bool, optional
-        If True, guarantees that output array has no memory in common with
-        input array.
-        In all cases, input images are never modified by this function.
-
-    order: "F" or "C"
-        Data ordering in output array. This function is slightly faster with
-        Fortran ordering.
-
-    Return resampled: nibabel.Nifti1Image
-        input image, resampled to have respectively target_shape and
-        target_affine as shape and affine.
+def resample_img(niimg, target_affine=None, target_shape=None, interpolation="continuous", copy=True, order="F"):
+    """ 
+    Resample a Nifti Image. niimg (nilearn nifti image)is the path to 
+    a nifti file or nifti-like object. target_affine (numpy.ndarray) is an option that,
+    if specified, the image is resampled corresponding to this new affine. target_affine 
+    can be a 3x3 or a 4x4 matrix. target_shape (tuple or list) is an optio that,
+    if specified, the image will be resized to match this new shape. len(target_shape) must be equal to 3.
+    A target_affine has to be specified jointly with target_shape. interpolation (str), is optional and can 
+    be "continuous" (default) or "nearest" to indicate the resample method.
+    copy is an optional boolean that, if True, guarantees that output array has 
+    no memory in common with input array. In all cases, input images are never 
+    modified by this function. order is "F" or "C" to indicate the data ordering in 
+    output array. This function is slightly faster with Fortran ordering.
+    Return resampled (nibabel.Nifti1Image), an input image, resampled to have 
+    respectively target_shape and target_affine as shape and affine.
     """
     # Do as many checks as possible before loading data, to avoid potentially
     # costly calls before raising an exception.
