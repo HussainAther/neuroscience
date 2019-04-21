@@ -2,6 +2,7 @@ import time
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+
 random.seed(int(time.time())) # some random seed lol
 
 """
@@ -13,12 +14,16 @@ network was the first and simplest type of artificial neural network devised.
 We'll create one with backpropagation, the backward propogation of errors. 
 """
 
-# sigmoid activation function
 def tansig(x):
+    """
+    Approximate sigmoid activation function with the tanh function
+    """
     return tanh(x)
 
-# derivative of sigmoid function
 def dtansig(x):
+    """
+    Derivative of the sigmoid function
+    """
     return 1.0 - (np.multiply(x,x))
 
 # numpy matrix of input examples
@@ -35,10 +40,10 @@ xor_out = matrix([[0.0],
 
 # initialize weights and biases to small random values
 sigw = 0.5
-w_hid = random.rand(2,2)*sigw        # [inp1,inp2] x-> [hid1,hid2]
-b_hid = random.rand(1,2)*sigw        # 1.0 -> [b_hid1,b_hid2]
-w_out = random.rand(2,1)*sigw        # [hid1,hid2] x-> [out1]
-b_out = random.mrand(1,1)*sigw        # 1.0 -> [b_out1]
+w_hid = random.rand(2,2)*sigw # [inp1,inp2] x-> [hid1,hid2]
+b_hid = random.rand(1,2)*sigw # 1.0 -> [b_hid1,b_hid2]
+w_out = random.rand(2,1)*sigw # [hid1,hid2] x-> [out1]
+b_out = random.mrand(1,1)*sigw # 1.0 -> [b_out1]
 w_out_prev_change = np.zeros(shape(w_out))
 b_out_prev_change = np.zeros(shape(b_out))
 w_hid_prev_change = np.zeros(shape(w_hid))
@@ -56,7 +61,7 @@ g_grid = np.linspace(-1.0, 2.0, n_grid)
 g1,g2 = np.meshgrid(g_grid, g_grid)
 plt.figure()
 
-# train
+# train the network
 for i in range(maxepochs):
     net_out = np.zeros(shape(xor_out))
     for j in range(shape(xor_in)[0]): # for each training example
