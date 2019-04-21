@@ -1,5 +1,6 @@
 import numpy as np
 import pylab as plt
+
 from scipy.integrate import odeint
 
 """
@@ -92,23 +93,25 @@ Morris-Lecar model described spiking dynamics of potassium- and calcium-controll
 """
 
 # Constants
-C_m  =   1.0 # membrane capacitance, in uF/cm^2
-g_Ca =   1.1 # maximum conducances, in mS/cm^2
-g_K  =   2.0
-g_L  =   0.5
+C_m = 1.0 # membrane capacitance, in uF/cm^2
+g_Ca = 1.1 # maximum conducances, in mS/cm^2
+g_K = 2.0
+g_L = 0.5
 E_Ca = 100.0 # Nernst reversal potentials, in mV
-E_K  = -70.0
-E_L  = -50.0
-
+E_K = -70.0
+E_L = -50.0
 
 # Channel gating kinetics
 # Functions of membrane voltage
 def m_infty(V):
     return (1.0 + sp.tanh((V + 1.0) / 15.0)) / 2.0
+
 def w_infty(V):
     return (1.0 + sp.tanh(V / 30.0)) / 2.0
+
 def tau_w(V):
     return 5.0 / sp.cosh(V / 60.0)  # in ms
+
 
 # Input voltage
 def I_ext(t):
