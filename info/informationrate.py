@@ -26,7 +26,6 @@ class AsciiSpikeTrainIO(BaseIO):
     Class for reading/writing SpikeTrains in a text file.
     Each Spiketrain is a line.
     """
-
     is_readable = True
     is_writable = True
     supported_objects = [Segment, SpikeTrain]
