@@ -1,6 +1,7 @@
 import numpy as np
-from scipy.integrate import odeint
 import matplotlib.pyplot as plt
+
+from scipy.integrate import odeint
 
 """
 Enzymes catalyze biochemical reactions. Many reactions have complex kinematic mechnisms
@@ -8,10 +9,10 @@ and specialized qequations are needed to desrcibe their rates in detail. To mode
 series of reactions, we use simplified equations.
 """
 
-# Basic differential equation
-
-# function that returns dy/dt
 def model(y,t):
+    """
+    Differential equation of the reaction rate.
+    """
     k = 0.3
     dydt = -k * y
     return dydt
@@ -32,11 +33,6 @@ plt.ylabel('y(t)')
 plt.show()
 
 # Second example
-
-# function that returns dy/dt
-def model(y,t,k):
-    dydt = -k * y
-    return dydt
 
 # initial condition
 y0 = 5
@@ -61,30 +57,40 @@ plt.ylabel('y(t)')
 plt.legend()
 plt.show()
 
-# Michaelis-Menten reaction
+"""
+With the Michaelis-Menten reaction, we model enzyme kinematics.
+"""
 
-# function that returns dy/dt
 def mmreaction(v, s, k, t):
+    """
+    For a given maximum rate of the system (v) at saturating substrate concentration,
+    substrate concentration s, and Michaelis constant k, we determine the rate of reaction. 
+    """
     dpdt = (v*s)/(s+k)
     return dpdt
 
-# initial condition
-p0 = 0
-
-# time points
-t = np.linspace(0,5)
+p0 = 0 # initial condition
+t = np.linspace(0,5) # time points
 
 # solve ODE
 y = odeint(mmreaction,p0,t)
 
 # plot results
 plt.plot(t,p)
-plt.xlabel('time')
-plt.ylabel('p(t)')
+plt.xlabel("time")
+plt.ylabel("p(t)")
 plt.show()
 
-# Increasing Hill function
+"""
+We use the Hill-Langmuir equation as a special case of a rectangular hyperboola
+to determine the fraction of the receptor protein concentration bound by the ligand.
+"""
+
 def hill(ke, x, s, km, l, v, t):
+    """
+    With the same variabels as above, we introduce l as the free, unbound ligand
+    concentration, ke as the dissociation constant derived from the law of mass action.
+    """
     dpdt = (l/(l+k)*(v*s)/(s+k))
     return dpdt
 
