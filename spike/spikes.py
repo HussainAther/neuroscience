@@ -60,5 +60,5 @@ timestamps[:10]
 
 deltas = [y - x for x, y in zip(timestamps, timestamps[1:])]
 plt.figure(figsize=(16, 4))
-plt.plot(deltas, 'r+')
+plt.plot(deltas, "r+")
 plt.show()
