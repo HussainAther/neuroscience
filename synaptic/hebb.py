@@ -22,7 +22,6 @@ def deltaW(r_i, q_j):
     phi = 12
     return alpha * (q_j - phi_pre) * (r_i - phi)
 
-
 """
 We can express the rule using vectors and find an outer product. In this case,
 r and q are vector components. Sensory-motor matching can explain learning associations
