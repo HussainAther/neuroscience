@@ -101,20 +101,30 @@ E_Ca = 100.0 # Nernst reversal potentials, in mV
 E_K = -70.0
 E_L = -50.0
 
-# Channel gating kinetics
-# Functions of membrane voltage
 def m_infty(V):
+    """
+    Membrane voltage derived from Fourier transform of the derivative of the signal. 
+    Returns the open-state probability function of the open state of the channel. They're
+    partitioned according to a Boltzmann distribution. 
+    """
     return (1.0 + sp.tanh((V + 1.0) / 15.0)) / 2.0
 
 def w_infty(V):
+    """
+    Same but for the closed state of the channel.
+    """
     return (1.0 + sp.tanh(V / 30.0)) / 2.0
 
 def tau_w(V):
+    """
+    Memnbrane time constant.
+    """
     return 5.0 / sp.cosh(V / 60.0)  # in ms
 
-
-# Input voltage
 def I_ext(t):
+    """
+    Input voltage.
+    """
     return 10*sp.floor(t/100)
 
 t = sp.arange(0.0, 400.0, 0.1)
