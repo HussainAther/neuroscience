@@ -73,4 +73,3 @@ def spikeTTC(i ,j):
     pb = pb/len(j)
     tb = pb/range(-dt, dt)
     return (1/2) * ((pa-tb)/(1-pa*tb) + (pb-ta)/(1-pb*ta))
-
