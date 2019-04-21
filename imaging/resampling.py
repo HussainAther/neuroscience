@@ -9,23 +9,17 @@ Utilities to resample a Nifti Image
 """
 
 def to_matrix_vector(transform):
-    """Split an homogeneous transform into its matrix and vector components.
-
+    """
+    Split a homogeneous transform into its matrix and vector components.
     The transformation must be represented in homogeneous coordinates.
     It is split into its linear transformation matrix and translation vector
-    components.
-
-    This function does not normalize the matrix. This means that for it to be
+    components. This function does not normalize the matrix. This means that for it to be
     the inverse of from_matrix_vector, transform[-1, -1] must equal 1, and
-    transform[-1, :-1] must equal 0.
-
-    transform: numpy.ndarray
-        Homogeneous transform matrix. Example: a (4, 4) transform representing
-        linear transformation and translation in 3 dimensions.
-    Return matrix, vector: numpy.ndarray
-        The matrix and vector components of the transform matrix.  For
-        an (N, N) transform, matrix will be (N-1, N-1) and vector will be
-        a 1D array of shape (N-1,).
+    transform[-1, :-1] must equal 0. transform (numpy.ndarray) is a homogeneous transform matrix. 
+    Example: a (4, 4) transform representing a linear transformation and 
+    translation in 3 dimensions. Return matrix, vector: numpy.ndarray
+    The matrix and vector components of the transform matrix. For an (N, N) 
+    transform, matrix will be (N-1, N-1) and vector will be a 1D array of shape (N-1,).
     """
     ndimin = transform.shape[0] - 1
     ndimout = transform.shape[1] - 1
@@ -35,18 +29,14 @@ def to_matrix_vector(transform):
 
 
 def from_matrix_vector(matrix, vector):
-    """Combine a matrix and vector into a homogeneous transform.
-
-    Combine a rotation matrix and translation vector into a transform
-    in homogeneous coordinates.
-    matrix: numpy.ndarray (N, N) representing the rotation matrix.
-
-    vector: numpy.ndarray (1, N) array representing the translation.
-
-    Returns xform: numpy.ndarray
-        An (N+1, N+1) transform matrix.
     """
-
+    Combine a matrix and vector into a homogeneous transform.
+    Combine a rotation matrix and translation vector into a transform
+    in homogeneous coordinates.  matrix is (numpy.ndarray (N, N)) an array 
+    representing the rotation matrix. vector is (numpy.ndarray (1, N)) an array 
+    representing the translation. Return xform (numpy.ndarray), an (N+1, N+1) 
+    transform matrix.
+    """
     nin, nout = matrix.shape
     t = np.zeros((nin + 1, nout + 1), matrix.dtype)
     t[0:nin, 0:nout] = matrix
