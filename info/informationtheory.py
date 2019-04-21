@@ -73,13 +73,22 @@ To use these signals in a biological context we need to generalize a bit and con
 We use time-dependent signals. We want to describe a function of time f(t) and confine our attention to a time interval of size T with
 0 < t < T. We can use a Fourier series, sum of sine and cosine functions. They later become helpful in constructing power spectral density.
 """
+
+period = 2*np.pi
+
 def cn(n):
-   c = y*np.exp(-1j*2*n*np.pi*time/period)
-   return c.sum()/c.size
+    """
+    Complex Fourier coefficients for corresponding real number n.
+    """
+    c = y*np.exp(-1j*2*n*np.pi*time/period)
+    return c.sum()/c.size
 
 def fourier(x, Nh):
-   f = np.array([2*cn(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)])
-   return f.sum()
+    """
+    Calculate the Fourier series and sum it over data Nh with interval x.
+    """
+    f = np.array([2*cn(i)*np.exp(1j*2*i*np.pi*x/period) for i in range(1,Nh+1)])
+    return f.sum()
 
 """
 To compute the information transmission for signals in the presence of noise,
@@ -90,16 +99,19 @@ window 0 < t < T.
 
 omega = 3
 
-def omega(ratio, n):
-    return omega
-
-def informationTransmission(ratio):
+def omega(snr, r):
     """
-    As described above. ratio is the signal to noise ratio for the discrete frequencies (omega).
+    Gaussian variance of noise.
+    """
+    return snr*r
+
+def informationTransmission(snr):
+    """
+    As described above. snr is the signal to noise ratio for the discrete frequencies (omega).
     """
     I = 0
     for n in range(-np.inf, np.inf):
-        I += (1/2) * np.log2(1 + omega(ratio, n))
+        I += (1/2) * np.log2(1 + omega(snr, n))
     return I
 
 """
@@ -109,12 +121,12 @@ arrive from an ordinary light source we will have the a spectrum of constant noi
 Given the effective contrast noise psectra of the receptor cells and of the large monoopolar cells, we can compute how much information these cells
 provide us about the visual world.
 """
+
 def N_eff(N_v, T):
     """
     N_v is the spectrum of the voltage noise. T is the response of the cell to a contrast pulse at time 0.
     """
     return N_v / abs(T)**2
-
 
 """
 Maximizing the rate of information transmission is done with noisewhitening. To transmit the maximum amount of information possible given a fixed total signal variance, the power spectrum
@@ -123,6 +135,7 @@ of the signals should be matched to the power spectrum of the noise in the syste
 Both the photoreceptor and the large monopolar cell produce graded responses but there is an element of discreteness to synaptic transmission itself.
 Chemical synapses release transmitters packaged in vesicles.
 """
+
 def probDist(n, a):
     return n * a
 
