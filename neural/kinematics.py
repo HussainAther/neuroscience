@@ -35,7 +35,7 @@ def minjerk(H1x,H1y,H2x,H2y,t,n):
 
 """
 Sample 9 locations equally spaced in shoulder-joint elbow joint space. For each location,
-use gaussian random noise to determine how the joint would move.
+use Gaussian random noise to determine how the joint would move.
 """
 
 l1 = 0.34
