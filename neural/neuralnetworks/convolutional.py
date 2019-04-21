@@ -1,16 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from PIL import Image,ImageEnhance
 import os
-from __future__ import print_function
 import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
 import time
 
+from PIL import Image,ImageEnhance
+from __future__ import print_function
+from torchvision import datasets, transforms
 
 """
 Convolutional neural network using torch.
