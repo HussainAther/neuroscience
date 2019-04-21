@@ -55,11 +55,8 @@ class AsciiSpikeTrainIO(BaseIO):
         can be a str or directly a quantity.
         """
         assert not lazy, "Do not support lazy"
-
         unit = pq.Quantity(1, unit)
-
         seg = Segment(file_origin=os.path.basename(self.filename))
-
         f = open(self.filename, "Ur")
         for i, line in enumerate(f):
             alldata = line[:-1].split(delimiter)
@@ -67,16 +64,12 @@ class AsciiSpikeTrainIO(BaseIO):
                 alldata = alldata[:-1]
             if alldata[0] == '":
                 alldata = alldata[1:]
-
             spike_times = np.array(alldata).astype("f")
             t_stop = spike_times.max() * unit
-
             sptr = SpikeTrain(spike_times * unit, t_start=t_start, t_stop=t_stop)
-
             sptr.annotate(channel_index=i)
             seg.spiketrains.append(sptr)
         f.close()
-
         seg.create_many_to_one_relationship()
         return seg
 
@@ -153,7 +146,6 @@ def instantaneous_rate(spiketrain, sampling_period, kernel="auto", cutoff=5.0, t
     rate = instantaneous_rate(spiketrain, sampling_period = 2*ms, kernel)
     Reference:
     ..[1] H. Shimazaki, S. Shinomoto, J Comput Neurosci (2010) 29:171–182.
-
     """
     # Merge spike trains if list of spike trains given:
     if isinstance(spiketrain, list):
