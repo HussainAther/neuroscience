@@ -20,9 +20,11 @@ We also posit that the electrotonic current is ohmic. By this, the passive elect
 in acccordance with the simple linear equation E = IR (current times resisntace), as dictated by Ohm's Law.
 """
 
-# Electrotonic potential measured as a differnece of membrane potential (V_m) and
-# electromagnetic potential (E)
 def V(V_m, E):
+    """
+    Electrotonic potential measured as a difference of membrane potential (V_m) and
+    electromagnetic potential (E)
+    """
     return V_m - E
 
 """
@@ -53,7 +55,6 @@ m.Equation(V == (r_m/r_i) * (V[0].dt() == c**2))
 
 # Solve it!
 m.solve()
-
 
 """
 When constructing a compartmental model of the passive electrical properties of a dendritic branch,
@@ -121,9 +122,8 @@ v = v0 * exp((-x*t)/lmbda)
 dvdt = -v0 * t * exp((-x*t)/lmbda) / lmbda
 d2vdx2 = x**2 * t**2 * v0 * exp((-x*t)/lmbda) / (lmbda**2)
 
-
 """
-Solutions to the linear cable equaiton are functions of both positon and time.
+Solutions to the linear cable equation are functions of both positon and time.
 If the current injected is constant, the membrane potential settles to a steady-
 state solution independent of time. This is an ordinary differential equation
 we can solve.
@@ -134,7 +134,6 @@ def dv2dx2(v, r, i, lmbda, solve=True):
     0 is everywehre except in small region of size delta x around the injection site.
     General solution to this equaiton is v(x) = B1*exp(-x/lmbda) + B2*exp*x/lmbda) with
     coefficients undetermined B1 and B2.
-    
     lmbda (lambda) is the length over which the localized electrode currents decay.
     v (velocity) is the speed at which ions travel across the membrane.
     r (resistance) is the membrane resistance and
@@ -143,7 +142,6 @@ def dv2dx2(v, r, i, lmbda, solve=True):
     if solve: # solve the equation
         return (np.exp(-x/lmbda), np.exp(x/lmbda)) # the terms in front of the coefficients B1 and B2
     return  (v-r*i)/lmbda**2 # just return the d2vdx2 term
-
 
 """
 Rall (rall) model is a highly simplified model that captures important elements that affect the responses
