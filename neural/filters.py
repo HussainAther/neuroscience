@@ -1,12 +1,12 @@
-from np.random import randn
-from scipy import signal
-
 import numpy as np
 import matplotlib.pyplot as plt
 import sk_dsp_comm.sigsys as ss
 
+from np.random import randn
+from scipy import signal
+
 """
-We makea a simple Python simulation of Adaptive Line Enhancement using a single
+We make a simple Python simulation of Adaptive Line Enhancement using a single
 sinusoid at normalized frequency plus additive white Gaussian noise. We assume
 we have a narrowband signal buried in broadband additive noise. For statistically
 stationary inptus, we use a Wiener filter.
@@ -24,19 +24,15 @@ minimizing the error signal formed by subtracting the filtered signal from the d
 signals with time varying statistics, this minimization process is often done using an adaptive filter.
 """
 
-
 def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     """
     Least Mean Squares Adaptive
     Line Enhancement Algorithm using an IIR filter.
-    n,x,x_hat,e,ao,F,Ao = lms_ale(SNR,N,M,mu)
-    *******LMS ALE Simulation************
     SNR = Sinusoid signal-to-noise ratio in dB
     N = Number of simulation samples
     M = FIR Filter length (order M-1)
     mu = LMS step-size
     mode = 0 <=> sinusoid, 1 <=> squarewave
-
     n = Index vector
     x = Noisy input
     x_hat = Filtered output
@@ -44,9 +40,7 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     ao = Final value of weight vector
     F = Frequency response axis vector
     Ao = Frequency response of filter in dB
-    **************************************
     """
-    
     n = arange(0,N+1) # length N+1
     if not(sqwav):
         x = 1 * np.cos(2 * np.pi * 1/20 * n) # A = 1, Fo/Fs = 1/20
@@ -105,19 +99,16 @@ def lms_ic(r, M, mu, delta=1):
     Least Mean Square (LMS) interference canceller adaptive filter.
     Complete LMS adaptive filter simulation function for the case
     of interference cancellation.
-    
-    M : FIR Filter length (order M-1)
-    delta : Delay used to generate the reference signal
-    mu : LMS step-size
-    delta : decorrelation delay between input and FIR filter input
-    
-    n : ndarray Index vector
-    r : ndarray noisy (with interference) input signal
-    r_hat : ndarray filtered output (NB_hat[n])
-    e : ndarray error sequence (WB_hat[n])
-    ao : ndarray final value of weight vector
-    F : ndarray frequency response axis vector
-    Ao : ndarray frequency response of filter
+    M is FIR Filter length (order M-1)
+    delta is decorrelation delay used to generate the reference signal
+    mu is LMS step-size
+    n is ndarray Index vector
+    r is ndarray noisy (with interference) input signal
+    r_hat is ndarray filtered output (NB_hat[n])
+    e is ndarray error sequence (WB_hat[n])
+    ao is ndarray final value of weight vector
+    F is ndarray frequency response axis vector
+    Ao is ndarray frequency response of filter
     """
     N = len(r)-1;
     y = signal.lfilter(np.hstack((np.zeros(delta), np.array([1]))),1,r)
@@ -135,4 +126,3 @@ def lms_ic(r, M, mu, delta=1):
     F = (2*np.pi)
     Ao = 20*np.log10(abs(Ao))
     return np.arange(0, N+1), r, r_hat, e, ao, F, Ao
-
