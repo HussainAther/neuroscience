@@ -30,7 +30,6 @@ def interspike_interval_histogram(self, bins):
     intervals = self.interspike_intervals()
     return np.diff([np.count_nonzero(intervals < (t / 1000.)) for t in [0] + list(bins)]) / float(intervals.size)
 
-
 """
 We can take into account the Fano factor with every counting interval.
 """
