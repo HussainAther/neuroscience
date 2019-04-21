@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+
 from IPython.disply import Image
 
 """
@@ -10,6 +11,7 @@ The responses of such neurons were fully characterised by the inhibitory and exc
 They also found another type of cells that manifested more complex responses. These cells, called complex cells, would respond only to a visual object of a particular shape and orientation no matter where it was positioned in the visual field. If the image was slightly rotated
 or its shape was changed, the response was supressed.
 """
+
 def receptive_field(XX, YY, theta, width, height):
     """
     Generate a receptive field.
@@ -34,18 +36,19 @@ ymin, ymax, dy = -20, 20, 0.04
 YY, XX = np.mgrid[xmin:xmax:dx, ymin:ymax:dy]
 
 spatial_freq = 0.1
-rf = np.sin(2 * np.pi * spatial_freq * XX)
 
+# receptive field
+rf = np.sin(2 * np.pi * spatial_freq * XX)
 rf_height = 10
 rf_width = 4
-rf_angle = 0.
-rf_ampl = 1. #Hz
-
+rf_angle = 0
+rf_ampl = 1 #Hz
 rf_angle = np.pi/3.
 
 """
 Use rotated system of coordinates.
 """
+
 W = rf_ampl * receptive_field(XX, YY, rf_angle, rf_width, rf_height)
 
 rf = np.cos(2 * np.pi * spatial_freq * x_r)
@@ -65,14 +68,12 @@ mask_y = np.exp(-(y_r**2/rf_height**2))
 rf *= mask_x * mask_y
 
 plt.matshow(rf)
-
-
 plt.figure(figsize=(6,2.5))
 plt.subplot(121)
-plt.imshow(W, extent=(xmin, xmax, xmin, xmax), aspect='equal')
-plt.xlabel('position (deg)')
+plt.imshow(W, extent=(xmin, xmax, xmin, xmax), aspect="equal")
+plt.xlabel("position (deg)")
 
-plt.axhline(0, ls='--', color='k')
+plt.axhline(0, ls="--", color="k")
 plt.gray()
 cbar = plt.colorbar()
 plt.subplot(122)
@@ -103,6 +104,9 @@ def rectify(x):
     return x * (x > 0)
 
 def simple_cell_model(receptive_field, baseline_rate, dxy):
+    """
+    Return how a simple cell will respond to the receptive field
+    """
     dx, dy = dxy
     def _response(stim):
         r = np.sum(stim * receptive_field) * dx * dy + baseline_rate
