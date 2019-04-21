@@ -15,12 +15,11 @@ v_pop = the sum of (r/r_max)*c_a from a=1 to 4.
 
 If we assume each neuron in a popultion fires independently, the firing-rate probability
 for the population is the product of the individual probabilities:
-
 """
 
 def popProb(problist, T, r):
     """
-    population probability of firing. problist is the lsit of probabilities
+    Population probability of firing. problist is the lsit of probabilities
     for each nueron. T is the time period. r is the firing rate.
     """
     result = 1
@@ -43,8 +42,8 @@ accuracy with which any decoding scheme can extract an estimate of an encoded qu
 
 def fisherInformation(xvals, sigmavals):
     """
-    xvals is the list of x positions at which the spikes are measured,
-    sigmavals is the list of the x position uncertainties.
+    Fisher information. xvals is the list of x positions at which the 
+    spikes are measured, sigmavals is the list of the x position uncertainties.
     """
     npar = len(xvals)
     F = np.zeros([npar,npar])
