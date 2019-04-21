@@ -36,10 +36,9 @@ y = odeint(current,y0,t)
 
 # plot results
 plt.plot(t,y)
-plt.xlabel('time')
-plt.ylabel('y(t)')
+plt.xlabel("time")
+plt.ylabel("y(t)")
 plt.show()
-
 
 """
 We can use the current product of single channel conductance (gamma) and the driving force (V-E) between the voltage
@@ -92,8 +91,8 @@ y = odeint(ionpore,y0,t)
 
 # plot results
 plt.plot(t,y)
-plt.xlabel('time')
-plt.ylabel('y(t)')
+plt.xlabel("time")
+plt.ylabel("y(t)")
 plt.show()
 
 """
