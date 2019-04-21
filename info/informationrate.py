@@ -12,7 +12,7 @@ import math
 from __future__ import print_function
 from neo import io
 from neo.core import SpikeTrain
-from bartlett import bartlett # from bartlett.py import the Bartlett"s method function
+from bartlett import bartlett # from bartlett.py import the Bartlett's method function
 
 """
 We can measure the information rate of spike firing using the following method. First, we estimate
