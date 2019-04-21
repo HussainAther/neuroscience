@@ -17,7 +17,9 @@ Poisson's equation acts to "relax" the initial sources in the field.
 """
 
 def meshgrid(xs, ys, npoints):
-    # meshgrids are 2-D grid coordinates for the simulation.
+    """
+    Meshgrids are 2-D grid coordinates for the simulation.
+    """
     # randomly choose some points
     rng = random.RandomState(1234567890)
     rx = rng.uniform(xs[0], xs[1], size=npoints)
