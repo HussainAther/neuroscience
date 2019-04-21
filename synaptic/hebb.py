@@ -43,7 +43,6 @@ def deltaWvec(r, q):
         result += i
     return result
 
-
 """
 We can take steps to obtain Spike Timing Dependent Plasticity (STDP).
 The correlation condition in Hebb's postulate suggests that at least two biochemical
