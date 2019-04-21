@@ -4,54 +4,51 @@ import pylab as plt
 from scipy.integrate import odeint
 
 class HodgkinHuxley():
-    """Full Hodgkin-Huxley Model implemented in Python"""
-
-    C_m  =   1.0
-    """membrane capacitance, in uF/cm^2"""
-
-    g_Na = 120.0
-    """Sodium (Na) maximum conductances, in mS/cm^2"""
-
-    g_K  =  36.0
-    """Postassium (K) maximum conductances, in mS/cm^2"""
-
-    g_L  =   0.3
-    """Leak maximum conductances, in mS/cm^2"""
-
-    E_Na =  50.0
-    """Sodium (Na) Nernst reversal potentials, in mV"""
-
-    E_K  = -77.0
-    """Postassium (K) Nernst reversal potentials, in mV"""
-
-    E_L  = -54.387
-    """Leak Nernst reversal potentials, in mV"""
-
-    t = sp.arange(0.0, 450.0, 0.01)
-    """ The time to integrate over """
-
+    """
+    Full Hodgkin-Huxley Model implemented in Python.
+    """
+    C_m = 1.0 # Membrane capacitance, in uF/cm^2
+    g_Na = 120.0 # Sodium (Na) maximum conductances, in mS/cm^2
+    g_K  =  36.0 # Postassium (K) maximum conductances, in mS/cm^2
+    g_L = 0.3 # Leak maximum conductances, in mS/cm^2
+    E_Na =  50.0 # Sodium (Na) Nernst reversal potentials, in mV
+    E_K  = -77.0 # Postassium (K) Nernst reversal potentials, in mV
+    E_L  = -54.387 # Leak Nernst reversal potentials, in mV
+    t = sp.arange(0.0, 450.0, 0.01) # The time to integrate over
     def alpha_m(self, V):
-        """Channel gating kinetics. Functions of membrane voltage"""
+        """
+        Channel gating kinetics. Functions of membrane voltage
+        """
         return 0.1*(V+40.0)/(1.0 - sp.exp(-(V+40.0) / 10.0))
 
     def beta_m(self, V):
-        """Channel gating kinetics. Functions of membrane voltage"""
+        """
+        Channel gating kinetics. Functions of membrane voltage
+        """
         return 4.0*sp.exp(-(V+65.0) / 18.0)
 
     def alpha_h(self, V):
-        """Channel gating kinetics. Functions of membrane voltage"""
+        """
+        Channel gating kinetics. Functions of membrane voltage
+        """
         return 0.07*sp.exp(-(V+65.0) / 20.0)
 
     def beta_h(self, V):
-        """Channel gating kinetics. Functions of membrane voltage"""
+        """
+        Channel gating kinetics. Functions of membrane voltage
+        """
         return 1.0/(1.0 + sp.exp(-(V+35.0) / 10.0))
 
     def alpha_n(self, V):
-        """Channel gating kinetics. Functions of membrane voltage"""
+        """
+        Channel gating kinetics. Functions of membrane voltage
+        """
         return 0.01*(V+55.0)/(1.0 - sp.exp(-(V+55.0) / 10.0))
 
     def beta_n(self, V):
-        """Channel gating kinetics. Functions of membrane voltage"""
+        """
+        Channel gating kinetics. Functions of membrane voltage
+        """
         return 0.125*sp.exp(-(V+65) / 80.0)
 
     def I_Na(self, V, m, h):
@@ -85,7 +82,7 @@ class HodgkinHuxley():
     @staticmethod
     def dALLdt(X, t, self):
         """
-        Integrate
+        Integrate it.
         """
         V, m, h, n = X
 
@@ -99,7 +96,6 @@ class HodgkinHuxley():
         """
         Main demo for the Hodgkin Huxley neuron model
         """
-
         X = odeint(self.dALLdt, [-65, 0.05, 0.6, 0.32], self.t, args=(self,))
         V = X[:,0]
         m = X[:,1]
@@ -112,33 +108,33 @@ class HodgkinHuxley():
         plt.figure()
 
         plt.subplot(4,1,1)
-        plt.title('Hodgkin-Huxley Neuron')
-        plt.plot(self.t, V, 'k')
-        plt.ylabel('V (mV)')
+        plt.title("Hodgkin-Huxley Neuron")
+        plt.plot(self.t, V, "k")
+        plt.ylabel("V (mV)")
 
         plt.subplot(4,1,2)
-        plt.plot(self.t, ina, 'c', label='$I_{Na}$')
-        plt.plot(self.t, ik, 'y', label='$I_{K}$')
-        plt.plot(self.t, il, 'm', label='$I_{L}$')
-        plt.ylabel('Current')
+        plt.plot(self.t, ina, "c", label="$I_{Na}$")
+        plt.plot(self.t, ik, "y", label="$I_{K}$")
+        plt.plot(self.t, il, "m", label="$I_{L}$")
+        plt.ylabel("Current")
         plt.legend()
 
         plt.subplot(4,1,3)
-        plt.plot(self.t, m, 'r', label='m')
-        plt.plot(self.t, h, 'g', label='h')
-        plt.plot(self.t, n, 'b', label='n')
-        plt.ylabel('Gating Value')
+        plt.plot(self.t, m, "r", label="m")
+        plt.plot(self.t, h, "g", label="h")
+        plt.plot(self.t, n, "b", label="n")
+        plt.ylabel("Gating Value")
         plt.legend()
 
         plt.subplot(4,1,4)
         i_inj_values = [self.I_inj(t) for t in self.t]
-        plt.plot(self.t, i_inj_values, 'k')
-        plt.xlabel('t (ms)')
-        plt.ylabel('$I_{inj}$ ($\\mu{A}/cm^2$)')
+        plt.plot(self.t, i_inj_values, "k")
+        plt.xlabel("t (ms)")
+        plt.ylabel("$I_{inj}$ ($\\mu{A}/cm^2$)")
         plt.ylim(-1, 40)
 
         plt.show()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     runner = HodgkinHuxley()
     runner.Main()
