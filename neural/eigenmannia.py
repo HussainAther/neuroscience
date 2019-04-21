@@ -22,7 +22,6 @@ x["stim"][len(x)/2:] # second half of experiments
 x["stim"][:len(x)/2] # first half of experiments
 np.var(x["stim"]) # variance
 
-
 # Plot em
 plt(x["stim"], color = "red")
 plt(x["rho"], color = "blue")
