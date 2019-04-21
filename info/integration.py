@@ -25,7 +25,6 @@ def visDist(sigma1, K):
     """
     return 1/((sigma1**2) * K)
 
-
 def auditDist(sigma2, K):
     """
     Compute gain2 of the auditory distribution.
