@@ -35,17 +35,23 @@ def meshgrid(xs, ys, npoints):
     return tri
 
 def A_e(v):
-    # take vertices of element and return contribution to A
+    """
+    Take vertices of element and return contribution to A
+    """
     G = vstack((ones((1,3)), v.T)).I * vstack((zeros((1,2)),eye(2)))
     return det(vstack((ones((1,3)), v.T))) * G * G.T / 2
 
 def b_e(v):
-    # take vertices of element and return contribution to b
+    """
+    Take vertices of element and return contribution to b
+    """
     vS = v.sum(axis=0)/3.0 # Centre of gravity
     return f(vS) * ((v[1,0]-v[0,0])*(v[2,1]-v[0,1])-(v[2,0]-v[0,0])*(v[1,1]-v[0,1])) / 6.0
 
 def poisson(tri, boundary):
-    # get elements and vertices from meshgrid
+    """
+    Get elements and vertices from meshgrid
+    """
     elements = tri.triangle_nodes
     vertices = vstack((tri.x,tri.y)).T
     # number of vertices and elements
@@ -67,13 +73,17 @@ def poisson(tri, boundary):
     return array(u)
 
 def f(v):
-    # the RHS f
+    """
+    The RHS f
+    """
     x, y = v
     f = 2.0*cos(10.0*x)*sin(10.0*y) + sin(10.0*x*y)
     return 1
 
 def in_domain(x,y):
-    # is a point in the domain?
+    """
+    Is a point in the domain?
+    """
     return sqrt(x**2 + y**2) <= 1
 
 xs = (-1.,1.)
