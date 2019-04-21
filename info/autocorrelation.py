@@ -9,5 +9,8 @@ or serial correlation (correlation between signal at a given time and a later ti
 """
 
 def autocorr(x):
-    result = np.correlate(x, x, mode='full')
+    """
+    Numpy's correlate a function with itself.
+    """
+    result = np.correlate(x, x, mode="full")
     return result[result.size // 2:]
