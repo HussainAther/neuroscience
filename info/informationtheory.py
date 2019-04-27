@@ -188,3 +188,16 @@ def psth(binwidth=3, spikes=np.array([0.8, 1.3, 6, 6.2, 7, 10, 11.2, 15.7, 16]),
 """
 Combining two perstimulus time histgrams we can create a joint perstimulus time histogram (jpsth).
 """
+
+"""
+The Information integration theory of consciousness (IIT) draws on the notion of integrated information, 
+symbolized by Φ, as a way to explain generic consciousness. 
+IIT defines integrated information in terms of the effective information carried by the parts of the system in 
+light of its causal profile. For example, we can focus on a part of the whole circuit, say two 
+connected nodes, and compute the effective information that can be carried by this microcircuit. 
+The system carries integrated information if the effective informational content of the whole is 
+greater than the sum of the informational content of the parts. If there is no partitioning where 
+the summed informational content of the parts equals the whole, then the system as a whole carries 
+integrated information and it has a positive value for Φ. Intuitively, the interaction of the parts 
+adds more to the system than the parts do alone.
+"""
