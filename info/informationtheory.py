@@ -187,9 +187,7 @@ def psth(binwidth=3, spikes=np.array([0.8, 1.3, 6, 6.2, 7, 10, 11.2, 15.7, 16]),
 
 """
 Combining two perstimulus time histgrams we can create a joint perstimulus time histogram (jpsth).
-"""
 
-"""
 The Information integration theory of consciousness (IIT) draws on the notion of integrated information, 
 symbolized by Φ, as a way to explain generic consciousness. 
 IIT defines integrated information in terms of the effective information carried by the parts of the system in 
@@ -200,4 +198,14 @@ greater than the sum of the informational content of the parts. If there is no p
 the summed informational content of the parts equals the whole, then the system as a whole carries 
 integrated information and it has a positive value for Φ. Intuitively, the interaction of the parts 
 adds more to the system than the parts do alone.
+
+In recent perceptual neuroscience, an alternative picture of neural representational content often 
+tied to Bayesian approaches to perceptual computation has gained traction (for accessible discussions, 
+see Colombo & Seriès "Bayes in the Brain—On Bayesian Modelling in Neuroscience" and Rescorla "Bayesian 
+Perceptual Psychology"). On Bayesian models, extracting information from populations of MT (middle temporal) 
+neurons does not yield a specific value of motion direction but rather a probability density function, 
+across the space of possible motion directions (for a philosophical discussion of neural probabilistic 
+codes, see Shea "Neural Signalling of Probabilistic Vectors"). A key idea is not the generation of specific values 
+as what neurons represent, say 0 degree motion as proposed earlier, but rather the conceptualization 
+of the population response as reflecting uncertainty inherent in neural activity given noise.
 """
