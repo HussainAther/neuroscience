@@ -29,26 +29,30 @@ def total_conductance(gamma, P, N)
     return g_syn
 
 # Similarly, we can find the current of this setup.
-g_syn = 20
-V = 20
-E = 30
+g_syn = 20 # conductance
+V = 20 # potential
+E = 30 # electric potential
+
 def I_syn(g_syn, V, E):
-    return g_syn*(V-E) # From Ohm's law
+    """
+    From Ohm's law, retun the synaptic current using the 
+    conductance g_syn, voltage V and electric potential E.
+    """
+    return g_syn*(V-E) 
+
 """
 Closure of the switch lets the membrane change from a potential that we observe
-so that we can create a more complete analyitcal decsription of postsynaptic factors
+so that we can create a more complete analytical decsription of postsynaptic factors
 underlying the gneeration of a PSP. This allows us to use the capacitative branch of the circuit,
 and by conservation of current, the sum of the branches must equal zero.
 
-We can create a differnetial equation to explain this behavior.
+We can create a differential equation to explain this behavior.
 """
-# Set variable values
-I_L = 5
-I_syn = 5
-C = 10
 
-# integration time points
-m.time = np.linspace(0,10)
+# Set variable values
+I_L = 5 # induced current
+I_syn = 5 # synaptic current
+C = 10 # capacitance
 
 # integration time points
 m.time = np.linspace(0,10)
