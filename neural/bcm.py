@@ -3,7 +3,7 @@ import numpy as np
 """
 During neural development, sensory stimulation induces long-term changes in the receptive 
 field of the neurons that encode the stimuli. We use hte Bienenstock-Cooper-Munro (BCM bcm) 
-model to analyze this process computationallly. We model the BCM plasticity model for a neuron
+model to analyze this process computationally. We model the BCM plasticity model for a neuron
 with N synapses. 
 """
 
