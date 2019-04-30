@@ -75,18 +75,17 @@ def neuron(state, t, params):
     to simulate neural networks using the soma and the dendritic tree.
     """
 
-    E = state[0]    # soma potential
-    m = state[1]    # Na activation
-    h = state[2]    # Na inactivation
-    n = state[3]    # K activation
-    q = state[4]    # Ca activation
+    E = state[0] # soma potential
+    m = state[1] # Na activation
+    h = state[2] # Na inactivation
+    n = state[3] # K activation
+    q = state[4] # Ca activation
     CaAP = state[5] # Ca2+ dependent K channel
 
     Epar = params["E_params"]
     Na   = params["Na_params"]
     K    = params["K_params"]
     Ca   = params["Ca_params"]
-
 
     # external current (from "voltage clamp", other compartments, other neurons, etc)
     I_ext = Epar["I_ext"]
@@ -104,7 +103,6 @@ def neuron(state, t, params):
     # Na-current:
     I_Na =(Na["Na_E"]-E) * Na["Na_G"] * (m**Na["k_Na_act"]) * h
 
-
     # calculate K rate functions and I_K
     alpha_kal = K["A_alpha_m_act"] * (E-K["B_alpha_m_act"]) / (1.0 - exp((K["B_alpha_m_act"]-E) / K["C_alpha_m_act"]))
     beta_kal = K["A_beta_m_act"] * (K["B_beta_m_act"]-E) / (1.0 - exp((E-K["B_beta_m_act"]) / K["C_beta_m_act"]))
@@ -112,7 +110,6 @@ def neuron(state, t, params):
     
     # K current
     I_K = (K["k_E"]-E) * K["k_G"] * n**K["k_K"]
-
 
     # Ca rate functions and Ca current
     alpha_Ca_act = (Ca["Ca_act_alpha_A"]*(E-Ca["Ca_act_alpha_B"]))/(1-exp((Ca["Ca_act_alpha_B"]-E)/Ca["Ca_act_alpha_C"]))
@@ -122,13 +119,11 @@ def neuron(state, t, params):
     # Ca current
     I_Ca = (Ca["E_Ca"] - E)*Ca["G_Ca"]*(q**5)
 
-
     # Ca2+ gated K channels
     dCaAPdt = (Ca["E_Ca"] - E)*Ca["Ca_rho"]*(q**5) - Ca["Ca_delta"]*CaAP
     E_K = K["k_E"]
     # Ca2+ gated K current
     I_KCA = (K["k_E"] - E)*Ca["G_KCA"]*CaAP
-
 
     # leak current
     I_leak = (Epar["E_leak"]-E) * Epar["G_leak"]
@@ -216,4 +211,3 @@ plt.title("I_Ext = 6.0e-09")
 print(isi1)
 print(isi2)
 print(isi3)
-
