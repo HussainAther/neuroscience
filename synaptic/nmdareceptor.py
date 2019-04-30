@@ -16,4 +16,4 @@ def G_NMDA(Mg2, V):
     Compute G_NMDA factor due to the way NMDA receptors conduct Ca2+ ions as well as monovalent cations.
     Mg2 is the concentration of Mg2+ (Magnesium ion) and V is the membrane potential. 
     """
-    return (1 + ([Mg2]/3.57) * np.exp(-V/16.13))**-1
+    return (1 + (Mg2/3.57) * np.exp(-V/16.13))**-1
