@@ -1,7 +1,4 @@
-import os
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
 """
 We use the autocorrelation of a time series function to look for repeating patterns
