@@ -15,5 +15,5 @@ def pr(Ca, Vd, Vs, h, n, t, s, q, c, p)
     membrane potential of dendritic component Vd and various other variables with ratio of 
     membrane area of somatic component to whole cell p.
     """
-    
-    Caa = .
+    ICa = 1 # Calcium current
+    Caa = -.002*ICa - .0125*Ca # Adjusted Calcium current
