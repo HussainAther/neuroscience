@@ -17,3 +17,5 @@ def pr(Ca, Vd, Vs, h, n, t, s, q, c, p)
     """
     ICa = 1 # Calcium current
     Caa = -.002*ICa - .0125*Ca # Adjusted Calcium current
+    gc = 1 # Capacitance-dependent conductance 
+    return Caa
