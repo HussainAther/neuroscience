@@ -39,3 +39,12 @@ def test_I(I):
 traj, pts = test_I(1.6)
 
 plt.show()
+
+"""
+Calcium-driven adaptation in neurons.
+"""
+
+def response(I, r):
+    """
+    Return response for spike generation rate r and external inupts I.
+    """
