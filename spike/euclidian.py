@@ -1,0 +1,3 @@
+"""
+Euclidian spike classifier.
+"""
