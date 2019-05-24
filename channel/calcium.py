@@ -44,7 +44,12 @@ plt.show()
 Calcium-driven adaptation in neurons.
 """
 
-def response(I, r):
+def response(I, r, Ca):
     """
-    Return response for spike generation rate r and external inupts I.
+    Return response for array of spike generation rate r, calcium concentration Ca, and external inputs I.
     """
+    rmax = max(r)
+    rave = (max(r)-min(r)) / len(r) # average value of r
+    drdt = max(r)-min(r) 
+    func = I*Ca # unitless function of inputs and Calcium concentration
+    tau = (rmax*func-r)
