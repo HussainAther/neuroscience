@@ -52,4 +52,5 @@ def response(I, r, Ca):
     rave = (max(r)-min(r)) / len(r) # average value of r
     drdt = max(r)-min(r) 
     func = I*Ca # unitless function of inputs and Calcium concentration
-    tau = (rmax*func-r)
+    tau = (rmax*func-r) / drdt
+    return tau
