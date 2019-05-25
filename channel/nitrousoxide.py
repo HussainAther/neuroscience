@@ -1,6 +1,7 @@
 import numpy as np
 
 from scipy.optimize import curve_fit
+from lmfit import Model
 
 """
 Nitrous oxide (NO) diffusion from an irregular 3D structure. One such equation, known 
