@@ -1,3 +1,5 @@
+import numpy as np
+
 """
 Stochastic models of single ion channels. Transition rate between two chemical states has dimensions 
 s^-1. If a ligand must be bound for an ion channel to open, we have three states (as Castillo and
