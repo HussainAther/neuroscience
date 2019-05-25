@@ -78,7 +78,7 @@ def mu(i):
 
 def pnp_ss(r, D0, Ea, T):
     """
-    When deltaJ equals zero, we get the steady-state equation for drift-diffusino to accomodate the fluxes of mobile ions.
+    When deltaJ equals zero, we get the steady-state equation for drift-diffusion to accomodate the fluxes of mobile ions.
     r is an array of radii. T is the temperature. Ea is an array of activation energy. D0 is maximal coefficient. 
     If the flux value is zero, return True. Otherwise return False. 
     """
