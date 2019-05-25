@@ -31,3 +31,5 @@ print(result.fit_report())
 
 plt.plot(x, y, "bo")
 plt.plot(x, result.init_fit, "k--")
+plt.plot(x, result.best_fit, "r--")
+plt.show()
