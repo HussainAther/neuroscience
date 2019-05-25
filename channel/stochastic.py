@@ -5,5 +5,12 @@ Stochastic models of single ion channels. Transition rate between two chemical s
 s^-1. If a ligand must be bound for an ion channel to open, we have three states (as Castillo and
 Katz described CK mechanism): two shut states and one open state. State 1 is open with an agonist
 molecule bound to a receptor, State 2 has a molecule bound but the channel is shut, and State 3 has
-the channel shut with receptor unoccupied. 
+the channel shut with receptor unoccupied. Square matrix Q denotes the transition rates with m x m 
+dimensions for m states. Each row must sum to zero. This is a homogenous Markov process. 
 """
+
+# Qf-matrix in which alpha is the rate from 1 to 2, kneg is rate from 2 to 3, 
+# kpos is the rate from 3 to 2, and beta is the rate from 2 to 1. 
+QCK = np.matrix([[-alpha, alpha, 0], 
+                 [beta, -(kneg+beta), kneg],
+                 [0, kpos*xA, -kpos*xA]])
