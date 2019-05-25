@@ -18,4 +18,5 @@ def R(A, phi, deltaI, deltaphi, v, lambd, lowpass=False):
     """
     tau = 1 # time constant
     if lowpass == True: # If the temporal filter is a low-pass of first order
-        return deltaI**2 * ((tau*2*np.pi*v/lamd)/(1+tau**2*(2*np.pi*v/lamd)**2) * np.sin(2*np.pi*deltaphi/lambd) 
+        return deltaI**2 * ((tau*2*np.pi*v/lamd)/(1+tau**2*(2*np.pi*v/lamd)**2)) * np.sin(2*np.pi*deltaphi/lambd)
+    return deltaI**2 * A*(2*np.pi*v/lamd) * np.sin(-phi*(2*np.pi*v/lamd)) * np.sin(2*np.pi*deltaphi/lamd)
