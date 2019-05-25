@@ -64,12 +64,16 @@ with spectral matrices Ai.
 def Cv1(Is, Ist):
     """
     Version 1 of current fluctuations using autocovariance of current I(s) with I(s+t).
+    Get rid of noise using this method.
     """
-    np.cov([Is, Ist])
+    return np.cov([Is, Ist])
 
 def Cv2(alpha, eigen, t):
     """
     Version 2 of current fluctuations with rates alpha, eigenvalues eigen, at time t.
     """
     summ = 0
-    
+    m = len(alpha)
+    for i in range(2, m):  
+        summ += alpha[i]*np.exp(-eigen[i]*t)
+    return summ
