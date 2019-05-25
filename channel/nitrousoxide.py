@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 from scipy.optimize import curve_fit
 from lmfit import Model
@@ -22,3 +23,11 @@ d2udy2 = np.linspace(-10, 0, 51)
 dudt = diffusion(d2udx2, d2udy2) 
 
 best_vals, covar = curve_fit(diffusion, d2udx2, d2udy2)
+
+dmodel = Model(diffusion)
+result = dmodel.fit(dudt, d2udx2=d2udx2, d2udy2=d2udy2)
+
+print(result.fit_report())
+
+plt.plot(x, y, "bo")
+plt.plot(x, result.init_fit, "k--")
