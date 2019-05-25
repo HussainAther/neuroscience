@@ -6,4 +6,6 @@ criteria Akaike's).
 
 def akaike(l, q):
     """
+    For likelihod values l that measure parameter theta and q being the dimension
+    of theta, we compute AIC. 
     """
