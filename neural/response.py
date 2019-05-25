@@ -1,0 +1,3 @@
+"""
+Steady-state (steady state)
+"""
