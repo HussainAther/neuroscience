@@ -12,7 +12,7 @@ dimensions for m states. Each row must sum to zero. This is a homogenous Markov 
 # Qf-matrix in which alpha is the rate from 1 to 2, kneg is rate from 2 to 3, 
 # kpos is the rate from 3 to 2, and beta is the rate from 2 to 1. xA is the 
 # ligand concentration. 
-QCK = np.matrix([[-alpha, alpha, 0], 
+QCK3 = np.matrix([[-alpha, alpha, 0], 
                  [beta, -(kneg+beta), kneg],
                  [0, kpos*xA, -kpos*xA]])
 
@@ -21,11 +21,19 @@ QCK = np.matrix([[-alpha, alpha, 0],
 # states and the open state has one more shut state, giving us a 4th state. kposB is the rate from 1 to 4, and
 # knegB is the rate from 4 to 1.
 
-QCKnew = np.matrix([[-(alpha+kposB*xB), alpha, 0, kposB*xB],
+QCK4 = np.matrix([[-(alpha+kposB*xB), alpha, 0, kposB*xB],
                     [beta, -(beta+kneg), kneg, 0],
                     [0, kpos*xA, -kpos*xA, 0],
                     [knegB, 0, 0, -knegB]])
 
 # Finally we suppose that nicotinic acetylcholine receptor may have one agonist or two molecules bound
 # to the shut receptor or the open receptor. If the channel could open without a bound agonist, we'd
-# have one more state, state 5.
+# have one more state, state 5. In this diagram, kpos2 is the rate from 1 to 2, alpha2 is from 2 to 3,
+# 2*kneg2 is from 3 to 4, kneg is from 4 to 5, 2*kpos is from 5 to 4, beta1 is from 4 to 1, kpos2 is from
+# 4 to 3, beta2 is from 3 to 2, and 2*kneg2 is from 2 to 1.  
+
+QCK5 = np.matrix([[(alpha1 + kpos2*xA, kpos2*xA, 0, alpha1, 0],
+                  [2*kneg2, -(alpha2+2*kneg2), alpha2, 0, 0],
+                  [0, beta2, -(beta2+2*kneg2), 2*kneg2, 0],
+                  [beta1, 0, kpos2*xA, -(beta1+kpos2*xA+kneg), kneg],
+                  [0, 0, 0, 2*kpos*xA, -2*kpos*xA]])
