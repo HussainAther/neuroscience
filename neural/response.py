@@ -7,9 +7,9 @@ deltaI traveling at velocity v, the inputs are spaced by deltaphi, the temporal 
 has an amplitude and phase response A and phi, respectively. 
 """
 
-def R(A, phi, deltaI, deltaphi, v, lambd, lowpass=False):
+def Rss(A, phi, deltaI, deltaphi, v, lambd, lowpass=False):
     """
-    Tme-averaged detector response R.
+    Tme-averaged detector response R for steady-state response.
     When the sinusoidal waves in steady state have an additional amplitude factor A(omega),
     and phase shift phi(omega), we can multiply the respective signals and subtract the result of
     the left and right multiplier to get the time-averaged detector response for amplitude A,
@@ -25,3 +25,10 @@ def R(A, phi, deltaI, deltaphi, v, lambd, lowpass=False):
 Response function of the orientation using orientation tuning lets the correlation detector assess the
 direction of the wave.
 """
+
+def Ror(A, phi, deltaI, deltaphi, v, lambd):
+    """
+    Response is proportional to the sine of the phase diffference between two detector input lines.
+    The phase difference is the ratio of the sampling base and pattern wavelength as long as the 
+    pattern moves orthogonal to the grating (phi = 0).
+    """
