@@ -66,3 +66,10 @@ def Cv1(Is, Ist):
     Version 1 of current fluctuations using autocovariance of current I(s) with I(s+t).
     """
     np.cov([Is, Ist])
+
+def Cv2(alpha, eigen, t):
+    """
+    Version 2 of current fluctuations with rates alpha, eigenvalues eigen, at time t.
+    """
+    summ = 0
+    
