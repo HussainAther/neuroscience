@@ -26,7 +26,7 @@ Response function of the orientation using orientation tuning lets the correlati
 direction of the wave.
 """
 
-def Ror(A, phi, deltaI, deltaphi, v, lambd):
+def Ror(phi, deltaI, deltaphi, v, lambd):
     """
     Response is proportional to the sine of the phase diffference between two detector input lines.
     The phase difference is the ratio of the sampling base and pattern wavelength as long as the 
@@ -34,4 +34,4 @@ def Ror(A, phi, deltaI, deltaphi, v, lambd):
     """
     tau = 1 # rate constant
     omega = 2*np.pi*v/lamd # angular temporal frequency
-    return deltaI**2 * (tau*
+    return deltaI**2 * ((tau*omega)/(1+(tau*omega)**2)) * np.sin(np.cos(phi*2*np.pi*deltaphi/lamd))
