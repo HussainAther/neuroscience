@@ -55,3 +55,14 @@ Qsimp = np.matrix([[0, .0164, 0, .9386, 0],
                    [0, .7896, 0, .2015, 0],
                    [.0073, 0, .0242, 0, .9685],
                    [0, 0, 0, 1, 0]])
+
+"""
+If we take the exponential of Q times time, we can calculate the lambda eigenvalues of the matrix -Q
+with spectral matrices Ai.
+"""
+
+def Cv1(Is, Ist):
+    """
+    Version 1 of current fluctuations using autocovariance of current I(s) with I(s+t).
+    """
+    np.cov([Is, Ist])
