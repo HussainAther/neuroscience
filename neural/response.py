@@ -30,5 +30,8 @@ def Ror(A, phi, deltaI, deltaphi, v, lambd):
     """
     Response is proportional to the sine of the phase diffference between two detector input lines.
     The phase difference is the ratio of the sampling base and pattern wavelength as long as the 
-    pattern moves orthogonal to the grating (phi = 0).
+    pattern moves orthogonal to the grating (phi = 0). 
     """
+    tau = 1 # rate constant
+    omega = 2*np.pi*v/lamd # angular temporal frequency
+    return deltaI**2 * (tau*
