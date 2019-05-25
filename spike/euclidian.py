@@ -15,3 +15,22 @@ def epc(bins):
     For array bins of 0s and 1s corresponding to spike trains, compute the Euclidian
     pattern classifier.
     """
+    r_t = [] # rate array
+    one = False # whether we are viewing spikes in the iteration
+    currscore = 0 # current score
+    for i in bins:
+        if i == 1:  
+            currscore += 1
+            if one == False:
+                one = True
+                r_t.append(currscore)
+                currscore = 0 
+            else:
+                currscore += 1  
+        else:
+            r_t.append(0)
+    zeroindices = [i for i, x in enumerate(bins) if x == 0]
+    oneindices = [i for i, x in enumerate(bins) if x == 1]
+    m0 = len(zeroindices)/len(bins)
+    m1 = len(oneindices)/len(bins)
+    return r_t, m0, m1
