@@ -239,3 +239,10 @@ ax[2].set_title("thresholded map (overlay)", fontsize=25)
 ax[2].set_xticks([])
 ax[2].set_yticks([])
 plt.show()
+
+def scale(data):
+    """
+    Scale data data of an array using the max and min values.
+    """
+    return (data - data.min()) / (data.max() - data.min())
+
