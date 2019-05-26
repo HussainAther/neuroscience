@@ -146,5 +146,7 @@ def erp(x, u, P, M, returnJ=True, returnD=True):
     De = np.kron(np.ones([9,9]),De) # Kronecker product
     Di = np.kron(Di,sps.eye([n,n]))
     D = Di + De
-
+    
+    # Q matrix from Jacobian
+    Q = np.linalg.inv(sps.eye(len(J)) + D*J)
     return f, j, D
