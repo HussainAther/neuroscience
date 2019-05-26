@@ -10,6 +10,13 @@ of functional integration, which views function as an emergent property of brain
 modelling or DCM was developed specifically to address this question.
 """
 
+N = 10 # number of regions
+kappai = 1 #postsynaptix rate constant for the i-th neuronal population in N regions 
+
+params = { kappa : np.exp(theta)*kappa,
+
+}
+
 def deltaz(z, u, theta):
     """
     Change in neural activity z with respect to time. Experimental inputs u and parameters theta that
