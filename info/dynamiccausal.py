@@ -34,3 +34,9 @@ def erp(x, u, P, M):
         G = G*np.exp(P["H"])
     except: _
         G = np.ones([n,1])*G
+    A = [] # exponential transofrm to ensure positivity constraints
+    A[0] = np.exp(P["A"][0])*E[0]
+    A[1] = np.exp(P["A"][1])*E[1]    
+    A[2] = np.exp(P["A"][2])*E[2]
+    C = np.exp(P['C'])
+    
