@@ -74,5 +74,13 @@ NW = 4
 lines = np.sort(np.random.randint(100, 2**(fft_pow-6), size=(3,)))
 while np.any( np.diff(lines) < 2*NW ):
     lines = np.sort(np.random.randint(2**(fft_pow-6), size=(3,)))
-lines = lines.astype('d')
+lines = lines.astype("d")
 
+# Find exact frequencies if they fall on the Fast Fourier transform (FFT) grid.
+lines += np.random.randn(3) # displace from grid locations
+
+# Frequencies, phases, and amplitudes oh my
+lines /= 2.0**(fft_pow-2) # ensure they are well separated
+
+phs = np.random.rand(3) * 2 * np.pi
+amps = np.sqrt(2)/2 + np.abs( np.random.randn(3) )
