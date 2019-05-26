@@ -34,3 +34,21 @@ data_all = []
 for data_file in files:
     if data_file[-3:] == "hdr":
         data = nibabel.load(data_path + data_file).get_data()
+
+data = np.rot90(data.squeeze(), 1)
+
+# Plot
+fig, ax = plt.subplots(1, 6, figsize=[18, 3])
+
+n = 0
+slice = 0
+for _ in range(6):
+    ax[n].imshow(data[:, :, slice], 'gray')
+    ax[n].set_xticks([])
+    ax[n].set_yticks([])
+    ax[n].set_title('Slice number: {}'.format(slice), color='r')
+    n += 1
+    slice += 10
+    
+fig.subplots_adjust(wspace=0, hspace=0)
+plt.show()
