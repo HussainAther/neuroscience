@@ -18,3 +18,10 @@ near area MT (a region containing motion-sensitive cells) in this subject’s br
 could occur in this experiment (designating different directions and locations of motion). The following example 
 shows the extraction of the time-dependent responses of the voxels in this region to the different stimuli.
 """
+
+TR = 2. # interval
+len_et = 15 # number of samples 
+
+# Load data
+data_path = os.path.join(nitime.__path__[0], 'data')
+data = csv2rec(os.path.join(data_path, 'event_related_fmri.csv'))
