@@ -219,3 +219,10 @@ def do_GLM(X, y):
         e[i] = (y[i,:] - model[i])
         r[i] = np.sqrt(model[i].var()/y[i,:].var())
     return beta, model, e, r
+
+beta, model, e, r = do_GLM(design_matrix, data)
+r = r.reshape(x_size,y_size)
+map = r.copy()
+map[map<0.35] = np.nan
+fig, ax = plt.subplots(1,3,figsize=(18, 6))
+
