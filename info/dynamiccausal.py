@@ -38,5 +38,10 @@ def erp(x, u, P, M):
     A[0] = np.exp(P["A"][0])*E[0]
     A[1] = np.exp(P["A"][1])*E[1]    
     A[2] = np.exp(P["A"][2])*E[2]
-    C = np.exp(P['C'])
-    
+    C = np.exp(P["C"])
+    # Intrinsic connectivity and parameters
+    Te = T[0]/1000*np.exp(P["T"][0]) # excitatory time constants
+    Ti = T[1]/1000*np.exp(P["T"][1]) # inhibitory time constants
+    He = H[0]*np.exp(P["G"][0]) # excitatory receptor density
+    Hi = H[1]*np.exp(P["G"][1]) # inhibitory receptor density
+ 
