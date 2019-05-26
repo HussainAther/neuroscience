@@ -13,6 +13,7 @@ See "Dynamic causal modelling revisited" by Friston et al.
 """
 
 # Neuronal parameters
+
 r = 10 # number of regions
 p = 15 # number of populations 
 i = 10 # number of inputs
@@ -36,7 +37,7 @@ thetaC = np.pi # direct driving effect prior
 C = [[[1 for x in range(p) for y in range(r) for z in range(i)]]] # direct driving effect of the m-th input on population i in region j 
  
 # The parameterization for each of the parameters
-params = {"kappai": [], 
+Nparams = {"kappai": [], 
           "a": [], 
           "b": [],
           "A": [],
@@ -44,26 +45,35 @@ params = {"kappai": [],
           "C": []}
 
 for constant in kappai:
-    params["kappai"].append(np.exp(thetakappa)*constant
+    Nparams["kappai"].append(np.exp(thetakappa)*constant
 for x, y, z in a:
-    params["a"].append(np.exp(thetaa))
+    Nparams["a"].append(np.exp(thetaa))
 for x, y, z, w in b:
-    params["b"].append(np.exp(thetab))
+    Nparams["b"].append(thetab)
 for x, y, z, w in A:
-    params["A"].append(np.exp(thetaA))
+    Nparams["A"].append(np.exp(thetaA))
 for x, y, z, w, v in B:
-    params["B"].append(np.exp(thetaB))
+    Nparams["B"].append(thetaB)
 for x, y, z in C:
-    params["C"].append(np.exp(thetaC))
+    Nparams["C"].append(thetaC)
+
+# Haemodynamic parameters
+
+Hparams = {"eta": .64*np.exp(np.pi), # rate of vasodilatory signal decay per second
+           "chi": .32*np.exp(np.pi), # rate of flow-dependent elimination
+           "tau": 2*np.exp(np.pi), # rate of hemodynamic transit per second
+           "alpha": .32*np.exp(np.pi), # Grubb's exponent
+           "epsilon": 1*np.exp(np.pi), # intravascular:extravascular ratio
+           "psi": .4*np.exp(np.pi), # resting oxygen extraction fraction
+           "beta": np.pi, # sensitivity of signal to neural activity
+}
 
 # Biophysical parameters
-thetanu = np.pi # rate of vasodilatory signal decay prior 
-nu = .64 * thetanu # rate of vasodilatory signal decay per second
 
 V0 = .08 # blood volume fraction
-
-k1 = 6.9*psi # intravascular coefficient 
-
+k1 = 6.9*Hparams["psi"] # intravascular coefficient 
+k2 = Hparams["epsilon"]*Hparams["psi"] # concentration coefficient
+k3 = 1 - Hparams["epsilon"] # extravascular coefficient 
 
 def deltaz(z, u, theta):
     """
