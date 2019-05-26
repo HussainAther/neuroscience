@@ -20,3 +20,9 @@ n_trials = 12
 fig_snr = []
 sample = []
 fig_tseries = []
+
+# Add noise to ar_seq to demonstrate effects of adding noise on signal to noise ratio and the 
+# calculated information
+for idx, noise in enumerate([1, 10, 50, 100]):
+    sample.append(np.ones((n_trials, ar_seq.shape[-1])) + ar_seq)
+    n_points = sample[-1].shape[-1]
