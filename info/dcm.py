@@ -1,6 +1,8 @@
 import numpy as np
 import math
 
+import scipy.stats.norm as norm
+
 """
 Dynamic causal modelling (DCM) concerns the relation existing between cognitive functions and their 
 neurobiological “signature” (the spatio-temporal properties of brain activity) requires an understanding 
@@ -112,3 +114,6 @@ def p(kappa, w, M, C):
     Conditional posterior probability an effect with weight vector w exceeds some threshold kappa
     with posterior mean M and covariance C of Beta. 
     """
+    num = kappa - w*M
+    den = np.sqrt(w*C)
+    return 1 - norm.cdf(num/den) 
