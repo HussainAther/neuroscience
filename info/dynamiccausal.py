@@ -100,3 +100,7 @@ def erp(x, u, P, M):
     # Granular layer (spiny stellate cells) with voltage and depolarizing current
     f[0] = x[3]
     f[3] = (He*((A[0] + A[2])*S[8] + G[0]*S[8] + U) - 2*x[3] - x[0]/Te)/Te
+
+    # Infra-granular layer (pyramidal cells) with depolarizing current
+    f[1] = x[4]
+    f[4] = (He*((A[1] + A[2])*S[8] + G[1]*S[0]) - 2*x[4] - x[1]/Te)/Te
