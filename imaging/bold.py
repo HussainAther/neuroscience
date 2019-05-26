@@ -23,5 +23,9 @@ TR = 2. # interval
 len_et = 15 # number of samples 
 
 # Load data
-data_path = os.path.join(nitime.__path__[0], 'data')
-data = csv2rec(os.path.join(data_path, 'event_related_fmri.csv'))
+data_path = os.path.join(nitime.__path__[0], "data")
+data = csv2rec(os.path.join(data_path, "event_related_fmri.csv"))
+t1 = ts.TimeSeries(data.bold, sampling_interval=TR)
+t2 = ts.TimeSeries(data.events, sampling_interval=TR)
+E = nta.EventRelatedAnalyzer(t1, t2, len_et)
+
