@@ -21,25 +21,40 @@ thetakappa = np.pi # postsynaptic firing prior
 kappai = [256, 128, 16] # postsynaptic rate constant for the i-th neuronal population in N regions
 
 thetaa = np.pi # connectivity prior
-a = [[[x for x in range(p) for y in range(p) for z in range(r)]]] # intrinsic connectivity to population i from population k in each region j
+a = [[[1 for x in range(p) for y in range(p) for z in range(r)]]] # intrinsic connectivity to population i from population k in each region j
 
 thetab = np.pi # intrinsic connectivity change prior
-b = [[[[x for x in range(p) for y in range(r) for z in range(i) for w in range(r)]]]] # change in intrinsic connectivity by m-th input in region j 
+b = [[[[1 for x in range(p) for y in range(r) for z in range(i) for w in range(r)]]]] # change in intrinsic connectivity by m-th input in region j 
 
 thetaA = np.pi # extrinsic connectivity prior
-A = [[[[x for x in range(p) for y in range(r) for z in range(p) for w in range(r)]]]] # extrinsic connectivity to population i in region j from population k in region l 
+A = [[[[1 for x in range(p) for y in range(r) for z in range(p) for w in range(r)]]]] # extrinsic connectivity to population i in region j from population k in region l 
 
 thetaB = np.pi # extrinsic connectivity change prior
-B = [[[[[x for x in range(p) for y in range(r) for z in range(p) for w in range(r) for v in range(i)]]]]] # change in extrinsic connectivity by m-th input in region j
+B = [[[[[1 for x in range(p) for y in range(r) for z in range(p) for w in range(r) for v in range(i)]]]]] # change in extrinsic connectivity by m-th input in region j
 
 thetaC = np.pi # direct driving effect prior
-C = [[[x for x in range(p) for y in range(r) for z in range(i)]]] # direct driving effect of the m-th input on population i in region j 
+C = [[[1 for x in range(p) for y in range(r) for z in range(i)]]] # direct driving effect of the m-th input on population i in region j 
  
 # The parameterization for each of the parameters
-params = {"kappai": []}
+params = {"kappai": [], 
+          "a": [], 
+          "b": [],
+          "A": [],
+          "B": [],
+          "C": []}
 
 for constant in kappai:
     params["kappai"].append(np.exp(thetakappa)*constant
+for x, y, z in a:
+    params["a"].append(np.exp(thetaa))
+for x, y, z, w in b:
+    params["b"].append(np.exp(thetab))
+for x, y, z, w in A:
+    params["A"].append(np.exp(thetaA))
+for x, y, z, w, v in B:
+    params["B"].append(np.exp(thetaB))
+for x, y, z in C:
+    params["C"].append(np.exp(thetaC))
 
 # Biophysical parameters
 thetanu = np.pi # rate of vasodilatory signal decay prior 
