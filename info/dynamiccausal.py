@@ -10,6 +10,26 @@ of functional integration, which views function as an emergent property of brain
 modelling or DCM was developed specifically to address this question.
 """
 
+def spm_vec(X):
+    """
+    SPM Statistical parametric modeling. Vectorize a numeric, cell or structure array X.
+    """
+    for v_it, v in enumerate(X):
+        if v_it == 0:
+            try:
+                nr,nc = v.shape
+                vX = np.reshape(v,[nr*nc,1])
+            except:
+                vX = np.array([v][:,np.newaxis])
+        else:
+            try:
+                nr,nc = v.shape
+                vX = np.concatenate([vX,np.reshape(v,[nr*nc,1])])
+            except:
+                vX = np.concatenate([vX,np.array([v])[:,np.newaxis]])            
+    return np.squeeze(vX)[:,np.newaxis]
+
+
 def spm_unvec(Xflat, X):
     """
     SPM Statistical parametric mapping from flat map Xflat and given X values X onto a list.
