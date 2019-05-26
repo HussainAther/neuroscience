@@ -2,7 +2,7 @@ import numpy as np
 import scipy.signal as signal
 import nitime.algorithms as nt_alg
 import nitime.utils as nt_ut
-import matplotlib.pyplot as pp
+import matplotlib.pyplot as plt
 
 """
 Another application of the Slepian functions is to estimate the complex demodulate of a 
@@ -32,3 +32,27 @@ fm = int( np.round(float(200) * nfft / N) )
 (dpss, eigs) = nt_alg.dpss_windows(N, NW, 2*NW)
 keep = eigs > 0.9
 dpss = dpss[keep]; eigs = eigs[keep]
+
+"""
+Compare multitaper baseband power estimation with regular Hilbert transform method under
+actual narrowband conditions.
+"""
+
+# MT method
+xk = nt_alg.tapered_spectra(slp_mod, dpss, NFFT=nfft)
+mtm_bband = np.sum( 2 * (xk[:,fm] * np.sqrt(eigs))[:,None] * dpss, axis=0 )
+
+# Hilbert transform method
+hb_bband = signal.hilbert(slp_mod, N=nfft)[:N]
+
+plt.figure()
+plt.subplot(211)
+plt.plot(slp_mod, "g")
+plt.plot(np.abs(mtm_bband), color="b", linewidth=3)
+plt.title("Multitaper Baseband Power")
+
+plt.subplot(212)
+plt.plot(slp_mod, "g")
+plt.plot(np.abs(hb_bband), color="b', linewidth=3)
+plt.title("Hilbert Baseband Power")
+plt.gcf().tight_layout()
