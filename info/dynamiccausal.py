@@ -104,3 +104,7 @@ def erp(x, u, P, M):
     # Infra-granular layer (pyramidal cells) with depolarizing current
     f[1] = x[4]
     f[4] = (He*((A[1] + A[2])*S[8] + G[1]*S[0]) - 2*x[4] - x[1]/Te)/Te
+
+    # Infra-granular layer (pyramidalcells) with hyperpolarizing current
+    f[2] = x[5]
+    f[5] = (Hi*G[3]*S[6] - 2*x[5] - x[2]/Ti)/Ti
