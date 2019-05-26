@@ -30,4 +30,7 @@ def erp(x, u, P, M):
     H = np.array([4, 32])  #  receptor densities (excitatory, inhibitory)
     T = np.array([8, 16])  #  synaptic constants (excitatory, inhibitory)
     R = np.array([2, 1])/3  # parameters of static nonlinearity
-
+    try:  # test for free parameters on intrinsic connections
+        G = G*np.exp(P["H"])
+    except: _
+        G = np.ones([n,1])*G
