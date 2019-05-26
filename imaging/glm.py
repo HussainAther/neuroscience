@@ -204,11 +204,18 @@ def do_GLM(X, y):
         X = X.transpose()
     # Calculate the dot product of the transposed design matrix and the design matrix
     # and invert the resulting matrix.
-    tmp   = np.linalg.inv(X.transpose().dot(X))
+    tmp = np.linalg.inv(X.transpose().dot(X))
     # Now calculate the dot product of the above result and the transposed design matrix
-    tmp   = tmp.dot(X.transpose())
+    tmp = tmp.dot(X.transpose())
     # Pre-allocate variables
-    beta  = np.zeros((y.shape[0], X.shape[1]))
-    e     = np.zeros(y.shape)
+    beta = np.zeros((y.shape[0], X.shape[1]))
+    e = np.zeros(y.shape)
     model = np.zeros(y.shape)
-    r     = np.zeros(y.shape[0])
+    r = np.zeros(y.shape[0])
+    # Find beta values for each voxel and calculate the model, error and the correlation coefficients 
+    for i in range(y.shape[0]):
+        beta[i] = tmp.dot(y[i,:].transpose())
+        model[i] = X.dot(beta[i])
+        e[i] = (y[i,:] - model[i])
+        r[i] = np.sqrt(model[i].var()/y[i,:].var())
+    return beta, model, e, r
