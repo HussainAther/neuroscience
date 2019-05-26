@@ -27,3 +27,8 @@ slp = signal.lfilter(b, a, s)
 s_mod = s * np.cos(2*np.pi*np.arange(N) * float(200) / N)
 slp_mod = slp * np.cos(2*np.pi*np.arange(N) * float(200) / N)
 fm = int( np.round(float(200) * nfft / N) )
+
+# Create Slepians with the desired badnpass resolution
+(dpss, eigs) = nt_alg.dpss_windows(N, NW, 2*NW)
+keep = eigs > 0.9
+dpss = dpss[keep]; eigs = eigs[keep]
