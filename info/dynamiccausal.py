@@ -47,7 +47,7 @@ def spm_unvec(Xflat, X):
             vXlist.append(v)
     return vXlist
 
-def erp(x, u, P, M):
+def erp(x, u, P, M, returnJ=True, returnD=True):
     """
     Event-related potential for state vector x with the following:
     x[1] - voltage (spiny stellate cells)
@@ -60,7 +60,7 @@ def erp(x, u, P, M):
     x[8] - current (inhibitory interneurons) depolarizing
     x[9] - voltage (pyramidal cells)
     with P as true connectivity parameters, u as potential energy, and M as the dictionary of
-    types of models. 
+    types of models. returnJ and returnD are for returning Jacobian and delays, respectively.
     Return f (dx(t)/dt = f(x(t))), J (df(t)/dx(t)), and D (delay operator dx(t)/dt)
     """
     n = len(P["A"][0]) # number of sources
@@ -131,3 +131,8 @@ def erp(x, u, P, M):
 
     # Infra-granular layer (pyramidal cells) with voltage
     f[8] = x[4] - x[5]
+
+    f = spm_vec(f) # vectorize 
+
+    if returnJ == False and returnD == False:
+        return f
