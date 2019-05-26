@@ -37,3 +37,13 @@ ax.plot(ar_seq, "b", linewidth=4)
 ax.plot(sample_mean, "r", linewidth=4)
 ax.set_xlabel("Time")
 ax.set_ylabel("Amplitude")
+
+# low noise
+tseries = ts.TimeSeries(sample[-1], sampling_rate=1.)
+fig_snr.append(viz.plot_snr(tseries))
+
+# plot to compare information transmission and the signal to noise ratio between last two noise levels
+ts1 = ts.TimeSeries(sample[-1], sampling_rate=1.)
+ts2 = ts.TimeSeries(sample[-2], sampling_rate=1.)
+fig_compare = viz.plot_snr_diff(ts1, ts2)
+plt.show()
