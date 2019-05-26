@@ -91,3 +91,9 @@ def erp(x, u, P, M):
         U = u[:]*64
     else: # exogenous input
         U = C*u[:]*2
+   
+   f = [] # output velocity
+   # Supragranular layer (inhibitory interneurons) with voltage and depolarizing current
+   f[6] = x[7]
+   f[7] = (He*( (A[1] + A[2]) * S[8] + G[2]*S[8]) - 2*x[7] - x[6]/Te)/Te
+
