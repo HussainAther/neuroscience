@@ -9,3 +9,19 @@ of functional integration, which views function as an emergent property of brain
 modelling or DCM was developed specifically to address this question.
 """
 
+def erp(x, u, P, M):
+    """
+    Event-related potential for state vector x with the following:
+    x[1] - voltage (spiny stellate cells)
+    x[2] - voltage (pyramidal cells) +ve
+    x[3] - voltage (pyramidal cells) -ve
+    x[4] - current (spiny stellate cells)    depolarizing
+    x[5] - current (pyramidal cells)         depolarizing
+    x[6] - current (pyramidal cells)         hyperpolarizing
+    x[7] - voltage (inhibitory interneurons)
+    x[8] - current (inhibitory interneurons) depolarizing
+    x[9] - voltage (pyramidal cells) 
+    Return f (dx(t)/dt = f(x(t))), J (df(t)/dx(t)), and D (delay operator dx(t)/dt)
+    """
+    n = len(P["A"][0]) # number of sources
+
