@@ -83,4 +83,13 @@ lines += np.random.randn(3) # displace from grid locations
 lines /= 2.0**(fft_pow-2) # ensure they are well separated
 
 phs = np.random.rand(3) * 2 * np.pi
-amps = np.sqrt(2)/2 + np.abs( np.random.randn(3) )
+amps = np.sqrt(2)/2 + np.abs(np.random.randn(3))
+
+# RMS (root mean square) noise power to detect harmonics in low SNR by 
+# improving the reliability of the spectral estimate
+nz_sig = 1
+tx = np.arange(N)
+harmonics = amps[:,None]*np.cos( 2*np.pi*tx*lines[:,None] + phs[:,None] )
+harmonic = np.sum(harmonics, axis=0)
+nz = np.random.randn(N) * nz_sig
+sig = harmonic + nz
