@@ -80,12 +80,14 @@ def deltaz(z, u, theta):
     Change in neural activity z with respect to time. Experimental inputs u and parameters theta that
     control the neural function.
     """
+    return z**2 
 
 def y(z, theta, eps):
     """
     Timeseries y generated from observation function with parameters theta, neural activity z, and additive
     noise eps (epsilon). 
     """
+    return z
 
 """
 Neural model in DCM for fMRI is a Taylor approximation that captures the gross causal influences between
