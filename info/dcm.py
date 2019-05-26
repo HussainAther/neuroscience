@@ -107,4 +107,8 @@ the conditional posterior probability (with phi as the standard normal cumulativ
 following a Gaussian Markov Random Field GMRF).
 """
 
-def p(
+def p(kappa, w, M, C):
+    """
+    Conditional posterior probability an effect with weight vector w exceeds some threshold kappa
+    with posterior mean M and covariance C of Beta. 
+    """
