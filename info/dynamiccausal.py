@@ -1,4 +1,5 @@
 import scipy.sparse as sps
+import numpy as np
 
 """
 Dynamic causal modelling (DCM) concerns the relation existing between cognitive functions and their 
@@ -20,7 +21,9 @@ def erp(x, u, P, M):
     x[6] - current (pyramidal cells)         hyperpolarizing
     x[7] - voltage (inhibitory interneurons)
     x[8] - current (inhibitory interneurons) depolarizing
-    x[9] - voltage (pyramidal cells) 
+    x[9] - voltage (pyramidal cells)
+    with P as true connectivity parameters, u as potential energy, and M as the dictionary of
+    types of models. 
     Return f (dx(t)/dt = f(x(t))), J (df(t)/dx(t)), and D (delay operator dx(t)/dt)
     """
     n = len(P["A"][0]) # number of sources
