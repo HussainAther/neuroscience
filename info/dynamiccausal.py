@@ -10,9 +10,9 @@ of functional integration, which views function as an emergent property of brain
 modelling or DCM was developed specifically to address this question.
 """
 
-def spm_unvec(Xflat):
+def spm_unvec(Xflat, X):
     """
-    SPM Statistical parametric mapping from flat map Xflat into a list.
+    SPM Statistical parametric mapping from flat map Xflat and given X values X onto a list.
     """
     count = 0
     vXlist = []
@@ -44,6 +44,8 @@ def erp(x, u, P, M):
     Return f (dx(t)/dt = f(x(t))), J (df(t)/dx(t)), and D (delay operator dx(t)/dt)
     """
     n = len(P["A"][0]) # number of sources
+    x = spm_unvec(x, M["x"]) # extract neuronal states
+
     E = np.array([1., 1/2., 1/8.,])*32 # extrinsic rates (forward, backward, lateral)
     G = np.array([1, 4/5., 1/4., 1/4*128.]) # intrinsic rates (g1 g2 g3 g4)    
     D = np.array([2, 16])  #  propogation delays (intrinsic, extrinsic)
