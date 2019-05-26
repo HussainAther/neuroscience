@@ -93,3 +93,16 @@ harmonics = amps[:,None]*np.cos( 2*np.pi*tx*lines[:,None] + phs[:,None] )
 harmonic = np.sum(harmonics, axis=0)
 nz = np.random.randn(N) * nz_sig
 sig = harmonic + nz
+
+# Plot
+plt.figure()
+plt.subplot(211)
+plt.plot(harmonics.T)
+plt.xlim(*(np.array([0.2, 0.3])*N).astype('i'))
+plt.title("Sinusoid components")
+plt.subplot(212)
+plt.plot(harmonic, color="k", linewidth=3)
+plt.plot(sig, color=(.6, .6, .6), linewidth=2, linestyle="--")
+pp.xlim(*(np.array([0.2, 0.3])*N).astype("i"))
+pp.title("Signal in noise")
+pp.gcf().tight_layout()
