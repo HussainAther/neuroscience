@@ -13,16 +13,28 @@ See "Dynamic causal modelling revisited" by Friston et al.
 """
 
 # Neuronal parameters
-thetakappa = np.pi # postsynaptic firing angle
-N = 10 # number of regions
+r = 10 # number of regions
+p = 15 # number of populations 
+i = 10 # number of inputs
+
+thetakappa = np.pi # postsynaptic firing prior
 kappai = [256, 128, 16] # postsynaptic rate constant for the i-th neuronal population in N regions
-i = 15 # number of populations 
-a = [[x for x in range(i) for y in range(i)]] # intrinsic connectivity to population i from population k in each region j
+
+thetaa = np.pi # connectivity prior
+a = [[[x for x in range(p) for y in range(p) for z in range(r)]]] # intrinsic connectivity to population i from population k in each region j
+
+thetab = np.pi # intrinsic connectivity change prior
+b = [[[[x for x in range(p) for y in range(r) for z in range(r) for w in range(i)]]]] # change in intrinsic connectivity by m-th input in region j 
+
+thetaA = np.pi # extrinsic connectivity prior
+A = [[[[x for x in range(p) for y in range(r) for z in range(p) for w in range(r)]]]] # extrinsic connectivity to population i in region j from population k in region l 
 
 # Biophysical parameters
-thetanu = np.pi # angle of vasodilatory signal 
+thetanu = np.pi # rate of vasodilatory signal decay prior 
 nu = .64 * thetanu # rate of vasodilatory signal decay per second
+
 V0 = .08 # blood volume fraction
+
 k1 = 6.9*psi # intravascular coefficient 
 
 # The parameterization for each of the parameters
