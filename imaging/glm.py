@@ -115,3 +115,16 @@ for i in range(6):
 
 fig.subplots_adjust(wspace=0, hspace=0)
 plt.show()
+
+# Create an empty plot with defined aspect ratio
+fig, ax = plt.subplots(1, 1, figsize=[18, 5])
+
+# Plot the timecourse of a random voxel
+ax.plot(transversal[30, 30, 35, :], lw=3)
+ax.set_xlim([0, transversal.shape[3]-1])
+ax.set_xlabel("time [s]", fontsize=20)
+ax.set_ylabel("signal strength", fontsize=20)
+ax.set_title("voxel time course", fontsize=25)
+ax.tick_params(labelsize=12)
+
+plt.show()
