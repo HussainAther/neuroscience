@@ -137,3 +137,14 @@ def erp(x, u, P, M, returnJ=True, returnD=True):
     if returnJ == False and returnD == False:
         return f
     J = np.gradient([M["f"], x, u, P, M, 1]) # Jacobian gradient
+    
+    # Delays
+    De = D[1] * np.exp(P["D"])/1000
+    Di = D[0] / 1000
+    De = np.array*([1-sps.eye(n,n)]) *De # sps.eye returns sparse matrix with ones in diagnol
+    Di = np.array*([1-sps.eye(9,9)]) *Di
+    De = np.kron(np.ones([9,9]),De) # Kronecker product
+    Di = np.kron(Di,sps.eye([n,n]))
+    D = Di + De
+
+    return f, j, D
