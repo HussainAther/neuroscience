@@ -85,4 +85,9 @@ def erp(x, u, P, M):
     Hi = H[1]*np.exp(P["G"][1]) # inhibitory receptor density
 
     R = R*np.exp(P["S"]) # pre-synaptic inputs
-    S = 1./(1 + np.exp(-R[0]*(x[0] - R[1]))) - 1./(1 + np.exp(R[0]*R[1])) # 
+    S = 1./(1 + np.exp(-R[0]*(x[0] - R[1]))) - 1./(1 + np.exp(R[0]*R[1])) 
+  
+    if "u" in M: # endogenous input
+        U = u[:]*64
+    else: # exogenous input
+        U = C*u[:]*2
