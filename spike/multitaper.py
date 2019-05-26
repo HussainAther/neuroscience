@@ -103,6 +103,23 @@ plt.title("Sinusoid components")
 plt.subplot(212)
 plt.plot(harmonic, color="k", linewidth=3)
 plt.plot(sig, color=(.6, .6, .6), linewidth=2, linestyle="--")
-pp.xlim(*(np.array([0.2, 0.3])*N).astype("i"))
-pp.title("Signal in noise")
-pp.gcf().tight_layout()
+plt.xlim(*(np.array([0.2, 0.3])*N).astype("i"))
+plt.title("Signal in noise")
+plt.gcf().tight_layout()
+
+# Ensure we limit spectral bias by choosing Slepians with concentration factors
+# greater than .9. We can detect line frequnecies and their complex coefficients.
+f, b = nt_ut.detect_lines(sig, (NW, 2*NW), low_bias=True, NFFT=2**fft_pow)
+h_est = 2*(b[:,None]*np.exp(2j*np.pi*tx*f[:,None])).real
+
+plt.figure()
+plt.subplot(211)
+plt.plot(harmonics.T, "c", linewidth=3)
+plt.plot(h_est.T, "r--", linewidth=2)
+plt.title("%d lines detected" % h_est.shape[0])
+plt.xlim(*(np.array([0.2, 0.3])*N).astype("i"))
+plt.subplot(212)
+err = harmonic - np.sum(h_est, axis=0)
+plt.plot(err**2)
+plt.title("Error signal")
+plt.show()
