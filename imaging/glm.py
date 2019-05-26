@@ -288,3 +288,20 @@ ax[2].tick_params(labelsize=12)
 ax[2].tick_params(labelsize=12)
 fig.subplots_adjust(wspace=0, hspace=0.5)
 plt.show()
+
+# Gaussian kernel
+def gaussian_kernel(size, size_y=None):
+    """
+    Generate Gaussian kernel normalized by size
+    """
+    size = int(size)
+    if not size_y:
+        size_y = size
+    else:
+        size_y = int(size_y)
+    x, y = np.mgrid[-size:size+1, -size_y:size_y+1]
+    g = np.exp(-(x**2/float(size)+y**2/float(size_y)))
+    return g / g.sum()
+ 
+# Make the Gaussian by calling the function
+gaussian_kernel_array = gaussian_kernel(8)
