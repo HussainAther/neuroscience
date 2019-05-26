@@ -10,6 +10,23 @@ of functional integration, which views function as an emergent property of brain
 modelling or DCM was developed specifically to address this question.
 """
 
+def spm_unvec(Xflat):
+    """
+    SPM Statistical parametric mapping from flat map Xflat into a list.
+    """
+    count = 0
+    vXlist = []
+    for v_it,v in enumerate(X):
+        try:
+            nr,nc = v.shape
+            rng = np.arange(cnt,nr*nc)
+            vX = np.reshape(Xflat[rng],[nr,nc])
+            vXlist.append(vX)
+            count+=1
+        except: 
+            vXlist.append(v)
+    return vXlist
+
 def erp(x, u, P, M):
     """
     Event-related potential for state vector x with the following:
@@ -66,4 +83,4 @@ def erp(x, u, P, M):
     Hi = H[1]*np.exp(P["G"][1]) # inhibitory receptor density
 
     R = R*np.exp(P["S"]) # pre-synaptic inputs
-    S = 1./(1 + np.exp(-R[0]*(x - R[1]))) - 1./(1 + np.exp(R[0]*R[1])) # 
+    S = 1./(1 + np.exp(-R[0]*(x[0] - R[1]))) - 1./(1 + np.exp(R[0]*R[1])) # 
