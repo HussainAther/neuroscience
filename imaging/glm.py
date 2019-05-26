@@ -58,3 +58,14 @@ x_size = 64
 y_size = 64
 n_slice = 64
 n_volumes = 96
+
+# Find all files in the data folder
+data_path = "./fMRI_data/fM00223/"
+files = os.listdir(data_path)
+
+# Read in the data and organize it with respect to the acquisition parameters
+data_all = []
+for data_file in files:
+    if data_file[-3:] == "hdr":
+        data = nibabel.load(data_path + data_file).get_data()        
+        data_all.append(data.reshape(x_size, y_size, n_slice))
