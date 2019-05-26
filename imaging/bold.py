@@ -29,3 +29,8 @@ t1 = ts.TimeSeries(data.bold, sampling_interval=TR)
 t2 = ts.TimeSeries(data.events, sampling_interval=TR)
 E = nta.EventRelatedAnalyzer(t1, t2, len_et)
 
+# Plot
+fig01 = viz.plot_tseries(E.eta, ylabel="BOLD (% signal change)", yerror=E.ets)
+fig02 = viz.plot_tseries(E.FIR, ylabel="BOLD (% signal change)")
+fig03 = viz.plot_tseries(E.xcorr_eta, ylabel="BOLD (% signal change)")
+plt.show()
