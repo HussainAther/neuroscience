@@ -52,3 +52,9 @@ for _ in range(6):
     
 fig.subplots_adjust(wspace=0, hspace=0)
 plt.show()
+
+# Basic information about the data acquisition
+x_size = 64
+y_size = 64
+n_slice = 64
+n_volumes = 96
