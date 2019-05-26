@@ -92,8 +92,11 @@ def erp(x, u, P, M):
     else: # exogenous input
         U = C*u[:]*2
    
-   f = [] # output velocity
-   # Supragranular layer (inhibitory interneurons) with voltage and depolarizing current
-   f[6] = x[7]
-   f[7] = (He*( (A[1] + A[2]) * S[8] + G[2]*S[8]) - 2*x[7] - x[6]/Te)/Te
+    f = [] # output velocity
+    # Supragranular layer (inhibitory interneurons) with voltage and depolarizing current
+    f[6] = x[7]
+    f[7] = (He*( (A[1] + A[2]) * S[8] + G[2]*S[8]) - 2*x[7] - x[6]/Te)/Te
 
+    # Granular layer (spiny stellate cells) with voltage and depolarizing current
+    f[0] = x[3]
+    f[3] = (He*((A[0] + A[2])*S[8] + G[0]*S[8] + U) - 2*x[3] - x[0]/Te)/Te
