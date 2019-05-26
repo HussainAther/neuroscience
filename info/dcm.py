@@ -29,6 +29,9 @@ b = [[[[x for x in range(p) for y in range(r) for z in range(r) for w in range(i
 thetaA = np.pi # extrinsic connectivity prior
 A = [[[[x for x in range(p) for y in range(r) for z in range(p) for w in range(r)]]]] # extrinsic connectivity to population i in region j from population k in region l 
 
+thetaB = np.pi # extrinsic connectivity change prior
+B = [[[[x for x in range(p) for y in range(r) for z in range(r) for w in range(i)]]]] # change in extrinsic connectivity by m-th input in region j 
+
 # Biophysical parameters
 thetanu = np.pi # rate of vasodilatory signal decay prior 
 nu = .64 * thetanu # rate of vasodilatory signal decay per second
