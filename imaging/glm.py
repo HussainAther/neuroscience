@@ -246,3 +246,12 @@ def scale(data):
     """
     return (data - data.min()) / (data.max() - data.min())
 
+def z_score(data):
+    """
+    Calculate z-score Z-score Z score.
+    """
+    mean = data.mean(axis=1, keepdims=True)
+    std = data.std(axis=1, keepdims=True)
+    norm_data = (data-mean)/std
+    return norm_data
+
