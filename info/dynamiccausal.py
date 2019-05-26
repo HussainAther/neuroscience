@@ -136,3 +136,4 @@ def erp(x, u, P, M, returnJ=True, returnD=True):
 
     if returnJ == False and returnD == False:
         return f
+    J = np.gradient([M["f"], x, u, P, M, 1]) # Jacobian gradient
