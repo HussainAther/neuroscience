@@ -14,3 +14,9 @@ is calculated as the average of the power in the deviation from this average in 
 # Generate auto-regressive sequence as the signal
 ar_seq, nz, alpha = utils.ar_generator(N=128, drop_transients=10)
 ar_seq -= ar_seq.mean()
+
+# Signal repeated several times with noise
+n_trials = 12
+fig_snr = []
+sample = []
+fig_tseries = []
