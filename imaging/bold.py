@@ -1,3 +1,12 @@
+import os
+import matplotlib.pyplot as plt
+import nitime
+import nitime.timeseries as ts
+import nitime.analysis as nta
+import nitime.viz as viz
+
+from matplotlib.mlab import csv2rec
+
 """
 Extracting the average time-series from one signal, time-locked to the occurence of some type of event in 
 another signal is a very typical operation in the analysis of time-series from neuroscience experiments. 
