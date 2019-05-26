@@ -106,7 +106,7 @@ for i in range(5):
 We may calculate a posterior probability to produce a spatial mapping of the activated brain regions
 from fMRI. With M and C as the posterior mean and covariance of Beta, respectively, we can define
 the conditional posterior probability (with phi as the standard normal cumulative distribution function and
-following a Gaussian Markov Random Field GMRF).
+following a Gaussian Markov Random Field GMRF). Bayesian Bayes statistics.
 """
 
 def p(kappa, w, M, C):
@@ -117,3 +117,7 @@ def p(kappa, w, M, C):
     num = kappa - w*M
     den = np.sqrt(w*C)
     return 1 - norm.cdf(num/den) 
+
+"""
+Bayesian mixture models have had success in multi-subject fMRI studies to capture clusters of activation.
+"""
