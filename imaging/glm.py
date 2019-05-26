@@ -192,3 +192,23 @@ ax[1].tick_params(labelsize=12)
 ax[1].tick_params(labelsize=12)
 fig.subplots_adjust(wspace=0, hspace=0.5)
 plt.show()
+
+
+def do_GLM(X, y):
+    """
+    For design matrix X and expected response y, perform the generalized
+    linear model (GLM) fit and error assessment.
+    """
+    # Make sure design matrix has the right orientation
+    if X.shape[1] > X.shape[0]:
+        X = X.transpose()
+    # Calculate the dot product of the transposed design matrix and the design matrix
+    # and invert the resulting matrix.
+    tmp   = np.linalg.inv(X.transpose().dot(X))
+    # Now calculate the dot product of the above result and the transposed design matrix
+    tmp   = tmp.dot(X.transpose())
+    # Pre-allocate variables
+    beta  = np.zeros((y.shape[0], X.shape[1]))
+    e     = np.zeros(y.shape)
+    model = np.zeros(y.shape)
+    r     = np.zeros(y.shape[0])
