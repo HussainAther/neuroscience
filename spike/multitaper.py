@@ -10,7 +10,10 @@ narrowband signal. This signal is normally of interest in neuroimaging when find
 lowpass power envelope and the instantaneous phase. The traditional technique uses the 
 Hilbert transform to find the analytic signal. However, this approach suffers problems of 
 bias and reliability, much like the periodogram suffers in PSD estimation. Once again, a 
-multi-taper approach can provide an estimate with lower variance.
-
-
+multi-taper (multitaper) approach can provide an estimate with lower variance.
 """
+
+N = 10000
+nfft = np.power( 2, int(np.ceil(np.log2(N))) )
+NW = 40
+W = float(NW)/N
