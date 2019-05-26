@@ -24,13 +24,22 @@ thetaa = np.pi # connectivity prior
 a = [[[x for x in range(p) for y in range(p) for z in range(r)]]] # intrinsic connectivity to population i from population k in each region j
 
 thetab = np.pi # intrinsic connectivity change prior
-b = [[[[x for x in range(p) for y in range(r) for z in range(r) for w in range(i)]]]] # change in intrinsic connectivity by m-th input in region j 
+b = [[[[x for x in range(p) for y in range(r) for z in range(i) for w in range(r)]]]] # change in intrinsic connectivity by m-th input in region j 
 
 thetaA = np.pi # extrinsic connectivity prior
 A = [[[[x for x in range(p) for y in range(r) for z in range(p) for w in range(r)]]]] # extrinsic connectivity to population i in region j from population k in region l 
 
 thetaB = np.pi # extrinsic connectivity change prior
-B = [[[[x for x in range(p) for y in range(r) for z in range(r) for w in range(i)]]]] # change in extrinsic connectivity by m-th input in region j 
+B = [[[[[x for x in range(p) for y in range(r) for z in range(p) for w in range(r) for v in range(i)]]]]] # change in extrinsic connectivity by m-th input in region j
+
+thetaC = np.pi # direct driving effect prior
+C = [[[x for x in range(p) for y in range(r) for z in range(i)]]] # direct driving effect of the m-th input on population i in region j 
+ 
+# The parameterization for each of the parameters
+params = {"kappai": []}
+
+for constant in kappai:
+    params["kappai"].append(np.exp(thetakappa)*constant
 
 # Biophysical parameters
 thetanu = np.pi # rate of vasodilatory signal decay prior 
@@ -40,11 +49,6 @@ V0 = .08 # blood volume fraction
 
 k1 = 6.9*psi # intravascular coefficient 
 
-# The parameterization for each of the parameters
-params = {"kappai": []}
-
-for constant in kappai:
-    params["kappai"].append(np.exp(thetakappa)*constant
 
 def deltaz(z, u, theta):
     """
