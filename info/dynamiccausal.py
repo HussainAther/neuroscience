@@ -24,4 +24,10 @@ def erp(x, u, P, M):
     Return f (dx(t)/dt = f(x(t))), J (df(t)/dx(t)), and D (delay operator dx(t)/dt)
     """
     n = len(P["A"][0]) # number of sources
+    E = np.array([1., 1/2., 1/8.,])*32 # extrinsic rates (forward, backward, lateral)
+    G = np.array([1, 4/5., 1/4., 1/4*128.]) # intrinsic rates (g1 g2 g3 g4)    
+    D = np.array([2, 16])  #  propogation delays (intrinsic, extrinsic)
+    H = np.array([4, 32])  #  receptor densities (excitatory, inhibitory)
+    T = np.array([8, 16])  #  synaptic constants (excitatory, inhibitory)
+    R = np.array([2, 1])/3  # parameters of static nonlinearity
 
