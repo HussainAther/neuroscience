@@ -12,7 +12,7 @@ modelling or DCM was developed specifically to address this question.
 
 def spm_vec(X):
     """
-    SPM Statistical parametric modeling. Vectorize a numeric, cell or structure array X.
+    SPM Statistical parametric mapping. Vectorize a numeric, cell or structure array X.
     """
     for v_it, v in enumerate(X):
         if v_it == 0:
