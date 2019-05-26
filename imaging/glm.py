@@ -128,3 +128,19 @@ ax.set_title("voxel time course", fontsize=25)
 ax.tick_params(labelsize=12)
 
 plt.show()
+
+# Rearrange and reshape data for export
+data_all = np.transpose(data_all, [3, 2, 1, 0])
+data_all = np.reshape(data_all, [n_slice, y_size*x_size, n_volumes])
+
+# Check if output path exists, if not create it.
+if os.path.exists(".fMRI_data/csv_data") == False:
+    os.mkdir("./fMRI_data/csv_data")
+
+# Export each slice as a .csv file 
+n = 0
+for export in data_all:
+    save_file = "slice_{}.csv".format(n)
+    save_path = "./fMRI_data/csv_data/{}".format(save_file)
+    pd.DataFrame(export).to_csv(save_path, header=False, index=False)
+    n += 1
