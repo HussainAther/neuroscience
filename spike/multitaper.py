@@ -18,6 +18,12 @@ nfft = np.power( 2, int(np.ceil(np.log2(N))) )
 NW = 40
 W = float(NW)/N
 
+# Create lowpass band-limited signal
 s = np.cumsum(np.random.randn(N))
 (b, a) = signal.butter(3, W, btype='lowpass')
 slp = signal.lfilter(b, a, s)
+
+# Modulate
+s_mod = s * np.cos(2*np.pi*np.arange(N) * float(200) / N)
+slp_mod = slp * np.cos(2*np.pi*np.arange(N) * float(200) / N)
+fm = int( np.round(float(200) * nfft / N) )
