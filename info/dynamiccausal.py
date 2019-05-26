@@ -108,3 +108,6 @@ def erp(x, u, P, M):
     # Infra-granular layer (pyramidalcells) with hyperpolarizing current
     f[2] = x[5]
     f[5] = (Hi*G[3]*S[6] - 2*x[5] - x[2]/Ti)/Ti
+
+    # Infra-granular layer (pyramidal cells) with voltage
+    f[8] = x[4] - x[5]
