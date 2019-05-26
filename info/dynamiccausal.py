@@ -33,18 +33,37 @@ def erp(x, u, P, M):
     H = np.array([4, 32])  #  receptor densities (excitatory, inhibitory)
     T = np.array([8, 16])  #  synaptic constants (excitatory, inhibitory)
     R = np.array([2, 1])/3  # parameters of static nonlinearity
+
     try:  # test for free parameters on intrinsic connections
         G = G*np.exp(P["H"])
     except: _
         G = np.ones([n,1])*G
+    
+    if "pF" in M: # which parameters are fixed
+        try: E = M["pF"]["E"] 
+        except: _
+        try: G = M["pF"]["H"] 
+        except: _
+        try: D = M["pF"]["D"] 
+        except: _
+        try: H = M["pF"]["G"] 
+        except: _
+        try: T = M["pF"]["T"] 
+        except: _  
+        try: R = M["pF"]["R"] 
+        except: _  
+
     A = [] # exponential transofrm to ensure positivity constraints
     A[0] = np.exp(P["A"][0])*E[0]
     A[1] = np.exp(P["A"][1])*E[1]    
     A[2] = np.exp(P["A"][2])*E[2]
     C = np.exp(P["C"])
+
     # Intrinsic connectivity and parameters
     Te = T[0]/1000*np.exp(P["T"][0]) # excitatory time constants
     Ti = T[1]/1000*np.exp(P["T"][1]) # inhibitory time constants
     He = H[0]*np.exp(P["G"][0]) # excitatory receptor density
     Hi = H[1]*np.exp(P["G"][1]) # inhibitory receptor density
- 
+
+    R = R*np.exp(P["S"]) # pre-synaptic inputs
+    S = 1./(1 + np.exp(-R[0]*(x - R[1]))) - 1./(1 + np.exp(R[0]*R[1])) # 
