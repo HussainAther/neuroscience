@@ -1,3 +1,4 @@
+import scipy.sparse as sps
 
 """
 Dynamic causal modelling (DCM) concerns the relation existing between cognitive functions and their 
@@ -7,3 +8,4 @@ of how information is transmitted through brain networks. The ambition here is t
 of functional integration, which views function as an emergent property of brain networks. Dynamic causal 
 modelling or DCM was developed specifically to address this question.
 """
+
