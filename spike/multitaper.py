@@ -17,3 +17,7 @@ N = 10000
 nfft = np.power( 2, int(np.ceil(np.log2(N))) )
 NW = 40
 W = float(NW)/N
+
+s = np.cumsum(np.random.randn(N))
+(b, a) = signal.butter(3, W, btype='lowpass')
+slp = signal.lfilter(b, a, s)
