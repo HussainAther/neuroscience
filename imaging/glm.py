@@ -162,3 +162,24 @@ data_ordered = data.reshape(x_size, y_size, acq_num)
 
 # Calculate the mean signal for each voxel
 mean_data = data_ordered.mean(axis=2)
+
+# Create the design matrix
+constant = np.ones(acq_num)
+rest = np.zeros(block_size)
+stim = np.ones(block_size)
+block = np.concatenate((rest, stim), axis=0)
+predicted_response = np.tile(block, int(block_total/2))
+
+design_matrix = np.array((constant, predicted_response))
+
+# Create the plots
+fig, ax = plt.subplots(2,1, figsize=(15, 5))
+ax[0].plot(design_matrix[0], lw=3)
+ax[0].set_xlim(0, acq_num-1)
+ax[0].set_ylim(0, 1.5)
+ax[0].set_title('constant', fontsize=25)
+ax[0].set_xticks([])
+ax[0].set_yticks([0,1])
+ax[0].tick_params(labelsize=12)
+ax[0].tick_params(labelsize=12)
+
