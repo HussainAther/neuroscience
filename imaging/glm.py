@@ -157,3 +157,8 @@ data_time_vol = np.arange(acq_num)*block_RT
 x_size = 64
 y_size = 64
 
+# Reshape the data
+data_ordered = data.reshape(x_size, y_size, acq_num)
+
+# Calculate the mean signal for each voxel
+mean_data = data_ordered.mean(axis=2)
