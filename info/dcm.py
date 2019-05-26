@@ -103,5 +103,8 @@ for i in range(5):
 """
 We may calculate a posterior probability to produce a spatial mapping of the activated brain regions
 from fMRI. With M and C as the posterior mean and covariance of Beta, respectively, we can define
-the conditional posterior probability.
+the conditional posterior probability (with phi as the standard normal cumulative distribution function and
+following a Gaussian Markov Random Field GMRF).
 """
+
+def p(
