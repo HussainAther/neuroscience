@@ -66,3 +66,13 @@ power spectrum, which is a dirac delta. The complex Fourier coefficient of the p
 through a linear regression of the Slepian DC components, and the strength of the regression coefficient is 
 tested against the residual spectral power for the F-test.
 """
+
+# Set up test with 3 harmonic components with Gaussian noise. 
+N = 10000
+fft_pow = int( np.ceil(np.log2(N) + 2) )
+NW = 4
+lines = np.sort(np.random.randint(100, 2**(fft_pow-6), size=(3,)))
+while np.any( np.diff(lines) < 2*NW ):
+    lines = np.sort(np.random.randint(2**(fft_pow-6), size=(3,)))
+lines = lines.astype('d')
+
