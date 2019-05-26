@@ -99,3 +99,9 @@ x = 2
 e_to_2 = 0
 for i in range(5):
     e_to_2 += x**i/math.factorial(i)
+
+"""
+We may calculate a posterior probability to produce a spatial mapping of the activated brain regions
+from fMRI. With M and C as the posterior mean and covariance of Beta, respectively, we can define
+the conditional posterior probability.
+"""
