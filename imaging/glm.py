@@ -69,3 +69,19 @@ for data_file in files:
     if data_file[-3:] == "hdr":
         data = nibabel.load(data_path + data_file).get_data()        
         data_all.append(data.reshape(x_size, y_size, n_slice))
+
+
+# Create a 3x6 subplot 
+fig, ax = plt.subplots(3, 6, figsize=[18, 11])
+
+# Orgaize the data for visualisation in the coronal plane
+coronal = np.transpose(data_all, [1, 3, 2, 0])
+coronal = np.rot90(coronal, 1)
+
+# Orgaize the data for visualisation in the transversal plane
+transversal = np.transpose(data_all, [2, 1, 3, 0])
+transversal = np.rot90(transversal, 2)
+
+# Orgaize the data for visualisation in the sagittal plane
+sagittal = np.transpose(data_all, [2, 3, 1, 0])
+sagittal = np.rot90(sagittal, 1)
