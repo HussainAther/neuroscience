@@ -11,5 +11,12 @@ modelling or DCM was developed specifically to address this question.
 
 def deltaz(z, u, theta):
     """
-    Change in neural activity z with respect to time. Experimental inputs u and parameters theta.
+    Change in neural activity z with respect to time. Experimental inputs u and parameters theta that
+    control the neural function.
+    """
+
+def y(z, theta, eps):
+    """
+    Timeseries y generated from observation function with parameters theta, neural activity z, and additive
+    noise eps (epsilon). 
     """
