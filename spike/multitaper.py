@@ -56,3 +56,13 @@ plt.plot(slp_mod, "g")
 plt.plot(np.abs(hb_bband), color="b', linewidth=3)
 plt.title("Hilbert Baseband Power")
 plt.gcf().tight_layout()
+
+"""
+The Slepian sequences of the multitaper spectral estimation method can also be used to perform a hypothesis 
+test regarding the presence of a pure sinusoid at any analyzed frequency. The F-test is used to assess 
+whether the power at a given frequency can be attributed to a single line component. In this case, the 
+power would be given by the summed spectral convolutions of the Slepian frequency functions with the line 
+power spectrum, which is a dirac delta. The complex Fourier coefficient of the putative sinusoid is estimated 
+through a linear regression of the Slepian DC components, and the strength of the regression coefficient is 
+tested against the residual spectral power for the F-test.
+"""
