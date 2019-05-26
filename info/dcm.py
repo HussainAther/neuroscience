@@ -12,13 +12,24 @@ modelling or DCM was developed specifically to address this question.
 See "Dynamic causal modelling revisited" by Friston et al.
 """
 
+# Neuronal parameters
+thetakappa = np.pi # postsynaptic firing angle
 N = 10 # number of regions
-kappai = [256, 128, 16] # postsynaptic rate constant for the i-th neuronal population in N regions 
+kappai = [256, 128, 16] # postsynaptic rate constant for the i-th neuronal population in N regions
+i = 15 # number of populations 
+a = [[x for x in range(i) for y in range(i)]] # intrinsic connectivity to population i from population k in each region j
+
+# Biophysical parameters
+thetanu = np.pi # angle of vasodilatory signal 
+nu = .64 * thetanu # rate of vasodilatory signal decay per second
+V0 = .08 # blood volume fraction
+k1 = 6.9*psi # intravascular coefficient 
 
 # The parameterization for each of the parameters
-params = { kappa : np.exp(theta)*kappa,
-           
-}
+params = {"kappai": []}
+
+for constant in kappai:
+    params["kappai"].append(np.exp(thetakappa)*constant
 
 def deltaz(z, u, theta):
     """
