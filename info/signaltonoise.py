@@ -10,3 +10,7 @@ frequency band centered on \omega.This equation holde true for a Gaussian channe
 The signal power is estimated as the power of the mean response to repeated presentations of the same signal and the noise power 
 is calculated as the average of the power in the deviation from this average in each trial
 """
+
+# Generate auto-regressive sequence as the signal
+ar_seq, nz, alpha = utils.ar_generator(N=128, drop_transients=10)
+ar_seq -= ar_seq.mean()
