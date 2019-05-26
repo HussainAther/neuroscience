@@ -144,3 +144,16 @@ for export in data_all:
     save_path = "./fMRI_data/csv_data/{}".format(save_file)
     pd.DataFrame(export).to_csv(save_path, header=False, index=False)
     n += 1
+
+# Main parameters of the fMRI scan and experimental desgin
+block_design = ["rest", "stim"]
+block_size = 6
+block_RT = 7
+block_total = 16
+block_length = block_size*block_RT
+acq_num = block_size*block_total
+data_time = block_length*block_total
+data_time_vol = np.arange(acq_num)*block_RT
+x_size = 64
+y_size = 64
+
