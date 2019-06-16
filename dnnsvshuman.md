@@ -1,5 +1,6 @@
-# List of articles comparing deep neural networks (DNNs) to human intelligence.
-# This list is fully up to date (but surely not complete!) until 2018/06, afterwards likely more incomplete
+# DNNs vs. Human intelligence
+## List of articles comparing deep neural networks (DNNs) to human intelligence.
+### This list is fully up to date (but surely not complete!) until 2018/06, afterwards likely more incomplete
 
 DNN vs. Human Reviews / Commentaries (sorted by year):
 
