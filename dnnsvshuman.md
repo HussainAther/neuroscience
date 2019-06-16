@@ -66,7 +66,7 @@ DNN vs. Brain Imaging Papers (sorted by year and alphabetically):
 
 Please no medical imaging papers!
 
-2014:
+## 2014
 
 Cadieu et al (2014) – Deep Neural Networks Rival the Representation of Primate IT Cortex for Core Visual Object Recognition – PloS Comput Biol
 https://doi.org/10.1371/journal.pcbi.1003963 
@@ -77,7 +77,7 @@ https://doi.org/10.1371/journal.pcbi.1003915
 Yamins et al (2014) – Performance-optimized hierarchical models predict neural responses in higher visual cortex – PNAS
 http://www.pnas.org/content/111/23/8619.short
 
-2015:
+## 2015
 
 Güçlü & van Gerven (2015) – Deep Neural Networks Reveal a Gradient in the Complexity of Neural Representations across the Ventral Stream – J Neurosci
 https://doi.org/10.1523/JNEUROSCI.5023-14.2015
@@ -85,7 +85,7 @@ https://doi.org/10.1523/JNEUROSCI.5023-14.2015
 Güçlü & van Gerven (2015) – Increasingly complex representations of natural movies across the dorsal stream are shared between subjects – Neuroimage
 https://doi.org/10.1016/j.neuroimage.2015.12.036
 
-2016:
+## 2016
 
 Cichy et al (2016) - Comparison of deep neural networks to spatio-temporal cortical dynamics of human visual object recognition reveals hierarchical correspondence – Sci Reports
 https://www.nature.com/articles/srep27755
@@ -100,7 +100,7 @@ Yamins & DiCarlo (2016) – Using goal-driven deep learning models to understand
 https://www.nature.com/articles/nn.4244
  
 
-2017:
+## 2017
 
 Cichy et al (2017) – Dynamics of scene representations in the human brain revealed by magnetoencephalography and deep neural networks – Neuroimage
 https://doi.org/10.1016/j.neuroimage.2016.03.063
@@ -156,7 +156,7 @@ Zhuang, Wang, Yamins, Hu (2017) – Deep learning predicts correlation between a
 https://doi.org/10.3389/fncom.2017.00100
 
 
-2018:
+## 2018
 
 Abdelhack, Kamitani (2018) – Sharpening of hierarchical visual feature representations of blurred images – eNeuro
 https://doi.org/10.1523/ENEURO.0443-17.2018
@@ -206,14 +206,13 @@ https://www.nature.com/articles/s41598-018-22160-9
 Wenliang, Seitz (2018) - Deep neural networks for modeling visual perceptual learning - J Neurosci
 https://doi.org/10.1523/JNEUROSCI.1620-17.2018
 
-2019:
+## 2019
 
 Kar, Kubilius, Schmidt, Issa, DiCarlo (2018) - Evidence that recurrent circuits are critical to the ventral stream's execution of core object recognition behavior - Nature Neuroscience
 https://doi.org/10.1038/s41593-019-0392-5
 Preprint: https://doi.org/10.1101/354753
 
-
-Preprints:
+## Preprints
 
 Agrawal et al (2014) - Pixels to Voxels: Modeling Visual Representation in the Human Brain - arXiv https://arxiv.org/pdf/1407.5104.pdf 
 
@@ -291,15 +290,14 @@ https://dxoi.org/10.1101/171017
 Zhang, Qiao, Wang, Tong, Zeng, Yan (2018) – Constraint-free natural image reconstruction from fMRI signals based on convolutional neural network – arXiv
 https://arxiv.org/abs/1801.05151
 
+## DNN vs. Behavior Papers (sorted by year and alphabetically):
 
-DNN vs. Behavior Papers (sorted by year and alphabetically):
-
-2014:
+## 2014
  
 Ghodrati et al (2014) – Feedforward object-vision models only tolerate small image variations compared to human – Front Comput Neurosci
 https://dx.doi.org/10.3389%2Ffncom.2014.00074
 
-2015:
+## 2015
 
 Lake et al (2015) - Deep neural networks predict category typicality ratings for images - Cogn Psych
 http://gureckislab.org/papers/LakeZarembaFergusGureckis.CogSci2015.pdf
@@ -310,8 +308,7 @@ https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Nguyen_Deep_Ne
 Rajalingham et al (2015) – Comparison of object recognition behavior in human and monkey. Journal of Neuroscience
 http://www.jneurosci.org/content/35/35/12127
 
-
-2016:
+## 2016
 
 Eberhardt et al (2016) – How deep is the feature analysis underlying rapid visual categorization – NIPS	 	 		
 http://papers.nips.cc/paper/6218-how-deep-is-the-feature-analysis-underlying-rapid-visual-categorization
@@ -331,7 +328,7 @@ https://dx.doi.org/10.3389%2Ffncom.2016.00092
 Kubilius et al (2016) – Deep Neural Networks as a Computational Model for Human Shape Sensitivity – PloS Comput Biol
 https://doi.org/10.1371/journal.pcbi.1004896
 
-2017:
+## 2017
 
 Jozwik et al (2017) – Deep Convolutional Neural Networks Outperform Feature-Based But Not Categorical Models in Explaining Object Similarity Judgments – Front Psychol
 https://doi.org/10.3389/fpsyg.2017.01726
@@ -359,7 +356,7 @@ https://doi.org/10.2352/ISSN.2470-1173.2017.14.HVEI-113
 
 Tang, Schrimpf, Lotter, et al (2017) - Recurrent computations for visual pattern completion - arXiv https://arxiv.org/abs/1706.02240 
 
-2018:
+## 2018
 
 Baker, Lu, Erlikhman, Kellman (2018) – Deep convolutional networks do not classify based on global object shape – PLoS Computational Biology
 https://doi.org/10.1371/journal.pcbi.1006613
@@ -385,13 +382,12 @@ https://doi.org/10.1523/JNEUROSCI.1620-17.2018
 Xu, Garrod, Scholte, Ince, Schyns (2018) - Using Psychophysical Methods to Understand Mechanisms of Face Identification in a Deep Neural Network - CVPRW
 https://0ceabf3e-a-62cb3a1a-s-sites.googlegroups.com/site/skytianxu/xu2018%20Using%20Psychophysical%20Methods%20to%20Understand%20Mechanisms%20of%20Face%20Identification%20in%20a%20Deep%20Neural%20Network.pdf
 
-2019:
+## 2019
 
 Geirhos; Rubisch, Michaelis, Bethge, Wichmann, & Brendel (2018) - ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness
 ICLR 2019 (Oral) https://openreview.net/forum?id=Bygh9j09KX
 
-
-Preprints:
+## Preprints
 
 Peterson et al (2016) – Adapting deep network features to capture psychological representations – ArXiv
 https://arxiv.org/abs/1608.02164
@@ -455,4 +451,3 @@ Tang, Schrimpf, Lotter, et al (2017) - Recurrent computations for visual pattern
 
 Ponce, Lomber, Livingstone (2018) - Posterior Inferotemporal Cortex Cells Use Multiple Input Pathways for Shape Encoding - Journal of Neuroscience
 http://www.jneurosci.org/content/37/19/5019
-
