@@ -1,5 +1,4 @@
 import numpy as np
-import math
 import scipy.stats as stats
 
 from scipy.misc import factorial
@@ -80,7 +79,7 @@ def vangle(v1, v2):
     """
     Return the angle between two vectors.
     """
-    return math.acos(dotproduct(v1, v2) / (length(v1) * length(v2)))
+    return np.arcos(dotproduct(v1, v2) / (length(v1) * length(v2)))
 
 def dp(data):
      """
