@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from numpy import zeros
-
 """
 Encoding models address the question of how the firing rate of a neuron is related to the stimulus that is presented.
 
