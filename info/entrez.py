@@ -13,3 +13,8 @@ define character of interest, and return maximum nubmer of publications.
 searchterm = "psychopathy"
 COI = ":" # character of interest
 maxReturn = 10000
+
+Entrez.email = "shussainather@gmail.com"
+handle = Entrez.esearch(db="pubmed", term=searchterm, retmax=maxReturn)
+record = Entrez.read(handle)
+idlist = record["IdList"]
