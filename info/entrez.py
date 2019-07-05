@@ -18,3 +18,5 @@ Entrez.email = "shussainather@gmail.com"
 handle = Entrez.esearch(db="pubmed", term=searchterm, retmax=maxReturn)
 record = Entrez.read(handle)
 idlist = record["IdList"]
+handle = Entrez.efetch(db="pumed", id=idlist, rettype="medline", retmode="xml")
+records = Entrez.read(handle)
