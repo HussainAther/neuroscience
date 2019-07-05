@@ -6,5 +6,8 @@ from collections import defaultdict
 from scipy import stats
 
 """
-Search Entrez for disease information.
+Search Entrez for disease information. Define search term,
+define character of interest, and return maximum nubmer of publications.
 """
+
+
