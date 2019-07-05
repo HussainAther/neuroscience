@@ -14,6 +14,9 @@ class Neuron():
         self.T = len(self.currentInj)  
         
     def leakyIF(self):
+        """
+        Leaky Integrate and Fire model.
+        """
         self.timeseries = np.linspace(0, self.T-1, self.T)
         self.V = np.ones(self.T)*self.vR
         ii = 0 # index counter
@@ -26,8 +29,18 @@ class Neuron():
             ii += 1
        
     def plotNeuron(self):
+        """
+        Plot and save the Integrate and Fire (IF) voltage response.
+        """
         fig = plt.figure()
         ax = fig.add_subplot(211)
         ax.plot(self.timeseries, self.currentInj, c="k")
         ax.sef_title("Current injection", style="italic")
- 
+        ax.set_ylabel("Current (nA)", style="italic")
+        ax2 = fig.add_subplot(212)
+        ax2.plot(self.timeseries, self.V, c="k")
+        ax2.set_title("Integrate and fire voltage response", style="italic")
+        ax2.set_xlabel("Time (ms)", style="italic")
+        ax2.set_ylabel("Voltage (mV)", style="italic")
+        plt.tight_layout()
+        plt.savefig("IFVresponse.png")
