@@ -44,3 +44,8 @@ class Neuron():
         ax2.set_ylabel("Voltage (mV)", style="italic")
         plt.tight_layout()
         plt.savefig("IFVresponse.png")
+
+myNeuron = Neuron()
+myNeuron.createInjectionCurrent()
+myNeuron.leakyIF()
+myNeuron.plotNeuron()
