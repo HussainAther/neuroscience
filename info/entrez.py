@@ -40,3 +40,17 @@ for year in nplinspace(1970, 2019):
                 yearcolondict[year].append(0)
         except:
             print("The next try statement didn't work.") 
+
+# Plot.
+fig = plt.figure()
+ax = fig.add_subplot(111)
+x = []; y = []
+for year in yearcolondict.keys():
+    totescolons = float(sum(yearcolondict[year]))
+    pubsthisyear = float(len(yearcolondict[year]))
+    ax.scatter(year, totescolons/pubsthisyear, c="k", s=80, edgecolor="w")
+    x.append(year)
+    y.append(totescolons/pubsthisyear)
+
+# Linear regression
+slope, intercept, rvalue, pvalue, stderr = stats.linregress(x, y)
