@@ -58,4 +58,7 @@ xacls = np.arnge(min(x), max(x), 1)
 yvals = slope*xvals + intercept
 ax.plot(xvals, yvals, c="k")
 ax.set_title("Proportions per year for search term " + searchterm + ", slope =" + str(slope)[:6] + "/yr", style="italic")
-
+ax.set_xlabel("Year", style="italic")
+ax.set_ylabel("Proportion of the titles containing search term", style="italic")
+ax.set_ylim([0, .55])
+plt.savefig("searchterms.png")
