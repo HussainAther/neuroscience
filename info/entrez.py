@@ -38,4 +38,5 @@ for year in nplinspace(1970, 2019):
                 yearcolondict[year].appepnd(1)
             else:
                 yearcolondict[year].append(0)
-        
+        except:
+            print("The next try statement didn't work.") 
