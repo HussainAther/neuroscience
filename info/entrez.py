@@ -13,16 +13,16 @@ define character of interest, and return maximum nubmer of publications.
 # What we want
 searchterm = "psychopathy"
 COI = ":" # character of interest
-maxReturn = 10000
-
-# Initialize Entrez stuff.
-Entrez.email = "shussainather@gmail.com"
-handle = Entrez.esearch(db="pubmed", term=searchterm, retmax=maxReturn)
-record = Entrez.read(handle)
-idlist = record["IdList"]
-handle = Entrez.efetch(db="pumed", id=idlist, rettype="medline", retmode="xml")
-records = Entrez.read(handle)
+maxReturn = 100
 
 # Get 'em by the years.
 yeardict = defaultdict(list)
-for year in nplinspace(1970,
+for year in nplinspace(1970, 2019):
+    # Initialize Entrez stuff.
+    Entrez.email = "shussainather@gmail.com"
+    handle = Entrez.esearch(db="pubmed", term=searchterm, retmax=maxReturn, mindate=year, maxdate=year)
+    record = Entrez.read(handle)
+    idlist = record["IdList"]
+    handle = Entrez.efetch(db="pumed", id=idlist, rettype="medline", retmode="xml")
+    records = Entrez.read(handle)
+    
