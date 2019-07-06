@@ -54,3 +54,8 @@ for year in yearcolondict.keys():
 
 # Linear regression
 slope, intercept, rvalue, pvalue, stderr = stats.linregress(x, y)
+xacls = np.arnge(min(x), max(x), 1)
+yvals = slope*xvals + intercept
+ax.plot(xvals, yvals, c="k")
+ax.set_title("Proportions per year for search term " + searchterm + ", slope =" + str(slope)[:6] + "/yr", style="italic")
+
