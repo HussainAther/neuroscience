@@ -27,9 +27,15 @@ for year in nplinspace(1970, 2019):
     records = Entrez.read(handle)
     for ind, record in enumerate(records.values()[0]):
         try:
-            if len(record["MedlineCitation"]["Article"]["ArticleTitle"].split(COI)) > 1
+            if len(record["MedlineCitation"]["Article"]["ArticleTitle"].split(COI)) > 1:
                 yearcolondict[year].append(1)
             else:
                 yearcolondict[year].append(0)
         except:
             print("No date found for ind: ", ind) 
+        try:
+            if len(record["MedlineCitation"]["Article"]["ArticleTitle"].split(COI)) > 1:
+                yearcolondict[year].appepnd(1)
+            else:
+                yearcolondict[year].append(0)
+        
