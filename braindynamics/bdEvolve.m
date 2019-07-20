@@ -25,45 +25,6 @@
 %   sol is the solution structure. It has the same format as that returned
 %      by the matlab ode45 solver. Use the bdEval function to extract the
 %      results from sol.
-%
-%EXAMPLE
-%   sys = WilsonCowan;                           % Wilson-Cowan Equations
-%   sys.pardef = bdSetValue(sys.pardef,'Je',2);  % Set parmater Je=2
-%   rep = 10;                                    % number of repeat runs
-%   [sys,sol] = bdEvolve(sys,rep);               % evolve the system
-%   plot(sol.y(1,:),sol.y(2,:));                 % plot the phase portrait
-%   xlabel('E'); ylabel('I');
-%
-%AUTHORS
-%   Stewart Heitmann (2018b)
-
-% Copyright (C) 2016-2018 QIMR Berghofer Medical Research Institute
-% All rights reserved.
-%
-% Redistribution and use in source and binary forms, with or without
-% modification, are permitted provided that the following conditions
-% are met:
-%
-% 1. Redistributions of source code must retain the above copyright
-%    notice, this list of conditions and the following disclaimer.
-% 
-% 2. Redistributions in binary form must reproduce the above copyright
-%    notice, this list of conditions and the following disclaimer in
-%    the documentation and/or other materials provided with the
-%    distribution.
-%
-% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-% FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-% COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-% INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-% BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-% CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-% LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-% POSSIBILITY OF SUCH DAMAGE.
 function [sys,sol] = bdEvolve(sys,rep,tspan,solverfun,solvertype)
         % check the number of output variables
         if nargout>2
