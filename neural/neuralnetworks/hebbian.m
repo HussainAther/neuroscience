@@ -168,3 +168,22 @@ end
 net.energyCost = energyCost;
 end
 
+function [net, varargout] = hebbRNN_learn_model(x0, net, F, perturbProb, eta, varargin)
+
+% net = hebbRNN_learn_model(x0, net, F, perturbProb, eta, varargin)
+%
+% This function trains a recurrent neural network using reward-modulated
+% Hebbian learning to produce desired outputs. During each trial the
+% activations of random neurons are randomly perturbed. All fluctuations in
+% the activation of each neuron are accumulated (supra-linearly) as an
+% elegibility trace. At the end of each trial the error of the output is
+% compared against the expected error and the difference is used to
+% reinforce connectivity changes (net.J) that produce the desired output.
+%
+% The details of training the network are based on those
+% presented in the following work:
+% "Flexible decision-making in recurrent neural networks trained with a
+% biologically plausible rule. Thomas Miconi (2016)"
+% Published on BioRxiv. The current version can be found under the following URL:
+% http://biorxiv.org/content/early/2016/07/26/057729
+%
