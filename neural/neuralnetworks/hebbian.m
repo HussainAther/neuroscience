@@ -375,3 +375,24 @@ allZ = zeros(niters,B);
 allR = zeros(niters,N);
 allX = zeros(niters,N);
 
+%% Forward-pass to establish expected reward
+switch batchType
+    case 'pseudorand'
+        condList = randperm(length(F));
+    case 'linear'
+        condList = 1:length(F);
+end
+for cond = 1:length(condList)
+    thisCond = condList(cond);
+    if hasInput
+        thisInp = inp{thisCond};
+    end
+    thisTarg = F{thisCond};
+    targetFeedforward = [];
+    
+    %% Run internal model WITHOUT perturbations
+    internalRunModel(-1)
+    %%
+    
+    Rpred(thisCond) = sum(err); % Save predicted error
+end
