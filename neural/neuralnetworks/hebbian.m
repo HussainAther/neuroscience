@@ -494,3 +494,15 @@ while mErr > tol && UIButton.Value == 0
     pass = pass + 1;
 end
 
+%% Save hard-earned results
+net.J = J;
+%%
+
+%% Output error statistics if required
+if ( nout >= 1 )
+    errStats.err(:,:,1) = [];
+    varargout{1} = errStats;
+end
+
+disp('Training time required:')
+toc
