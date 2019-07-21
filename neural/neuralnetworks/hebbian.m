@@ -396,3 +396,101 @@ for cond = 1:length(condList)
     
     Rpred(thisCond) = sum(err); % Save predicted error
 end
+
+%% Main Program %%
+% Runs until tolerated error is met or stop button is pressed
+figure(97)
+set(gcf, 'Position', [0 5000 100 50], 'MenuBar', 'none', 'ToolBar', 'none', 'Name', 'Stop', 'NumberTitle', 'off')
+UIButton = uicontrol('Style', 'togglebutton', 'String', 'STOP', 'Position', [0 0 100 50], 'FontSize', 25);
+while mErr > tol && UIButton.Value == 0
+    switch batchType
+        case 'pseudorand'
+            condList = randperm(length(F));
+        case 'linear'
+            condList = 1:length(F);
+    end
+    
+    alldJ = zeros(1,length(F)); % Initialize connectivity change
+    percentClipped = zeros(1,length(condList)); % Initialize percentage of change clipped
+    for cond = 1:length(condList)
+        thisCond = condList(cond);
+        if hasInput
+            thisInp = inp{thisCond};
+        end
+        thisTarg = F{thisCond};
+        targetFeedforward = [];
+        
+        %% Run internal model WITH perturbations
+        internalRunModel(perturbProb)
+        
+        %% Be sure to maintain original connectivity sparsity
+        e = e';
+        e(J == 0) = 0;
+        
+        %% Update internal weights
+        dJ = - eta * e * (sum(err) - Rpred(thisCond));
+        
+        %% Clip change in connectivity
+        percentClipped(thisCond) = sum(dJ(:) > maxdJ | dJ(:) < -maxdJ) / size(dJ,1)^2 * 100;
+        dJ(dJ > maxdJ) = maxdJ;
+        dJ(dJ < -maxdJ) = -maxdJ;
+        dJ(isnan(dJ)) = 0; % just in case
+        
+        %% Commit changes
+        J = J + dJ;
+        
+        alldJ(thisCond) = mean(abs(dJ(:))); % Save magnitude of change
+        
+        %% Update predicted error trace
+        Rpred(thisCond) = alphaR * Rpred(thisCond) + (1.0 - alphaR) * sum(err);
+    end
+    
+    %% Check overall error using a clean run and plot if required
+    if mod(pass,evalOpts(2)) == 0 || pass == 1
+        allErr = zeros(length(F),2);
+        bigZ = zeros(size(allZ,1), size(allZ,2), length(condList));
+        bigR = zeros(size(allR,1), size(allR,2), length(condList));
+        bigX = zeros(size(allX,1), size(allX,2), length(condList));
+        for cond = 1:length(condList)
+            thisCond = condList(cond);
+            if hasInput
+                thisInp = inp{thisCond};
+            end
+            thisTarg = F{thisCond};
+            targetFeedforward = [];
+            
+            %% Run internal model WITHOUT perturbations
+            internalRunModel(-1)
+            %%
+            
+            bigZ(:,:,thisCond) = allZ;
+            bigR(:,:,thisCond) = allR;
+            bigX(:,:,thisCond) = allX;
+            allErr(thisCond,:) = err;
+        end
+        
+        %% Save stats
+        errStats.err(:,:,end+1) = allErr;
+        errStats.pass(end+1) = pass;
+        
+        mdJ = mean(alldJ); % Calculate mean dJ for displaying
+        mErr = mean(sum(allErr,2)); % Calculate mean error for stop conditions
+        
+        %% Populate statistics for plotting function
+        plotStats.mErr = mErr;
+        plotStats.mdJ = mdJ;
+        plotStats.allErr = allErr;
+        plotStats.percentClipped = percentClipped;
+        plotStats.bigR = bigR;
+        plotStats.bigZ = bigZ;
+        plotStats.bigX = bigX;
+        plotStats.pass = pass;
+        plotStats.F = F;
+        
+        %% Run supplied plotting function
+        plotFun(plotStats, errStats, evalOpts)
+    end
+    
+    pass = pass + 1;
+end
+
