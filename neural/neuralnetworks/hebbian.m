@@ -635,3 +635,35 @@ function [Z, R, X, varargout] = hebbRNN_run_model(x0, net, F, varargin)
 %
 %
 % INPUTS:
+%
+% x0 -- the initial activation (t == 0) of all neurons
+% Must be of size: net.N x 1
+%
+% net -- the network structure created by hebbRNN_create_model
+%
+% F -- the desired output
+% Must be a cell of size: 1 x conditions
+% Each cell must be of size: net.B x time points
+%
+%
+% OPTIONAL INPUTS:
+%
+% input -- the input to the network
+% Must be a cell of size: 1 x conditions
+% Each cell must be of size: net.I x time points
+% Default: []
+%
+%
+% OUTPUTS:
+%
+% Z -- the output of the network
+%
+% R -- the firing rate of all neurons in the network
+%
+% X -- the activation of all neurons in the network
+%
+% errStats -- the structure containing error information from learning
+% (optional)
+%
+% targetOut -- structure containing the output produced by targetFun
+% (optional)
