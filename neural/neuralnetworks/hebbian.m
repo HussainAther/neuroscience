@@ -286,3 +286,38 @@ plotFun = @defaultPlottingFunction; % Default plotting function (native)
 targetFunPassthrough = []; % Default passthrough to output function
 batchType = 'pseudorand'; % Default condition order for each batch
 evalOpts = [0 50]; % Default evaluation values [plottingOptions evaluateEveryXIterations]
+
+for iVar = 1:2:optargin
+    switch varargin{iVar}
+        case 'beta'
+            beta = varargin{iVar+1};
+        case 'maxdJ'
+            maxdJ = varargin{iVar+1};
+        case 'alphaX'
+            alphaX = varargin{iVar+1};
+        case 'alphaR'
+            alphaR = varargin{iVar+1};
+            
+        case 'targettimes'
+            targettimes = varargin{iVar+1};
+        case 'input'
+            inp = varargin{iVar+1};
+            
+        case 'targetFun'
+            targetFun = varargin{iVar+1};
+        case 'targetFunPassthrough'
+            targetFunPassthrough = varargin{iVar+1};
+            
+        case 'tolerance'
+            tol = varargin{iVar+1};
+            
+        case 'batchType'
+            batchType = varargin{iVar+1};
+            
+        case 'plotFun'
+            plotFun = varargin{iVar+1};
+        case 'evalOpts'
+            evalOpts = varargin{iVar+1};
+    end
+end
+
