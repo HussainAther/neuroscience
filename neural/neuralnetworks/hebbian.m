@@ -66,3 +66,29 @@ feedback = false; % Default use of output feedback
 energyCost = 0; % Default weight of cost function
 outputUnitIdent = 1:B; % Default identity of output units
 biasUnitIdent = []; % Default identity of bias units
+co(1:2) = false; % Both unit identities must be provided if defaults are not used
+optargin = size(varargin,2);
+
+for i = 1:2:optargin
+    switch varargin{i}
+        case 'actFun'
+            actFunType = varargin{i+1};
+        case 'netNoiseSigma'
+            netNoiseSigma = varargin{i+1};
+        case 'useBiasNeurons'
+            useBiasNeurons = varargin{i+1};
+        case 'numBiasNeurons'
+            numBiasNeurons = varargin{i+1};
+        case 'feedback'
+            feedback = varargin{i+1};
+        case 'energyCost'
+            energyCost = varargin{i+1};
+            
+        case 'outputUnitIdent'
+            outputUnitIdent = varargin{i+1};
+            co(1) = true;
+        case 'biasUnitIdent'
+            biasUnitIdent = varargin{i+1};
+            co(2) = true;
+    end
+end
