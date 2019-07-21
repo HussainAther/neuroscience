@@ -57,11 +57,12 @@ function net = hebbRNN_create_model(N, B, I, p, g, dt, tau, varargin)
 % OUTPUTS:
 %
 % net -- the network structure
-%
-%
-% Copyright (c) Jonathan A Michaels 2016
-% German Primate Center
-% jonathanamichaels AT gmail DOT com
-%
-% If used in published work please see repository README.md for citation
-% and license information: http
+
+actFunType = 'tanh'; % Default activation function
+netNoiseSigma = 0.0; % Default noise-level
+useBiasNeurons = false; % Default use of bias neurons
+numBiasNeurons = 0; % Default number of bias neurons
+feedback = false; % Default use of output feedback
+energyCost = 0; % Default weight of cost function
+outputUnitIdent = 1:B; % Default identity of output units
+biasUnitIdent = []; % Default identity of bias units
