@@ -623,3 +623,15 @@ toc
     end
 end
 
+function [Z, R, X, varargout] = hebbRNN_run_model(x0, net, F, varargin)
+
+% net = hebbRNN_run_model(x0, net, F, varargin)
+%
+% This function runs the network structure (net) initialized by
+% hebbRNN_create_model and trained by hebbRNN_learn_model with the desired
+% input.
+% NOTE: Networks must have been trained by hebbRNN_learn_model in order to be run
+% by this function
+%
+%
+% INPUTS:
