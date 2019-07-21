@@ -321,3 +321,21 @@ for iVar = 1:2:optargin
     end
 end
 
+%% Save options to network structure for posterity
+net.perturbProb = perturbProb;
+net.beta = beta;
+net.eta = eta;
+net.maxdJ = maxdJ;
+net.alphaX = alphaX;
+net.alphaR = alphaR;
+net.targettimes = targettimes;
+net.input = inp;
+net.targetFun = targetFun;
+net.targetFunPassthrough = targetFunPassthrough;
+net.tolerance = tol;
+net.batchType = batchType;
+
+N = net.N;
+B = net.B;
+I = net.I;
+niters = size(F{1},2);
