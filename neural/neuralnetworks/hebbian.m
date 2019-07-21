@@ -92,3 +92,8 @@ for i = 1:2:optargin
             co(2) = true;
     end
 end
+
+%% Assertions
+assert(co(1) == co(2), 'Both identities must be provided.')
+assert(islogical(feedback), 'Must be logical.')
+assert(p >= 0 && p <= 1, 'Sparsity must be between 0 and 1.')
