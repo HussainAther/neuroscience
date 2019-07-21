@@ -140,4 +140,31 @@ net.wFb = zeros(N,B);
 if feedback
     net.wFb = 2*(rand(N,B)-0.5); % range from -1 to 1
 end
+net.useBiasNeurons = useBiasNeurons;
+if useBiasNeurons
+    net.biasValue = 2*(rand(1,numBiasNeurons)-0.5); % range from -1 to 1
+else
+    net.biasValue = [];
+end
+
+%% Activation function
+switch actFunType
+    case 'tanh'
+        net.actFun = @tanh;
+        net.actFunDeriv = @(r) 1.0-r.^2;
+    case 'recttanh'
+        net.actFun = @(x) (x > 0) .* tanh(x);
+        net.actFunDeriv = @(r) (r > 0) .* (1.0 - r.^2);
+    case 'baselinetanh' % Similar to Rajan et al. (2010)
+        net.actFun = @(x) (x > 0) .* (1 - 0.1) .* tanh(x / (1 - 0.1)) ...
+            + (x <= 0) .* 0.1 .* tanh(x / 0.1);
+    case 'linear'
+        net.actFun = @(x) x;
+    otherwise
+        assert(false, 'Nope!');
+end
+
+%% Cost function
+net.energyCost = energyCost;
+end
 
