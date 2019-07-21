@@ -506,3 +506,120 @@ end
 
 disp('Training time required:')
 toc
+
+%% Recurrent Neural Network Engine %%
+    function internalRunModel(thisPerturbProb)
+        x = x0;
+        if (biasNeurons)
+            x(biasUnitIdent) = bias; % Overwrite bias units
+        end
+        
+        %% Activation Function
+        r = actFun(x);
+        
+        %% Calculate output using supplied function
+        [z, targetFeedforward] = targetFun(0, r(outputUnitIdent), targetFunPassthrough, targetFeedforward);
+        
+        xtrace = x;
+        e = zeros(size(J)); % Initialize elegibility trace
+        for i = 1:niters
+            if (hasInput)
+                input = wIn*thisInp(:,i);
+            else
+                input = 0;
+            end
+            
+            allZ(i,:) = z;
+            allR(i,:) = r;
+            allX(i,:) = x;
+            
+            %% Calculate change in activation
+            excitation = -x + J*r + input + wFb*z + netNoiseSigma*randn(N,1);
+            
+            %% Random fluctuation (Uniform)
+            dx = beta * 2.0*(rand(N,1)-0.5);
+            %% Occurs with a certain probability independently for each neuron
+            dx(thisPerturbProb < rand(N,1)) = 0;
+            
+            %% Add all activation changes together
+            x = x + dt_div_tau*excitation + dx;
+            
+            if (biasNeurons)
+                x(biasUnitIdent) = bias; % Overwrite bias units
+            end
+            
+            rprev = r;
+            %% Activation function
+            r = actFun(x);
+            
+            %% Calculate output using supplied function
+            [z, targetFeedforward] = targetFun(i, r(outputUnitIdent), targetFunPassthrough, targetFeedforward);
+            
+            
+            %% Maintain elegibility trace (only if network was perturbed)
+            if thisPerturbProb ~= -1
+                deltax = (x - xtrace).^3; % supra-linear (must maintain sign)
+                e = e + rprev*(deltax');                
+                %% Maintain activation trace
+                xtrace = alphaX * xtrace + (1.0 - alphaX) * x;
+            end
+        end
+        %% Calculate error for desired times
+        useZ = allZ(targettimes,:);
+        useF = thisTarg(:,targettimes)'; 
+        useR = allR(:,outputUnitIdent);
+        err(1) = mean(abs(useZ(:)-useF(:))); % Output error
+        err(2) = c1 * mean(abs(useR(:))); % Energy cost error
+    end
+
+    %% Default output function   
+    function [z, targetFeedforward] = defaultTargetFunction(~, r, ~, targetFeedforward)
+        z = r; % Just passes firing rate
+    end
+
+    %% Default plotting function
+    function defaultPlottingFunction(plotStats, errStats, evalOptions)
+        if evalOptions(1) >= 0
+            disp(['Error: ' num2str(plotStats.mErr) ' --- Mean dJ: ' num2str(plotStats.mdJ) ' --- %Clipped: ' num2str(mean(plotStats.percentClipped))])
+        end
+        if evalOptions(1) >= 1
+            figure(98)
+            set(gcf, 'Name', 'Error', 'NumberTitle', 'off')
+            c = lines(size(plotStats.allErr,2));
+            for type = 1:size(plotStats.allErr,2)
+                h1(type) = plot(plotStats.pass, mean(plotStats.allErr(:,type)), '.', 'MarkerSize', 20, 'Color', c(type,:));
+                hold on
+            end                
+            axis([1 plotStats.pass+0.1 0 max(squeeze(max(mean(errStats.err,1),[],3)))])
+            xlabel('Training Iteration')
+            ylabel('Mean Error')
+            legend(h1, 'Mean Output Error', 'Mean Energy Cost Error', 'Location', 'SouthWest')
+        end
+        if evalOptions(1) >= 2
+            figure(99)
+            set(gcf, 'Name', 'Output and Neural Activity', 'NumberTitle', 'off')
+            clf
+            subplot(2,1,1)
+            hold on
+            c = lines(size(plotStats.bigZ,3));
+            for condCount = 1:size(plotStats.bigZ,3)
+                h2(condCount,:) = plot(plotStats.bigZ(:,:,condCount), 'Color', c(condCount,:));
+                h3(condCount,:) = plot(targettimes, plotStats.F{condCount}(:,targettimes)', '.', 'MarkerSize', 8, 'Color', c(condCount,:));
+            end
+            legend([h2(1,1) h3(1,1)], 'Network Output', 'Target Output', 'Location', 'SouthWest')
+            xlabel('Time Steps')
+            ylabel('Output')
+            set(gca, 'XLim', [1 size(plotStats.bigZ,1)])
+            subplot(2,1,2)
+            hold on
+            for condCount = 1:size(plotStats.bigR,3)
+                plot(plotStats.bigR(:,outputUnitIdent,condCount), 'Color', c(condCount,:))
+            end
+            xlabel('Time Steps')
+            ylabel('Firing Rate')
+            set(gca, 'XLim', [1 size(plotStats.bigR,1)])
+        end
+        drawnow
+    end
+end
+
