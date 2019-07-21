@@ -264,3 +264,25 @@ function [net, varargout] = hebbRNN_learn_model(x0, net, F, perturbProb, eta, va
 %
 % errStats -- the structure containing error information from learning
 % (optional)
+
+% Start counting
+tic
+
+% Variable output considerations
+nout = max(nargout,1)-1;
+
+% Variable input considerations
+optargin = size(varargin,2);
+
+inp = []; % Default inputs
+targettimes = 1:size(F,1); % Default output times included in error
+maxdJ = 1e-4; % Default clipping of connectivity changes
+alphaX = 0; % Default weight of activation memory trace
+alphaR = 0.33; % Default weight of expected error memory trace
+beta = 0.5; % Default variance of perturbation distribution
+tol = 0; % Default termination error condition
+targetFun = @defaultTargetFunction; % Default output function (native)
+plotFun = @defaultPlottingFunction; % Default plotting function (native)
+targetFunPassthrough = []; % Default passthrough to output function
+batchType = 'pseudorand'; % Default condition order for each batch
+evalOpts = [0 50]; % Default evaluation values [plottingOptions evaluateEveryXIterations]
