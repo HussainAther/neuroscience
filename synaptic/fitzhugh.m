@@ -20,3 +20,25 @@ global N I BC %by making these variables global they can exist within
 N=128; %number of neurons
 v0(1:N)=-1.5; %initial conditions for V variable
 v0(N+1:2*N)=-3/8; %initial conditions for R variable
+I=6; %the input stimulus value
+BC = 2; %set to 1 (free) or 2 (periodic boundary conditions)
+%
+tspan=[0:.1:.5]; %time with stimulus
+[t1,v1] = ode45('F_N',tspan,v0);
+tspan=[.5:.1:25]; % time without stimulus
+I=0;%turn off stimulus
+[t2,v2] = ode45('F_N',tspan,v1(end,:)'); %note: initial cond are final v1 values
+%piece together (concatenate) time (t1 and t2) and solution (v1 and v2)
+%variables without double counting the seam values
+t=[t1; t2(2:end)]; v=[v1; v2(2:end,:)];
+%spacetime plot of v variable w/ neurons along y axis, time along x-axis
+figure(1); imagesc(v(:,1:N)') ; colorbar
+%spacetime plot of r variable w/ neurons along y axis, time along x-axis
+figure(2); imagesc(v(:,N+1:end)'); colorbar
+%create a movie of the traveling wave
+figure(3)
+for i=1:length(t)
+    plot(v(i,1:N))
+    axis([0 N -2.1 2.2])
+    pause(.05)
+end
