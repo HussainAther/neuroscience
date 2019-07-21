@@ -42,3 +42,35 @@ for i=1:length(t)
     axis([0 N -2.1 2.2])
     pause(.05)
 end
+function vdot = F_N2(t,v)
+global N BC
+%
+D=.05; a=0.25; b=.001; g=.003; %set the parameters
+%
+%dV/dt
+vdot(1:N^2)=-(v(1:N^2)).*(a-(v(1:N^2))).*(1-(v(1:N^2)))-...
+v(N^2+1:end)+D.*secDer2(v(1:N^2),1,BC);
+%dR/dt
+vdot(N^2+1:2*N^2)=???
+%
+vdot=vdot';
+function V=secDer2(v,dx,BC)
+global N
+%
+F = [0 1 0; 1 -41; 0 1 0]/dx^2;
+%determines your boundary conditions
+switch BC
+case 1 %free bc's
+V=conv2(reshape(v,N,N)',F,'same');
+V=reshape(V',N*N,1);
+case 2 %periodic bc’s
+V=conv2_periodic(reshape(v,N,N)',F);
+V=reshape(V',N*N,1);
+end
+function sp = conv2_periodic(s,c)
+% 2D convolution for periodic boundary conditions.
+% Output of convolution is same size as leading input matrix
+[NN,M]=size(s);
+[n,m]=size(c); %% both n & m should be odd
+%enlarge matrix s in preparation convolution with matrix c via periodic edges
+padn = round(n/2) - 1;
