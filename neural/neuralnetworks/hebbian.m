@@ -97,3 +97,14 @@ end
 assert(co(1) == co(2), 'Both identities must be provided.')
 assert(islogical(feedback), 'Must be logical.')
 assert(p >= 0 && p <= 1, 'Sparsity must be between 0 and 1.')
+
+%% Set bias unit indices
+if useBiasNeurons
+    if isempty(biasUnitIdent)
+        net.biasUnitIdent = B+1 : B+numBiasNeurons;
+    else
+        net.biasUnitIdent = biasUnitIdent;
+    end
+else
+    net.biasUnitIdent = [];
+end
