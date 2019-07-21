@@ -187,3 +187,80 @@ function [net, varargout] = hebbRNN_learn_model(x0, net, F, perturbProb, eta, va
 % Published on BioRxiv. The current version can be found under the following URL:
 % http://biorxiv.org/content/early/2016/07/26/057729
 %
+%
+% INPUTS:
+%
+% x0 -- the initial activation (t == 0) of all neurons
+% Must be of size: net.N x 1
+%
+% net -- the network structure created by hebbRNN_create_model
+%
+% F -- the desired output
+% Must be a cell of size: 1 x conditions
+% Each cell must be of size: net.B x time points
+%
+% perturbProb -- the probability of perturbing the activation of each neuron
+% per second
+%
+% eta -- the learning rate
+%
+%
+% OPTIONAL INPUTS:
+%
+% input -- the input to the network
+% Must be a cell of size: 1 x conditions
+% Each cell must be of size: net.I x time points
+% Default: []
+%
+% targettimes -- the time points used to generate the error signal
+% Default: entire trial
+%
+% beta -- the variance of the neural perturbation
+% Default: 0.5. Don't change this unless you know what you're doing
+%
+% maxdJ -- the absolute connectivity values above this level will be
+% clipped
+% Default: 1e-4. Don't change this unless you know what you're doing
+%
+% alphaX -- the weight given to previous time points of the activation
+% trace
+% Default: 0. Don't change this unless you know what you're doing
+%
+% alphaR -- the weight given to previous time points of the error
+% prediction trace
+% Default: 0.33. Don't change this unless you know what you're doing
+%
+% targetFun -- the handle of a function that uses the firing rates of the
+% output units to produce some desired output. Function must follow
+% conventions of supplied default function.
+% Default: @defaultTargetFunction
+%
+% targetFunPassthrough -- a user-defined structure that is automatically
+% passed through to the targetFun, permitting custom variables to be passed
+% Default: []
+%
+% tolerance -- at what error level below which the training will terminate
+% Default: 0 (will train forever).
+%
+% batchType -- conditions are train either in random order each pass
+% (pseudorand), or always in order (linear)
+% Default: 'pseudorand'
+%
+% plotFun -- the handle of a function that plots information about the
+% network during the learning process. Function must follow conventions
+% of supplied default function.
+% Default: @defaultPlottingFunction
+%
+% evalOpts -- a vector of size 2, specifying how much information should be
+% displayed during training (0 - nothing, 1 - text only, 2 - text +
+% figures), and how often the network should be evaluated. This vector is
+% passed to the plotting function.
+% Default: [0 50]
+%
+%
+% OUTPUTS:
+%
+% net -- the network structure
+%
+% errStats -- the structure containing error information from learning
+% (optional)
