@@ -120,3 +120,24 @@ for i = 1:N
         end
     end
 end
+
+net.I = I;
+net.B = B;
+net.N = N;
+net.p = p;
+net.g = g;
+net.J = J;
+net.outputUnitIdent = outputUnitIdent;
+net.netNoiseSigma = netNoiseSigma;
+net.dt = dt;
+net.tau = tau;
+
+%% Initialize input weights
+net.wIn = 2*(rand(N,I)-0.5); % range from -1 to 1
+
+%% Initialize feedback weights
+net.wFb = zeros(N,B);
+if feedback
+    net.wFb = 2*(rand(N,B)-0.5); % range from -1 to 1
+end
+
