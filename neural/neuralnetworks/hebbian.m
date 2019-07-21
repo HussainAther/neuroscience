@@ -339,3 +339,39 @@ N = net.N;
 B = net.B;
 I = net.I;
 niters = size(F{1},2);
+
+%% Checks
+% The input can be either empty, or specified at each time point by the user.
+hasInput = ~isempty(inp);
+if (hasInput)
+    assert(size(inp{1},2) == niters, 'All learning input vectors should have the same length.');
+    assert(size(inp{1},1) == I, 'There must be an input entry for each input vector.');
+end
+assert(strcmp(batchType, 'pseudorand') || strcmp(batchType, 'linear'), 'Invalid value for batchType')
+
+J = net.J;
+wIn = net.wIn;
+wFb = net.wFb;
+dt = net.dt;
+tau = net.tau;
+dt_div_tau = dt/tau;
+netNoiseSigma = net.netNoiseSigma;
+actFun = net.actFun;
+biasNeurons = net.useBiasNeurons;
+bias = net.biasValue;
+biasUnitIdent = net.biasUnitIdent;
+c1 = net.energyCost;
+outputUnitIdent = net.outputUnitIdent;
+
+% Change perturbation probability to per millisecond
+perturbProb = perturbProb / 1000 * dt;
+
+mErr = Inf; % Initial error
+pass = 1; % Initial pass number
+errStats.err = []; errStats.pass = []; % Initialize error statistics
+Rpred = zeros(1,length(F)); % Initialize expected error
+%% Initialize network activity
+allZ = zeros(niters,B);
+allR = zeros(niters,N);
+allX = zeros(niters,N);
+
