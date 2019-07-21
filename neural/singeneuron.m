@@ -27,3 +27,9 @@ for t=1:1000
     v=v+0.5*(0.04*v^2+5*vþ140-u+I);
     u=u+a*(b*v-u);
 end;
+%This line uses the function find to locate the indices of v_tot that hold elements
+%with values greater than or equal to 30 and then sets these elements to 30.
+%This normalizes to heights of the action potential peaks to 30.
+v_tot(find(v_tot >= 30))=30;
+%Plot the neuron’s membrane potential.
+plot(v_tot);
