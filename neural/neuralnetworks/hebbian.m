@@ -108,3 +108,15 @@ if useBiasNeurons
 else
     net.biasUnitIdent = [];
 end
+
+%% Initialize internal connectivity
+% Connectivity is normally distributed, scaled by the size of the network,
+% the sparity, and spectral scaling factor, g.
+J = zeros(N,N);
+for i = 1:N
+    for j = 1:N
+        if rand <= p
+            J(i,j) = g * randn / sqrt(p*N);
+        end
+    end
+end
