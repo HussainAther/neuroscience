@@ -8,4 +8,7 @@ time = 100; % time interval
 neuronV = v_i + zeros(N_exc+N_inh,length(time));
 spikedNeurons = neuronV(:,ti) > volt_thresh;
 neuronV(spikedNeurons,ti) = volt_reset;
+r_i = volt_rest + input(ti)*R_m;
+n2stm = round(N_exc+N_inh)/2;
+r_i = [r_i*ones(1,n2stm) volt_rest*ones(1,n2stm)]';
 
