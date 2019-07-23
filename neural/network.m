@@ -6,3 +6,6 @@ N_inh = 20; % inhibitory neurons
 v_i = 10; % initial velocity
 time = 100; % time interval
 neuronV = v_i + zeros(N_exc+N_inh,length(time));
+spikedNeurons = neuronV(:,ti) > volt_thresh;
+neuronV(spikedNeurons,ti) = volt_reset;
+
