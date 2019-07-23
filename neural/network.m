@@ -14,6 +14,10 @@ volt_reset = -75; % post-spike reset voltage
 R_m = 10; % neuron membrane resistance (MOhm)
 tau = 10; % time constant of decay (ms)
 volt_thresh = 15;
+srate = 10000; % sampling rate in Hz
+sim_dur = 1; % stimulus duration in seconds
+time = 0:1/srate:sim_dur - 1/srate;
+input = zeros(1,length(time)); input(dsearchn(time',.3):dsearchn(time',.7)) = 3;
 spikedNeurons = neuronV(:,ti) > volt_thresh;
 neuronV(spikedNeurons,ti) = volt_reset;
 r_i = volt_rest + input(ti)*R_m;
