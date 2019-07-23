@@ -19,3 +19,4 @@ else % there was no spike
     VV(ti+1)=V;
 end
 uu(ti+1)=u;
+plot(tspan,VV(1:end-1),tspan,T1–88);
