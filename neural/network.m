@@ -6,6 +6,14 @@ N_inh = 20; % inhibitory neurons
 v_i = 10; % initial velocity
 time = 100; % time interval
 neuronV = v_i + zeros(N_exc+N_inh,length(time));
+ti = 1; % initial time
+volt_rest = -70; % resting potential (mV)
+volt_thresh = -50; % action potential thresh. (mV)
+volt_reset = -75; % post-spike reset voltage
+% membrane parameters
+R_m = 10; % neuron membrane resistance (MOhm)
+tau = 10; % time constant of decay (ms)
+volt_thresh = 15;
 spikedNeurons = neuronV(:,ti) > volt_thresh;
 neuronV(spikedNeurons,ti) = volt_reset;
 r_i = volt_rest + input(ti)*R_m;
