@@ -1,5 +1,6 @@
 %{
 Groups of neurons acting together in networks.
+Integrate-and-fire (IAF) Integrate and fire.
 }%
 N_exc = 80; % excitatory neurons
 N_inh = 20; % inhibitory neurons
@@ -28,6 +29,7 @@ if neuronV(ti) > volt_thresh
     spiketimes = cat(1,spiketimes,ti);
 end
 
+neuronV(neuronV==volt_reset) = 40;
 spikedNeurons = neuronV(:,ti) > volt_thresh;
 neuronV(spikedNeurons,ti) = volt_reset;
 r_i = volt_rest + input(ti)*R_m;
