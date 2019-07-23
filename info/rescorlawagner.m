@@ -16,3 +16,5 @@ imagesc(p)
 action(ti) = 1 + (pPickAct1(ti)<rand);
 reward = rand < rewProbs(action(ti));
 rewpred(ti) = reward—w(ti,action(ti));
+w(ti+1,action(ti)) = w(ti,action(ti)) + ...
+                     lrate*rewpred(ti);
