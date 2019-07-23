@@ -14,4 +14,4 @@ for vi=1:length(v2)
 end
 imagesc(p)
 action(ti) = 1 + (pPickAct1(ti)<rand);
-
+reward = rand < rewProbs(action(ti));
