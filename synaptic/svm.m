@@ -9,3 +9,8 @@ catlabel = predict(svmModel,data);
 accu = mean(catlabel==trueLabels);
 traindata = data;
 traindata(triali,:) = [];
+templabels = trueLabels;
+templabels(triali) = [];
+svmModel = fitcsvm(traindata,templabels); 
+catLabel = predict(svmModel,data(triali,:)); 
+accu(ti,triali) = catLabel==trueLabels(triali);
