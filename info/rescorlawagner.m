@@ -13,3 +13,5 @@ for vi=1:length(v2)
     p(:,vi) = exp(v1) ./ (exp(v1)+exp(v2(vi)));
 end
 imagesc(p)
+action(ti) = 1 + (pPickAct1(ti)<rand);
+
