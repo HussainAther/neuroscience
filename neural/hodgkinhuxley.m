@@ -35,5 +35,13 @@ for t=-30:dt:50
     gmh(2)=g(2)*x(2)*3*x(3);
     gmh(3)=g(3);
     I=gnmh.*(V-E);
-    
-    
+    V=V+dt*(I_ext-sum(I));
+    if t>=0:
+        t_rec=t_rec+1;
+        x_plot(t_rec)=t;
+        y_plot(t_rec)=V;
+    end
+end % time loop
+plot(x_plot, y_plot);
+xlabel("Time");
+ylabel("Voltage"); 
