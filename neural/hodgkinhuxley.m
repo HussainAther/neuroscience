@@ -25,6 +25,15 @@ for t=-30:dt:50
     alpha(2)=(25-V)/(10*(Exp((25-V)/10)-1));
     alpha(3)=.07*exp(-V/20);
     beta(1)=.125*exp(-V/80);
-
-
-
+    beta(2)=4*exp(-V/18);
+    beta(3)=1/(exp((30-V)/10)+1);
+    tau=1/(alpha+beta);
+    x_0=alpha.*tau;
+    % leaky integration with Euler method
+    x=(1-dt./tau).*x+dt./tau.*x_0;
+    gmh(1)=g(1)*x(1)^4;
+    gmh(2)=g(2)*x(2)*3*x(3);
+    gmh(3)=g(3);
+    I=gnmh.*(V-E);
+    
+    
