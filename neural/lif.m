@@ -17,3 +17,16 @@ t_step=0; for it=0:100;
     t(t_step)=it;
     s(t_step)=1-x;
 end
+
+subplot('position',[0.13 0.13 1-0.26 0.6])
+    plot(t,u);
+    hold on; plt([0 100], [10 10], '--'');
+    axis([0 100 0. 12]);
+    xlabel('time [\tau]');
+    ylabel('u(t)');
+
+subplot('position',[0.13 0.8 1-0.26 0.1])
+    plot(t,s,'.', 'markersize', 20);
+    axis([0 100 0.5 1.5]);
+    set(gca, 'xtick', [], 'ytick', []);
+    ylabel('spikes');
