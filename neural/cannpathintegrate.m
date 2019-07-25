@@ -19,3 +19,11 @@ I_ext=zeros(nn,1);
 [t2, u2]=ode45('rnn_ode', tspan, u0, [], nn, tau_inv, dx, beta, alpha, w, I_ext);
 u0=u2(size(t2,1),:); tspan=[20,40];
 w=(ws-w_inh).*(1+wa(:, :, 2));
+[t3, u3]=ode45('rnn_ode', tspan, u0, [], nn, tau_inv, dx, beta, alpha, w, I_ext);
+u0=u3(size(t3,1),:); tspan=[40,50];
+w=ws-w_inh; I_ext=zeros(nn,1);
+[t4, u4]=ode45('rnn_ode', tspan, u0, [], nn, tau_inv, dx, beta, alpha, w, I_ext);
+u0=u4(size(t4,1),:); tspan=[50,70];
+w=(ws-w_inh).*(1+2*wa(:,:,1)); I_ext=zeros(nn,1);
+[t5, u5]=ode45('rnn_ode', tspan, u0, [], nn, tau_inv, dx, beta, alpha, w, I_ext);
+
