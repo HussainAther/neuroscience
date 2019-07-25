@@ -26,4 +26,13 @@ w=ws-w_inh; I_ext=zeros(nn,1);
 u0=u4(size(t4,1),:); tspan=[50,70];
 w=(ws-w_inh).*(1+2*wa(:,:,1)); I_ext=zeros(nn,1);
 [t5, u5]=ode45('rnn_ode', tspan, u0, [], nn, tau_inv, dx, beta, alpha, w, I_ext);
+u0=u5(size(t5,1),:); tspan=[70,80];
+w=ws-w_inh; I_ext=zeros(nn,1);
+[t6, u6]=ode45('rnn_ode', tspan, u0, [], nn, tau_inv, dx, beta, alpha, w, I_ext);
 
+% Plot.
+u=[u1; u2; u3; u4; u5; u6]; t=[t1; t2; t3; t4; t5; t6];
+r=1./(1+exp(-beta.*(u-alpha)));
+%surf(t', 1:nn.r', 'linestyle', 'none')
+h=surf(t',1:nn,r');
+set(h, 'linestyle', 'none');
