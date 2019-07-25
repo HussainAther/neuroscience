@@ -8,3 +8,23 @@ g(3)=.3
 E(1)=-12
 E(2)=115
 E(3)=10.613
+% Initialize variables
+I_Ext=0
+V=-10
+x=zeros(1,3)
+x(3)=1
+t_rec=0
+% Time step for integration
+dt=.01
+%Integration with Euler Method
+for t=-30:dt:50
+    if t==10; I_ext=10; end
+    if t==40; I_ext=0; end
+    % alpha and beta functions used by Hodgkin and Huxley
+    alpha(1)=(10-V)/(100*(Exp((10-V)/10)-1));
+    alpha(2)=(25-V)/(10*(Exp((25-V)/10)-1));
+    alpha(3)=.07*exp(-V/20);
+    beta(1)=.125*exp(-V/80);
+
+
+
