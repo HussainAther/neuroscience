@@ -22,3 +22,11 @@ class STDP(LearningMethod):
         signed_adjustments = np.multiply(adjustments, np.sign(neuron.weights))
         adjusted = np.add(neuron.weights, signed_adjustments)
         return adjusted
+
+    def update_trace(self, neuron):
+        """
+        Trace the neuron to figure out the pathways of it.
+        """
+        trace = [ 0 if x == 0 else neuron.trace[int(i)] + 1 for (i, x) in enumerate(1 - neuron.inputs)]
+        return trace
+
