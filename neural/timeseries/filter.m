@@ -95,8 +95,6 @@ xlabel('Time (s)'), ylabel('Amplitude')
 title('Signal and noise, filtered')
 legend({'filtered';'original signal'})
 
-%% Chapter 10.3, Figure 10.3
-
 % Again, data is signal plus noise
 noise = randn(size(signal));
 data  = signal + noise;
@@ -125,8 +123,6 @@ plot(t,dataGaus/sum(gausfilt),'b')
 plot(t,signal,'r')
 xlabel('Time (s)'), ylabel('Amplitude')
 legend({'Filtered';'original'})
-
-%% Chapter 10.4, Figure 10.4
 
 % Now the noise is created differently from previous examples.
 % Each index correspond to a prime number is set to 100. This 
@@ -160,8 +156,6 @@ set(gca,'ylim',[-5 40])
 xlabel('Time (s)'), ylabel('Amplitude')
 legend({'median filter';'mean filter';'original'})
 
-%% Chapter 10.4
-
 % Running-median filter using an order>1
 n_order = 6;
 % d parameter increases with each order
@@ -186,9 +180,6 @@ hold on
 plot(t,signal,'r')
 xlabel('Time (s)'), ylabel('Amplitude')
 legend({'median filter';'original'})
-
-%% Chapter 10.5, Figure 10.5
-
 % create signal
 signal = .5*sin(2*pi*60*t) + sin(2*pi*6*t);
 
@@ -228,8 +219,6 @@ for i=d+1:length(t)-d-1
 end
 plot(t,dataMed2,'r')
 
-%% Chapter 10.6, Figure 10.7
-
 % x a linear function
 x = 1:20;
 % and y is a function of x plus noise
@@ -243,8 +232,6 @@ plot(x,y,'o-'), hold on
 plot(x,p(2)+p(1)*x,'r*-')
 xlabel('x'), ylabel('y')
 legend({'original';'denoised'})
-
-%% Chapter 10.6, Figure 10.8
 
 % create signal and add noise
 srate  = 1000;
@@ -270,8 +257,6 @@ plot(t,signal,'r')
 xlabel('Time (s)'), ylabel('Amplitude')
 legend({'denoised';'original'})
 
-%% Chapter 10.6
-
 % In the previous cell, the 'noise' had high-frequency characteristics
 % and the 'signal' had low-frequency characteristics. If the opposite is
 % the case (the low-frequency component is the noise), the data can be
@@ -284,7 +269,6 @@ plot(t,data)
 subplot(212)
 plot(t,data-dataPolyFit,'k')
 
-%% Chapter 10.7, Figure 10.9
 
 % Matlab and Octave come with several built-in images and datasets.
 
