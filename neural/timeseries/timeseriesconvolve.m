@@ -7,7 +7,6 @@ nTrials = 6; % modifiable
 figure
 data = zeros(nTrials,EEG.pnts);
 
-% wavelet... more on this in Chapters 13 and 14
 wavetime   = -1:1/EEG.srate:1;
 n_conv     = length(wavetime)+EEG.pnts-1;
 waveletfft = fft(exp(2*1i*pi*10.*wavetime) .* exp(-wavetime.^2./(2*(5/(2*pi*10))^2))/10,n_conv);
@@ -31,7 +30,7 @@ for triali=1:nTrials
     plot(EEG.times,mean(data(1:triali,:),1))
     set(gca,'xlim',[-250 850],'ylim',[-2.2 2.2])
     
-    % convolve with 10 Hz wavelet (more on convolution in a few chapters...)
+    % convolve with 10 Hz wavelet 
     convolution_result_fft = ifft(waveletfft.*fft(data(triali,:),n_conv)) * sqrt(5/(2*pi*10));
     convolution_result_fft = convolution_result_fft(floor(length(wavetime)/2)+1:end-floor(length(wavetime)/2));
     data10hz(triali,:) = abs(convolution_result_fft).^2;
@@ -55,7 +54,7 @@ b = .1*sin(2*pi*.3*time)+DCoffset;  % part 2 of signal (low frequency)
 data = a.*b; % combined signal
 data = data + (2*sin(2*pi*3*time) .* sin(2*pi*.07*time)*.1+DCoffset);
 
-% morlet wavelet convolution (more on this in later chapters)
+% morlet wavelet convolution
 num_frex = 40;
 min_freq =  2;
 max_freq = 20;
@@ -115,7 +114,6 @@ erp = squeeze(mean(EEG.data(strcmpi(chan2plot,{EEG.chanlocs.labels}),:,:),3));
 
 
 % low-pass filter data (uses signal processing toolbox; you'll learn about
-% how filtering works in chapter 14. If you don't have the signal processing 
 % toolbox, just comment out the next eight lines; they are not necessary.)
 nyquist       = EEG.srate/2;
 filter_cutoff = 40;  % Hz
