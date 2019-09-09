@@ -1,7 +1,5 @@
 %% Analyzing Neural Time Series Data
 
-%% Figure 2.1
-
 load sampleEEGdata.mat
 
 nTrials = 6; % modifiable
@@ -43,10 +41,6 @@ for triali=1:nTrials
     plot(EEG.times,mean(data10hz(1:triali,:),1))
     set(gca,'xlim',[-250 850],'ylim',[-.1 .8])
 end
-
-%% Figure 2.2
-% (This code involves performing convolution with a complex Morlet wavelet,
-% which you will learn about in Chapters 10-13.)
 
 srate=1000;
 
@@ -113,9 +107,6 @@ subplot(224)
 imagesc(1:length(data),[],tf);
 set(gca,'xlim',[1 8]*1000,'ydir','normal','ytick',1:8:num_frex,'yticklabel',round(frex(1:8:end)),'xtick',0:1000:10000,'xticklabel',0:10)
 title('Time-frequency representation')
-
-
-%% Figure 2.3
 
 chan2plot = 'pz'; % you can pick any electrode (type {EEG.chanlocs.labels} for all electrodes)
 
