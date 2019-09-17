@@ -7,4 +7,5 @@ def compute(stim, rho, steps):
     stim is the stimulus time-series, rho is the spike-train time series, and
     steps is the number of timesteps. 
     """
-    sta = np.zeros((steps,))
+    sta = np.zeros(steps)
+    times = rho[steps:].nonzero()[0] + steps
