@@ -9,3 +9,8 @@ def compute(stim, rho, steps):
     """
     sta = np.zeros(steps)
     times = rho[steps:].nonzero()[0] + steps
+    spikes = len(steps)
+    for spike in times:
+        sta += stim[spike-steps:spike]
+    sta /= spikes
+    return sta
