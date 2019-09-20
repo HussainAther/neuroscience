@@ -14,5 +14,9 @@ differential equation.
 zt = (A + np.dot(u, B) * z + C*u
 
 """
-BOLD response y is the BOLD signal convolution of inputs
+BOLD response y is the BOLD signal convolution of inputs for a combination of parameters
+theta and inputs u with mixture of compoudns X*beta (signal drift) and Gaussian observation
+error eps (epsilon).
 """
+
+y = h(x, y, theta), + X*beta + eps
