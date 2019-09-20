@@ -12,3 +12,7 @@ differential equation.
 # fixed or average coupling among nodes without the exogeneous input u, matrix B
 # are the change in latent coupling for each input.
 zt = (A + np.dot(u, B) * z + C*u
+
+"""
+BOLD response y is the BOLD signal convolution of inputs
+"""
