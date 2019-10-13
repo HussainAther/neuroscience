@@ -24,7 +24,7 @@ classdef bdControlScalar < handle
     methods
         % Constructor
         function this = bdControlScalar(control,xxxdef,xxxindx,parent,ypos,modecheckbox)
-            %disp('bdControlScalar()');
+            %disp("bdControlScalar()");
             
             % init empty handle to dialog box
             this.dialog = bdControlScalarDialog.empty(0);
@@ -47,84 +47,84 @@ classdef bdControlScalar < handle
             col5 = col4 + colw + gap;
             
             % Construct the panel container
-            this.panel = uipanel('Parent',parent, ...
-                'Units','pixels', ...
-                'Position',[2 ypos this.roww this.rowh], ...
-                'BorderType','none', ...
-                'DeleteFcn', @(~,~) delete(this.dialog) );
+            this.panel = uipanel("Parent",parent, ...
+                "Units","pixels", ...
+                "Position",[2 ypos this.roww this.rowh], ...
+                "BorderType","none", ...
+                "DeleteFcn", @(~,~) delete(this.dialog) );
                 
             % Get the backgorund colour of our panel
             bgcolor = this.panel.BackgroundColor;
             
             % Construct the slider. I use a java slider because on OS/X the
             % matlab uicontrol slider ignoes its specified height/width.
-            % See Yair Altman's Undocumented Matlab for the use of java
+            % See Yair Altman"s Undocumented Matlab for the use of java
             % swing components in matlab.
             jsliderobj = javax.swing.JSlider;
             jsliderobj.setBackground(java.awt.Color(bgcolor(1),bgcolor(2),bgcolor(3)));
             javacomponent(jsliderobj,[col1 2 col3-col1 this.rowh-4],this.panel);
-            this.jslider = handle(jsliderobj,'CallbackProperties');
+            this.jslider = handle(jsliderobj,"CallbackProperties");
             this.jslider.StateChangedCallback = @(~,~) this.sliderCallback(control,xxxdef,xxxindx);
-            this.jslider.ToolTipText = ['slider for ''',xxxname,''''];
+            this.jslider.ToolTipText = ["slider for """,xxxname,""""];
 
             % update the value in the slider widget
             this.sliderUpdate(xxxlim(1), xxxlim(2), xxxvalue);
 
             % Construct the min box
-            this.minbox = uicontrol('Parent',this.panel, ...
-                'Style', 'edit', ...
-                'Units','pixels',...
-                'Position',[col1 2 colw this.rowh-4], ...
-                'String',num2str(xxxlim(1),'%0.3g'), ...
-                'Value',xxxlim(1), ...
-                'HorizontalAlignment','center', ...
-                'ForegroundColor', 'b', ...
-                'Visible','off', ...
-                'Callback', @(~,~) this.minboxCallback(control,xxxdef,xxxindx), ...
-                'ToolTipString',['lower limit for ''' xxxname '''']);
+            this.minbox = uicontrol("Parent",this.panel, ...
+                "Style", "edit", ...
+                "Units","pixels",...
+                "Position",[col1 2 colw this.rowh-4], ...
+                "String",num2str(xxxlim(1),"%0.3g"), ...
+                "Value",xxxlim(1), ...
+                "HorizontalAlignment","center", ...
+                "ForegroundColor", "b", ...
+                "Visible","off", ...
+                "Callback", @(~,~) this.minboxCallback(control,xxxdef,xxxindx), ...
+                "ToolTipString",["lower limit for """ xxxname """"]);
 
             % Construct the max box
-            this.maxbox = uicontrol('Parent',this.panel, ...
-                'Style', 'edit', ...
-                'Units','pixels',...
-                'Position',[col2 2 colw this.rowh-4], ...
-                'String',num2str(xxxlim(2),'%0.3g'), ...
-                'Value',xxxlim(2), ...
-                'HorizontalAlignment','center', ...
-                'ForegroundColor', 'b', ...
-                'Visible','off', ...
-                'Callback', @(~,~) this.maxboxCallback(control,xxxdef,xxxindx), ...
-                'ToolTipString',['upper limit for ''' xxxname '''']);
+            this.maxbox = uicontrol("Parent",this.panel, ...
+                "Style", "edit", ...
+                "Units","pixels",...
+                "Position",[col2 2 colw this.rowh-4], ...
+                "String",num2str(xxxlim(2),"%0.3g"), ...
+                "Value",xxxlim(2), ...
+                "HorizontalAlignment","center", ...
+                "ForegroundColor", "b", ...
+                "Visible","off", ...
+                "Callback", @(~,~) this.maxboxCallback(control,xxxdef,xxxindx), ...
+                "ToolTipString",["upper limit for """ xxxname """"]);
                   
             % Construct the val box
-            this.valbox = uicontrol('Parent',this.panel, ...
-                'Style', 'edit', ...
-                'Units','pixels',...
-                'Position',[col3 2 colw this.rowh-4], ...
-                'String',num2str(xxxvalue,'%0.3g'), ...
-                'Value',xxxvalue, ...
-                'HorizontalAlignment','center', ...
-                'FontWeight','normal', ...
-                'Visible','on', ...
-                'Callback', @(~,~) this.valboxCallback(control,xxxdef,xxxindx), ...
-                'ToolTipString',['current value of ''' xxxname '''']);
+            this.valbox = uicontrol("Parent",this.panel, ...
+                "Style", "edit", ...
+                "Units","pixels",...
+                "Position",[col3 2 colw this.rowh-4], ...
+                "String",num2str(xxxvalue,"%0.3g"), ...
+                "Value",xxxvalue, ...
+                "HorizontalAlignment","center", ...
+                "FontWeight","normal", ...
+                "Visible","on", ...
+                "Callback", @(~,~) this.valboxCallback(control,xxxdef,xxxindx), ...
+                "ToolTipString",["current value of """ xxxname """"]);
             
             % Construct the label button
-            this.labelbtn = uicontrol('Parent',this.panel, ...
-                'Style', 'pushbutton', ...
-                'Units','pixels',...
-                'Position',[col4 2 colw this.rowh-4], ...
-                'String',xxxname, ...
-            ...    'BackgroundColor','g', ...
-                'FontWeight','bold', ...
-                'Callback', @(~,~) this.labelbtnCallback(control,xxxdef,xxxindx,xxxname), ...
-                'ToolTipString',['More options for ''',xxxname,'''']);
+            this.labelbtn = uicontrol("Parent",this.panel, ...
+                "Style", "pushbutton", ...
+                "Units","pixels",...
+                "Position",[col4 2 colw this.rowh-4], ...
+                "String",xxxname, ...
+            ...    "BackgroundColor","g", ...
+                "FontWeight","bold", ...
+                "Callback", @(~,~) this.labelbtnCallback(control,xxxdef,xxxindx,xxxname), ...
+                "ToolTipString",["More options for """,xxxname,""""]);
        
             % force a refresh at startup
             this.refresh(control,xxxdef,xxxindx,modecheckbox);
 
             % Listen for widget refresh events from the control panel.
-            this.listener1 = addlistener(control,'refresh', @(~,~) this.refresh(control,xxxdef,xxxindx,modecheckbox));
+            this.listener1 = addlistener(control,"refresh", @(~,~) this.refresh(control,xxxdef,xxxindx,modecheckbox));
             this.listener2 = addlistener(control,xxxdef, @(~,~) this.refresh(control,xxxdef,xxxindx,modecheckbox));
         end
         
@@ -135,15 +135,15 @@ classdef bdControlScalar < handle
         end
 
         function mode(this,flag)            
-            %disp('bdControlScalar.mode()');
+            %disp("bdControlScalar.mode()");
             if flag
-                set(this.minbox,'Visible','off');
-                set(this.maxbox,'Visible','off');
-                set(this.jslider,'Visible',1);
+                set(this.minbox,"Visible","off");
+                set(this.maxbox,"Visible","off");
+                set(this.jslider,"Visible",1);
             else
-                set(this.jslider,'Visible',0);
-                set(this.minbox,'Visible','on');
-                set(this.maxbox,'Visible','on');
+                set(this.jslider,"Visible",0);
+                set(this.minbox,"Visible","on");
+                set(this.maxbox,"Visible","on");
             end                        
         end
 
@@ -153,15 +153,15 @@ classdef bdControlScalar < handle
         
         % min box callback function
         function minboxCallback(this,control,xxxdef,xxxindx)
-            %disp('bdControlScalar.minboxCallback()');
+            %disp("bdControlScalar.minboxCallback()");
             % read the minbox string and convert to a number
             str = this.minbox.String;
             minval = str2double(str);
             if isnan(minval)
-                hndl = errordlg(['Invalid number: ',str], 'Invalid Number', 'modal');
+                hndl = errordlg(["Invalid number: ",str], "Invalid Number", "modal");
                 uiwait(hndl);
                 % restore the minbox string to its previous value
-                this.minbox.String = num2str(this.minbox.Value,'%0.3g');                 
+                this.minbox.String = num2str(this.minbox.Value,"%0.3g");                 
             else           
                 % update the minbox value
                 this.minbox.Value = minval;
@@ -169,7 +169,7 @@ classdef bdControlScalar < handle
                 % update the maxbox widget if necessary
                 if this.maxbox.Value < minval
                     this.maxbox.Value = minval;
-                    this.maxbox.String = num2str(minval,'%0.3g');                
+                    this.maxbox.String = num2str(minval,"%0.3g");                
                 end
                 
                 % update the slider widget
@@ -184,21 +184,21 @@ classdef bdControlScalar < handle
                 end
 
                 % notify all display panels to redraw themselves
-                notify(control,'redraw');
+                notify(control,"redraw");
             end
         end        
 
         % max box callback function
         function maxboxCallback(this,control,xxxdef,xxxindx)
-            %disp('bdControlScalar.maxboxCallback()');
+            %disp("bdControlScalar.maxboxCallback()");
             % read the maxbox string and convert to a number
             str = this.maxbox.String; 
             maxval = str2double(str);
             if isnan(maxval)
-                hndl = errordlg(['Invalid number: ',str], 'Invalid Number', 'modal');
+                hndl = errordlg(["Invalid number: ",str], "Invalid Number", "modal");
                 uiwait(hndl);
                 % restore the maxbox string to its previous value
-                this.maxbox.String = num2str(this.maxbox.Value,'%0.3g');                 
+                this.maxbox.String = num2str(this.maxbox.Value,"%0.3g");                 
             else           
                 % update the maxbox value
                 this.maxbox.Value = maxval;
@@ -206,7 +206,7 @@ classdef bdControlScalar < handle
                 % update the minbox widget if necessary
                 if this.minbox.Value > maxval
                     this.minbox.Value = maxval;
-                    this.minbox.String = num2str(maxval,'%0.3g');                
+                    this.minbox.String = num2str(maxval,"%0.3g");                
                 end
                      
                 % update the slider widget
@@ -221,21 +221,21 @@ classdef bdControlScalar < handle
                 end
                 
                 % notify all display panels to redraw themselves
-                notify(control,'redraw');
+                notify(control,"redraw");
             end
         end        
 
         % val box callback function
         function valboxCallback(this,control,xxxdef,xxxindx)
-            %disp('bdControlScalar.valboxCallback()');
+            %disp("bdControlScalar.valboxCallback()");
             % read the valbox string and convert to a number
             str = this.valbox.String; 
             val = str2double(str);
             if isnan(val)
-                hndl = errordlg(['Invalid number: ',str], 'Invalid Number', 'modal');
+                hndl = errordlg(["Invalid number: ",str], "Invalid Number", "modal");
                 uiwait(hndl);
                 % restore the valbox string to its previous value
-                this.valbox.String = num2str(this.valbox.Value,'%0.3g');                 
+                this.valbox.String = num2str(this.valbox.Value,"%0.3g");                 
             else           
                 % update the valbox value
                 this.valbox.Value = val;
@@ -252,15 +252,15 @@ classdef bdControlScalar < handle
                 end
                 
                 % tell the control panel to recompute the solution
-                notify(control,'recompute');
+                notify(control,"recompute");
             end
         end        
         
         % jslider callback function
         function sliderCallback(this,control,xxxdef,xxxindx)
-            %disp('bdControlScalar.sliderCallback()');
+            %disp("bdControlScalar.sliderCallback()");
             % get the slider value (0..100)
-            sliderval = get(this.jslider,'Value');
+            sliderval = get(this.jslider,"Value");
             
             % convert the slider value to (min..max) range 
             minval = this.minbox.Value;
@@ -269,7 +269,7 @@ classdef bdControlScalar < handle
             
             % assign the new value to the edit box
             this.valbox.Value = val;
-            this.valbox.String = num2str(val,'%0.3g');
+            this.valbox.String = num2str(val,"%0.3g");
 
             % update control.sys
             control.sys.(xxxdef)(xxxindx).value = val;
@@ -280,7 +280,7 @@ classdef bdControlScalar < handle
             end
 
             % tell the control panel to recompute the solution
-            notify(control,'recompute');
+            notify(control,"recompute");
         end
         
         % update the jslider widget
@@ -291,7 +291,7 @@ classdef bdControlScalar < handle
             
             % update the slider value (0..100)
             sliderval = 100*(val - minval)/(maxval - minval);
-            set(this.jslider,'Value',sliderval);
+            set(this.jslider,"Value",sliderval);
             
             % re-enable the slider callback
             this.jslider.StateChangedCallback = jslidercallback;
@@ -301,16 +301,16 @@ classdef bdControlScalar < handle
         function labelbtnCallback(this,control,xxxdef,xxxindx,xxxname)
             if isvalid(this.dialog)
                 % a dialog box already exists, make it visible
-                this.dialog.visible('on');
+                this.dialog.visible("on");
             else
                 % contruct a new dialog box
-                this.dialog = bdControlScalarDialog(control,xxxdef,xxxindx,['''',xxxname,'''']);
+                this.dialog = bdControlScalarDialog(control,xxxdef,xxxindx,["""",xxxname,""""]);
             end      
         end
         
         % Update the widgets according to the values in control.sys.xxxdef
         function refresh(this,control,xxxdef,xxxindx,modecheckbox) 
-            %disp(['bdControlScalar.refresh:' xxxdef]);
+            %disp(["bdControlScalar.refresh:" xxxdef]);
             
             % extract the relevant fields from control.sys.xxxdef
             xxxvalue = control.sys.(xxxdef)(xxxindx).value;
@@ -318,34 +318,34 @@ classdef bdControlScalar < handle
 
             % update the min box widget
             this.minbox.Value = xxxlim(1);
-            this.minbox.String = num2str(xxxlim(1),'%0.3g');
+            this.minbox.String = num2str(xxxlim(1),"%0.3g");
             
             % update the max box widget
             this.maxbox.Value = xxxlim(2);
-            this.maxbox.String = num2str(xxxlim(2),'%0.3g');
+            this.maxbox.String = num2str(xxxlim(2),"%0.3g");
             
             % update the val box widget
             this.valbox.Value = xxxvalue;
-            this.valbox.String = num2str(xxxvalue,'%0.3g');
+            this.valbox.String = num2str(xxxvalue,"%0.3g");
 
             % update the slider widget
             this.sliderUpdate(xxxlim(1), xxxlim(2), xxxvalue);
             
-            % show/hide the slider widget according to the state of the caller's modecheckbox
+            % show/hide the slider widget according to the state of the caller"s modecheckbox
             this.mode(modecheckbox.Value);
             
             % special case: if this is a vardef control and the evolve button
             % is ON then disable the slider and edit box.
             switch xxxdef
-                case 'vardef'
+                case "vardef"
                     if control.sys.evolve
                         % disable the slider and edit box
-                        set(this.jslider,'Enabled',0);
-                        this.valbox.Enable = 'off';
+                        set(this.jslider,"Enabled",0);
+                        this.valbox.Enable = "off";
                     else
                         % enable the slider and edit box
-                        set(this.jslider,'Enabled',1);
-                        this.valbox.Enable = 'on';
+                        set(this.jslider,"Enabled",1);
+                        this.valbox.Enable = "on";
                     end
             end
         end
