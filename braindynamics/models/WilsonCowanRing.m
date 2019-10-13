@@ -5,8 +5,8 @@
 % according to the user-defined coupling kernels Ke and Ki.
 %
 % The differential equations are
-%    Ue' = (-Ue + F(wee*Ve - wei*Vi - be + Je) )./taue;
-%    Ui' = (-Ui + F(wie*Ve - wii*Vi - bi + Ji) )./taui;
+%    Ue" = (-Ue + F(wee*Ve - wei*Vi - be + Je) )./taue;
+%    Ui" = (-Ui + F(wie*Ve - wii*Vi - bi + Ji) )./taui;
 % where
 %    Ue is the mean firing rate of the excitatory cells (nx1)
 %    Ui is the mean firing rate of the inhibitory cells (nx1)
@@ -47,43 +47,6 @@
 %   % Construct and run the model
 %   sys = WilsonCowanRing(n,Ke,Ki,Je,Ji);
 %   gui = bdGUI(sys)
-%
-% SEE ALSO:
-%   WilsonCowan
-%   WilsonCowanNet
-%
-% AUTHOR
-%   Stewart Heitmann (2018b)
-
-
-% Copyright (C) 2016-2018 QIMR Berghofer Medical Research Institute
-% All rights reserved.
-%
-% Redistribution and use in source and binary forms, with or without
-% modification, are permitted provided that the following conditions
-% are met:
-%
-% 1. Redistributions of source code must retain the above copyright
-%    notice, this list of conditions and the following disclaimer.
-% 
-% 2. Redistributions in binary form must reproduce the above copyright
-%    notice, this list of conditions and the following disclaimer in
-%    the documentation and/or other materials provided with the
-%    distribution.
-%
-% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-% FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-% COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-% INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-% BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-% CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-% LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-% POSSIBILITY OF SUCH DAMAGE.
-
 function sys = WilsonCowanRing(n,Ke,Ki,Je,Ji)
     % Handle to the ODE function
     sys.odefun = @odefun;
@@ -93,24 +56,24 @@ function sys = WilsonCowanRing(n,Ke,Ki,Je,Ji)
     KiLim = bdPanel.RoundLim(min(Ki),max(Ki));
     
     % ODE parameters
-    sys.pardef = [ struct('name','wee',  'value',10,   'lim',[0 30]);
-                   struct('name','wei',  'value',8.5,  'lim',[0 30]);
-                   struct('name','wie',  'value',12,   'lim',[0 30]);
-                   struct('name','wii',  'value', 3,   'lim',[0 30]);
-                   struct('name','Ke',   'value', Ke,  'lim',KeLim);
-                   struct('name','Ki',   'value', Ki,  'lim',KiLim);                   
-                   struct('name','ke',   'value', 1,   'lim',[0 5]);
-                   struct('name','ki',   'value', 1,   'lim',[0 5]);                   
-                   struct('name','be',   'value', 2,   'lim',[0 10]);
-                   struct('name','bi',   'value', 3,   'lim',[0 10]);
-                   struct('name','Je',   'value', Je,   'lim',[0 5]); 
-                   struct('name','Ji',   'value', Ji,   'lim',[0 5]);
-                   struct('name','taue', 'value', 10,   'lim',[1 20]);
-                   struct('name','taui', 'value', 30,   'lim',[1 20])];
+    sys.pardef = [ struct("name","wee",  "value",10,   "lim",[0 30]);
+                   struct("name","wei",  "value",8.5,  "lim",[0 30]);
+                   struct("name","wie",  "value",12,   "lim",[0 30]);
+                   struct("name","wii",  "value", 3,   "lim",[0 30]);
+                   struct("name","Ke",   "value", Ke,  "lim",KeLim);
+                   struct("name","Ki",   "value", Ki,  "lim",KiLim);                   
+                   struct("name","ke",   "value", 1,   "lim",[0 5]);
+                   struct("name","ki",   "value", 1,   "lim",[0 5]);                   
+                   struct("name","be",   "value", 2,   "lim",[0 10]);
+                   struct("name","bi",   "value", 3,   "lim",[0 10]);
+                   struct("name","Je",   "value", Je,   "lim",[0 5]); 
+                   struct("name","Ji",   "value", Ji,   "lim",[0 5]);
+                   struct("name","taue", "value", 10,   "lim",[1 20]);
+                   struct("name","taui", "value", 30,   "lim",[1 20])];
               
     % ODE variables
-    sys.vardef = [ struct('name','Ue', 'value',rand(n,1), 'lim',[0 1]);
-                   struct('name','Ui', 'value',rand(n,1), 'lim',[0 1])];
+    sys.vardef = [ struct("name","Ue", "value",rand(n,1), "lim",[0 1]);
+                   struct("name","Ui", "value",rand(n,1), "lim",[0 1])];
  
     % Default time span
     sys.tspan = [0 1000];
@@ -120,36 +83,36 @@ function sys = WilsonCowanRing(n,Ke,Ki,Je,Ji)
     
     % Latex Panel
     sys.panels.bdLatexPanel.latex = {
-        '\textbf{WilsonCowanRing}'
-        ''
-        'A ring of non-locally coupled Wilson-Cowan equations where the nodes of'
-        'the ring represent local populations of excitatory and inhibitory neurons.'
-        'The dynamical equations are defined as'
-        ''
-        '\qquad $\tau_e \; \dot U_e(x,t) = -U_e(x,t) + F\Big(w_{ee} V_e(x,t) - w_{ei} V_i(x,t) - b_e + J_e(x) \Big)$'
-        '\qquad $\tau_i \; \dot U_i(x,t) \; = -U_i(x,t) \; + F\Big(w_{ie} V_e(x,t) - w_{ii} V_i(x,t) - b_i + J_i(x) \Big)$'
-        ''
-        'where the non-local coupling is defined by the spatial convolution'
-        ''
-        '\qquad $V(x,t) = k \int K(x) \; U(x,t) \; dx$'
-        ''
-        'where'
-        '\qquad $U_e(x,t)$ is the firing rate of the \textit{excitatory} population at position $x$,'
-        '\qquad $U_i(x,t)$ is the firing rate of the \textit{inhibitory} population at position $x$,'
-        '\qquad $V_e(x,t)$ is the spatial sum of \textit{excitation} at position $x$,'
-        '\qquad $V_i(x,t)$ is the spatial sum of \textit{inhibition} at position $x$,'
-        '\qquad $w_{ei}$ is the weight of the connection to $e$ from $i$,'
-        '\qquad $K_e(x)$ and $K_i(x)$ are spatial coupling kernels,'
-        '\qquad $k_e$ and $k_i$ are scaling constants,'
-        '\qquad $b_{e}$ and $b_{i}$ are threshold constants,'
-        '\qquad $J_{e}(x)$ and $J_i(x)$ are spatially extended injection currents,'
-        '\qquad $\tau_{e}$ and $\tau_{i}$ are time constants,'
-        '\qquad $F(v)=1/(1+\exp(-v))$ is a sigmoidal firing-rate function,'
-        ''
-        '\textbf{References}'
-        'Wilson \& Cowan (1973) Kybernetik 13(2):55-80.'
-        'Rule, Stoffregen \& Ermentrout (2011) PLoS Computational Biology 7(9).'
-        'Heitmann, Rule, Truccolo \& Ermentrout (2017) PLoS Computational Biology 13(1).'
+        "\textbf{WilsonCowanRing}"
+        ""
+        "A ring of non-locally coupled Wilson-Cowan equations where the nodes of"
+        "the ring represent local populations of excitatory and inhibitory neurons."
+        "The dynamical equations are defined as"
+        ""
+        "\qquad $\tau_e \; \dot U_e(x,t) = -U_e(x,t) + F\Big(w_{ee} V_e(x,t) - w_{ei} V_i(x,t) - b_e + J_e(x) \Big)$"
+        "\qquad $\tau_i \; \dot U_i(x,t) \; = -U_i(x,t) \; + F\Big(w_{ie} V_e(x,t) - w_{ii} V_i(x,t) - b_i + J_i(x) \Big)$"
+        ""
+        "where the non-local coupling is defined by the spatial convolution"
+        ""
+        "\qquad $V(x,t) = k \int K(x) \; U(x,t) \; dx$"
+        ""
+        "where"
+        "\qquad $U_e(x,t)$ is the firing rate of the \textit{excitatory} population at position $x$,"
+        "\qquad $U_i(x,t)$ is the firing rate of the \textit{inhibitory} population at position $x$,"
+        "\qquad $V_e(x,t)$ is the spatial sum of \textit{excitation} at position $x$,"
+        "\qquad $V_i(x,t)$ is the spatial sum of \textit{inhibition} at position $x$,"
+        "\qquad $w_{ei}$ is the weight of the connection to $e$ from $i$,"
+        "\qquad $K_e(x)$ and $K_i(x)$ are spatial coupling kernels,"
+        "\qquad $k_e$ and $k_i$ are scaling constants,"
+        "\qquad $b_{e}$ and $b_{i}$ are threshold constants,"
+        "\qquad $J_{e}(x)$ and $J_i(x)$ are spatially extended injection currents,"
+        "\qquad $\tau_{e}$ and $\tau_{i}$ are time constants,"
+        "\qquad $F(v)=1/(1+\exp(-v))$ is a sigmoidal firing-rate function,"
+        ""
+        "\textbf{References}"
+        "Wilson \& Cowan (1973) Kybernetik 13(2):55-80."
+        "Rule, Stoffregen \& Ermentrout (2011) PLoS Computational Biology 7(9)."
+        "Heitmann, Rule, Truccolo \& Ermentrout (2017) PLoS Computational Biology 13(1)."
         };
     
     % Other Panels
@@ -197,10 +160,10 @@ function Y = conv1w(K,X)
     indx = mod(-khalf:n+khalf-1,n)+1;
 
     % Use standard conv to do the work
-    % The conv function reverses the K indexes. I don't like the flipped
+    % The conv function reverses the K indexes. I don"t like the flipped
     % result so I correct by flipping K before passing it to conv2.
     % This makes no difference when the kernel is symmetric.
-    Y = conv(X(indx),K(end:-1:1),'valid');
+    Y = conv(X(indx),K(end:-1:1),"valid");
 end
 
 % Sigmoidal firing-rate function
