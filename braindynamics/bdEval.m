@@ -14,11 +14,11 @@
 %   sol = bdSolve(sys,tspan,@ode45);    % Apply the ode45 solver
 %   tplot = 0:0.1:10;                   % Interpolation time points
 %   [y,yp] = bdEval(sol,tplot);         % Interpolate the solution
-%   figure; plot(tplot,y); legend('y1','y2')
-%   figure; plot(tplot,yp); legend('dy1/dt','dy2/dt')
+%   figure; plot(tplot,y); legend("y1","y2")
+%   figure; plot(tplot,yp); legend("dy1/dt","dy2/dt")
 function [y,yp] = bdEval(sol,xint,idx)
-    if ~isstruct(sol) || ~isfield(sol,'x') || ~isfield(sol,'y')
-        error('sol is not a valid solver structure');
+    if ~isstruct(sol) || ~isfield(sol,"x") || ~isfield(sol,"y")
+        error("sol is not a valid solver structure");
     end
     
     % number of variables in sol
@@ -31,11 +31,11 @@ function [y,yp] = bdEval(sol,xint,idx)
     
     % verify the indexes are within bounds
     if any(idx<1) || any(idx>n)
-        error('idx is out of bounds');
+        error("idx is out of bounds");
     end  
     
     switch sol.solver
-        case {'ode45','ode23','ode113','ode15s','ide23s','ode23t','ode23tb','dde23'}
+        case {"ode45","ode23","ode113","ode15s","ide23s","ode23t","ode23tb","dde23"}
             % Use MATLAB deval for MATLAB solvers
             [y,yp] = deval(sol,xint,idx);       
             
@@ -44,24 +44,24 @@ function [y,yp] = bdEval(sol,xint,idx)
             % Annoyingly, interp1() transposes the output when the input is
             % a matrix but not a vector. So we treat both cases separately.
             if size(idx,2)==1
-                % Here the input is a VECTOR so we DON'T transpose the output.
-                y  = interp1(sol.x, sol.y(idx,:)', xint); 
+                % Here the input is a VECTOR so we DON"T transpose the output.
+                y  = interp1(sol.x, sol.y(idx,:)", xint); 
             else
                 % Here the input is a MATRIX so we DO transpose the output.
-                y  = interp1(sol.x, sol.y(idx,:)', xint)'; 
+                y  = interp1(sol.x, sol.y(idx,:)", xint)"; 
             end
             
             % Return the gradient vector (if requested)
             if nargout>1
-                if isfield(sol,'yp')
+                if isfield(sol,"yp")
                     % The solver has already computed the gradient, so we
                     % only need to interpolate those values.
                     if size(idx,2)==1
-                        % Here the input is a VECTOR so we DON'T transpose the output.
-                        yp = interp1(sol.x, sol.yp(idx,:)', xint);
+                        % Here the input is a VECTOR so we DON"T transpose the output.
+                        yp = interp1(sol.x, sol.yp(idx,:)", xint);
                     else
                         % Here the input is a MATRIX so we DO transpose the output.
-                        yp = interp1(sol.x, sol.yp(idx,:)', xint)'; 
+                        yp = interp1(sol.x, sol.yp(idx,:)", xint)"; 
                     end
                 else
                     % Compute the gradient from scratch
