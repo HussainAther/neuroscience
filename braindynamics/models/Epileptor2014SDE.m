@@ -5,9 +5,6 @@
 %    sys = Epileptor2014SDE();
 %    gui = bdGUI(sys);
 %
-% Authors
-%   Stewart Heitmann (2018b)
-%
 % References:
 % Jirsa, Stacey, Quilichini, Ivanov, Bernard (2014) On the nature of 
 %   seizure dynamics. Brain. doi:10.1093/brain/awu133
@@ -18,25 +15,25 @@ function sys = Epileptor2014()
     
     % Our ODE parameters
     sys.pardef = [
-        struct('name','x0',     'value',-1.6,   'lim',[-2 1]); 
-        struct('name','y0',     'value',1,      'lim',[0 2]);
-        struct('name','tau0',   'value',2857,   'lim',[0.1 3000]);
-        struct('name','tau2',   'value',10,     'lim',[0.1 20]);
-        struct('name','Irest1', 'value',3.1,    'lim',[-5 5]);
-        struct('name','Irest2', 'value',0.45,   'lim',[-5 5]);
-        struct('name','gamma',  'value',0.01,   'lim',[0 0.1]);
-        struct('name','sigma1', 'value',0.025,  'lim',[0 1]);
-        struct('name','sigma2', 'value',0.25,   'lim',[0 1]);
+        struct("name","x0",     "value",-1.6,   "lim",[-2 1]); 
+        struct("name","y0",     "value",1,      "lim",[0 2]);
+        struct("name","tau0",   "value",2857,   "lim",[0.1 3000]);
+        struct("name","tau2",   "value",10,     "lim",[0.1 20]);
+        struct("name","Irest1", "value",3.1,    "lim",[-5 5]);
+        struct("name","Irest2", "value",0.45,   "lim",[-5 5]);
+        struct("name","gamma",  "value",0.01,   "lim",[0 0.1]);
+        struct("name","sigma1", "value",0.025,  "lim",[0 1]);
+        struct("name","sigma2", "value",0.25,   "lim",[0 1]);
         ];
                
     % Our ODE variables        
     sys.vardef = [ 
-        struct('name','x1', 'value',0,      'lim',[-2 1]);
-        struct('name','y1', 'value',-5,     'lim',[-20 2]);
-        struct('name','z',  'value',3,      'lim',[2 5]);
-        struct('name','x2', 'value',0,      'lim',[-2 0]);
-        struct('name','y2', 'value',0,      'lim',[0 2]);
-        struct('name','u',  'value',0,      'lim',[-0.5 0.1]);
+        struct("name","x1", "value",0,      "lim",[-2 1]);
+        struct("name","y1", "value",-5,     "lim",[-20 2]);
+        struct("name","z",  "value",3,      "lim",[2 5]);
+        struct("name","x2", "value",0,      "lim",[-2 0]);
+        struct("name","y2", "value",0,      "lim",[0 2]);
+        struct("name","u",  "value",0,      "lim",[-0.5 0.1]);
         ];
     
     % Default time span
@@ -49,37 +46,37 @@ function sys = Epileptor2014()
     
     % Latex (Equations) panel
     sys.panels.bdLatexPanel.latex = {
-        '\textbf{Epileptor} (Jirsa et al 2014). The stochastic equations.';
-        '';
-        'Characterizes the dynamical behaviour of epileptic seizures using five';
-        'state variables $(x_1,y_1,x_2,y_2,z)$ plus a dummy variable $(u)$.';
-        '\qquad $dx_1 = \big( y_1 - f_1(x_1,y_1,z) - z + I_{rest,1} \big) \; dt + \sigma_1^2 \; dW_1$';
-        '\qquad $dy_1 = \big( y_0 - 5 x_1^2 - y_1 \big) \; dt + \sigma_1^2 \; dW_2$';
-        '\qquad $dz = \frac{1}{\tau_0}\big( 4(x_1- x_0) - z \big) \; dt$';
-        '\qquad $dx_2 = \big( -y_2 + x_2 - x_2^3 + I_{rest,2} + 2u - 0.3(z-3.5) \big) \; dt + \sigma_2^2 \; dW_3$';
-        '\qquad $dy_2 = \frac{1}{\tau_2} \big( -y_2 + f_2(x_2) \big) \; dt + \sigma_2^2 \; dW_4$';
-        '\qquad $du = -\gamma (u - 0.1 x_1) \; dt$';
-        'where';
-        '\qquad $x_1(t), y_1(t)$ govern the rapid discharges on the fast timescale,';
-        '\qquad $x_2(t), y_2(t)$ govern spike-and-waves on the intermediate timescale,';
-        '\qquad $z(t)$ is the permittivity variable that operates on a slow timescale,';
-        '\qquad $u(t)$ is a dummy variable for low-pass filtering signals from x1 to x2,';
-        '\qquad $dW$ are independent Wiener noise processes,';
-        '\qquad $\sigma_1$ and $\sigma_2$ are the coefficients of the noise,';
-        '\qquad $x_0, y_0$ are threshold constants,';
-        '\qquad $\tau_0$ and $\tau_2$ are time constants,';
-        '\qquad $I_{rest,1}$ and $I_{rest,2}$ are injection currents.';
-        '\qquad $\gamma$ is the time constant of the low-pass filter,';
-        'and';
-        '\qquad $f_1(x_1,x_2,z) = x_1^3 - 3 x_1^2 \;$ \qquad \qquad \qquad \quad when $x_1 < 0$,';
-        '\qquad $f_1(x_1,x_2,z) = (x_2 - 0.6 (z-4)^2) \; x_1$ \qquad otherwise,';
-        'and';
-        '\qquad $f_2(x_2) = 0 \;\;$ \qquad \qquad \qquad \quad when $x_2 < -0.25$,';
-        '\qquad $f_2(x_2) = 6(x_2 + 0.25)\;\;\;$ \qquad otherwise.';
-        '';
-        '';
-        '\textbf{References}';
-        'Jirsa, et al (2014) On the nature of seizure dynamics. Brain.';
+        "\textbf{Epileptor} (Jirsa et al 2014). The stochastic equations.";
+        "";
+        "Characterizes the dynamical behaviour of epileptic seizures using five";
+        "state variables $(x_1,y_1,x_2,y_2,z)$ plus a dummy variable $(u)$.";
+        "\qquad $dx_1 = \big( y_1 - f_1(x_1,y_1,z) - z + I_{rest,1} \big) \; dt + \sigma_1^2 \; dW_1$";
+        "\qquad $dy_1 = \big( y_0 - 5 x_1^2 - y_1 \big) \; dt + \sigma_1^2 \; dW_2$";
+        "\qquad $dz = \frac{1}{\tau_0}\big( 4(x_1- x_0) - z \big) \; dt$";
+        "\qquad $dx_2 = \big( -y_2 + x_2 - x_2^3 + I_{rest,2} + 2u - 0.3(z-3.5) \big) \; dt + \sigma_2^2 \; dW_3$";
+        "\qquad $dy_2 = \frac{1}{\tau_2} \big( -y_2 + f_2(x_2) \big) \; dt + \sigma_2^2 \; dW_4$";
+        "\qquad $du = -\gamma (u - 0.1 x_1) \; dt$";
+        "where";
+        "\qquad $x_1(t), y_1(t)$ govern the rapid discharges on the fast timescale,";
+        "\qquad $x_2(t), y_2(t)$ govern spike-and-waves on the intermediate timescale,";
+        "\qquad $z(t)$ is the permittivity variable that operates on a slow timescale,";
+        "\qquad $u(t)$ is a dummy variable for low-pass filtering signals from x1 to x2,";
+        "\qquad $dW$ are independent Wiener noise processes,";
+        "\qquad $\sigma_1$ and $\sigma_2$ are the coefficients of the noise,";
+        "\qquad $x_0, y_0$ are threshold constants,";
+        "\qquad $\tau_0$ and $\tau_2$ are time constants,";
+        "\qquad $I_{rest,1}$ and $I_{rest,2}$ are injection currents.";
+        "\qquad $\gamma$ is the time constant of the low-pass filter,";
+        "and";
+        "\qquad $f_1(x_1,x_2,z) = x_1^3 - 3 x_1^2 \;$ \qquad \qquad \qquad \quad when $x_1 < 0$,";
+        "\qquad $f_1(x_1,x_2,z) = (x_2 - 0.6 (z-4)^2) \; x_1$ \qquad otherwise,";
+        "and";
+        "\qquad $f_2(x_2) = 0 \;\;$ \qquad \qquad \qquad \quad when $x_2 < -0.25$,";
+        "\qquad $f_2(x_2) = 6(x_2 + 0.25)\;\;\;$ \qquad otherwise.";
+        "";
+        "";
+        "\textbf{References}";
+        "Jirsa, et al (2014) On the nature of seizure dynamics. Brain.";
         };
     
     % Time-Portrait panel
@@ -151,12 +148,12 @@ function UserData = FieldPotential(ax,~,sol,~,~,~,~,~,~,~,~,~)
     x2 = sol.y(4,:);
 
     % Plot the conductances.
-    plot(t, -x1+x2, 'k-');
+    plot(t, -x1+x2, "k-");
     ylim([-5 5]);
     xlim([t(1) t(end)]);
-    title('Simulated Field Potential'); 
-    ylabel('-x1 + x2');
-    xlabel('time');
+    title("Simulated Field Potential"); 
+    ylabel("-x1 + x2");
+    xlabel("time");
     
     % Make the data available to the workspace
     UserData.t = t;
