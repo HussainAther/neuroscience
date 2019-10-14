@@ -3,19 +3,19 @@ classdef bdGUI < handle
     %
     %   gui = bdGUI();
     %   gui = bdGUI(sys);
-    %   gui = bdGUI(sys,'sol',sol);
+    %   gui = bdGUI(sys,"sol",sol);
     %
     %The bdGUI application is the graphical user interface for the Brain
     %Dynamics Toolbox. It loads and runs the dynamical model defined by
     %the system structure (sys). The system structure defines the names
-    %and initial values of the model's parameters and state variables.
+    %and initial values of the model"s parameters and state variables.
     %It also contains a handle to the model-specific function which defines
     %the dynamical equation to be solved. The system structure may be
     %passed to bdGUI as an input parameter or loaded from a mat file.
     %If bdGUI is invoked with no parameters then it prompts the user to
     %load a mat file which is assumed to contain a valid sys. 
     %A previously computed solution (sol) for the model can be loaded in
-    %tandem with the model's system structure. If no solution is provided
+    %tandem with the model"s system structure. If no solution is provided
     %then bdGUI automatically computes one at start-up.
     %
     %EXAMPLE
@@ -29,7 +29,7 @@ classdef bdGUI < handle
     %matlab workspace.
     %
     %   gui = bdGUI with properties:
-    %       version: '2018b'
+    %       version: "2018b"
     %           fig: [1�1 Figure]
     %           par: [1�1 struct]
     %          var0: [1�1 struct]
@@ -53,7 +53,7 @@ classdef bdGUI < handle
     %   gui.t contains the time steps for the computed solution (read-only)
     %   gui.tindx contains the indices of the non-transient time steps (read-only)
     %   gui.lag is a struct containing the DDE lag parameters (read/write)
-    %   gui.sys is a copy of the model's system structure (read-only)
+    %   gui.sys is a copy of the model"s system structure (read-only)
     %   gui.sol is the output of the solver (read-only)
     %   gui.panels contains the outputs of the display panels (read-only)
     %   gui.halt is the state of the HALT button (read-write)
@@ -61,7 +61,7 @@ classdef bdGUI < handle
     %   gui.perturb is the state of the PERTURB button (read-write)
 
     properties (Constant=true)
-        version = '2018b';      % version number of the toolbox
+        version = "2018b";      % version number of the toolbox
     end
     
     properties
@@ -94,13 +94,13 @@ classdef bdGUI < handle
             %
             % gui = bdGUI();
             % gui = bdGUI(sys);
-            % gui = bdGUI(sys,'sol',sol);
+            % gui = bdGUI(sys,"sol",sol);
             
             % add the bdtoolkit/solvers directory to the path
-            addpath(fullfile(fileparts(mfilename('fullpath')),'solvers'));
+            addpath(fullfile(fileparts(mfilename("fullpath")),"solvers"));
 
             % add the bdtoolkit/panels directory to the path
-            addpath(fullfile(fileparts(mfilename('fullpath')),'panels'));
+            addpath(fullfile(fileparts(mfilename("fullpath")),"panels"));
           
             % variable input parameters
             switch nargin
@@ -117,17 +117,17 @@ classdef bdGUI < handle
                         ME.throwAsCaller;
                     end
                         
-                otherwise   % case of bdGUI(sys,'sol',sol)
+                otherwise   % case of bdGUI(sys,"sol",sol)
                     try
                         % define a syntax for the input parser
                         syntax = inputParser;
                         syntax.CaseSensitive = false;
-                        syntax.FunctionName = 'bdGUI(sys,''sol'',sol)';
+                        syntax.FunctionName = "bdGUI(sys,""sol"",sol)";
                         syntax.KeepUnmatched = false;
                         syntax.PartialMatching = false;
                         syntax.StructExpand = false;
-                        addRequired(syntax,'sys',@(sys) ~isempty(bd.syscheck(sys)));
-                        addParameter(syntax,'sol',[], @(sol) solcheck(sol));
+                        addRequired(syntax,"sys",@(sys) ~isempty(bd.syscheck(sys)));
+                        addParameter(syntax,"sol",[], @(sol) solcheck(sol));
 
                         % call the input parser
                         parse(syntax,varargin{:});
@@ -145,13 +145,13 @@ classdef bdGUI < handle
             % construct figure
             figw = 800;
             figh = 500;
-            this.fig = figure('Units','pixels', ...
-                'Position',[randi(100,1,1) randi(100,1,1) figw figh], ...
-                'name', 'Brain Dynamics Toolbox', ...
-                'NumberTitle','off', ...
-                'MenuBar','none', ...
-                'DockControls','off', ...
-                'Toolbar','figure');
+            this.fig = figure("Units","pixels", ...
+                "Position",[randi(100,1,1) randi(100,1,1) figw figh], ...
+                "name", "Brain Dynamics Toolbox", ...
+                "NumberTitle","off", ...
+                "MenuBar","none", ...
+                "DockControls","off", ...
+                "Toolbar","figure");
 
             % construct the control panel and attach it to the figure
             this.control = bdControl(this.fig,sys);
@@ -180,7 +180,7 @@ classdef bdGUI < handle
             this.display.LoadPanels(this.control);
 
             % register a callback for resizing the figure
-            set(this.fig,'SizeChangedFcn', @(~,~) this.SizeChanged());
+            set(this.fig,"SizeChangedFcn", @(~,~) this.SizeChanged());
 
             if isempty(sol)
                 % recompute and wait until complete
@@ -210,7 +210,7 @@ classdef bdGUI < handle
         function set.par(this,value)
             % Assert the incoming value is a struct
             if ~isstruct(value)
-                warning('bdGUI: Illegal par value. Input must be a struct');
+                warning("bdGUI: Illegal par value. Input must be a struct");
                 return
             end
             
@@ -228,13 +228,13 @@ classdef bdGUI < handle
                 % Find the syspardef entry with the same name                
                 [val,idx] = bdGetValue(syspardef,vfield);
                 if isempty(val)
-                    warning(['bdGUI: Unknown parameter [',vfield,'].']);
+                    warning(["bdGUI: Unknown parameter [",vfield,"]."]);
                     return
                 end
                 
                 % Assert the incoming value is the correct shape and size.
                 if ~isequal(size(val),vsize)
-                    warning(['bdGUI: Parameter size mismatch [',vfield,'].']);
+                    warning(["bdGUI: Parameter size mismatch [",vfield,"]."]);
                     return
                 end
                 
@@ -247,7 +247,7 @@ classdef bdGUI < handle
             this.control.sys.pardef = syspardef;
             
             % Notify the control panel to refresh its pardef widgets
-            notify(this.control,'pardef');
+            notify(this.control,"pardef");
             
             % recompute and wait until complete
             this.control.RecomputeWait();    
@@ -268,7 +268,7 @@ classdef bdGUI < handle
         function set.var0(this,value)
             % Assert the incoming value is a struct
             if ~isstruct(value)
-                warning('bdGUI: Illegal var value. Input must be a struct');
+                warning("bdGUI: Illegal var value. Input must be a struct");
                 return
             end
             
@@ -286,13 +286,13 @@ classdef bdGUI < handle
                 % Find the sysvardef entry with the same name                
                 [val,idx] = bdGetValue(sysvardef,vfield);
                 if isempty(val)
-                    warning(['bdGUI: Unknown variable [',vfield,'].']);
+                    warning(["bdGUI: Unknown variable [",vfield,"]."]);
                     return
                 end
                 
                 % Assert the incoming value is the correct shape and size.
                 if ~isequal(size(val),vsize)
-                    warning(['bdGUI: Variable size mismatch [',vfield,'].']);
+                    warning(["bdGUI: Variable size mismatch [",vfield,"]."]);
                     return
                 end
                 
@@ -305,7 +305,7 @@ classdef bdGUI < handle
             this.control.sys.vardef = sysvardef;
             
             % Notify the control panel to refresh its vardef widgets
-            notify(this.control,'vardef');
+            notify(this.control,"vardef");
             
             % recompute and wait until complete
             this.control.RecomputeWait();         
@@ -344,7 +344,7 @@ classdef bdGUI < handle
             
             %the old way
             %lag = [];
-            %if isfield(this.control.sys,'lagdef')
+            %if isfield(this.control.sys,"lagdef")
             %    for indx = 1:numel(this.control.sys.lagdef)
             %        name = this.control.sys.lagdef(indx).name;
             %        value = this.control.sys.lagdef(indx).value;
@@ -357,13 +357,13 @@ classdef bdGUI < handle
         function set.lag(this,value)
             % Assert the incoming value is a struct
             if ~isstruct(value)
-                warning('bdGUI: Illegal lag value. Input must be a struct');
+                warning("bdGUI: Illegal lag value. Input must be a struct");
                 return
             end
             
             % Assert the current system has lag parameters
-            if ~isfield(this.control.sys,'lagdef')
-                warning('bdGUI: No lag parameters exist in this model');
+            if ~isfield(this.control.sys,"lagdef")
+                warning("bdGUI: No lag parameters exist in this model");
                 return
             end
             
@@ -381,13 +381,13 @@ classdef bdGUI < handle
                 % Find the syslagdef entry with the same name                
                 [val,idx] = bdGetValue(syslagdef,vfield);
                 if isempty(val)
-                    warning(['bdGUI: Unknown lag parameter [',vfield,'].']);
+                    warning(["bdGUI: Unknown lag parameter [",vfield,"]."]);
                     return
                 end
                 
                 % Assert the incoming value is the correct shape and size.
                 if ~isequal(size(val),vsize)
-                    warning(['bdGUI: Lag parameter size mismatch [',vfield,'].']);
+                    warning(["bdGUI: Lag parameter size mismatch [",vfield,"]."]);
                     return
                 end
                 
@@ -400,7 +400,7 @@ classdef bdGUI < handle
             this.control.sys.lagdef = syslagdef;
             
             % Notify the control panel to refresh its lagdef widgets
-            notify(this.control,'lagdef');
+            notify(this.control,"lagdef");
             
             % recompute and wait until complete
             this.control.RecomputeWait();    
@@ -431,7 +431,7 @@ classdef bdGUI < handle
             % update the halt property of the control panel
             this.control.sys.halt = logical(value);
             % notify all control panel widgets to refresh themselves
-            notify(this.control,'refresh');
+            notify(this.control,"refresh");
             % if the halt state is now OFF then ...
             if ~this.control.sys.halt
                 % recompute and wait until complete
@@ -449,7 +449,7 @@ classdef bdGUI < handle
             % update the evolve property of the control panel
             this.control.sys.evolve = logical(value);
             % notify the panel widgets to refresh themselves
-            notify(this.control,'refresh');
+            notify(this.control,"refresh");
             % if the evolve state is now ON then ...
             if this.control.sys.evolve
                 % recompute and wait until complete
@@ -467,7 +467,7 @@ classdef bdGUI < handle
             % update the perturb property of the control panel
             this.control.sys.perturb = logical(value);
             % notify the widgets to refresh themselves
-            notify(this.control,'refresh');
+            notify(this.control,"refresh");
             % if the perturb state is now ON then ...
             if this.control.sys.perturb
                 % recompute and wait until complete
@@ -483,37 +483,30 @@ classdef bdGUI < handle
         % Construct the System menu
         function menuobj = SystemMenu(this,sys)
             % construct System menu
-            menuobj = uimenu('Parent',this.fig, 'Label','System');
+            menuobj = uimenu("Parent",this.fig, "Label","System");
 
             % construct menu items
-            uimenu('Parent',menuobj, ...
-                   'Label','About', ...
-                   'Callback',@(~,~) SystemAbout() );
-            uimenu('Parent',menuobj, ...
-                   'Label','New', ...
-                   'Callback', @(~,~) bdGUI(this.control.sys) );
-            uimenu('Parent',menuobj, ...
-                   'Label','Load', ...
-                   'Callback', @(~,~) bdGUI() );
-            uimenu('Parent',menuobj, ...
-                   'Label','Save', ...
-                   'Callback', @(~,~) this.SystemSaveDialog() );
-            uimenu('Parent',menuobj, ...
-                   'Label','Quit', ...
-                   'Separator','on', ...
-                   'Callback', @(~,~) delete(this.fig));
+            uimenu("Parent",menuobj, ...
+                   "Label","About", ...
+                   "Callback",@(~,~) SystemAbout() );
+            uimenu("Parent",menuobj, ...
+                   "Label","New", ...
+                   "Callback", @(~,~) bdGUI(this.control.sys) );
+            uimenu("Parent",menuobj, ...
+                   "Label","Load", ...
+                   "Callback", @(~,~) bdGUI() );
+            uimenu("Parent",menuobj, ...
+                   "Label","Save", ...
+                   "Callback", @(~,~) this.SystemSaveDialog() );
+            uimenu("Parent",menuobj, ...
+                   "Label","Quit", ...
+                   "Separator","on", ...
+                   "Callback", @(~,~) delete(this.fig));
 
             % Callback for System-About menu
             function SystemAbout()
-                msg = {'The Brain Dynamics Toolbox'
-                       ['Version ' this.version]
-                       'http://www.bdtoolbox.org'
-                       ''
-                       'Stewart Heitmann, Michael Breakspear'
-                       'Copyright (C) 2016-2018'
-                       'QIMR Berghofer Medical Research Institute'
-                       };
-                uiwait(helpdlg(msg,'About'));
+                msg = {"The Brain Dynamics Toolbox"};
+                uiwait(helpdlg(msg,"About"));
             end
             
         end
@@ -521,66 +514,66 @@ classdef bdGUI < handle
         % Customize the Figure Toolbar
         function CustomizeToolbar(this)
             % get handle to the toolbar
-            hToolBar = findall(this.fig,'tag','FigureToolBar');
+            hToolBar = findall(this.fig,"tag","FigureToolBar");
             if isempty(hToolBar)
                 return
             end
             
             % customize the NewFigure tool
-            hnd = findall(hToolBar,'tag','Standard.NewFigure');
+            hnd = findall(hToolBar,"tag","Standard.NewFigure");
             if ~isempty(hnd)
                 hnd.ClickedCallback =  @(~,~) bdGUI(this.control.sys); 
-                hnd.TooltipString = 'New Instance';
+                hnd.TooltipString = "New Instance";
             end
             
             % customize the FileOpen tool
-            hnd = findall(hToolBar,'tag','Standard.FileOpen');
+            hnd = findall(hToolBar,"tag","Standard.FileOpen");
             if ~isempty(hnd)
                 hnd.ClickedCallback =  @(~,~) bdGUI(); 
-                hnd.TooltipString = 'Load System';
+                hnd.TooltipString = "Load System";
             end
             
             % customize the SaveFigure tool
-            hnd = findall(hToolBar,'tag','Standard.SaveFigure');
+            hnd = findall(hToolBar,"tag","Standard.SaveFigure");
             if ~isempty(hnd)
                 hnd.ClickedCallback =  @(~,~) this.SystemSaveDialog(); 
-                hnd.TooltipString = 'Save System';
+                hnd.TooltipString = "Save System";
             end
             
             % delete the PrintFigure tool
-            delete( findall(hToolBar,'tag','Standard.PrintFigure') );
+            delete( findall(hToolBar,"tag","Standard.PrintFigure") );
             
             % delete the EditPlot tool
-            delete( findall(hToolBar,'tag','Standard.EditPlot') );
+            delete( findall(hToolBar,"tag","Standard.EditPlot") );
 
             % delete the Data Linking tool
-            delete( findall(hToolBar,'tag','DataManager.Linking') );
+            delete( findall(hToolBar,"tag","DataManager.Linking") );
             
             % delete the Annotation tools
-            delete( findall(hToolBar,'tag','Annotation.InsertLegend') );
-            delete( findall(hToolBar,'tag','Annotation.InsertColorbar') );
+            delete( findall(hToolBar,"tag","Annotation.InsertLegend") );
+            delete( findall(hToolBar,"tag","Annotation.InsertColorbar") );
             
             % delete the PlotTools
-            delete( findall(hToolBar,'tag','Plottools.PlottoolsOn') );
-            delete( findall(hToolBar,'tag','Plottools.PlottoolsOff') );
+            delete( findall(hToolBar,"tag","Plottools.PlottoolsOn") );
+            delete( findall(hToolBar,"tag","Plottools.PlottoolsOff") );
         end
         
         % Construct the System-Save Dialog
         function SystemSaveDialog(this)
             % construct dialog box
-            dlg = figure('Units','pixels', ...
-                'Position',[randi(300,1,1) randi(300,1,1), 200, 450], ...
-                'MenuBar','none', ...
-                'Name','System Save', ...
-                'NumberTitle','off', ...
-                'ToolBar', 'none', ...
-                'Resize','off');
+            dlg = figure("Units","pixels", ...
+                "Position",[randi(300,1,1) randi(300,1,1), 200, 450], ...
+                "MenuBar","none", ...
+                "Name","System Save", ...
+                "NumberTitle","off", ...
+                "ToolBar", "none", ...
+                "Resize","off");
 
             % container for the scrolling panel
-            panel = uipanel('Parent', dlg, ...
-                'Units','pixels', ...
-                'Position',[10 50 182 390], ...
-                'BorderType','none');
+            panel = uipanel("Parent", dlg, ...
+                "Units","pixels", ...
+                "Position",[10 50 182 390], ...
+                "BorderType","none");
 
             % Construct scrolling uipanel. We create it with an arbitrary
             % height (1000 pixels) that will be adjusted once the panel
@@ -590,25 +583,25 @@ classdef bdGUI < handle
             % Populate the contents of the scrolling uipanel
             this.PopulateSaveDialog(scroll.panel)
 
-            % construct the 'Cancel' button
-            uicontrol('Style','pushbutton', ...
-                'String','Cancel', ...
-                'HorizontalAlignment','center', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'Parent', dlg, ...
-                'Callback', @(~,~) delete(dlg), ...
-                'Position',[60 15 60 20]);
+            % construct the "Cancel" button
+            uicontrol("Style","pushbutton", ...
+                "String","Cancel", ...
+                "HorizontalAlignment","center", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "Parent", dlg, ...
+                "Callback", @(~,~) delete(dlg), ...
+                "Position",[60 15 60 20]);
 
-            % construct the 'Save' button
-            uicontrol('Style','pushbutton', ...
-                'String','Save', ...
-                'HorizontalAlignment','center', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'Parent', dlg, ...
-                'Callback', @(~,~) this.SystemSaveMenu(dlg,scroll.panel), ... 
-                'Position',[130 15 60 20]);
+            % construct the "Save" button
+            uicontrol("Style","pushbutton", ...
+                "String","Save", ...
+                "HorizontalAlignment","center", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "Parent", dlg, ...
+                "Callback", @(~,~) this.SystemSaveMenu(dlg,scroll.panel), ... 
+                "Position",[130 15 60 20]);
         end
         
         % Populate the System Save Dialog panel with model data
@@ -623,56 +616,56 @@ classdef bdGUI < handle
             rowh = 22;            
 
             % SYSTEM title
-            uicontrol('Style','text', ...
-                'String','System', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'FontWeight','bold', ...
-                'Parent', scrollpanel, ...
-                'Position',[10 panelh-yoffset panelw boxh]);
+            uicontrol("Style","text", ...
+                "String","System", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "FontWeight","bold", ...
+                "Parent", scrollpanel, ...
+                "Position",[10 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + rowh;
 
             % sys check box
-            uicontrol('Style','checkbox', ...
-                'String','sys', ...
-                'Value', 1, ...
-                'Tag', 'bdExportSys', ...
-                'TooltipString', 'sys is the system structure', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'Parent', scrollpanel, ...
-                'Position',[20 panelh-yoffset panelw boxh]);
+            uicontrol("Style","checkbox", ...
+                "String","sys", ...
+                "Value", 1, ...
+                "Tag", "bdExportSys", ...
+                "TooltipString", "sys is the system structure", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "Parent", scrollpanel, ...
+                "Position",[20 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + rowh;
 
             % sol check box
-            uicontrol('Style','checkbox', ...
-                'String','sol', ...
-                'Tag', 'bdExportSol', ...
-                'TooltipString', 'sol is the solution structure', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'Parent', scrollpanel, ...
-                'Position',[20 panelh-yoffset panelw boxh]);
+            uicontrol("Style","checkbox", ...
+                "String","sol", ...
+                "Tag", "bdExportSol", ...
+                "TooltipString", "sol is the solution structure", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "Parent", scrollpanel, ...
+                "Position",[20 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + 1.25*rowh;
 
             % PARAMETERS title
-            uicontrol('Style','text', ...
-                'String','Parameters', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'FontWeight','bold', ...
-                'Parent', scrollpanel, ...
-                'Position',[10 panelh-yoffset panelw boxh]);
+            uicontrol("Style","text", ...
+                "String","Parameters", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "FontWeight","bold", ...
+                "Parent", scrollpanel, ...
+                "Position",[10 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + rowh;
@@ -684,35 +677,35 @@ classdef bdGUI < handle
                 dims = size(this.control.sys.pardef(indx).value);
 
                 % parameter check box
-                uicontrol('Style','checkbox', ...
-                    'String', name, ...
-                    'UserData', struct('name',name,'indx',indx), ...
-                    'Tag', 'bdExportPar', ...
-                    'TooltipString', num2str(dims,[name ' is %dx%d']), ...
-                    'HorizontalAlignment', 'left', ...
-                    'FontUnits', 'pixels', ...
-                    'FontSize', 12, ...
-                    'Parent', scrollpanel, ...
-                    'Position', [20 panelh-yoffset panelw boxh]);
+                uicontrol("Style","checkbox", ...
+                    "String", name, ...
+                    "UserData", struct("name",name,"indx",indx), ...
+                    "Tag", "bdExportPar", ...
+                    "TooltipString", num2str(dims,[name " is %dx%d"]), ...
+                    "HorizontalAlignment", "left", ...
+                    "FontUnits", "pixels", ...
+                    "FontSize", 12, ...
+                    "Parent", scrollpanel, ...
+                    "Position", [20 panelh-yoffset panelw boxh]);
 
                 % next row
                 yoffset = yoffset + rowh;
             end
 
             % If our system has lag parmaters then include them in teh menu
-            if isfield(this.control.sys,'lagdef')
+            if isfield(this.control.sys,"lagdef")
                 % skip quarter row
                 yoffset = yoffset + 0.25*rowh;
 
                 % TIME LAG title
-                uicontrol('Style','text', ...
-                    'String','Time Lags', ...
-                    'HorizontalAlignment','left', ...
-                    'FontUnits','pixels', ...
-                    'FontSize',12, ...
-                    'FontWeight','bold', ...
-                    'Parent', scrollpanel, ...
-                    'Position',[10 panelh-yoffset panelw boxh]);
+                uicontrol("Style","text", ...
+                    "String","Time Lags", ...
+                    "HorizontalAlignment","left", ...
+                    "FontUnits","pixels", ...
+                    "FontSize",12, ...
+                    "FontWeight","bold", ...
+                    "Parent", scrollpanel, ...
+                    "Position",[10 panelh-yoffset panelw boxh]);
 
                 % next row
                 yoffset = yoffset + rowh;
@@ -724,16 +717,16 @@ classdef bdGUI < handle
                     dims = size(this.control.sys.lagdef(indx).value);
 
                     % parameter check box
-                    uicontrol('Style','checkbox', ...
-                        'String', name, ...
-                        'UserData', struct('name',name,'indx',indx), ...
-                        'Tag', 'bdExportLag', ...
-                        'TooltipString', num2str(dims,[name ' is %dx%d']), ...
-                        'HorizontalAlignment', 'left', ...
-                        'FontUnits', 'pixels', ...
-                        'FontSize', 12, ...
-                        'Parent', scrollpanel, ...
-                        'Position', [20 panelh-yoffset panelw boxh]);
+                    uicontrol("Style","checkbox", ...
+                        "String", name, ...
+                        "UserData", struct("name",name,"indx",indx), ...
+                        "Tag", "bdExportLag", ...
+                        "TooltipString", num2str(dims,[name " is %dx%d"]), ...
+                        "HorizontalAlignment", "left", ...
+                        "FontUnits", "pixels", ...
+                        "FontSize", 12, ...
+                        "Parent", scrollpanel, ...
+                        "Position", [20 panelh-yoffset panelw boxh]);
 
                     % next row
                     yoffset = yoffset + rowh;
@@ -744,14 +737,14 @@ classdef bdGUI < handle
             yoffset = yoffset + 0.25*rowh;
 
             % STATE VARIABLES title
-            uicontrol('Style','text', ...
-                'String','State Variables', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'FontWeight','bold', ...
-                'Parent', scrollpanel, ...
-                'Position',[10 panelh-yoffset panelw boxh]);
+            uicontrol("Style","text", ...
+                "String","State Variables", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "FontWeight","bold", ...
+                "Parent", scrollpanel, ...
+                "Position",[10 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + rowh;  
@@ -767,16 +760,16 @@ classdef bdGUI < handle
                 solindx = this.control.sys.vardef(indx).solindx;
                 
                 % variable check box
-                uicontrol('Style','checkbox', ...
-                    'String',name, ...
-                    'UserData', struct('name',name,'solindx',solindx), ...
-                    'Tag', 'bdExportVar', ...
-                    'TooltipString', num2str([vlen tlen],[name ' is %dx%d']), ...
-                    'HorizontalAlignment','left', ...
-                    'FontUnits','pixels', ...
-                    'FontSize',12, ...
-                    'Parent', scrollpanel, ...
-                    'Position',[20 panelh-yoffset panelw boxh]);
+                uicontrol("Style","checkbox", ...
+                    "String",name, ...
+                    "UserData", struct("name",name,"solindx",solindx), ...
+                    "Tag", "bdExportVar", ...
+                    "TooltipString", num2str([vlen tlen],[name " is %dx%d"]), ...
+                    "HorizontalAlignment","left", ...
+                    "FontUnits","pixels", ...
+                    "FontSize",12, ...
+                    "Parent", scrollpanel, ...
+                    "Position",[20 panelh-yoffset panelw boxh]);
 
                 % next row
                 yoffset = yoffset + rowh;
@@ -786,41 +779,41 @@ classdef bdGUI < handle
             yoffset = yoffset + 0.25*rowh;
 
             % TIME DOMAIN title
-            uicontrol('Style','text', ...
-                'String','Time Domain', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'FontWeight','bold', ...
-                'Parent', scrollpanel, ...
-                'Position',[10 panelh-yoffset panelw boxh]);
+            uicontrol("Style","text", ...
+                "String","Time Domain", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "FontWeight","bold", ...
+                "Parent", scrollpanel, ...
+                "Position",[10 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + rowh;                                    
 
             % time check box
-            uicontrol('Style','checkbox', ...
-                'String','t', ...
-                'Tag', 'bdExportTime', ...
-                'TooltipString', num2str(numel(this.sol.x),'t is 1x%d'), ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'Parent', scrollpanel, ...
-                'Position',[20 panelh-yoffset panelw boxh]);
+            uicontrol("Style","checkbox", ...
+                "String","t", ...
+                "Tag", "bdExportTime", ...
+                "TooltipString", num2str(numel(this.sol.x),"t is 1x%d"), ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "Parent", scrollpanel, ...
+                "Position",[20 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + 1.25*rowh;
 
             % PANELS title
-            uicontrol('Style','text', ...
-                'String','Panels', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'FontWeight','bold', ...
-                'Parent', scrollpanel, ...
-                'Position',[10 panelh-yoffset panelw boxh]);
+            uicontrol("Style","text", ...
+                "String","Panels", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "FontWeight","bold", ...
+                "Parent", scrollpanel, ...
+                "Position",[10 panelh-yoffset panelw boxh]);
 
             % next row
             yoffset = yoffset + rowh;
@@ -834,16 +827,16 @@ classdef bdGUI < handle
                 paneltitle = panelnames(cindx).paneltitle;
 
                 % Panel Name
-                uicontrol('Style','checkbox', ...
-                'String',panelclass, ...
-                'UserData',panelnames(cindx), ...
-                'TooltipString', paneltitle, ...
-                'Tag', 'bdExportPanel', ...
-                'HorizontalAlignment','left', ...
-                'FontUnits','pixels', ...
-                'FontSize',12, ...
-                'Parent', scrollpanel, ...
-                'Position',[20 panelh-yoffset panelw boxh]);
+                uicontrol("Style","checkbox", ...
+                "String",panelclass, ...
+                "UserData",panelnames(cindx), ...
+                "TooltipString", paneltitle, ...
+                "Tag", "bdExportPanel", ...
+                "HorizontalAlignment","left", ...
+                "FontUnits","pixels", ...
+                "FontSize",12, ...
+                "Parent", scrollpanel, ...
+                "Position",[20 panelh-yoffset panelw boxh]);
 
                 % next row
                 yoffset = yoffset + rowh;
@@ -863,50 +856,50 @@ classdef bdGUI < handle
             % The matlab save function wont save an empty struct
             % so we ensure that our struct always has something in it.
             data.bdtoolbox = this.version;      % toolkit version string
-            data.date = date();                 % today's date
+            data.date = date();                 % today"s date
                 
             % find the sys checkbox widget in the scroll panel
-            objs = findobj(panel,'Tag','bdExportSys');
+            objs = findobj(panel,"Tag","bdExportSys");
             if objs.Value>0
                 % include the sys struct in the outgoing data
                 data.sys = this.control.sys;
                 % remove any OutputFcn options from the sys struct 
-                if isfield(data.sys,'odeoption') && isfield(data.sys.odeoption,'OutputFcn')
-                    data.sys.odeoption = rmfield(data.sys.odeoption,'OutputFcn');
+                if isfield(data.sys,"odeoption") && isfield(data.sys.odeoption,"OutputFcn")
+                    data.sys.odeoption = rmfield(data.sys.odeoption,"OutputFcn");
                 end
-                if isfield(data.sys,'ddeoption') && isfield(data.sys.ddeoption,'OutputFcn')
-                    data.sys.ddeoption = rmfield(data.sys.ddeoption,'OutputFcn');
+                if isfield(data.sys,"ddeoption") && isfield(data.sys.ddeoption,"OutputFcn")
+                    data.sys.ddeoption = rmfield(data.sys.ddeoption,"OutputFcn");
                 end
-                if isfield(data.sys,'sdeoption') && isfield(data.sys.sdeoption,'OutputFcn')
-                    data.sys.sdeoption = rmfield(data.sys.sdeoption,'OutputFcn');
+                if isfield(data.sys,"sdeoption") && isfield(data.sys.sdeoption,"OutputFcn")
+                    data.sys.sdeoption = rmfield(data.sys.sdeoption,"OutputFcn");
                 end
                 % remove empty sdeoption.randn field 
-                if isfield(data.sys,'sdeoption') && isfield(data.sys.sdeoption,'randn') && isempty(data.sys.sdeoption.randn)
-                    data.sys.sdeoption = rmfield(data.sys.sdeoption,'randn');
+                if isfield(data.sys,"sdeoption") && isfield(data.sys.sdeoption,"randn") && isempty(data.sys.sdeoption.randn)
+                    data.sys.sdeoption = rmfield(data.sys.sdeoption,"randn");
                 end
             end
 
             % find the sol checkbox widget in the scroll panel
-            objs = findobj(panel,'Tag','bdExportSol');
+            objs = findobj(panel,"Tag","bdExportSol");
             if objs.Value>0
                 % include the sol struct in the outgoing data
                 data.sol = this.control.sol;
                 % remove the OutputFcn option from the sol.extdata.options struct 
-                if isfield(data.sol,'extdata') && isfield(data.sol.extdata,'options') && isfield(data.sol.extdata.options,'OutputFcn')
-                    data.sol.extdata.options = rmfield(data.sol.extdata.options,'OutputFcn');
+                if isfield(data.sol,"extdata") && isfield(data.sol.extdata,"options") && isfield(data.sol.extdata.options,"OutputFcn")
+                    data.sol.extdata.options = rmfield(data.sol.extdata.options,"OutputFcn");
                 end
             end
 
             % find all parameter checkbox widgets in the scroll panel
-            objs = findobj(panel,'Tag','bdExportPar');
+            objs = findobj(panel,"Tag","bdExportPar");
             if ~isempty(objs)
                 objs = objs(end:-1:1);                  % reverse the order of the found widgets (because find returns the most recently created widget first)
-                for obj = objs'                         % for each checkbox widget ...
+                for obj = objs"                         % for each checkbox widget ...
                     if obj.Value>0                      % if checkbox is enabled then ...
                         name = obj.UserData.name;       % get the parameter name
                         indx = obj.UserData.indx;       % get the parameter indx
                         % ensure data.par exists
-                        if ~isfield(data,'par')
+                        if ~isfield(data,"par")
                             data.par = [];
                         end
                         % include the parameter values in the outgoing data
@@ -916,15 +909,15 @@ classdef bdGUI < handle
             end
             
             % find all time lag checkbox widgets in the scroll panel
-            objs = findobj(panel,'Tag','bdExportLag');
+            objs = findobj(panel,"Tag","bdExportLag");
             if ~isempty(objs)
                 objs = objs(end:-1:1);                  % reverse the order of the found widgets (because find returns the most recently created widget first)          
-                for obj = objs'                         % for each checkbox widget ...
+                for obj = objs"                         % for each checkbox widget ...
                     if obj.Value>0                      % if checkbox is enabled then ...
                         name = obj.UserData.name;       % get the parameter name
                         indx = obj.UserData.indx;       % get the parameter indx
                         % ensure data.lag exists
-                        if ~isfield(data,'lag')
+                        if ~isfield(data,"lag")
                             data.lag = [];
                         end
                         % include the lag parameter values in the outgoing data
@@ -934,15 +927,15 @@ classdef bdGUI < handle
             end
             
             % find all solution variable checkbox widgets in the scroll panel
-            objs = findobj(panel,'Tag','bdExportVar');
+            objs = findobj(panel,"Tag","bdExportVar");
             if ~isempty(objs)
                 objs = objs(end:-1:1);                  % reverse the order of the found widgets (because find returns the most recently created widget first)
-                for obj = objs'                         % for each checkbox widget ...
+                for obj = objs"                         % for each checkbox widget ...
                     if obj.Value>0                      % if checkbox is enabled then ...
                         name = obj.UserData.name;       % get the variable name
                         solindx = obj.UserData.solindx; % get the solution indx
                         % ensure data.var exists
-                        if ~isfield(data,'var')
+                        if ~isfield(data,"var")
                             data.var = [];
                         end
                         % include the variable values in the outgoing data
@@ -952,20 +945,20 @@ classdef bdGUI < handle
             end
             
             % find the time checkbox widget in the scroll panel
-            objs = findobj(panel,'Tag','bdExportTime');
+            objs = findobj(panel,"Tag","bdExportTime");
             if objs.Value>0
                 % include the time steps in the outgoing data
                 data.t = this.control.sol.x;
             end
 
             % find all panel-related checkbox widgets in the scroll panel
-            objs = findobj(panel,'Tag','bdExportPanel');
+            objs = findobj(panel,"Tag","bdExportPanel");
             if ~isempty(objs)
                 objs = objs(end:-1:1);                          % reverse the order of the found widgets (because find returns the most recently created widget first)
-                for obj = objs'                                 % for each checkbox widget ...
+                for obj = objs"                                 % for each checkbox widget ...
                     if obj.Value>0                              % if checkbox is enabled then ...
                         % ensure data.panels exists
-                        if ~isfield(data,'panels')
+                        if ~isfield(data,"panels")
                             data.panels = [];
                         end
                         % get the name of the panel class from the widget UserData
@@ -980,9 +973,9 @@ classdef bdGUI < handle
             delete(dlg);
 
             % Save data to mat file
-            [fname,pname] = uiputfile('*.mat','Save system file');
+            [fname,pname] = uiputfile("*.mat","Save system file");
             if fname~=0
-                save(fullfile(pname,fname),'-struct','data');
+                save(fullfile(pname,fname),"-struct","data");
             end
             
         end
@@ -1005,31 +998,31 @@ end
 % Throws an exception if any problem is detected.
 function solcheck(sol)
     if ~isstruct(sol)
-        throw(MException('bdGUI:badsol','The sol variable must be a struct'));
+        throw(MException("bdGUI:badsol","The sol variable must be a struct"));
     end
-    if ~isfield(sol,'solver')
-        throw(MException('bdGUI:badsol','The sol.solver field is missing'));
+    if ~isfield(sol,"solver")
+        throw(MException("bdGUI:badsol","The sol.solver field is missing"));
     end
-    if ~isfield(sol,'x')
-        throw(MException('bdGUI:badsol','The sol.x field is missing'));
+    if ~isfield(sol,"x")
+        throw(MException("bdGUI:badsol","The sol.x field is missing"));
     end
-    if ~isfield(sol,'y')
-        throw(MException('bdGUI:badsol','The sol.y field is missing'));
+    if ~isfield(sol,"y")
+        throw(MException("bdGUI:badsol","The sol.y field is missing"));
     end
-    if ~isfield(sol,'stats')
-        throw(MException('bdGUI:badsol','The sol.stats field is missing'));
+    if ~isfield(sol,"stats")
+        throw(MException("bdGUI:badsol","The sol.stats field is missing"));
     end
     if ~isstruct(sol.stats)
-        throw(MException('bdGUI:badsol','The sol.stats field must be a struct'));
+        throw(MException("bdGUI:badsol","The sol.stats field must be a struct"));
     end
-    if ~isfield(sol.stats,'nsteps')
-        throw(MException('bdGUI:badsol','The sol.stats.nsteps field is missing'));
+    if ~isfield(sol.stats,"nsteps")
+        throw(MException("bdGUI:badsol","The sol.stats.nsteps field is missing"));
     end
-    if ~isfield(sol.stats,'nfailed')
-        throw(MException('bdGUI:badsol','The sol.stats.nfailed field is missing'));
+    if ~isfield(sol.stats,"nfailed")
+        throw(MException("bdGUI:badsol","The sol.stats.nfailed field is missing"));
     end
-    if ~isfield(sol.stats,'nfevals')
-        throw(MException('bdGUI:badsol','The sol.stats.nfevals field is missing'));
+    if ~isfield(sol.stats,"nfevals")
+        throw(MException("bdGUI:badsol","The sol.stats.nfevals field is missing"));
     end    
 end
 
@@ -1039,7 +1032,7 @@ function solsyscheck(sol,sys)
         return
     end
     if numel(bdGetValues(sys.vardef)) ~= size(sol.y,1)
-        throw(MException('bdGUI:badsol','The sol and sys structs are incompatible'));
+        throw(MException("bdGUI:badsol","The sol and sys structs are incompatible"));
     end
 end
 
@@ -1050,29 +1043,29 @@ function [sys,sol] = loadsys()
     sol = [];
 
     % prompt the user to select a mat file
-    [fname, pname] = uigetfile({'*.mat','MATLAB data file'},'Load system file');
+    [fname, pname] = uigetfile({"*.mat","MATLAB data file"},"Load system file");
     if fname==0
         return      % user cancelled the operation
     end
 
     % load the mat file that the user selected
-    warning('off','MATLAB:load:variableNotFound');
-    fdata = load(fullfile(pname,fname),'sys','sol');
-    warning('on','MATLAB:load:variableNotFound');
+    warning("off","MATLAB:load:variableNotFound");
+    fdata = load(fullfile(pname,fname),"sys","sol");
+    warning("on","MATLAB:load:variableNotFound");
     
     % extract the sys structure 
-    if isfield(fdata,'sys')
+    if isfield(fdata,"sys")
         sys = fdata.sys;
     else
-        msg = {'The load operation has failed because the selected mat file does not contain a ''sys'' structure.'
-               ''
-               'Explanation: Every model is defined by a special data structure that is named ''sys'' by convention. The System-Load menu has failed to find a data structure of that name in the selected mat file.'
-               ''
-               'To succeed, select a mat file that you know contains a ''sys'' structure. Example models are provided in the ''bdtoolkit'' installation directory. See Chapter 1 of the Handbook for the Brain Dynamics Toolbox for a list.'
-               ''
+        msg = {"The load operation has failed because the selected mat file does not contain a ""sys"" structure."
+               ""
+               "Explanation: Every model is defined by a special data structure that is named ""sys"" by convention. The System-Load menu has failed to find a data structure of that name in the selected mat file."
+               ""
+               "To succeed, select a mat file that you know contains a ""sys"" structure. Example models are provided in the ""bdtoolkit"" installation directory. See Chapter 1 of the Handbook for the Brain Dynamics Toolbox for a list."
+               ""
                };
-        uiwait( warndlg(msg,'Load failed') );
-        throw(MException('bdGUI:badsys','Missing sys structure'));
+        uiwait( warndlg(msg,"Load failed") );
+        throw(MException("bdGUI:badsys","Missing sys structure"));
     end
 
     % check the sys struct and display a dialog box if errors are found
@@ -1081,43 +1074,43 @@ function [sys,sol] = loadsys()
         sys = bd.syscheck(sys);                        
     catch ME
         switch ME.identifier
-            case {'bdtoolkit:syscheck:odefun'
-                  'bdtoolkit:syscheck:ddefun'
-                  'bdtoolkit:syscheck:sdeF'
-                  'bdtoolkit:syscheck:sdeG'}
+            case {"bdtoolkit:syscheck:odefun"
+                  "bdtoolkit:syscheck:ddefun"
+                  "bdtoolkit:syscheck:sdeF"
+                  "bdtoolkit:syscheck:sdeG"}
                 msg = {ME.message
-                       ''
-                       'Explanation: The model could not be loaded because its ''sys'' structure contains a handle to a function that is not in the matlab search path.'
-                       ''
-                       'To succeed, ensure that all functions belonging to the model are accessible to matlab via the search path. See ''Getting Started'' in the Handbook for the Brain Dynamics Toolbox.'
-                       ''
+                       ""
+                       "Explanation: The model could not be loaded because its ""sys"" structure contains a handle to a function that is not in the matlab search path."
+                       ""
+                       "To succeed, ensure that all functions belonging to the model are accessible to matlab via the search path. See ""Getting Started"" in the Handbook for the Brain Dynamics Toolbox."
+                       ""
                        };
-                uiwait( warndlg(msg,'Missing Function') );
+                uiwait( warndlg(msg,"Missing Function") );
             
             otherwise
                 msg = {ME.message
-                       ''
-                       'Explanation: The model could not be loaded because its ''sys'' structure is invalid. Use the ''bdSysCheck'' command-line tool to diagnose the exact problem. Refer to the Handbook for the Brain Dynamics Toolbox for a comprehensive description of the format of the ''sys'' structure.'
-                       ''
+                       ""
+                       "Explanation: The model could not be loaded because its ""sys"" structure is invalid. Use the ""bdSysCheck"" command-line tool to diagnose the exact problem. Refer to the Handbook for the Brain Dynamics Toolbox for a comprehensive description of the format of the ""sys"" structure."
+                       ""
                        };
-                uiwait( warndlg(msg,'Invalid sys structure') );
+                uiwait( warndlg(msg,"Invalid sys structure") );
         end
-        throw(MException('bdGUI:badsys','Invalid sys structure'));
+        throw(MException("bdGUI:badsys","Invalid sys structure"));
     end
         
     % extract the sol structure (if it exists) 
-    if isfield(fdata,'sol')
+    if isfield(fdata,"sol")
         sol = fdata.sol;
         try
             % check that the sol struct matches the sys struct.
             solsyscheck(sol,sys);
         catch ME
             msg = {ME.message
-                   ''
-                   'Explanation: The solution (sol) found in the mat file is not compatible with this model (sys). The solution data is ignored.'
-                   ''
+                   ""
+                   "Explanation: The solution (sol) found in the mat file is not compatible with this model (sys). The solution data is ignored."
+                   ""
                    };
-            uiwait( warndlg(msg,'Solution not loaded') );
+            uiwait( warndlg(msg,"Solution not loaded") );
             sol = [];
         end
     end
