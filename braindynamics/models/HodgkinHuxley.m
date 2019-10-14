@@ -24,9 +24,6 @@
 %    sys = HodgkinHuxley;
 %    gui = bdGUI(sys);
 %
-% Authors
-%   Stewart Heitmann (2018b)
-%
 % References:
 % Hodgkin and Huxley (1952) A quantitative description of membrane current
 %   and its application to conduction and excitation in a nerve. J Physiol
