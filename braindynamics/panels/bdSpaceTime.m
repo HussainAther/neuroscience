@@ -2,40 +2,8 @@ classdef bdSpaceTime < bdPanel
     %bdSpaceTime Brain Dynamics GUI panel for space-time plots.
     %  The Space-Time panel plots the time trace of vector-valued dynamic 
     %  variables side-by-side as if they were arranged spatially.
-    %
-    %AUTHORS
-    %  Stewart Heitmann (2016a,2017a-c,2018a)
-
-    % Copyright (C) 2016-2018 QIMR Berghofer Medical Research Institute
-    % All rights reserved.
-    %
-    % Redistribution and use in source and binary forms, with or without
-    % modification, are permitted provided that the following conditions
-    % are met:
-    %
-    % 1. Redistributions of source code must retain the above copyright
-    %    notice, this list of conditions and the following disclaimer.
-    % 
-    % 2. Redistributions in binary form must reproduce the above copyright
-    %    notice, this list of conditions and the following disclaimer in
-    %    the documentation and/or other materials provided with the
-    %    distribution.
-    %
-    % THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-    % "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-    % LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-    % FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-    % COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-    % INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-    % BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-    % LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-    % CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-    % LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-    % ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    % POSSIBILITY OF SUCH DAMAGE.
-
     properties (Constant)
-        title = 'Space-Time';
+        title = "Space-Time";
     end    
 
     properties
@@ -81,7 +49,7 @@ classdef bdSpaceTime < bdPanel
             this.InitSubpanel(control);
             
             % listen to the control panel for redraw events
-            this.listener = addlistener(control,'redraw',@(~,~) this.redraw(control));    
+            this.listener = addlistener(control,"redraw",@(~,~) this.redraw(control));    
         end
         
         function delete(this)
@@ -97,17 +65,17 @@ classdef bdSpaceTime < bdPanel
         function InitCalibrateMenu(this,control)
             % construct the menu item
             uimenu(this.menu, ...
-               'Label','Calibrate Axes', ...
-                'Callback', @CalibrateMenuCallback );
+               "Label","Calibrate Axes", ...
+                "Callback", @CalibrateMenuCallback );
             
             % Menu callback function
             function CalibrateMenuCallback(~,~)
                 % if the TRANSIENT menu is checked then ...
                 switch this.tranmenu.Checked
-                    case 'on'
+                    case "on"
                         % adjust the limits using all time steps
                         tindx = true(size(control.tindx));
-                    case 'off'
+                    case "off"
                         % adjust the limits using the non-transient data only
                         tindx = control.tindx;
                 end
@@ -119,10 +87,10 @@ classdef bdSpaceTime < bdPanel
                 control.sys.vardef(varindx).lim = bdPanel.RoundLim(lo,hi);
 
                 % refresh the vardef control widgets
-                notify(control,'vardef');
+                notify(control,"vardef");
                 
                 % redraw all panels (because the new limits apply to all panels)
-                notify(control,'redraw');
+                notify(control,"redraw");
             end
 
         end
@@ -131,20 +99,20 @@ classdef bdSpaceTime < bdPanel
         function InitViewMenu(this,control)
             % construct the menu item
             uimenu(this.menu, ...
-                'Label','3D View', ...
-                'Checked','off', ...
-                'Callback', @ViewMenuCallback);
+                "Label","3D View", ...
+                "Checked","off", ...
+                "Callback", @ViewMenuCallback);
 
             % Menu callback function
             function ViewMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case 'on'
-                        % 3D menu state goes from 'on' to 'off'
-                        menuitem.Checked='off';
+                    case "on"
+                        % 3D menu state goes from "on" to "off"
+                        menuitem.Checked="off";
                         this.ax.View = [0 90];
-                    case 'off'
-                        % 3D menu state goes from 'off' to 'on'
-                        menuitem.Checked='on';
+                    case "off"
+                        % 3D menu state goes from "off" to "on"
+                        menuitem.Checked="on";
                         this.ax.View = [45 45];
                 end
             end
@@ -154,24 +122,24 @@ classdef bdSpaceTime < bdPanel
         function InitTransientsMenu(this,control)
             % get the default transient menu setting from sys.panels
             if control.sys.panels.bdSpaceTime.transients
-                checkflag = 'on';
+                checkflag = "on";
             else
-                checkflag = 'off';
+                checkflag = "off";
             end
 
             % construct the menu item
             this.tranmenu = uimenu(this.menu, ...
-                'Label','Transients', ...
-                'Checked',checkflag, ...
-                'Callback', @TranMenuCallback);
+                "Label","Transients", ...
+                "Checked",checkflag, ...
+                "Callback", @TranMenuCallback);
 
             % Menu callback function
             function TranMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case 'on'
-                        menuitem.Checked='off';
-                    case 'off'
-                        menuitem.Checked='on';
+                    case "on"
+                        menuitem.Checked="off";
+                    case "off"
+                        menuitem.Checked="on";
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -182,26 +150,26 @@ classdef bdSpaceTime < bdPanel
         function InitMarkerMenu(this,control)
             % get the marker menu setting from sys.panels
             if control.sys.panels.bdSpaceTime.markers
-                checkflag = 'on';
+                checkflag = "on";
             else
-                checkflag = 'off';
+                checkflag = "off";
             end
 
             % construct the menu item
             this.markmenu = uimenu(this.menu, ...
-                'Label','Markers', ...
-                'Checked',checkflag, ...
-                'Callback', @MarkMenuCallback);
+                "Label","Markers", ...
+                "Checked",checkflag, ...
+                "Callback", @MarkMenuCallback);
 
             % Menu callback function
             function MarkMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case 'on'
-                        menuitem.Checked = 'off';
-                        this.mk.Visible = 'off';
-                    case 'off'
-                        menuitem.Checked = 'on';
-                        this.mk.Visible = 'on';
+                    case "on"
+                        menuitem.Checked = "off";
+                        this.mk.Visible = "off";
+                    case "off"
+                        menuitem.Checked = "on";
+                        this.mk.Visible = "on";
                 end
             end
         end
@@ -210,27 +178,27 @@ classdef bdSpaceTime < bdPanel
         function InitBlendMenu(this,control)
             % get the default blend menu setting from sys.panels
             if control.sys.panels.bdSpaceTime.blend
-                blendcheck = 'on';
+                blendcheck = "on";
             else
-                blendcheck = 'off';
+                blendcheck = "off";
             end
 
             % construct the menu item
             this.blendmenu = uimenu(this.menu, ...
-                'Label','Blend', ...
-                'Checked',blendcheck, ...
-                'Callback', @BlendMenuCallback);
+                "Label","Blend", ...
+                "Checked",blendcheck, ...
+                "Callback", @BlendMenuCallback);
 
             % Menu callback function
             function BlendMenuCallback(menuitem,~)
                 % toggle the FaceColor and menu state
                 switch menuitem.Checked
-                    case 'on'
-                        menuitem.Checked='off';
-                        this.pc.FaceColor = 'flat';
-                    case 'off'
-                        menuitem.Checked='on';
-                        this.pc.FaceColor = 'interp';
+                    case "on"
+                        menuitem.Checked="off";
+                        this.pc.FaceColor = "flat";
+                    case "off"
+                        menuitem.Checked="on";
+                        this.pc.FaceColor = "interp";
                 end
             end
         end
@@ -239,27 +207,27 @@ classdef bdSpaceTime < bdPanel
         function InitClipMenu(this,control)
             % get the default clipping menu setting from sys.panels
             if control.sys.panels.bdSpaceTime.clipping
-                clipcheck = 'on';
+                clipcheck = "on";
             else
-                clipcheck = 'off';
+                clipcheck = "off";
             end
 
             % construct the menu item
             this.blendmenu = uimenu(this.menu, ...
-                'Label','Clipping', ...
-                'Checked',clipcheck, ...
-                'Callback', @ClipMenuCallback);
+                "Label","Clipping", ...
+                "Checked",clipcheck, ...
+                "Callback", @ClipMenuCallback);
 
             % Menu callback function
             function ClipMenuCallback(menuitem,~)
                 % toggle the surface clipping and the menu state
                 switch menuitem.Checked
-                    case 'on'
-                        menuitem.Checked='off';
-                        this.pc.Clipping = 'off';
-                    case 'off'
-                        menuitem.Checked='on';
-                        this.pc.Clipping = 'on';
+                    case "on"
+                        menuitem.Checked="off";
+                        this.pc.Clipping = "off";
+                    case "off"
+                        menuitem.Checked="on";
+                        this.pc.Clipping = "on";
                 end
             end
         end
@@ -268,15 +236,15 @@ classdef bdSpaceTime < bdPanel
         function InitExportMenu(this,~)
             % construct the menu item
             uimenu(this.menu, ...
-               'Label','Export Figure', ...
-               'Callback',@callback);
+               "Label","Export Figure", ...
+               "Callback",@callback);
            
             function callback(~,~)
                 % Construct a new figure
                 fig = figure();    
                 
                 % Change mouse cursor to hourglass
-                set(fig,'Pointer','watch');
+                set(fig,"Pointer","watch");
                 drawnow;
                 
                 % Copy the plot data to the new figure
@@ -284,14 +252,14 @@ classdef bdSpaceTime < bdPanel
                 axnew.OuterPosition = [0 0 1 1];
                 
                 % Add a colorbar to the new axis
-                colorbar('peer',axnew);
+                colorbar("peer",axnew);
 
                 % Allow the user to hit everything in the new axes
-                objs = findobj(axnew,'-property', 'HitTest');
-                set(objs,'HitTest','on');
+                objs = findobj(axnew,"-property", "HitTest");
+                set(objs,"HitTest","on");
                 
                 % Change mouse cursor to arrow
-                set(fig,'Pointer','arrow');
+                set(fig,"Pointer","arrow");
                 drawnow;
             end
         end
@@ -300,37 +268,37 @@ classdef bdSpaceTime < bdPanel
         function InitCloseMenu(this,~)
             % construct the menu item
             uimenu(this.menu, ...
-                   'Label','Close', ...
-                   'Callback',@(~,~) this.close());
+                   "Label","Close", ...
+                   "Callback",@(~,~) this.close());
         end
         
         % Initialise the upper panel
         function InitSubpanel(this,control)
             % construct the subpanel
             [this.ax,cmenu] = bdPanel.Subpanel(this.tab,[0 0 1 1],[0 0 1 1]);
-            xlabel(this.ax,'time');
-            ylabel(this.ax,'space (node)');
+            xlabel(this.ax,"time");
+            ylabel(this.ax,"space (node)");
             
             % construct the pcolor surface object (using zero data)
             this.pc = pcolor(this.ax,zeros(2,2));
-            this.pc.LineStyle = 'none';
-            this.pc.Clipping = 'off';
+            this.pc.LineStyle = "none";
+            this.pc.Clipping = "off";
 
             % add the colorbar
-            colorbar('peer',this.ax);
+            colorbar("peer",this.ax);
             
             % construct the vertical line marker object
-            this.mk = plot3([0 0 0 0 0],[0 1 1 0 0], [0 0 1 1 0], 'Color','k', 'LineStyle','--', 'LineWidth',1.5);
+            this.mk = plot3([0 0 0 0 0],[0 1 1 0 0], [0 0 1 1 0], "Color","k", "LineStyle","--", "LineWidth",1.5);
 
             % construct a selector menu comprising items from sys.vardef
             this.submenu = bdPanel.SelectorMenu(cmenu, ...
                 control.sys.vardef, ...
                 @callback, ...
-                'off', 'mb1',1);
+                "off", "mb1",1);
             
             % Callback function for the subpanel selector menu
             function callback(menuitem,~)
-                % check 'on' the selected menu item and check 'off' all others
+                % check "on" the selected menu item and check "off" all others
                 bdPanel.SelectorCheckItem(menuitem);
                 % update our handle to the selected menu item
                 this.submenu = menuitem;
@@ -341,7 +309,7 @@ classdef bdSpaceTime < bdPanel
    
         % Redraw the data plots
         function redraw(this,control)
-            %disp('bdSpaceTime.redraw()')
+            %disp("bdSpaceTime.redraw()")
             
             % get the details of the currently selected dynamic variable
             varname  = this.submenu.UserData.xxxname;           % generic name of variable
@@ -359,13 +327,13 @@ classdef bdSpaceTime < bdPanel
 
             % if the TRANSIENT menu is enabled then  ...
             switch this.tranmenu.Checked
-                case 'on'
+                case "on"
                     % use all time steps
                     tindx = true(size(control.tindx));  % logical indices of all time steps in this.t
                     tval = control.sys.tval;            % start of the non-transient time window
                     tend = control.sys.tspan(2);        % end of simulation time window
                     tlim = control.sys.tspan;           % limit of plot time
-                case 'off'
+                case "off"
                     % use only the non-transient time steps
                     tindx = control.tindx;              % logical indices of the non-transient time steps
                     tval = control.sys.tval;            % start of the non-transient time window
@@ -414,32 +382,32 @@ classdef bdSpaceTime < bdPanel
             syspanel.clipping = false;
             
             % Nothing more to do if sys.panels.bdSpaceTime is undefined
-            if ~isfield(sys,'panels') || ~isfield(sys.panels,'bdSpaceTime')
+            if ~isfield(sys,"panels") || ~isfield(sys.panels,"bdSpaceTime")
                 return;
             end
             
             % sys.panels.bdSpaceTime.title
-            if isfield(sys.panels.bdSpaceTime,'title')
+            if isfield(sys.panels.bdSpaceTime,"title")
                 syspanel.title = sys.panels.bdSpaceTime.title;
             end
             
             % sys.panels.bdSpaceTime.transients
-            if isfield(sys.panels.bdSpaceTime,'transients')
+            if isfield(sys.panels.bdSpaceTime,"transients")
                 syspanel.transients = sys.panels.bdSpaceTime.transients;
             end
             
             % sys.panels.bdSpaceTime.markers
-            if isfield(sys.panels.bdSpaceTime,'markers')
+            if isfield(sys.panels.bdSpaceTime,"markers")
                 syspanel.markers = sys.panels.bdSpaceTime.markers;
             end
             
             % sys.panels.bdSpaceTime.blend
-            if isfield(sys.panels.bdSpaceTime,'blend')
+            if isfield(sys.panels.bdSpaceTime,"blend")
                 syspanel.grid = sys.panels.bdSpaceTime.blend;
             end
             
             % sys.panels.bdSpaceTime.clipping
-            if isfield(sys.panels.bdSpaceTime,'clipping')
+            if isfield(sys.panels.bdSpaceTime,"clipping")
                 syspanel.grid = sys.panels.bdSpaceTime.clipping;
             end           
         end
