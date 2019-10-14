@@ -41,9 +41,6 @@
 %  Y = bdEval(sol,T);               % interpolate
 %  plot(T,Y);                       % plot the results
 %
-%AUTHORS
-%  Stewart Heitmann (2016a,2017a,2018a)
-
 function sol = odeEul(ode,tspan,y0,options,varargin)
     % The InitialStep option defines our time step
     dt = odeget(options,"InitialStep");
