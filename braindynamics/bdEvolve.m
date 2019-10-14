@@ -16,8 +16,8 @@
 %   If tspan is omitted then it defaults to sys.tspan.
 %   If @solverfun is omitted then it defaults to the first solver in sys.
 %   If @solverfun is supplied but it is not known to the sys struct then
-%   you must also supply the solvertype string ('odesolver', 'ddesolver'
-%   or 'sdesolver').
+%   you must also supply the solvertype string ("odesolver", "ddesolver"
+%   or "sdesolver").
 %
 %RETURNS
 %   sys is updated with new initial conditions that correspond to the final 
@@ -28,12 +28,12 @@
 function [sys,sol] = bdEvolve(sys,rep,tspan,solverfun,solvertype)
         % check the number of output variables
         if nargout>2
-            error('Too many output variables');
+            error("Too many output variables");
         end
         
         % check the number of input variables
         if nargin<1
-            error('Not enough input parameters');
+            error("Not enough input parameters");
         end
    
         % check the validity of the sys struct and fill missing fields with default values
@@ -55,17 +55,17 @@ function [sys,sol] = bdEvolve(sys,rep,tspan,solverfun,solvertype)
                 tspan = sys.tspan;
                 
                 % Get solverfun and solvertype from sys 
-                if isfield(sys,'odesolver')
+                if isfield(sys,"odesolver")
                     solverfun = sys.odesolver{1};
-                    solvertype = 'odesolver';
+                    solvertype = "odesolver";
                 end
-                if isfield(sys,'ddesolver')
+                if isfield(sys,"ddesolver")
                     solverfun = sys.ddesolver{1};
-                    solvertype = 'ddesolver';
+                    solvertype = "ddesolver";
                 end
-                if isfield(sys,'sdesolver')
+                if isfield(sys,"sdesolver")
                     solverfun = sys.sdesolver{1};
-                    solvertype = 'sdesolver';
+                    solvertype = "sdesolver";
                 end
 
             case 2  
@@ -75,48 +75,48 @@ function [sys,sol] = bdEvolve(sys,rep,tspan,solverfun,solvertype)
                 tspan = sys.tspan;
                 
                 % Get solverfun and solvertype from sys 
-                if isfield(sys,'odesolver')
+                if isfield(sys,"odesolver")
                     solverfun = sys.odesolver{1};
-                    solvertype = 'odesolver';
+                    solvertype = "odesolver";
                 end
-                if isfield(sys,'ddesolver')
+                if isfield(sys,"ddesolver")
                     solverfun = sys.ddesolver{1};
-                    solvertype = 'ddesolver';
+                    solvertype = "ddesolver";
                 end
-                if isfield(sys,'sdesolver')
+                if isfield(sys,"sdesolver")
                     solverfun = sys.sdesolver{1};
-                    solvertype = 'sdesolver';
+                    solvertype = "sdesolver";
                 end
                 
             case 3
                 % Caller specified bdEvolve(sys,rep,tspan).
                 
                 % Get solverfun and solvertype from sys 
-                if isfield(sys,'odesolver')
+                if isfield(sys,"odesolver")
                     solverfun = sys.odesolver{1};
-                    solvertype = 'odesolver';
+                    solvertype = "odesolver";
                 end
-                if isfield(sys,'ddesolver')
+                if isfield(sys,"ddesolver")
                     solverfun = sys.ddesolver{1};
-                    solvertype = 'ddesolver';
+                    solvertype = "ddesolver";
                 end
-                if isfield(sys,'sdesolver')
+                if isfield(sys,"sdesolver")
                     solverfun = sys.sdesolver{1};
-                    solvertype = 'sdesolver';
+                    solvertype = "sdesolver";
                 end
                 
             case 4
                 % Caller specified bdEvolve(sys,rep,tspan,solverfun).
                 
                 % Get solvertype from sys 
-                if isfield(sys,'odesolver')
-                    solvertype = 'odesolver';
+                if isfield(sys,"odesolver")
+                    solvertype = "odesolver";
                 end
-                if isfield(sys,'ddesolver')
-                    solvertype = 'ddesolver';
+                if isfield(sys,"ddesolver")
+                    solvertype = "ddesolver";
                 end
-                if isfield(sys,'sdesolver')
-                    solvertype = 'sdesolver';
+                if isfield(sys,"sdesolver")
+                    solvertype = "sdesolver";
                 end
         end
         
