@@ -7,9 +7,9 @@
 %   yyydef is the returned cell array.
 %
 %EXAMPLE
-%  pardef = [ struct('name','a', 'value', 1);
-%             struct('name','b', 'value',[2,3,4]);
-%             struct('name','c', 'value',[5 6; 7 8]) ];
+%  pardef = [ struct("name","a", "value", 1);
+%             struct("name","b", "value",[2,3,4]);
+%             struct("name","c", "value",[5 6; 7 8]) ];
 %  bdGetValues(pardef)
 %
 %  ans =
@@ -25,7 +25,7 @@ function yyydef = bdSetValues(xxxdef,vec)
     % Verify that vec is the correct size for xxxdef
     if numel(vec) ~= numel(bdGetValues(xxxdef))
         yyydef = [];
-        throwAsCaller(MException('bdtoolkit:bdSetValues','Number of new values must match the number of values in xxxdef'));
+        throwAsCaller(MException("bdtoolkit:bdSetValues","Number of new values must match the number of values in xxxdef"));
     end
 
     % Piecewise copy of vec entries into xxxdef.value entries
