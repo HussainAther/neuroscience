@@ -5,3 +5,6 @@
 % Example:
 %   sys = FHN();            % Construct the system struct.
 %   gui = bdGUI(sys);       % Open the Brain Dynamics GUI.
+function sys = FHN()    
+    % Handle to our ODE function
+    sys.odefun = @FHNode;
