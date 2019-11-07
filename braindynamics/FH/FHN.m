@@ -56,11 +56,35 @@ function sys = FHN()
 
 end
 
+function Stimulus(ax,t,sol,a,b,tau,Iamp,Idur)
+    % Reconstruct the square pulse stimulus used by FHNode
+    Iapp = zeros(size(sol.x));
+    for idx = 1:numel(sol.x)
+        [~,iapp] = FHNode(sol.x(idx),sol.y(:,idx),a,b,tau,Iamp,Idur);
+        Iapp(idx) = iapp;
+    end
+    
+    %plot the stimulus
+    stairs(sol.x,Iapp);
+    xlim(sol.x([1 end]));
+    ylim([0 10]);
+    xlabel('time');
+    ylabel('Iapp');
+    title('Stimulus');
+end
+
 % FitzHugh-Nagumo Ordinary Differential Equations
 function dY = FHNode(~,Y,a,b,tau,Iapp)
     % extract incoming variables
     V = Y(1);
     W = Y(2);
+
+    % square pulse
+    if (t>=0 && t<Idur)
+        Iapp = Iamp;
+    else
+        Iapp = 0;
+    end
     
     % system of equations
     dV = V - 1/3*V^3 - W + Iapp;
