@@ -8,6 +8,12 @@ function dY = FHNode(~,Y,a,b,tau,Iapp)
     % extract incoming variables
     V = Y(1);
     W = Y(2);
+
+    % parameters
+    a = 1;
+    b = .5;
+    tau = 10;
+    Iapp = 1;
     
     % system of equations
     dV = V - 1/3*V^3 - W + Iapp;
