@@ -12,3 +12,9 @@ bdSysCheck(sys)
 bdGUI(sys)
 bdSysCheck(sys)
 bdGUI
+addpath bdtoolkit-2018b/
+addpath bdtoolkit-2018b/solvers
+ls bdtoolkit-2018b/panels/
+FHN()
+bdSysCheck(FHN)
+bdGUI(FHN)
