@@ -22,3 +22,5 @@ function dY = FHNode(~,Y,a,b,tau,Iapp)
     % return
     dY = [ dV; dW];
 end
+
+% run ode45(@FHNode, tspan, Y0)
