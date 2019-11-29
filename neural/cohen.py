@@ -38,4 +38,7 @@ def cgef(u, N):
     memory conditions.
     """
     summ = 0
-         
+    y, x = u.shape
+    for i in range(x):
+        summ += sigmoidderiv(i)
+    return (-1/2)*sigmoid(u).T*T(sigmoid(u)) + summ
