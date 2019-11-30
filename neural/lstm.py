@@ -23,6 +23,12 @@ def inputlayer(x):
     """ 
     return np.sin(x)
 
+def outputlayer(x):
+    """
+    Almost there...
+    """
+    return np.cos(x)
+
 ct = [0, 0, 0] # candidate layer
 ht = [0, 0, 0] # hidden layer
 
@@ -35,4 +41,8 @@ def lstmcell(prevct, prevht, input):
     ft = forgetlayer(combine)
     candidate = candidatelayer(combine)
     it = inputlayer(combine)
-     
+    ct = prevct *ft + candidate*it
+    ot = outputlayer(combine)
+    ht = ot*np.tanh(ct)
+    return ht, ct
+
