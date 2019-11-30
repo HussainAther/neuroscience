@@ -15,7 +15,13 @@ def candidatelayer(x):
     """
     Lol.
     """
-    return np.tanh(x)    
+    return np.tanh(x)   
+
+def inputlayer(x):
+    """
+    Pass the input gate?
+    """ 
+    return np.sin(x)
 
 ct = [0, 0, 0] # candidate layer
 ht = [0, 0, 0] # hidden layer
@@ -27,4 +33,6 @@ def lstmcell(prevct, prevht, input):
     """
     combine = prevht + input
     ft = forgetlayer(combine)
-    candidate = candidatelayer(combine) 
+    candidate = candidatelayer(combine)
+    it = inputlayer(combine)
+     
