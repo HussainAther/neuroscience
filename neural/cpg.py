@@ -18,5 +18,7 @@ def dVdt(V, t):
 def gamma(V, Vo, t):
     """
     Using gamma we can model how the neuron itself fires using a form
-    of the Poisson equation.
+    of the Poisson equation with an initial resting potential (Vo),
+    time-dependent voltage (V), and inverted electrons-volts (m). 
     """
+    return 1/(1+np.exp(-2)*m(V(t) - Vo))
