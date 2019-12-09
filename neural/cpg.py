@@ -17,4 +17,6 @@ def dVdt(V, t):
 # Output function (firing rate)
 def gamma(V, Vo, t):
     """
+    Using gamma we can model how the neuron itself fires using a form
+    of the Poisson equation.
     """
