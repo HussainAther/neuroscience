@@ -46,7 +46,7 @@ QCK5 = np.matrix([[(alpha1 + kpos2*xA, kpos2*xA, 0, alpha1, 0],
 """
 In the absence of energy, a system moves to thermodynamic equilibrium at the same rate in each direction on average 
 for each individual reaction. This principle of microscopic reverseibility means if there's a cycle in the reaction,
-there can be no tendency to move round the cycle in one particular direction. We acn ste the products of transition
+there can be no tendency to move round the cycle in one particular direction. We can ste the products of transition
 rates equal to one another and get a simplified Q matrix. 
 """
 
