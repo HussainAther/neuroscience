@@ -15,3 +15,8 @@ R_LONGITUDINAL = 0.5 * b2.kohm * b2.mm  # Intracellular medium resistance
 R_TRANSVERSAL = 1.25 * b2.Mohm * b2.mm ** 2  # cell membrane resistance (->leak current)
 E_LEAK = -70. * b2.mV  # reversal potential of the leak current (-> resting potential)
 CAPACITANCE = 0.8 * b2.uF / b2.cm ** 2  # membrane capacitance
+
+# spatial indexing
+voltage_monitor, cable_model = passive_cable.simulate_passive_cable(...)
+probe_location = 0.123 * b2.mm
+v = voltage_monitor[cable_model.morphology[probe_location]].v
