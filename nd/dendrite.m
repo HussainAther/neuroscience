@@ -20,3 +20,8 @@ CAPACITANCE = 0.8 * b2.uF / b2.cm ** 2  # membrane capacitance
 voltage_monitor, cable_model = passive_cable.simulate_passive_cable(...)
 probe_location = 0.123 * b2.mm
 v = voltage_monitor[cable_model.morphology[probe_location]].v
+
+t_spikes = [10, 15, 20]
+l_spikes = [100. * b2.um, 200. * b2.um, 300. * b2.um]
+current = input_factory.get_spikes_current(t_spikes, 100*b2.us, 0.8*b2.namp, append_zero=True)
+voltage_monitor_ABC, cable_model = passive_cable.simulate_passive_cable(..., current_injection_location=l_spikes, input_current=current, ...)
