@@ -18,3 +18,11 @@ plot_tools.plot_voltage_and_current_traces(
     state_monitor, input_current,title="step current",
     firing_threshold=exp_IF.FIRING_THRESHOLD_v_spike)
 print("nr of spikes: {}".format(spike_monitor.count[0]))
+
+MEMBRANE_TIME_SCALE_tau = 12.0 * b2.ms
+MEMBRANE_RESISTANCE_R = 20.0 * b2.Mohm
+V_REST = -65.0 * b2.mV
+V_RESET = -60.0 * b2.mV
+RHEOBASE_THRESHOLD_v_rh = -55.0 * b2.mV
+SHARPNESS_delta_T = 2.0 * b2.mV
+FIRING_THRESHOLD_v_spike = -30. * b2.mV
