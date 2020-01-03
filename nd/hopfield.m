@@ -31,3 +31,8 @@ hopfield_net.set_state_from_pattern(noisy_init_state)
 
 # From this initial state, let the network dynamics evolve.
 states = hopfield_net.run_with_monitoring(nr_steps=4)
+
+# Each network state is a vector. Reshape it to the same shape used to create the patterns.
+states_as_patterns = factory.reshape_patterns(states)
+# Plot the states of the network.
+plot_tools.plot_state_sequence_and_overlap(states_as_patterns, pattern_list, reference_idx=0, suptitle="Network dynamics")
