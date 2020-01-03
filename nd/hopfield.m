@@ -25,3 +25,7 @@ plot_tools.plot_overlap_matrix(overlap_matrix)
 # explicitly but only network weights are updated !
 hopfield_net.store_patterns(pattern_list)
 
+# Create a noisy version of a pattern and use that to initialize the network.
+noisy_init_state = pattern_tools.flip_n(checkerboard, nr_of_flips=4)
+hopfield_net.set_state_from_pattern(noisy_init_state)
+
