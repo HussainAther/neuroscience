@@ -29,3 +29,5 @@ hopfield_net.store_patterns(pattern_list)
 noisy_init_state = pattern_tools.flip_n(checkerboard, nr_of_flips=4)
 hopfield_net.set_state_from_pattern(noisy_init_state)
 
+# From this initial state, let the network dynamics evolve.
+states = hopfield_net.run_with_monitoring(nr_steps=4)
