@@ -20,3 +20,8 @@ plot_tools.plot_pattern_list(pattern_list)
 # How similar are the random patterns and the checkerboard? Check the overlaps.
 overlap_matrix = pattern_tools.compute_overlap_matrix(pattern_list)
 plot_tools.plot_overlap_matrix(overlap_matrix)
+
+# Let the hopfield network "learn" the patterns. Note: they are not stored
+# explicitly but only network weights are updated !
+hopfield_net.store_patterns(pattern_list)
+
