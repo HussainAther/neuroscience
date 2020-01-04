@@ -38,3 +38,7 @@ print("Total soma capacitance: %f uf" % (soma.cm * (soma_area / pow(1e4, 2))))
 # Run simulation.
 print("Membrane voltage soma: %f mV" % soma(.5).v) # mV
 print("Current time: %f ms" % neuron.h.t) # ms
+
+neuron.h.tstop = 100
+print("Simulation stop time: %f ms" % neuron.h.tstop)
+print("Integration time step: %f ms" % neuron.h.dt)
