@@ -53,7 +53,7 @@ voltage.record(soma(.5)._ref_v)
 
 neuron.h.run()
 
-def plot_tv(time_array, voltage_array, show=True, label=None, constants=[]):
+def plottv(time_array, voltage_array, show=True, label=None, constants=[]):
     plt.plot(time_array, voltage_array, label=label)
     for constant in constants:
         plt.plot(time_array, constant*numpy.ones(len(time_array)))
@@ -62,4 +62,10 @@ def plot_tv(time_array, voltage_array, show=True, label=None, constants=[]):
     if show:
         plt.show()
     
-plot_tv(time, voltage)
+plottv(time, voltage)
+
+# Inject current.
+iclamp = neuron.h.IClamp(.5, sec=soma)
+iclamp.amp = 0.1 # nA
+iclamp.delay = 10 # ms
+iclamp.dur = 50 # ms
