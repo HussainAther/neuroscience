@@ -34,3 +34,6 @@ print("Specific capacitance: %f uf/cm2" % soma.cm)
 
 soma_tcap = (soma.cm * (soma_area / pow(1e4, 2)))
 print("Total soma capacitance: %f uf" % (soma.cm * (soma_area / pow(1e4, 2))))
+
+# Run simulation.
+print("Membrane voltage soma: %f mV" % soma(.5).v) # mV
