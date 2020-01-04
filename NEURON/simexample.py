@@ -88,3 +88,7 @@ print("Simulated dV matches equation dV: %s" % (deltaV - deltaV_eq < 1e-6))
 
 # Add leak conductance.
 soma.insert("hh")
+
+# Set conductance to zero for Na and K.
+soma.gkbar_hh = 0.0
+soma.gnabar_hh = 0.0
