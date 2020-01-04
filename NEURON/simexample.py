@@ -92,3 +92,5 @@ soma.insert("hh")
 # Set conductance to zero for Na and K.
 soma.gkbar_hh = 0.0
 soma.gnabar_hh = 0.0
+
+soma.gl_hh = 5e-4 # Leak conductance, S/cm^2
