@@ -75,3 +75,34 @@ for with_dend in [False, True]:
 
 plt.legend()
 plt.show()
+
+dend_ra = 100
+dend_gl = 5e-4
+
+for with_dend in [False, True]:
+    # For every addition of mechanism create figure show newer model
+    # Lines for reversal potentials Na, K and leak
+    neuron.h.tstop = 100
+
+    soma.gkbar_hh = 0.01
+    soma.gnabar_hh = 0.1
+
+    dend.el_hh = -65 # Reversal potential leak current, mV
+    dend.gl_hh = dend_gl # Leak conductance, S/cm^2
+    dend.Ra = dend_ra
+    
+    if with_dend:
+        dend.connect(soma)
+    else:
+        neuron.h.disconnect(sec=dend) # disconnect dend for now
+        
+    neuron.h.run()
+
+    # Convert the NEURON vectors to numpy arrays.
+    time_py = time.to_python()
+    voltage_py = voltage.to_python()
+
+    plottv(time_py, voltage_py, show=False, label="with dend" if with_dend else "without dend")
+
+plt.legend()
+plt.show()
