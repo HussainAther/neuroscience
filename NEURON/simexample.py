@@ -106,3 +106,20 @@ neuron.h.tstop = 100
 neuron.h.run()
 
 plottv(time, voltage)
+
+soma.gkbar_hh = 0.01 # in S/cm^2
+soma.gnabar_hh = 0.1
+
+neuron.h.run()
+
+plottv(time, voltage)
+
+ena = soma.ena # explain e_na
+ek = soma.ek
+el = soma.el_hh
+
+print("Na reversal: %f" % ena)
+print("K reversal: %f" % ek)
+print("Leak reversal: %f" % el)
+
+plottv(time, voltage, constants=[ena, ek, el])
