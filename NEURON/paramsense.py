@@ -50,3 +50,10 @@ dend.connect(soma)
 dend.L = 400 # micron
 dend.diam = 2.0 # micron
 dend.nseg = 9 # number of segments in the dendritic section
+
+dend.insert("hh")
+dend.el_hh = -65 # Reversal potential leak current, mV
+dend.gl_hh = 5e-4 # Leak conductance, S/cm^2
+
+dend.gkbar_hh = 0.0
+dend.gnabar_hh = 0.0
