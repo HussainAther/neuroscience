@@ -57,3 +57,21 @@ dend.gl_hh = 5e-4 # Leak conductance, S/cm^2
 
 dend.gkbar_hh = 0.0
 dend.gnabar_hh = 0.0
+
+for with_dend in [False, True]:
+    neuron.h.tstop = 100
+
+    soma.gkbar_hh = 0.01
+    soma.gnabar_hh = 0.1
+
+    if with_dend:
+        dend.connect(soma)
+    else:
+        neuron.h.disconnect(sec=dend) # disconnect dend for now
+        
+    neuron.h.run()
+
+    plottv(time, voltage, show=False, label="with dend" if with_dend else "without dend")
+
+plt.legend()
+plt.show()
