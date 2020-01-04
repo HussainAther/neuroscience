@@ -123,3 +123,7 @@ print("K reversal: %f" % ek)
 print("Leak reversal: %f" % el)
 
 plottv(time, voltage, constants=[ena, ek, el])
+
+linearcoef = np.polyfit(gkbar_range, maxvoltages, 1)
+
+print("Linear equation maxvoltage = %f*gkbar + %f" % tuple([x for x in linearcoef]))
