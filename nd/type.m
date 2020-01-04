@@ -20,3 +20,8 @@ state_monitor = a_neuron_of_type_X.run(input_current, 200*b2.ms)
 
 # Plot state vs. time.
 neurons.plot_data(state_monitor, title="Neuron of Type X")
+
+# Get an instance of class NeuronY.
+a_neuron_of_type_Y = neurons.NeuronY()  # we do not know if it's type I or II
+state_monitor = a_neuron_of_type_Y.run(input_current, 200*b2.ms)
+neurons.plot_data(state_monitor, title="Neuron of Type Y")
