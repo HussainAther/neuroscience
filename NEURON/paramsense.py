@@ -43,3 +43,10 @@ plt.ylabel("Maximum AP voltage")
 for xs in [0.1, 0.15]:
     plt.axvline(x=xs, color="r")
 plt.show()
+
+# Extend model with dendrite.
+dend = neuron.h.Section(name='dend')
+dend.connect(soma)
+dend.L = 400 # micron
+dend.diam = 2.0 # micron
+dend.nseg = 9 # number of segments in the dendritic section
