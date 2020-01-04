@@ -16,7 +16,7 @@ for gnabar in [0.1, 0.15]:
 
     neuron.h.run()
 
-    plt.plot(time, max(voltage)*np.ones(len(time)), 'r')
+    plt.plot(time, max(voltage)*np.ones(len(time)), "r")
     plottv(time, voltage, show=False)
 
 plt.show()
@@ -37,7 +37,7 @@ for gnabar in gnabar_range:
 
     max_voltages.append(max(voltage))
 
-plt.plot(gnabar_range, max_voltages, 'oC0')
+plt.plot(gnabar_range, max_voltages, "oC0")
 plt.xlabel("gnabar (S/cm2)")
 plt.ylabel("Maximum AP voltage")
 for xs in [0.1, 0.15]:
@@ -45,7 +45,7 @@ for xs in [0.1, 0.15]:
 plt.show()
 
 # Extend model with dendrite.
-dend = neuron.h.Section(name='dend')
+dend = neuron.h.Section(name="dend")
 dend.connect(soma)
 dend.L = 400 # micron
 dend.diam = 2.0 # micron
@@ -139,3 +139,56 @@ plt.show()
 
 # Add synapse.
 expsyn = neuron.h.ExpSyn(.5, sec=dend) # We add a synapse to the middle (.5) of the dendrite.
+
+# Stimulate response.
+netstim = neuron.h.NetStim()
+netstim.interval = 5
+netstim.number = 5
+netstim.start = 20
+netstim.noise = 0
+
+netcon = neuron.h.NetCon(netstim, expsyn)
+netcon.weight[0] = 1.0
+iclamp.amp = 0
+neuron.h.tstop = 80
+neuron.h.run()
+
+plottv(time, voltage)
+
+# Connect two cells.
+soma_pre = neuron.h.Section(name="soma")
+soma_pre.L = 40
+soma_pre.diam = 40
+soma_pre.insert("hh")
+
+iclamp_pre = neuron.h.IClamp(.5, sec=soma_pre)
+iclamp_pre.amp = 1.0 # nA
+iclamp_pre.delay = 10 # ms
+iclamp_pre.dur = 50 # ms
+
+time_pre = neuron.h.Vector()
+voltage_pre = neuron.h.Vector()
+
+time_pre.record(neuron.h._ref_t)
+voltage_pre.record(soma_pre(.5)._ref_v);
+
+expsyn.tau = .9
+netcon_pre = neuron.h.NetCon(soma_pre(.5)._ref_v, expsyn, sec=soma_pre)
+netcon_pre.weight[0] = 1
+
+if "netstim" in locals():
+    del netstim
+if "netcon" in locals():
+    del netcon
+
+neuron.h.run()
+
+time_py = time.to_python()
+voltage_py = voltage.to_python()
+
+plottv(time_pre, voltage_pre, show=False, label="presynaptic")
+plottv(time, voltage, show=False, label="postsynaptic")
+plt.legend()
+plt.show()
+
+del netcon_pre
