@@ -20,3 +20,26 @@ for gnabar in [0.1, 0.15]:
     plottv(time, voltage, show=False)
 
 plt.show()
+
+soma.gkbar_hh = 0.01
+
+# definitely mention critical value where state changes
+# show something with percentages
+# show value we were using before on plot
+
+max_voltages = []
+import numpy
+gnabar_range = numpy.arange(.05, 0.2, 0.001)
+for gnabar in gnabar_range:
+    soma.gnabar_hh = gnabar
+
+    neuron.h.run()
+
+    max_voltages.append(max(voltage))
+
+plt.plot(gnabar_range, max_voltages, 'oC0')
+plt.xlabel("gnabar (S/cm2)")
+plt.ylabel("Maximum AP voltage")
+for xs in [0.1, 0.15]:
+    plt.axvline(x=xs, color="r")
+plt.show()
