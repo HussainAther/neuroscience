@@ -85,3 +85,6 @@ deltaV_eq /= 1e3 # Correction factor to get mV
 print("Observed dV: %f mV" % deltaV)
 print("Calculated dV: %f mV" % deltaV_eq)
 print("Simulated dV matches equation dV: %s" % (deltaV - deltaV_eq < 1e-6))
+
+# Add leak conductance.
+soma.insert("hh")
