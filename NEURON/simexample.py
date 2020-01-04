@@ -97,3 +97,12 @@ soma.gl_hh = 5e-4 # Leak conductance, S/cm^2
 
 el = soma.el_hh = -65 # Reversal potential leak current, mV
 print("Reveral of leak current: %f mV" % el)
+
+soma.gkbar_hh = 0.0
+soma.gnabar_hh = 0.0
+
+neuron.h.tstop = 100
+
+neuron.h.run()
+
+plottv(time, voltage)
