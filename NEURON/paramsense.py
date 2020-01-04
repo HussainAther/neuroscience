@@ -136,3 +136,6 @@ plt.plot(distance_range*100, max_voltage_dend, "o")
 plt.xlabel("percentage of dend length")
 plt.ylabel("Max voltage (mV)")
 plt.show()
+
+# Add synapse.
+expsyn = neuron.h.ExpSyn(.5, sec=dend) # We add a synapse to the middle (.5) of the dendrite.
