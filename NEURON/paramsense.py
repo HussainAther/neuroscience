@@ -16,7 +16,7 @@ for gnabar in [0.1, 0.15]:
 
     neuron.h.run()
 
-    plt.plot(time, max(voltage)*numpy.ones(len(time)), 'r')
+    plt.plot(time, max(voltage)*np.ones(len(time)), 'r')
     plottv(time, voltage, show=False)
 
 plt.show()
@@ -28,8 +28,8 @@ soma.gkbar_hh = 0.01
 # show value we were using before on plot
 
 max_voltages = []
-import numpy
-gnabar_range = numpy.arange(.05, 0.2, 0.001)
+import np
+gnabar_range = np.arange(.05, 0.2, 0.001)
 for gnabar in gnabar_range:
     soma.gnabar_hh = gnabar
 
@@ -98,11 +98,41 @@ for with_dend in [False, True]:
         
     neuron.h.run()
 
-    # Convert the NEURON vectors to numpy arrays.
+    # Convert the NEURON vectors to np arrays.
     time_py = time.to_python()
     voltage_py = voltage.to_python()
 
     plottv(time_py, voltage_py, show=False, label="with dend" if with_dend else "without dend")
 
 plt.legend()
+plt.show()
+
+dend.Ra = 200
+dend.gl_hh = 5e-4
+
+voltage_dend = {}
+
+# distances are in percentage of dendritic length
+# 1.0 is at end of dendrite, 0.0 at connection with soma
+distance_range = np.arange(0, 1.1, 0.1)
+for distance in distance_range:
+    voltage_dend[distance] = neuron.h.Vector()
+    voltage_dend[distance].record(dend(distance)._ref_v);
+ 
+neuron.h.tstop = 40
+neuron.h.run()
+
+for distance in distance_range:
+    plottv(time, voltage_dend[distance], show=False, label="%.0f%% of dend length" % (distance*100))
+    
+plt.legend()
+plt.show()
+
+max_voltage_dend = []
+for distance in distance_range:
+    max_voltage_dend.append(max(voltage_dend[distance]))
+
+plt.plot(distance_range*100, max_voltage_dend, "o")
+plt.xlabel("percentage of dend length")
+plt.ylabel("Max voltage (mV)")
 plt.show()
