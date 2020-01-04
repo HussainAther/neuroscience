@@ -71,3 +71,17 @@ iclamp.delay = 10 # ms
 iclamp.dur = 50 # ms
 neuron.h.run()
 plot_tv(time, voltage)
+
+V1 = -65 # Voltage before stimulus, mV
+V2 = soma.v # Voltage after stimulus, mV
+deltaV = V2 - V1 # Voltage difference, mV
+Im = iclamp.amp # nA
+deltaT = iclamp.dur # ms
+soma_tcap # total soma membrane capacitance, uF
+
+deltaV_eq = Im * deltaT / soma_tcap # in nA * ms / uF == microvolt
+deltaV_eq /= 1e3 # Correction factor to get mV
+
+print("Observed dV: %f mV" % deltaV)
+print("Calculated dV: %f mV" % deltaV_eq)
+print("Simulated dV matches equation dV: %s" % (deltaV - deltaV_eq < 1e-6))
