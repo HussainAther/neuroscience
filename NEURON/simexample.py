@@ -27,3 +27,6 @@ print "Soma area according to cylinder surface area equation: %f micron^2" % som
 soma_area = neuron.h.area(0.5, sec=soma)
 print("Soma area according to NEURON: %f micron^2" % soma_area)
 print("Both values match: %s" % (soma_area_eq == soma_area))
+
+soma_sphere_area_eq = 4 * neuron.h.PI * pow(soma.diam / 2, 2)
+print("Soma area according to sphere surface area equation: %f micron^2" % soma_sphere_area_eq)
