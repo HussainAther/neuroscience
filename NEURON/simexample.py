@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import neuron
-import numpy
+import numpy as np
 
 """
 Simulation example
@@ -57,9 +57,9 @@ neuron.h.run()
 def plottv(time_array, voltage_array, show=True, label=None, constants=[]):
     plt.plot(time_array, voltage_array, label=label)
     for constant in constants:
-        plt.plot(time_array, constant*numpy.ones(len(time_array)))
-    plt.xlabel('Time (ms)')
-    plt.ylabel('Membrane voltage (mV)')
+        plt.plot(time_array, constant*np.ones(len(time_array)))
+    plt.xlabel("Time (ms)")
+    plt.ylabel("Membrane voltage (mV)")
     if show:
         plt.show()
 plottv(time, voltage)
