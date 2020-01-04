@@ -30,5 +30,7 @@ print("Both values match: %s" % (soma_area_eq == soma_area))
 
 soma_sphere_area_eq = 4 * neuron.h.PI * pow(soma.diam / 2, 2)
 print("Soma area according to sphere surface area equation: %f micron^2" % soma_sphere_area_eq)
-
 print("Specific capacitance: %f uf/cm2" % soma.cm)
+
+soma_tcap = (soma.cm * (soma_area / pow(1e4, 2)))
+print("Total soma capacitance: %f uf" % (soma.cm * (soma_area / pow(1e4, 2))))
