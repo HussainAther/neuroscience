@@ -51,6 +51,7 @@ voltage = neuron.h.Vector()
 time.record(neuron.h._ref_t)
 voltage.record(soma(.5)._ref_v)
 
+# Run the simulation.
 neuron.h.run()
 
 def plottv(time_array, voltage_array, show=True, label=None, constants=[]):
@@ -61,7 +62,6 @@ def plottv(time_array, voltage_array, show=True, label=None, constants=[]):
     plt.ylabel('Membrane voltage (mV)')
     if show:
         plt.show()
-    
 plottv(time, voltage)
 
 # Inject current.
@@ -69,3 +69,5 @@ iclamp = neuron.h.IClamp(.5, sec=soma)
 iclamp.amp = 0.1 # nA
 iclamp.delay = 10 # ms
 iclamp.dur = 50 # ms
+neuron.h.run()
+plot_tv(time, voltage)
