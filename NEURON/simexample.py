@@ -1,4 +1,6 @@
+import matplotlib.pyplot as plt
 import neuron
+import numpy
 
 """
 Simulation example
@@ -42,3 +44,22 @@ print("Current time: %f ms" % neuron.h.t) # ms
 neuron.h.tstop = 100
 print("Simulation stop time: %f ms" % neuron.h.tstop)
 print("Integration time step: %f ms" % neuron.h.dt)
+
+time = neuron.h.Vector()
+voltage = neuron.h.Vector()
+
+time.record(neuron.h._ref_t)
+voltage.record(soma(.5)._ref_v)
+
+neuron.h.run()
+
+def plot_tv(time_array, voltage_array, show=True, label=None, constants=[]):
+    plt.plot(time_array, voltage_array, label=label)
+    for constant in constants:
+        plt.plot(time_array, constant*numpy.ones(len(time_array)))
+    plt.xlabel('Time (ms)')
+    plt.ylabel('Membrane voltage (mV)')
+    if show:
+        plt.show()
+    
+plot_tv(time, voltage)
