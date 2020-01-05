@@ -56,7 +56,7 @@ def plottimecourse(time_array, dependent_var, newfigure=True, show=True, label=N
     plt.plot(time_array, dependent_var, label=label)
     for constant in constants:
         plt.plot(time_array, constant*numpy.ones(len(time_array)))
-    plt.xlabel('Time (ms)')
+    plt.xlabel("Time (ms)")
     plt.ylabel(ylabel)
     if show:
         plt.show()
