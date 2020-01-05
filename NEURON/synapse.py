@@ -21,3 +21,8 @@ soma.insert("pas")
 for sec in h.allsec():
     sec.Ra = 100
     sec.cm = 1
+
+synapse = h.Exp2Syn(soma(0.5))
+synapse.tau1 = 0.5 # [ms]
+synapse.tau2 = 10.0 # [ms]
+synapse.e = -80.0 
