@@ -73,8 +73,9 @@ def dual_exp(t, tau_r, tau_d, t_start):
     dual_exp[t>=t_start] = f_dual_exp(t[t>=t_start]-t_start)
     return dual_exp
 
+# Plot.
 plottimecourse(time, g_syn, ylabel="Conductance (uS)", label="NEURON")
-
 plt.plot(time, connection.weight[0]*dual_exp(time, synapse.tau1, synapse.tau2, 
                                                    t_start=100.0+connection.delay), "r--", lw=2, label="math. expr.")
 plt.legend()
+plottimecourse(time, v_soma)
