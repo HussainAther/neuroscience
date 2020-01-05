@@ -8,7 +8,7 @@ from neuron import h
 AMPA-NMDA synapse model
 """
 
-# Load external files & initialize
+# Load external files & initialize.
 neuron.h.load_file("stdrun.hoc")
 neuron.h.stdinit()
 
@@ -31,3 +31,12 @@ stimulator.play(spikes_vector)
 
 connection = h.NetCon(stimulator, synapse)
 connection.weight[0] = 1.0 # In units of [nS] due to the gmax scaling factor in our .mod file.
+
+g_syn = h.Vector()
+g_syn.record(synapse._ref_g)
+i_syn = h.Vector()
+i_syn.record(synapse._ref_i)
+v_soma = h.Vector()
+v_soma.record(soma(0.5)._ref_v)
+time = h.Vector()
+time.record(neuron.h._ref_t)
