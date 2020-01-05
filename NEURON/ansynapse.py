@@ -45,3 +45,19 @@ h.tstop = 1000.0 # ms
 synapse.gmax_NMDA = 0.0
 synapse.gmax_AMPA = 0.001 # uS
 neuron.h.run()
+
+def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel="Membrane voltage (mV)", constants=[]):
+    """
+    Convenience function to plot time courses of dependent variables.
+    """
+    if newfigure:
+        plt.figure()
+    plt.plot(time_array, dependent_var, label=label)
+    for constant in constants:
+        plt.plot(time_array, constant*numpy.ones(len(time_array)))
+    plt.xlabel("Time (ms)")
+    plt.ylabel(ylabel)
+    if show:
+        plt.show()
+        
+plot_timecourse(time, v_soma)
