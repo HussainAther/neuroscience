@@ -28,9 +28,9 @@ synapse.tau2 = 10.0 # [ms]
 synapse.e = -80.0 
 
 stimulator = h.VecStim()
-spike_times = [100.0, 150.0, 200.0, 250.0, 300.0, 350.0, 400.0, 450.0, 950.0]
-spikes_vector = h.Vector(spike_times)
-stimulator.play(spikes_vector)
+spiketimes = [100.0, 150.0, 200.0, 250.0, 300.0, 350.0, 400.0, 450.0, 950.0]
+spikesvector = h.Vector(spiketimes)
+stimulator.play(spikesvector)
 
 connection = h.NetCon(stimulator, synapse)
 connection.weight[0] = 0.001 # [uS]
@@ -46,3 +46,17 @@ time.record(neuron.h._ref_t)
 
 h.tstop = 1000.0 # ms
 neuron.h.run()
+
+def plottimecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel="Membrane voltage (mV)", constants=[]):
+    """
+    Convenience function to plot time courses of dependent variables.
+    """
+    if newfigure:
+        plt.figure()
+    plt.plot(time_array, dependent_var, label=label)
+    for constant in constants:
+        plt.plot(time_array, constant*numpy.ones(len(time_array)))
+    plt.xlabel('Time (ms)')
+    plt.ylabel(ylabel)
+    if show:
+        plt.show()
