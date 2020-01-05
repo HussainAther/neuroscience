@@ -40,3 +40,8 @@ v_soma = h.Vector()
 v_soma.record(soma(0.5)._ref_v)
 time = h.Vector()
 time.record(neuron.h._ref_t)
+
+h.tstop = 1000.0 # ms
+synapse.gmax_NMDA = 0.0
+synapse.gmax_AMPA = 0.001 # uS
+neuron.h.run()
