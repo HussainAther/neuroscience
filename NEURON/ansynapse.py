@@ -157,3 +157,16 @@ def gNMDApeak_for_vclamp(v_clamp, eventNth=0):
     return peaks[eventNth] # Return the peak conductance of the eventNth peak.
 
 gNMDApeak_for_vclamp(-80.0)
+
+# Determine, as above, the g_NMDA peak for different holding voltages.
+# The range over which to assess the g_NMDA peak conductance
+vrange = np.linspace(-80.0, 60.0, 10)
+
+# Also, fit a sigmoidal function curve.
+gmax = 0.0007
+fitfunc = lambda x, a, b: gmax/(1.0 + a*np.exp(-x/b))
+popt, pcov = curve_fit(fitfunc, vrange, p)
+plt.plot(vrange, fitfunc(vrange, *popt), "r-", label="fit")
+plt.xlabel("Voltage")
+plt.ylabel("Conductance (uS)")
+plt.show()
