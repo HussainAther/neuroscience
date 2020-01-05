@@ -170,3 +170,5 @@ plt.plot(vrange, fitfunc(vrange, *popt), "r-", label="fit")
 plt.xlabel("Voltage")
 plt.ylabel("Conductance (uS)")
 plt.show()
+
+
