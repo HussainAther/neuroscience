@@ -33,4 +33,13 @@ spikes_vector = h.Vector(spike_times)
 stimulator.play(spikes_vector)
 
 connection = h.NetCon(stimulator, synapse)
-connection.weight[0] = 0.001        # [uS]
+connection.weight[0] = 0.001 # [uS]
+
+g_syn = h.Vector()
+g_syn.record(synapse._ref_g)
+i_syn = h.Vector()
+i_syn.record(synapse._ref_i)
+v_soma = h.Vector()
+v_soma.record(soma(0.5)._ref_v)
+time = h.Vector()
+time.record(neuron.h._ref_t)
