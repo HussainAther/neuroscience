@@ -1,6 +1,6 @@
+import matplotlib.pyplot as plt
 import neuron
 import numpy
-import matplotlib.pyplot as plt
 
 from neuron import h
 
