@@ -145,3 +145,13 @@ def extract_peaks(time, trace, event_times, window=10):
         peaks_times_list.append(time[i_start:i_end][i_max])
         peaks_list.append(trace[i_start:i_end][i_max])
     return np.array(peaks_times_list), np.array(peaks_list)
+
+def gNMDApeak_for_vclamp(v_clamp, eventNth=0):
+    """returns the peak g_NMDA of the "eventNth" synaptic event for a given holding voltage"""
+    voltage_clamp.amp[0] = v_clamp # Assign the clamping voltage.
+    neuron.h.run() # Simulate!
+    g_NMDA = numpy.array(g_syn) # Get the resulting conductance as a numpy array (its only NMDA: AMPA is blocked). 
+    time_arr = numpy.array(time) # Convert time h.Vector to a numpy array for subsequent operations.
+    peak_times, peaks = extract_peaks(time_arr, numpy.array(g_NMDA), spike_times) # extract the peaks and times
+    peak_times_idx = time_arr.searchsorted(peak_times) # Find array index of peak times. 
+    return peaks[eventNth] # Return the peak conductance of the eventNth peak.
