@@ -126,3 +126,22 @@ synapse.gmax_AMPA = 0.0 # Apply an "in silico AMPA blocker"
 voltage_clamp = h.VClamp(0.5, sec=soma) # Create a voltage clamp electrode object and place it in the soma.
 voltage_clamp.amp[0] = -80.0 # Assign a clamping voltage.
 voltage_clamp.dur[0] = h.tstop # Clamp for the whole simulation duration.
+
+# 3) Run the stimulation simulation and extract the peak synaptic conductance.
+def extract_peaks(time, trace, event_times, window=10):
+    """
+    Computes the peak between event_times and returns the times of occurence and the maximums
+    Useful for finding PSP or conductance peaks due to synaptic events.
+    kwarg "window" defines the time in ms after the event to consider when searching for the peak.
+    """
+    peaks_list = []
+    peaks_times_list = []
+    for event_time in event_times:
+        i_start = time.searchsorted(event_time)
+        i_end = time.searchsorted(event_time+window)
+        # Find the index where the max occurs.
+        i_max = np.argmax(trace[i_start:i_end])
+        # Append the time and value at the max to the respective lists.
+        peaks_times_list.append(time[i_start:i_end][i_max])
+        peaks_list.append(trace[i_start:i_end][i_max])
+    return np.array(peaks_times_list), np.array(peaks_list)
