@@ -72,3 +72,10 @@ def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=
         
 plot_timecourse(time, v_soma)
 plt.axis([0, 1000, -70, -69.5])
+
+plot_timecourse(time, R_syn, ylabel="", label="$R$ - frac. of pool avail.")
+plot_timecourse(time, Use_syn, ylabel="", label="$U_{SE}$ - running rel. prob.", newfigure=False)
+plt.legend()
+plt.axis([0,1000,0,1.5])
+plot_timecourse(time, g_syn, ylabel="Conductance (uS)", label="$g_{syn}$")
+plt.legend()
