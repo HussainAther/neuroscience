@@ -155,3 +155,5 @@ def gNMDApeak_for_vclamp(v_clamp, eventNth=0):
     peak_times, peaks = extract_peaks(time_arr, numpy.array(g_NMDA), spike_times) # extract the peaks and times
     peak_times_idx = time_arr.searchsorted(peak_times) # Find array index of peak times. 
     return peaks[eventNth] # Return the peak conductance of the eventNth peak.
+
+gNMDApeak_for_vclamp(-80.0)
