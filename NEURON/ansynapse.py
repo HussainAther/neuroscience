@@ -77,3 +77,13 @@ def dual_exp(t, tau_r, tau_d, t_start):
 plt.plot(time, 0.001*connection.weight[0]*dual_exp(time, synapse.tau_r_AMPA, synapse.tau_d_AMPA, 
                                                    t_start=100.0+connection.delay), "r--", lw=2, label="math. expr.")
 plt.legend()
+
+synapse.gmax_NMDA = 0.001 # uS
+synapse.mg = 0.0 # mM
+synapse.gmax_AMPA = 0 # uS
+neuron.h.run()
+
+plot_timecourse(time, g_syn, ylabel="Conductance (uS)", label="NEURON")
+plt.plot(time, 0.001*connection.weight[0]*dual_exp(time, synapse.tau_r_NMDA, synapse.tau_d_NMDA, 
+                                                   t_start=100.0+connection.delay), "r--", lw=2, label="math. expr.")
+plt.legend()
