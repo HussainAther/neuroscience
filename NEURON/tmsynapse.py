@@ -31,3 +31,27 @@ stimulator.play(spikes_vector)
 
 connection = h.NetCon(stimulator, synapse)
 connection.weight[0] = 1.0  # In units of [nS] due to the gmax scaling factor in our .mod file.
+
+g_syn = h.Vector()
+g_syn.record(synapse._ref_g)
+i_syn = h.Vector()
+i_syn.record(synapse._ref_i)
+v_soma = h.Vector()
+v_soma.record(soma(0.5)._ref_v)
+time = h.Vector()
+time.record(neuron.h._ref_t)
+R_syn = h.Vector()
+R_syn.record(synapse._ref_R)
+Use_syn = h.Vector()
+Use_syn.record(synapse._ref_Use)
+
+synapse.gmax_AMPA = 0.001 # uS
+synapse.gmax_NMDA = 0.7 * 0.001 # uS - 0.7 is a biologically typical ratio of NMDA to AMPA conductance
+synapse.mg = 1.0 # mM
+
+synapse.U1 = 0.2 # Baseline release probability
+synapse.tau_rec = 200 # ms - recovery from depression
+synapse.tau_facil = 200 # ms - relaxation from facilitation
+
+h.tstop = 1000.0 # ms
+neuron.h.run()
