@@ -87,3 +87,12 @@ plot_timecourse(time, g_syn, ylabel="Conductance (uS)", label="NEURON")
 plt.plot(time, 0.001*connection.weight[0]*dual_exp(time, synapse.tau_r_NMDA, synapse.tau_d_NMDA, 
                                                    t_start=100.0+connection.delay), "r--", lw=2, label="math. expr.")
 plt.legend()
+
+synapse.gmax_AMPA = 0.001 # uS
+synapse.gmax_NMDA = 0.7 * 0.001 # uS - 0.7 is a biologically typical ratio of NMDA to AMPA conductance
+synapse.mg = 1.0 # mM
+g_NMDA = h.Vector()
+g_NMDA.record(synapse._ref_g_NMDA)
+g_AMPA = h.Vector()
+g_AMPA.record(synapse._ref_g_AMPA)
+neuron.h.run()
