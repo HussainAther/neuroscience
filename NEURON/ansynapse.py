@@ -120,4 +120,9 @@ plt.legend()
 # 1) Block the AMPA component of the conductance.
 synapse.mg = 1.0 # [mM]
 synapse.gmax_AMPA = 0.0 # Apply an "in silico AMPA blocker"
-                        # Some things are easy in simulation ... 
+                        # Some things are easy in simulation ...
+
+# 2) Voltage clamp the soma at a given holding voltage.
+voltage_clamp = h.VClamp(0.5, sec=soma) # Create a voltage clamp electrode object and place it in the soma.
+voltage_clamp.amp[0] = -80.0 # Assign a clamping voltage.
+voltage_clamp.dur[0] = h.tstop # Clamp for the whole simulation duration.
