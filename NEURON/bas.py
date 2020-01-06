@@ -69,3 +69,14 @@ output_notebook()
 f = plt.figure(x_axis_label="t (ms)", y_axis_label="v (mV)")
 f.line(t, soma_v, line_width=2)
 plt.show(f)
+
+# Change the amplitude.
+f = plt.figure(x_axis_label="t (ms)", y_axis_label="v (mV)")
+amps = [0.075 * i for i in range(1, 5)]
+colors = ["green", "blue", "red", "black"]
+for amp, color in zip(amps, colors):
+    stim.amp = amp
+    h.finitialize(-65 * mV)
+    h.continuerun(25 * ms)
+    f.line(t, list(soma_v), line_width=2, legend="amp=%g" % amp, color=color)
+plt.show(f)
