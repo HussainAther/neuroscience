@@ -198,3 +198,7 @@ optimization_algorithm = bpop.deapext.optimisations.IBEADEAPOptimisation(
 
 # Run it for 10 generations.
 final_pop, hall_of_fame, logs, hist = optimisation_algorithm.run(max_ngen=10)
+
+# Get the best ones (Hall of fame).
+for ind in hall_of_fame:
+    print 'gnabar_soma=%f, gkbar_soma=%f' % tuple(ind)
