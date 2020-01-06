@@ -35,3 +35,24 @@ nrn.h.load_file("init.hoc")
 
 # Start the cell.
 nrn.h.create_cell(1) # argument 1 stands for "load synapses"
+cell = nrn.h.cell
+soma = cell.soma[0]
+
+# Inject step current.
+# Mention source of amplitude
+stimulus = nrn.h.IClamp(0.5, sec=soma)
+stimulus.dur = 400 # ms
+stimulus.delay = 100  # ms     
+stimulus.amp = 0.691907 # nA
+
+# Get current amplitudes.
+with open("current_amps.dat") as current_file:
+    current_content = current_file.read()
+
+print("File content: ", current_content)
+holding_current, step1_current, step2_current, step3_current = [float(x) for x in current_content.split()]
+
+print("Holding current: %f nA" % holding_current)
+print("Step 1: %f nA" % step1_current)
+print("Step 2: %f nA" % step2_current)
+print("Step 3: %f nA" % step3_current)
