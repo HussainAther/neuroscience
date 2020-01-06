@@ -5,7 +5,7 @@ import neurom
 import neurom.view
 
 """
-Optimize parameters for a ball-and-stick model (ball and stick)
+Optimize parameters for a ball-and-stick model (ball and stick optimization)
 """
 
 morph_swc_string = """
@@ -29,7 +29,8 @@ morph = ephys.morphologies.NrnFileMorphology("ballandstick.swc")
 somatic_loc = ephys.locations.NrnSeclistLocation("somatic", seclist_name="somatic")
 dend_loc = ephys.locations.NrnSeclistLocation("basal", seclist_name="basal")
 
-cm = ephys.parameters.NrnSectionParameter(
+cm = ephys.
+parameters.NrnSectionParameter(
         name="cm",
         param_name="cm",
         value=1.0, # in microfarad/cm2
@@ -79,3 +80,12 @@ ballandstick_cell = ephys.models.CellModel(
         morph=morph,
         mechs=[hh_mech],
         params=[cm, gnabar_dend, gkbar_dend, gl_dend, gnabar_soma, gkbar_soma])  
+
+print(ballandstick_cell)
+
+# Create protocols.
+soma_loc = ephys.locations.NrnSeclistCompLocation(
+        name="soma",
+        seclist_name="somatic",
+        sec_index=0,
+        comp_x=0.5)
