@@ -58,3 +58,17 @@ gkbar_dend = ephys.parameters.NrnSectionParameter(
         value=0,
         locations=[dend_loc],
         frozen=True)
+
+# Set boundaries.
+gnabar_soma = ephys.parameters.NrnSectionParameter(                                    
+        name="gnabar_soma",
+        param_name="gnabar_hh",
+        locations=[somatic_loc],
+        bounds=[0.0, 1.0],
+        frozen=False)     
+gkbar_soma = ephys.parameters.NrnSectionParameter(
+        name="gkbar_soma",
+        param_name="gkbar_hh",
+        bounds=[0.0, 1.0],
+        locations=[somatic_loc],
+        frozen=False)
