@@ -10,14 +10,14 @@ import zipfile # Extract zip files.
 """
 The Neocortical Microcircuit (microcircuit) Collaboration Portal (NMC Portal, 
 at [https://bbp.epfl.ch/nmc-portal](https://bbp.epfl.ch/nmc-portal)) 
-provides an online public resource of the Blue Brain Project's 
+provides an online public resource of the Blue Brain Project"s 
 first release of a digital reconstruction of the microcircuitry 
 of juvenile Rat somatosensory cortex, access to experimental 
 data sets used in the reconstruction, and the resulting single cell models.
 """
 
 # Download neocortical layer 5 thick tufted pyramidal cell model.
-urllib.urlretrieve("https://bbp.epfl.ch/nmc-portal/documents/10184/1921755/L5_TTPC2_cADpyr232_1.zip/a058fc9c-6c67-417b-a65b-20742902ccbb','L5_TTPC2_cADpyr232_1.zip")
+urllib.urlretrieve("https://bbp.epfl.ch/nmc-portal/documents/10184/1921755/L5_TTPC2_cADpyr232_1.zip/a058fc9c-6c67-417b-a65b-20742902ccbb","L5_TTPC2_cADpyr232_1.zip")
 
 # Extract the zip file.
 with zipfile.ZipFile("L5_TTPC2_cADpyr232_1.zip", "r") as zip_file:
@@ -126,3 +126,16 @@ init_synapses(enabled_mtypes=mtype_map.keys())
 # firing times are determined by synaptic drive "fluctuations".
 stimulus.amp = holding_current + (step1_current/1.2) # Inject the 100% threshold.
 stimulus.dur = 100000 # Keep it on.
+
+# Configure m-type firing rates.
+exc_cells = ["L23_PC", "L4_PC", "L4_SS", "L4_SP", 
+             "L5_TTPC1", "L5_TTPC2", "L5_STPC", "L5_UTPC",
+             "L6_TPC_L1", "L6_TPC_L4", "L6_BPC", "L6_IPC", "L6_UTPC"]
+for mtype in mtype_map:
+    if mtype in exc_cells:
+        freq = 1.0 # [Hz]
+    else:
+        freq = 5.0 # [Hz]
+    cell.synapses.pre_mtype_freqs.x[mtype_map[mtype]]=freq
+    
+cell.synapses.update_synapses(nrn.h.synapse_plot);
