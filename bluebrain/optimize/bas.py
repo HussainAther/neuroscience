@@ -4,6 +4,7 @@ import efel
 import matplotlib.pyplot as plt
 import neurom
 import neurom.view
+import numpy
 
 """
 Optimize parameters for a ball-and-stick model (ball and stick optimization)
@@ -212,4 +213,14 @@ print(best_ind_dict)
 responses = twostep_protocol.run(cell_model=ballandstick_cell, param_values=best_ind_dict, sim=nrn)
 print("Score: ", score_calc.calculate_scores(responses))
 plot_responses(responses)
- 
+
+# Get the optimization metrics. 
+gen_numbers = logs.select("gen")
+min_fitness = logs.select("min")
+max_fitness = logs.select("max")
+plt.plot(gen_numbers, min_fitness, label="min fitness")
+plt.xlabel("generation #")
+plt.ylabel("score (# std)")
+plt.legend()
+plt.xlim(min(gen_numbers) - 1, max(gen_numbers) + 1) 
+plt.ylim(0.9*min(min_fitness), 1.1 * max(min_fitness)) 
