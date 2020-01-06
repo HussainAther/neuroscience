@@ -85,3 +85,15 @@ def plot_tv(time_array, voltage_array, show=True, label=None, constants=[]):
         plt.show()
     
 plot_tv(time, voltage)
+
+# Define in-vivo like stimulus with Poisson process firing neurons and
+# presynaptic morphology type (m-type) specific rates.
+with open("synapses/mtype_map.tsv") as mtype_map_file:
+    mtype_map_content = mtype_map_file.read()
+    
+mtype_map = {}
+for line in mtype_map_content.split("\n")[:-1]:
+    n, mtype = line.split()
+    mtype_map[mtype] = int(n)
+    
+print(mtype_map)
