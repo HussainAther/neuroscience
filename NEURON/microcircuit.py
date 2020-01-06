@@ -120,3 +120,9 @@ def init_synapses(enabled_mtypes=[]):
 
 # Enable incoming synapses from all m-types.
 init_synapses(enabled_mtypes=mtype_map.keys())
+
+# The in vivo fluctation driven regime: 
+# Depolarize at approx. 100%.
+# firing times are determined by synaptic drive "fluctuations".
+stimulus.amp = holding_current + (step1_current/1.2) # Inject the 100% threshold.
+stimulus.dur = 100000 # Keep it on.
