@@ -97,3 +97,24 @@ for line in mtype_map_content.split("\n")[:-1]:
     mtype_map[mtype] = int(n)
     
 print(mtype_map)
+
+def init_synapses(enabled_mtypes=[]):
+    """
+    Enable all the synapses that are projected onto this cell 
+    from mtype listed in enabled_mtypes.
+    """
+    enabled_mtype_ints = [mtype_map[mtype] for mtype in enabled_mtypes]
+    
+    for i in range(0, int(cell.synapses.n_of_mtypes)): # Loop over all the m-type
+        if i in enabled_mtype_ints: # Enable synapses.
+            # The [were_]active_pre_mtypes is a NEURON vector
+            # (it uses the .x syntax to access the elements).
+            # When the value in the vector is 1 all the presynaptic neurons
+            # of a particular m-types are active (and inactive when it is 0).
+            cell.synapses.were_active_pre_mtypes.x[i]= 0
+            cell.synapses.active_pre_mtypes.x[i] = 1        
+        else: # Disable synapses.
+            cell.synapses.were_active_pre_mtypes.x[i]= 1
+            cell.synapses.active_pre_mtypes.x[i] = 0
+    cell.synapses.update_synapses(nrn.h.synapse_plot) # Update the synapses.
+
