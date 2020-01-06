@@ -25,3 +25,6 @@ os.chdir("L5_TTPC2_cADpyr232_1")
 
 # Compile the files. 
 os.system("nrnivmodl mechanisms")
+
+# Visualize morphology.
+neurom.viewer.draw(neurom.load_neuron("morphology/dend-C060114A7_axon-C060116A3_-_Clone_2.asc"))
