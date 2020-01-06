@@ -19,3 +19,6 @@ urllib.urlretrieve("https://bbp.epfl.ch/nmc-portal/documents/10184/1921755/L5_TT
 # Extract the zip file.
 with zipfile.ZipFile("L5_TTPC2_cADpyr232_1.zip", "r") as zip_file:
     zip_file.extractall(".")
+
+# Move into the directory.
+os.chdir("L5_TTPC2_cADpyr232_1")
