@@ -112,3 +112,18 @@ nrn = ephys.simulators.NrnSimulator()
 
 default_params = {"gnabar_soma": 0.25, "gkbar_soma": 0.1}
 responses = twostep_protocol.run(cell_model=ballandstick_cell, param_values=default_params, sim=nrn)
+
+# Plot.
+def plot_responses(responses):
+    """
+    Plot the response traces to the current.
+    """
+    plt.subplot(2,1,1)
+    plt.plot(responses["step1.soma.v"]["time"], responses["step1.soma.v"]["voltage"], label="step1")
+    plt.legend()
+    plt.subplot(2,1,2)
+    plt.plot(responses["step2.soma.v"]["time"], responses["step2.soma.v"]["voltage"], label="step2")
+    plt.legend()
+    plt.tight_layout()
+
+plot_responses(responses)
