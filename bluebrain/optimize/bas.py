@@ -154,3 +154,26 @@ print("Spike amplitude (mV) in 2nd trace: %s" % feature_values["AP_amplitude"])
 
 # Extract features.
 efel_feature_means = {"step1": {"Spikecount": 4}, "step2": {"Spikecount": 6}}
+
+objectives = []
+features = []
+
+# Define the objects of the protocol.
+for protocol in sweep_protocols:
+    stim_start = protocol.stimuli[0].step_delay
+    stim_end = stim_start + protocol.stimuli[0].step_duration
+    for efel_feature_name, mean in efel_feature_means[protocol.name].items():
+        feature_name = "%s.%s" % (protocol.name, efel_feature_name)
+        feature = ephys.efeatures.eFELFeature(
+                    feature_name,
+                    efel_feature_name=efel_feature_name,
+                    recording_names={"": "%s.soma.v" % protocol.name},
+                    stim_start=stim_start,
+                    stim_end=stim_end,
+                    exp_mean=mean,
+                    exp_std=0.05 * abs(mean))
+        features.append(feature)
+        objective = ephys.objectives.SingletonObjective(
+            feature_name,
+            feature)
+        objectives.append(objective)
