@@ -177,3 +177,6 @@ for protocol in sweep_protocols:
             feature_name,
             feature)
         objectives.append(objective)
+
+# Create cell evaluator.
+score_calc = ephys.objectivescalculators.ObjectivesCalculator(objectives) 
