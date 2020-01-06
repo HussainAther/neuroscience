@@ -8,6 +8,7 @@ import numpy
 
 """
 Optimize parameters for a ball-and-stick model (ball and stick optimization)
+constrained model
 """
 
 morph_swc_string = """
