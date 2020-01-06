@@ -1,6 +1,7 @@
 import os
 import neurom # Analyze / view morphologies.
 import neurom.viewer
+import neuron as nrn
 import urllib # Download files from the web.
 import zipfile # Extract zip files.
 
@@ -28,3 +29,6 @@ os.system("nrnivmodl mechanisms")
 
 # Visualize morphology.
 neurom.viewer.draw(neurom.load_neuron("morphology/dend-C060114A7_axon-C060116A3_-_Clone_2.asc"))
+
+# Load NEURON simulator.
+nrn.h.load_file("init.hoc")
