@@ -172,7 +172,7 @@ for protocol in sweep_protocols:
                     stim_start=stim_start,
                     stim_end=stim_end,
                     exp_mean=mean,
-                    exp_std=0.05 * abs(mean))
+                    exp_std=0.05 * abs(float(mean)))
         features.append(feature)
         objective = ephys.objectives.SingletonObjective(
             feature_name,
