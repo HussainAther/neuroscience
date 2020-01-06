@@ -19,6 +19,12 @@ morph_swc_string = """
 with open("ballandstick.swc", "w") as swc_file:
     swc_file.write(morph_swc_string)
 
+# Draw the ball-and-stick model.
 fig, ax = neurom.viewer.draw(neurom.load_neuron("ballandstick.swc"))
 
+# Get the morphology.
 morph = ephys.morphologies.NrnFileMorphology("ballandstick.swc")
+
+# Get the morphology by location.
+somatic_loc = ephys.locations.NrnSeclistLocation("somatic", seclist_name="somatic")
+dend_loc = ephys.locations.NrnSeclistLocation("basal", seclist_name="basal")
