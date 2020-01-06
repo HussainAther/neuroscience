@@ -80,3 +80,6 @@ for amp, color in zip(amps, colors):
     h.continuerun(25 * ms)
     f.line(t, list(soma_v), line_width=2, legend="amp=%g" % amp, color=color)
 plt.show(f)
+
+# Plot dendrite and soma.
+dend_v = h.Vector().record(my_cell.dend(0.5)._ref_v)
