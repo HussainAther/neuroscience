@@ -72,3 +72,10 @@ gkbar_soma = ephys.parameters.NrnSectionParameter(
         bounds=[0.0, 1.0],
         locations=[somatic_loc],
         frozen=False)
+
+# Compute the cell model.
+ballandstick_cell = ephys.models.CellModel(
+        name="simple_cell",
+        morph=morph,
+        mechs=[hh_mech],
+        params=[cm, gnabar_dend, gkbar_dend, gl_dend, gnabar_soma, gkbar_soma])  
