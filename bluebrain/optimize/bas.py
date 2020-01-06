@@ -19,4 +19,6 @@ morph_swc_string = """
 with open("ballandstick.swc", "w") as swc_file:
     swc_file.write(morph_swc_string)
 
-fig, ax = neurom.viewer.draw(neurom.load_neuron("ballandstick.swc'"))
+fig, ax = neurom.viewer.draw(neurom.load_neuron("ballandstick.swc"))
+
+morph = ephys.morphologies.NrnFileMorphology("ballandstick.swc")
