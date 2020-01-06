@@ -127,3 +127,7 @@ def plot_responses(responses):
     plt.tight_layout()
 
 plot_responses(responses)
+
+# Test out other parameters.
+other_params = {"gnabar_soma": 0.1, "gkbar_soma": 0.1}
+plot_responses(twostep_protocol.run(cell_model=ballandstick_cell, param_values=other_params, sim=nrn))
