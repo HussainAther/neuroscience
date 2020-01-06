@@ -32,3 +32,6 @@ neurom.viewer.draw(neurom.load_neuron("morphology/dend-C060114A7_axon-C060116A3_
 
 # Load NEURON simulator.
 nrn.h.load_file("init.hoc")
+
+# Start the cell.
+nrn.h.create_cell(1) # argument 1 stands for "load synapses"
