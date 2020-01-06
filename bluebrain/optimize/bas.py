@@ -195,3 +195,6 @@ print("Scores:", cell_evaluator.evaluate_with_dicts(default_params))
 optimization_algorithm = bpop.deapext.optimisations.IBEADEAPOptimisation(
         evaluator=cell_evaluator,
         offspring_size = 10)
+
+# Run it for 10 generations.
+final_pop, hall_of_fame, logs, hist = optimisation_algorithm.run(max_ngen=10)
