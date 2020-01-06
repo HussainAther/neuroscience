@@ -39,3 +39,6 @@ class BallAndStick:
         return "BallAndStick[{}]".format(self._gid)
 
 my_cell = BallAndStick(0)
+
+# stimulation
+stim = h.IClamp(my_cell.dend(1))
