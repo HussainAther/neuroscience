@@ -28,3 +28,33 @@ morph = ephys.morphologies.NrnFileMorphology("ballandstick.swc")
 # Get the morphology by location.
 somatic_loc = ephys.locations.NrnSeclistLocation("somatic", seclist_name="somatic")
 dend_loc = ephys.locations.NrnSeclistLocation("basal", seclist_name="basal")
+
+cm = ephys.parameters.NrnSectionParameter(
+        name="cm",
+        param_name="cm",
+        value=1.0, # in microfarad/cm2
+        locations=[somatic_loc, dend_loc],
+        frozen=True)
+
+# Fix leak conductance dendrite.
+gl_dend = ephys.parameters.NrnSectionParameter(
+        name="gl_dend",
+        param_name="gl_hh",
+        value=1e-5,
+        locations=[dend_loc],
+        frozen=True)
+
+# Disable Na and K.
+gnabar_dend = ephys.parameters.NrnSectionParameter(                                    
+        name="gnabar_hh_dend",
+        param_name="gnabar_hh",
+        locations=[dend_loc],
+        value=0,
+        frozen=True)
+     
+gkbar_dend = ephys.parameters.NrnSectionParameter(
+        name="gkbar_hh_dend",
+        param_name="gkbar_hh",
+        value=0,
+        locations=[dend_loc],
+        frozen=True)
