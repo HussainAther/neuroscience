@@ -46,3 +46,14 @@ stim.get_segment()
 
 # Check attributes.
 print(", ".join(item for item in dir(stim) if not item.startswith("__")))
+
+stim.delay = 5
+stim.dur = 1
+stim.amp = 0.1
+
+# recording
+soma_v = h.Vector().record(my_cell.soma(0.5)._ref_v)
+t = h.Vector().record(h._ref_t)
+
+# Run the simulation.
+h.finitialize(-65 * mV)
