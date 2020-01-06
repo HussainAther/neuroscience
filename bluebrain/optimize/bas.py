@@ -1,5 +1,6 @@
 import bluepyopt as bpop
 import bluepyopt.ephys as ephys
+import efel
 import matplotlib.pyplot as plt
 import neurom
 import neurom.view
@@ -131,3 +132,22 @@ plot_responses(responses)
 # Test out other parameters.
 other_params = {"gnabar_soma": 0.1, "gkbar_soma": 0.1}
 plot_responses(twostep_protocol.run(cell_model=ballandstick_cell, param_values=other_params, sim=nrn))
+
+# Use eFEL (eFeature Extraction Library) to analyze traces.
+responses = twostep_protocol.run(cell_model=ballandstick_cell, param_values=default_params, sim=nrn)
+
+# Show where these names come from.
+step2_time = responses["step2.soma.v"]["time"]
+step2_voltage = responses["step2.soma.v"]["voltage"]
+
+# Define this dictionary.
+trace = {"T": step2_time, "V": step2_voltage, "stim_start": [100], "stim_end": [150]}
+
+# Explain AP_width (from where to where is AP_amplitude...
+feature_values = efel.getFeatureValues([trace], ["Spikecount", "AP_width", "AP_amplitude"])[0]
+
+# Plot.
+plot_responses(responses)
+print("Number of spikes in 2nd trace: %s" % feature_values["Spikecount"])
+print("Spike widths (ms) in 2nd trace: %s" % feature_values["AP_width"])
+print("Spike amplitude (mV) in 2nd trace: %s" % feature_values["AP_amplitude"])
