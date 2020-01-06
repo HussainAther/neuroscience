@@ -151,3 +151,6 @@ plot_responses(responses)
 print("Number of spikes in 2nd trace: %s" % feature_values["Spikecount"])
 print("Spike widths (ms) in 2nd trace: %s" % feature_values["AP_width"])
 print("Spike amplitude (mV) in 2nd trace: %s" % feature_values["AP_amplitude"])
+
+# Extract features.
+efel_feature_means = {"step1": {"Spikecount": 4}, "step2": {"Spikecount": 6}}
