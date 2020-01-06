@@ -15,3 +15,7 @@ data sets used in the reconstruction, and the resulting single cell models.
 
 # Download neocortical layer 5 thick tufted pyramidal cell model.
 urllib.urlretrieve("https://bbp.epfl.ch/nmc-portal/documents/10184/1921755/L5_TTPC2_cADpyr232_1.zip/a058fc9c-6c67-417b-a65b-20742902ccbb','L5_TTPC2_cADpyr232_1.zip")
+
+# Extract the zip file.
+with zipfile.ZipFile("L5_TTPC2_cADpyr232_1.zip", "r") as zip_file:
+    zip_file.extractall(".")
