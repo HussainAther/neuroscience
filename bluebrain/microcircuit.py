@@ -1,8 +1,8 @@
 import os
-import urllib # Download files from the web
-import neurom # Analyse / view morphologies
+import neurom # Analyze / view morphologies.
 import neurom.viewer
-import zipfile # Extract zip files
+import urllib # Download files from the web.
+import zipfile # Extract zip files.
 
 """
 The Neocortical Microcircuit (microcircuit) Collaboration Portal (NMC Portal, 
@@ -22,3 +22,6 @@ with zipfile.ZipFile("L5_TTPC2_cADpyr232_1.zip", "r") as zip_file:
 
 # Move into the directory.
 os.chdir("L5_TTPC2_cADpyr232_1")
+
+# Compile the files. 
+os.system("nrnivmodl mechanisms")
