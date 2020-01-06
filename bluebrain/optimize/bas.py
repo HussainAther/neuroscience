@@ -180,3 +180,12 @@ for protocol in sweep_protocols:
 
 # Create cell evaluator.
 score_calc = ephys.objectivescalculators.ObjectivesCalculator(objectives) 
+
+# Evaluate.
+cell_evaluator = ephys.evaluators.CellEvaluator(
+        cell_model=ballandstick_cell,
+        param_names=["gnabar_soma", "gkbar_soma"],
+        fitness_protocols={twostep_protocol.name: twostep_protocol},
+        fitness_calculator=score_calc,
+        sim=nrn)
+
