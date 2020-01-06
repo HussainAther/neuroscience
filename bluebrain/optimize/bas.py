@@ -189,3 +189,9 @@ cell_evaluator = ephys.evaluators.CellEvaluator(
         fitness_calculator=score_calc,
         sim=nrn)
 
+print("Scores:", cell_evaluator.evaluate_with_dicts(default_params))
+
+# Run the optimization algorithm.
+optimization_algorithm = bpop.deapext.optimisations.IBEADEAPOptimisation(
+        evaluator=cell_evaluator,
+        offspring_size = 10)
