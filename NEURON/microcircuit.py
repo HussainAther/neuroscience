@@ -56,3 +56,6 @@ print("Holding current: %f nA" % holding_current)
 print("Step 1: %f nA" % step1_current)
 print("Step 2: %f nA" % step2_current)
 print("Step 3: %f nA" % step3_current)
+
+# Activate recording of activity.
+nrn.h.create_recording() 
