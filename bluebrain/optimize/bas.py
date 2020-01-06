@@ -106,3 +106,9 @@ for protocol_name, amplitude in [("step1", 0.1), ("step2", 0.5)]:
     protocol = ephys.protocols.SweepProtocol(protocol_name, [stim], [rec])
     sweep_protocols.append(protocol)
 twostep_protocol = ephys.protocols.SequenceProtocol("twostep", protocols=sweep_protocols)
+
+# Run protocol.
+nrn = ephys.simulators.NrnSimulator()
+
+default_params = {"gnabar_soma": 0.25, "gkbar_soma": 0.1}
+responses = twostep_protocol.run(cell_model=ballandstick_cell, param_values=default_params, sim=nrn)
