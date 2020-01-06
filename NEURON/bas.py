@@ -42,3 +42,7 @@ my_cell = BallAndStick(0)
 
 # stimulation
 stim = h.IClamp(my_cell.dend(1))
+stim.get_segment()
+
+# Check attributes.
+print(", ".join(item for item in dir(stim) if not item.startswith("__")))
