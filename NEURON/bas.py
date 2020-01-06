@@ -1,3 +1,6 @@
+import bokeh.plotting as plt
+
+from bokeh.io import output_notebook
 from neuron import h
 from neuron.units import ms, mV
 
@@ -57,3 +60,12 @@ t = h.Vector().record(h._ref_t)
 
 # Run the simulation.
 h.finitialize(-65 * mV)
+
+h.continuerun(25 * ms)
+
+# Plot.
+output_notebook()
+
+f = plt.figure(x_axis_label="t (ms)", y_axis_label="v (mV)")
+f.line(t, soma_v, line_width=2)
+plt.show(f)
