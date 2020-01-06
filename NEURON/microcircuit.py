@@ -59,3 +59,10 @@ print("Step 3: %f nA" % step3_current)
 
 # Activate recording of activity.
 nrn.h.create_recording() 
+
+# Run the simuation.
+nrn.h.tstop = 600 # ms
+nrn.h.dt = 0.05 # 
+nrn.h.run()
+
+nrn.h.save_recording()
