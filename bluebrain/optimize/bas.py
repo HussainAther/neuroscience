@@ -201,4 +201,15 @@ final_pop, hall_of_fame, logs, hist = optimisation_algorithm.run(max_ngen=10)
 
 # Get the best ones (Hall of fame).
 for ind in hall_of_fame:
-    print 'gnabar_soma=%f, gkbar_soma=%f' % tuple(ind)
+    print("gnabar_soma=%f, gkbar_soma=%f" % tuple(ind))
+
+best_ind = hall_of_fame[0]
+print("Best individual:  ", best_ind)
+best_ind_dict = cell_evaluator.param_dict(best_ind)
+print(best_ind_dict)
+
+# Plot them.
+responses = twostep_protocol.run(cell_model=ballandstick_cell, param_values=best_ind_dict, sim=nrn)
+print("Score: ", score_calc.calculate_scores(responses))
+plot_responses(responses)
+ 
