@@ -118,3 +118,5 @@ def init_synapses(enabled_mtypes=[]):
             cell.synapses.active_pre_mtypes.x[i] = 0
     cell.synapses.update_synapses(nrn.h.synapse_plot) # Update the synapses.
 
+# Enable incoming synapses from all m-types.
+init_synapses(enabled_mtypes=mtype_map.keys())
