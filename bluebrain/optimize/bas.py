@@ -89,3 +89,20 @@ soma_loc = ephys.locations.NrnSeclistCompLocation(
         seclist_name="somatic",
         sec_index=0,
         comp_x=0.5)
+
+# Current clamp with square current inject
+sweep_protocols = []
+for protocol_name, amplitude in [("step1", 0.1), ("step2", 0.5)]:
+    stim = ephys.stimuli.NrnSquarePulse(
+                step_amplitude=amplitude,
+                step_delay=100,
+                step_duration=50,
+                location=soma_loc,
+                total_duration=200)
+    rec = ephys.recordings.CompRecording(
+            name="%s.soma.v" % protocol_name,
+            location=soma_loc,
+            variable="v")
+    protocol = ephys.protocols.SweepProtocol(protocol_name, [stim], [rec])
+    sweep_protocols.append(protocol)
+twostep_protocol = ephys.protocols.SequenceProtocol("twostep", protocols=sweep_protocols)
