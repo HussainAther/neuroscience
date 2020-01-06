@@ -1,7 +1,9 @@
-import os
+import matplotlib.pyplot as plt
 import neurom # Analyze / view morphologies.
 import neurom.viewer
 import neuron as nrn
+import numpy as np
+import os
 import urllib # Download files from the web.
 import zipfile # Extract zip files.
 
@@ -66,3 +68,20 @@ nrn.h.dt = 0.05 #
 nrn.h.run()
 
 nrn.h.save_recording()
+
+time = nrn.h.time
+voltage = nrn.h.voltage
+
+def plot_tv(time_array, voltage_array, show=True, label=None, constants=[]):
+    """
+    Plot time and voltage.
+    """
+    plt.plot(time_array, voltage_array, label=label)
+    for constant in constants:
+        plt.plot(time_array, constant*np.ones(len(time_array)))
+    plt.xlabel("Time (ms)")
+    plt.ylabel("Membrane voltage (mV)")
+    if show:
+        plt.show()
+    
+plot_tv(time, voltage)
