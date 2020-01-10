@@ -1,0 +1,32 @@
+# traub sodium and potassium kinetics and 3 compartments with synapses
+# v va1,va2,vb
+v'=-(gna*h*m^3*(v-ena)+gk*n^4*(v-ek)+gl*(v-el)+gas*(v-va1)+gbs*(v-vb)+\
+     alphas(t)*(v-vsyn))/c
+va1'=-(gl*(va1-el)+g21*(va1-va2)+gsa*(va1-v)+alpha1(t)*(va1-vsyn))/c
+va2'=-(gl*(va2-el)+g12*(va2-va1)+alpha2(t)*(va2-vsyn))/c
+vb'=-(gl*(vb-el)+gsb*(vb-v)+alphab(t)*(vb-vsyn))/c
+m'=am(v)*(1-m)-bm(v)*m
+h'=ah(v)*(1-h)-bh(v)*h
+n'=an(v)*(1-n)-bn(v)*n
+init v=-67,va1=-67,va2=-67,vb=-67,m=0,n=0,h=1
+am(v)=.32*(54+v)/(1-exp(-(v+54)/4))
+bm(v)=.28*(v+27)/(exp((v+27)/5)-1)
+ah(v)=.128*exp(-(50+v)/18)
+bh(v)=4/(1+exp(-(v+27)/5))
+an(v)=.032*(v+52)/(1-exp(-(v+52)/5))
+bn(v)=.5*exp(-(57+v)/40)
+par ek=-100,ena=50,el=-67
+par gl=.1,gk=80,gna=100
+par c=1,i=0
+par gsyns=0,gsynb=0,gsyn1=0,gsyn2=0,vsyn=0
+par ts=5,tb=5,t1=5,t2=5
+par tau_s=5
+par g12=2,g21=1,gsa=.5,gas=2,gbs=2,gsb=.5
+alpha(t)=t*exp(-t/tau_s)/(tau_s^2)
+alpha1(t)=gsyn1*alpha(max(t-t1,0))
+alpha2(t)=gsyn2*alpha(max(t-t2,0))
+alphab(t)=gsynb*alpha(max(t-tb,0))
+alphas(t)=gsyns*alpha(max(t-ts,0))
+@ dt=.25,meth=qualrk,total=80,xhi=80,ylo=-80,yhi=25
+done
+
