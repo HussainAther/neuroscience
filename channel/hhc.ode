@@ -1,0 +1,43 @@
+% Classical Hodgkin-Huxley model for Squid Giant Axon.
+% Except v polarity reversed and rest potential shifted to -65.
+% cf. Hansel, Mato, and Meunier, Europhys. Lett. 23:367-372, 1993.
+
+init v=-65, h=0.596, n=0.318, m=0.053
+
+params iapp=0, cm=1
+params gnabar=120, gkbar=36, gl=0.3
+params vna=50, vk=-77, vl=-54.4
+
+am   = 0.1*(v+40)/( 1 - exp(-(v+40)/10) )
+bm   = 4*exp(-(v+65)/18)
+minf = am/(am+bm)
+taum = 1/(am+bm)
+
+ah   = 0.07*exp(-(v+65)/20)
+bh   = 1/( 1 + exp(-(v+35)/10) )
+hinf = ah/(ah+bh)
+tauh = 1/(ah+bh)
+
+an   = 0.01*(v + 55)/(1 - exp(-(v + 55)/10))
+bn   = 0.125*exp(-(v + 65)/80)
+ninf = an/(an+bn)
+taun = 1/(an+bn)
+
+ina = gnabar * m^3 * h * (v-vna)
+ik  = gkbar * n^4 * (v-vk)
+il  = gl * (v-vl)
+
+v' =  ( iapp - ina - ik - il ) / cm
+h' =  (hinf - h)/tauh
+n' =  (ninf - n)/taun
+m' =  (minf - m)/taum
+
+@ maxstor=12000
+@ total=100, dt=0.5, bounds=10000
+@ method=gear, toler=0.0000001, dtmin=0.000001, dtmax=1
+@ xlo=0, xhi=100, ylo=-80, yhi=30
+# AUTO stuff
+@ Nmax=500, NPr=200, ParMin=-50, ParMax=300
+@ AutoXMin=-5, AutoXMax=190
+@ AutoYMin=-80, AutoYMax=35
+done
