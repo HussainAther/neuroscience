@@ -1,0 +1,27 @@
+#  Hodgkin Huxley equations (HH Hodgkin-Huxley)
+init v=-65  m=.05  h=0.6  n=.317  
+par i0=0
+par vna=50  vk=-77  vl=-54.4  gna=120  gk=36  gl=0.3  c=1  phi=1 
+par ip=0 pon=50 poff=150
+is(t)=ip*heav(t-pon)*heav(poff-t)
+am(v)=phi*.1*(v+40)/(1-exp(-(v+40)/10))
+bm(v)=phi*4*exp(-(v+65)/18)
+ah(v)=phi*.07*exp(-(v+65)/20)
+bh(v)=phi*1/(1+exp(-(v+35)/10))
+an(v)=phi*.01*(v+55)/(1-exp(-(v+55)/10))
+bn(v)=phi*.125*exp(-(v+65)/80)
+v'=(I0+is(t) - gna*h*(v-vna)*m^3-gk*(v-vk)*n^4-gl*(v-vl))/c
+m'=am(v)*(1-m)-bm(v)*m
+h'=ah(v)*(1-h)-bh(v)*h
+n'=an(v)*(1-n)-bn(v)*n
+# track the currents 
+aux ina=gna*(v-vna)*h*m^3
+aux ik=gk*(v-vk)*n^4
+aux il=gl*(v-vl)
+# track the stimulus
+aux stim=is(t)
+@ bound=10000
+done
+
+
+

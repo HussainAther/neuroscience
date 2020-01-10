@@ -1,0 +1,131 @@
+# the McCormick-Huguenard channel models -- Mix and match as you like
+# (McCormick Huguenard)
+# UNITS: millivolts, milliseconds, nanofarads, nanoamps, microsiemens
+# moles
+# cell is 29000 micron^2 in area so capacitance is in nanofarads
+# all conductances are in microsiemens and current is in nanofarads.
+#
+par I=0,c=.29
+v'=(I -ina-ik-ileak-ik2-inap-it-iahp-im-ia-ic-il-ih+istep(t))/c
+# the current is a step function with amplitude ip
+istep(t)=ip*heav(t-t_on)*heav(t_off-t)
+par ip=0.0,t_on=100,t_off=200
+# passive leaks
+par gkleak=.007,gnaleak=.0022
+Ileak=gkleak*(v-ek)+gnaleak*(v-ena)
+#
+aux i_leak=ileak
+#  INA
+par gna=0,Ena=45
+Ina=gna*(v-ena)*mna^3*hna
+amna=.091*(v+38)/(1-exp(-(v+38)/5)) 
+bmna=-.062*(v+38)/(1-exp((v+38)/5))
+ahna=.016*exp((-55-v)/15)
+bhna=2.07/(1+exp((17-v)/21))
+mna'=amna*(1-mna)-bmna*mna
+hna'=ahna*(1-hna)-bhna*hna
+#
+aux i_na=ina
+# Delayed rectifier IK
+par gk=0,Ek=-105
+Ik=gk*(v-ek)*nk^4
+ank=.01*(-45-v)/(exp((-45-v)/5)-1)
+bnk=.17*exp((-50-v)/40)
+nk'=ank*(1-nk)-bnk*nk
+#
+aux i_k=ik
+# INap  same tau as Na but diff activation
+par gnap=0
+inap=gnap*map^3*(v-ena)
+map'=(1/(1+exp((-49-v)/5))-map)/(amna+bmna)
+#
+aux i_nap=inap
+# ia  A-type inactivating potassium current
+#
+ia=ga*(v-ek)*(.6*ha1*ma1^4+.4*ha2*ma2^4)
+mainf1=1/(1+exp(-(v+60)/8.5))
+mainf2=1/(1+exp(-(v+36)/20)) 
+tma=(1/(exp((v+35.82)/19.69)+exp(-(v+79.69)/12.7))+.37)
+ma1'=(mainf1-ma1)/tma
+ma2'=(mainf2-ma2)/tma
+hainf=1/(1+exp((v+78)/6))
+tadef=1/(exp((v+46.05)/5)+exp(-(v+238.4)/37.45))
+tah1=if(v<(-63))then(tadef)else(19)
+tah2=if(v<(-73))then(tadef)else(60)
+ha1'=(hainf-ha1)/tah1
+ha2'=(hainf-ha2)/tah2
+par ga=0
+aux i_a=ia
+#
+# Ik2  slow potassium current
+par gk2=0,fa=.4,fb=.6
+Ik2=gk2*(v-ek)*mk2*(fa*hk2a+fb*hk2b)
+minfk2=1/(1+exp(-(v+43)/17))^4
+taumk2=1/(exp((v-80.98)/25.64)+exp(-(v+132)/17.953))+9.9
+mk2'=(minfk2-mk2)/taumk2
+hinfk2=1/(1+exp((v+58)/10.6))
+tauhk2a=1/(exp((v-1329)/200)+exp(-(v+129.7)/7.143))+120
+tauhk2b=if((v+70)<0)then(8930)else(tauhk2a)
+hk2a'=(hinfk2-hk2a)/tauhk2a
+hk2b'=(hinfk2-hk2b)/tauhk2b
+aux i_k2=ik2
+#
+# IT and calcium dynamics -- transient low threshold
+# permeabilites in 10-6 cm^3/sec
+#
+par Cao=2e-3,temp=23.5,pt=0,camin=50e-9 
+number faraday=96485,rgas=8.3147,tabs0=273.15
+# CFE stuff
+xi=v*faraday*2/(rgas*(tabs0+temp)*1000)
+# factor of 1000 for millivolts
+cfestuff=2e-3*faraday*xi*(ca-cao*exp(-xi))/(1-exp(-xi))
+IT=pt*ht*mt^2*cfestuff
+mtinf=1/(1+exp(-(v+52)/7.4))
+taumt=.44+.15/(exp((v+27)/10)+exp(-(v+102)/15))
+htinf=1/(1+exp((v+80)/5))
+tauht=22.7+.27/(exp((v+48)/4)+exp(-(v+407)/50))
+mt'=(mtinf-mt)/taumt
+ht'=(htinf-ht)/tauht
+# il   L-type noninactivating calcium current -- high threshold
+par pl=0
+il=pl*ml^2*cfestuff
+aml=1.6/(1+exp(-.072*(V+5)))
+bml=.02*(v-1.31)/(exp((v-1.31)/5.36)-1)
+ml'=aml*(1-ml)-bml*ml
+aux i_l=il
+# calcium concentration
+par depth=.1,beta=1,area=29000
+ca'=-.00518*(it+il)/(area*depth)-beta*(ca-camin)
+ca(0)=50e-9
+aux i_t=it
+# ic  calcium and voltage dependent fast potassium current
+ic=gc*(v-ek)*mc
+ac=250000*ca*exp(v/24)
+bc=.1*exp(-v/24)
+mc'=ac*(1-mc)-bc*mc
+par gc=0
+aux i_c=ic
+# ih  Sag current -- voltage inactivated inward current
+ih=gh*(V-eh)*y
+yinf=1/(1+exp((v+75)/5.5))
+ty=3900/(exp(-7.68-.086*v)+exp(5.04+.0701*v))
+y'=(yinf-y)/ty
+par gh=0,eh=-43
+# im   Muscarinic slow voltage gated potassium current
+im=gm*(v-ek)*mm
+mminf=1/(1+exp(-(v+35)/10))
+taumm=taumm_max/(3.3*(exp((v+35)/20)+exp(-(v+35)/20)))
+mm'=(mminf-mm)/taumm
+par gm=0,taumm_max=1000
+aux i_m=im
+# Iahp  Calcium dependent potassium current 
+Iahp=gahp*(v-ek)*mahp^2
+par gahp=0,bet_ahp=.001,al_ahp=1.2e9
+mahp'=al_ahp*ca*ca*(1-mahp)-bet_ahp*mahp
+aux i_ahp=iahp
+aux cfe=cfestuff
+#  set up for 1/2 sec simulation in .5 msec increments
+@ total=500,dt=.5,meth=qualrk,atoler=1e-4,toler=1e-5,bound=1000
+@ xhi=500,ylo=-100,yhi=50
+init v=-70,hna=0.5
+done
