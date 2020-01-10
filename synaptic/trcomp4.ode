@@ -1,4 +1,7 @@
-# traub sodium and potassium kinetics and 3 compartments with synapses
+# Traub RD, sodium and potassium kinetics and 3 compartments with synapses
+# Traub's cortical cell model that has conductances for the two apical 
+# dendrite compartments, the basal dendrite compartment, and the soma
+# compartment
 # v va1,va2,vb
 v'=-(gna*h*m^3*(v-ena)+gk*n^4*(v-ek)+gl*(v-el)+gas*(v-va1)+gbs*(v-vb)+\
      alphas(t)*(v-vsyn))/c
