@@ -15,3 +15,5 @@ NumAngles = size(spikes,1) - NumControls % number of angles tested, equally spac
  %last 2 sets of recordings are controls
 NumTimePoints = size(spikes,2) % number of time points; time was sampled every 1 ms
 NumTrials = size(spikes,3) % number of trials performed at each angle
+
+t_vect = t_On:dt:(NumTimePoints-1)*dt; % time vector for each trial
