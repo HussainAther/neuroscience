@@ -45,3 +45,10 @@ FanoFactor = (std(NumCounts_vect)^2)/mean(NumCounts_vect)
 
 % Compute coefficient of varince of the interspike intervals (ISI).
 SpikeTimes_vect = dt*find(abs(spikes(ThisOrientation,TStartCount:TEndCount,1)-1) < 0.00000001)
+isi_vect = diff(SpikeTimes_vect)
+
+% Plot ISI histogram.
+figure(3)
+hist(isi_vect,8)
+xlabel("isi (ms)")
+ylabel("Number of occurrences")
