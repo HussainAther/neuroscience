@@ -27,3 +27,12 @@ end
 xlabel("time (ms)")
 ylabel("trial number")
 hold off
+
+% Plot averaged (PSTH) data for one particular angle.
+TrialSum_vect = sum(spikes(2,:,:),3); % add up spike trains across trials
+SmoothingWidth = 61; % smooth data over +/- [(this # - 1)/2] bins
+TrialSum_smooth_vect = smooth(TrialSum_vect,SmoothingWidth);
+figure(2)
+plot(t_vect,1000*TrialSum_smooth_vect/(NumTrials*dt))
+xlabel("time (ms)")
+ylabel("Average firing rate (Hz)")
