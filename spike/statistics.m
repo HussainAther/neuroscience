@@ -41,3 +41,4 @@ ylabel("Average firing rate (Hz)")
 TStartCount = 600; % time to start computing average
 TEndCount = 2500; % time to end computing average
 NumCounts_vect = sum(spikes(ThisOrientation,((TStartCount+1)/dt):(TEndCount/dt),:),2) # number of counts of spikes per trial
+FanoFactor = (std(NumCounts_vect)^2)/mean(NumCounts_vect)
