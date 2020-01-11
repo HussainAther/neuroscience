@@ -34,3 +34,18 @@ hold on
 plot(x_vect, D_x_vect) % plot full receptive field with solid blue line
 xlabel("x (deg)")
 ylabel("D_x")
+
+% Define and then plot temporal kernel D_t.
+D_t_vect = alpha*exp(-alpha*tau_vect).*((alpha*tau_vect).^5/(5*4*3*2) - ...
+ (alpha*tau_vect).^7/(7*6*5*4*3*2));
+subplot(3,1,2)
+plot(tau_vect,D_t_vect)
+set(gca,"XDir","reverse")
+xlabel("tau (ms)")
+ylabel("D_t")
+
+% Define and then plot the full spatio-temporal kernel D(x,tau).
+D_xt_mat = D_x_vect"*D_t_vect; %full 2-D r.f., with x as 1st dimension & t as 2nd dimension
+subplot(3,1,3)
+contour(tau_vect,x_vect,D_xt_mat,12); %makes a contour plot of the data
+colorbar
