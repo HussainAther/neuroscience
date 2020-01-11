@@ -49,3 +49,23 @@ D_xt_mat = D_x_vect"*D_t_vect; %full 2-D r.f., with x as 1st dimension & t as 2n
 subplot(3,1,3)
 contour(tau_vect,x_vect,D_xt_mat,12); %makes a contour plot of the data
 colorbar
+
+set(gca,"Xdir","reverse")
+xlabel("tau (ms)")
+ylabel("x (deg)")
+
+% spatial parameters & plot of spatial locations of stimuli
+Target_LeftEnd = -0.5; %position of start of bar [deg]
+Target_RightEnd = 0.5; %position of end of bar [deg]
+Target_x_vect = [zeros(1,(Target_LeftEnd - x_min)/dx)... %nothing flashed here
+                 ones(1,((Target_RightEnd - Target_LeftEnd)/dx)+1)... %Target position
+                 zeros(1,(x_max - Target_RightEnd)/dx)]; %nothing flashed here
+Mask1_LeftEnd = -1.5;
+Mask1_RightEnd = -0.5;
+Mask2_LeftEnd = 0.5;
+Mask2_RightEnd = 1.5;
+Mask_x_vect = [zeros(1,(Mask1_LeftEnd - x_min)/dx) ... %nothing flashed here
+               ones(1,((Mask1_RightEnd - Mask1_LeftEnd)/dx)+1) ... %Target position
+               zeros(1,((Mask2_LeftEnd - Mask1_RightEnd)/dx)-1) ... %nothing flashed here
+               ones(1,((Mask2_RightEnd - Mask2_LeftEnd)/dx)+1) ... %Target position
+               zeros(1,(x_max - Mask2_RightEnd)/dx)]; %nothing flashed here
