@@ -43,7 +43,7 @@ TEndCount = 2500; % time to end computing average
 NumCounts_vect = sum(spikes(ThisOrientation,((TStartCount+1)/dt):(TEndCount/dt),:),2) # number of counts of spikes per trial
 FanoFactor = (std(NumCounts_vect)^2)/mean(NumCounts_vect)
 
-% Compute coefficient of varince of the interspike intervals (ISI).
+% Compute the interspike intervals (ISI).
 SpikeTimes_vect = dt*find(abs(spikes(ThisOrientation,TStartCount:TEndCount,1)-1) < 0.00000001)
 isi_vect = diff(SpikeTimes_vect)
 
@@ -52,3 +52,8 @@ figure(3)
 hist(isi_vect,8)
 xlabel("isi (ms)")
 ylabel("Number of occurrences")
+
+% Compute coefficient of variation (CV) ISI.
+mean_isi = mean(isi_vect)
+std_isi = std(isi_vect)
+CV_isi = mean_isi/std_isi
