@@ -17,3 +17,7 @@ dx = 0.05; % resolution of spatial grid
 x_min = -4*sigma_s; % x-value roughly giving -x border of r.f.
 x_max = 4*sigma_s; % x-value roughly giving +x border of r.f.
 x_vect = x_min:dx:x_max; % values of x over which to compute D_x
+alpha = 1/10; % determines length of temporal filter [ms^-1]
+dt = 1; % ms
+tau_vect_max = 20/alpha; % tau value giving border of temporal r.f.
+tau_vect = 0:dt:tau_vect_max; % value of tau over which to compute D_t
