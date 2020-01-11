@@ -21,3 +21,16 @@ alpha = 1/10; % determines length of temporal filter [ms^-1]
 dt = 1; % ms
 tau_vect_max = 20/alpha; % tau value giving border of temporal r.f.
 tau_vect = 0:dt:tau_vect_max; % value of tau over which to compute D_t
+
+% Define and then plot spatial kernel D_x.
+D_x_center = A_c*exp(-(x_vect.^2)/(2*(sigma_c^2)))/sqrt(2*pi*sigma_c^2);
+D_x_surround = A_s*exp(-(x_vect.^2)/(2*(sigma_s^2)))/sqrt(2*pi*sigma_s^2);
+D_x_vect = D_x_center - D_x_surround;
+figure(1)
+subplot(3,1,1)
+%plot(x_vect, D_x_center, "r--") % plot center with red dashed lines
+hold on
+%plot(x_vect, D_x_surround, "k--") % plot surround with black dashed lines
+plot(x_vect, D_x_vect) % plot full receptive field with solid blue line
+xlabel("x (deg)")
+ylabel("D_x")
