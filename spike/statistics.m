@@ -36,3 +36,8 @@ figure(2)
 plot(t_vect,1000*TrialSum_smooth_vect/(NumTrials*dt))
 xlabel("time (ms)")
 ylabel("Average firing rate (Hz)")
+
+% Compute Fano factor.
+TStartCount = 600; % time to start computing average
+TEndCount = 2500; % time to end computing average
+NumCounts_vect = sum(spikes(ThisOrientation,((TStartCount+1)/dt):(TEndCount/dt),:),2) # number of counts of spikes per trial
