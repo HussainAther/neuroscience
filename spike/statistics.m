@@ -20,6 +20,6 @@ t_vect = t_On:dt:(NumTimePoints-1)*dt; % time vector for each trial
 
 % Plot rasters.
 figure(1)
-plot(t_vect,spikes(2,:,20), "o")
+plot(t_vect, spikes(2,1:2500,20), "o")
 xlabel("time (ms)")
 ylabel("spike=1, no spike=0")
