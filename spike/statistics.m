@@ -17,3 +17,9 @@ NumTimePoints = size(spikes,2) % number of time points; time was sampled every 1
 NumTrials = size(spikes,3) % number of trials performed at each angle
 
 t_vect = t_On:dt:(NumTimePoints-1)*dt; % time vector for each trial
+
+% Plot rasters.
+figure(1)
+plot(t_vect,spikes(2,:,20), "o")
+xlabel("time (ms)")
+ylabel("spike=1, no spike=0")
