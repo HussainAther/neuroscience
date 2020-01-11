@@ -69,3 +69,36 @@ Mask_x_vect = [zeros(1,(Mask1_LeftEnd - x_min)/dx) ... %nothing flashed here
                zeros(1,((Mask2_LeftEnd - Mask1_RightEnd)/dx)-1) ... %nothing flashed here
                ones(1,((Mask2_RightEnd - Mask2_LeftEnd)/dx)+1) ... %Target position
                zeros(1,(x_max - Mask2_RightEnd)/dx)]; %nothing flashed here
+
+figure(2)
+subplot(3,1,1)
+plot(x_vect,Target_x_vect,"o")
+xlabel("x (deg)")
+ylabel("Target(1=Lt,0=Dk)")
+
+% temporal parameters & plot of temporal locations of stimuli
+tmax = 800; %ms
+Target_on = 400; %ms
+Target_off = 600; %ms
+t_vect = 0:dt:tmax;
+Target_t_vect = [zeros(1,Target_on/dt) ... %bar initially off from t=0 to t=Target_on-dt
+                 ones(1,(Target_off-Target_on)/dt) ... %then Target on
+                 zeros(1,((tmax-Target_off)/dt)+1)]; %then Target off again
+Mask_on = 200; %ms
+Mask_off = 400; %ms
+Mask_t_vect = [zeros(1,Mask_on/dt) ... %bar initially off from t=0 to t=Mask_on-dt
+               ones(1,(Mask_off-Mask_on)/dt) ... %then Mask on
+               zeros(1,((tmax-Mask_off)/dt)+1)]; %then Mask off again
+subplot(3,1,2)
+plot(t_vect,Target_t_vect)
+xlabel("t (ms)")
+ylabel("Target")
+%define and plot stimulus in both space & time
+Target_xt_mat = Target_x_vect"*Target_t_vect;
+Mask_xt_mat = Mask_x_vect"*Mask_t_vect;
+Both_xt_mat = Target_xt_mat + Mask_xt_mat; %mask and target both presented
+subplot(3,1,3)
+contourf(t_vect,x_vect,Target_xt_mat); %makes a contour plot of the data
+colorbar
+xlabel("t (ms)")
+ylabel("x (deg)")
