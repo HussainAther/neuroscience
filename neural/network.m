@@ -1,7 +1,7 @@
 %{
 Groups of neurons acting together in networks.
 Integrate-and-fire (IAF) Integrate and fire.
-}%
+%}
 N_exc = 80; % excitatory neurons
 N_inh = 20; % inhibitory neurons
 v_i = 10; % initial velocity
