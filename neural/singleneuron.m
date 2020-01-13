@@ -1,6 +1,6 @@
 %{
 Single neuron voltage-gated ion channel.
-}%
+%}
 %These are some default parameter values
 I=10;
 a=0.02;
