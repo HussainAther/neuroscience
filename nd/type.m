@@ -7,7 +7,7 @@ from neurodynex.neuron_type import neurons
 
 %{
 Type I and type II neuron models
-}%
+%}
 
 # Create an input current.
 input_current = input_factory.get_step_current(50, 150, 1.*b2.ms, 0.5*b2.pA)

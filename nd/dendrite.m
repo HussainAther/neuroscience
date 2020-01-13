@@ -6,7 +6,7 @@ from neurodynex.tools import input_factory
 
 %{
 Dendrites and passive cable equation
-}%
+%}
 
 passive_cable.getting_started()
 CABLE_LENGTH = 500. * b2.um  # length of dendrite

@@ -6,7 +6,7 @@ from neurodynex.tools import plot_tools, input_factory
 
 %{
 Exponential integrate-and-fire (integrate and fire)
-}%
+%}
 
 input_current = input_factory.get_step_current(
     t_start=20, t_end=120, unit_time=b2.ms, amplitude=0.8 * b2.namp)
