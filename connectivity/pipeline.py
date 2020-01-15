@@ -26,3 +26,23 @@ fmri_list = sorted(fmri_list)
 confounds_list = sorted(confounds_list)
 
 print(f"Number of subjects: {len(fmri_list)}")
+
+# Loading Power ROIs coordinates.
+
+power = datasets.fetch_coords_power_2011()
+power_coords = np.vstack((power.rois["x"], power.rois["y"], power.rois["z"])).T
+
+# Creating masker file.
+
+power_spheres = input_data.NiftiSpheresMasker(
+    seeds=power_coords, 
+    smoothing_fwhm=6, 
+    radius=5,
+    detrend=True, 
+    standardize=True,
+    low_pass=0.08, 
+    high_pass=0.009,
+    t_r=0.72
+)
+
+parcellation = power_spheres
