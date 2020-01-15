@@ -27,12 +27,12 @@ confounds_list = sorted(confounds_list)
 
 print(f"Number of subjects: {len(fmri_list)}")
 
-# Loading Power ROIs coordinates.
+# Load Power ROIs coordinates.
 
 power = datasets.fetch_coords_power_2011()
 power_coords = np.vstack((power.rois["x"], power.rois["y"], power.rois["z"])).T
 
-# Creating masker file.
+# Create masker file.
 
 power_spheres = input_data.NiftiSpheresMasker(
     seeds=power_coords, 
@@ -46,3 +46,20 @@ power_spheres = input_data.NiftiSpheresMasker(
 )
 
 parcellation = power_spheres
+
+# Extract timeseries. 
+# Create empty timeseries to store array.
+timeseries_all = np.zeros((len(fmri_list), 405, 264)) 
+
+for sub in range(len(fmri_list)):
+             
+    # Load confound file.
+    confounds = np.loadtxt(confounds_list[sub])
+        
+    # Extract timeseries.
+    timeseries = parcellation.fit_transform(fmri_list[sub], confounds = confounds)
+    
+    # Save timeseries to array.
+    timeseries_all[sub, :, :] = timeseries
+    
+timeseries_all.shape
