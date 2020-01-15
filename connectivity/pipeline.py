@@ -7,9 +7,10 @@ import pandas as pd
 
 from nilearn import datasets, plotting, input_data, signal # datasets: for fetching atlas
 from nilearn.input_data import NiftiLabelsMasker
-from nilearn.connectome import ConnectivityMeasure
+from nilearn.connectome import ConnectivityMeasure, sym_matrix_to_vec, vec_to_sym_matrix
 from nistats.reporting import plot_design_matrix
 from nistats.design_matrix import make_design_matrix
+from scipy import stats
 
 """
 Building a pipeline and tutorial for task fMRI analysis 
@@ -109,3 +110,18 @@ for sub in range(sub_n):
         correlation_matrices[sub, i, :, :] = fc
 
 correlation_matrices.shape
+
+# Calculate edgewise distances.
+zero_back = sym_matrix_to_vec(correlation_matrices[:,0,:,:], discard_diagonal = True)
+two_back = sym_matrix_to_vec(correlation_matrices[:,1,:,:], discard_diagonal = True)
+
+stat, pvalues = stats.ttest_rel(zero_back, two_back)
+
+import statsmodels.stats.multitest as ssm
+
+_, pvals_corrected, _, _ = ssm.multipletests(pvalues, alpha = 0.05, method = 'fdr_bh')
+
+pvals_corrected_thr = np.zeros((len(pvals_corrected)))
+
+pvals = np.array([0 if p >= 0.05 else 1 for p in pvals_corrected])
+sum(pvals)
