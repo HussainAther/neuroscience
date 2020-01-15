@@ -11,6 +11,7 @@ from nilearn.connectome import ConnectivityMeasure, sym_matrix_to_vec, vec_to_sy
 from nistats.reporting import plot_design_matrix
 from nistats.design_matrix import make_design_matrix
 from scipy import stats
+from sklearn import neighbors
 
 """
 Building a pipeline and tutorial for task fMRI analysis 
