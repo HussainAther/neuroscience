@@ -187,3 +187,32 @@ activ_clean = activ_coords[selector]
 
 print(f"Number of coordinates before cleaning: {len(activ_coords)}")
 print(f"Number of coordinates after cleaning: {len(activ_clean)}")
+
+activ_spheres = input_data.NiftiSpheresMasker(
+    seeds = activ_clean, 
+    smoothing_fwhm = None, 
+    radius = 5,
+    detrend = True, 
+    standardize = True,
+    low_pass = 0.08, 
+    high_pass = 0.009,
+    t_r = 0.72
+)
+
+parcellation = activ_spheres
+
+# Create empty timeseries to store array.
+timeseries_all_activ = np.zeros((len(fmri_list), 405, 27)) 
+
+for sub in range(len(fmri_list)):
+             
+    # Load confound file.
+    confounds = np.loadtxt(confounds_list[sub])
+        
+    # Extract timeseries.
+    timeseries = parcellation.fit_transform(fmri_list[sub], confounds = confounds)
+    
+    # Save timeseries to array.
+    timeseries_all_activ[sub, :, :] = timeseries
+
+timeseries_all_activ.shape
