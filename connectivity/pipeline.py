@@ -88,3 +88,24 @@ design_matrix = design_matrix.reset_index()
 plt.plot(design_matrix["0back"])
 plt.plot(design_matrix["2back"])
 plt.legend()
+
+# Calculate correlation matrices.
+conditions  = ["0back", "2back"]
+sub_n = timeseries_all.shape[0]
+rois_n = timeseries_all.shape[2]
+
+correlation_matrices = np.zeros((sub_n, len(conditions), rois_n, rois_n))
+
+for sub in range(sub_n):
+    for i, cond in enumerate(conditions):
+    
+        task = timeseries_all[sub, design_matrix[cond].astype("bool").astype("bool"), :]
+        
+        correlation_measure = ConnectivityMeasure(kind="correlation")
+    
+        fc = correlation_measure.fit_transform([task])[0]
+        np.fill_diagonal(fc, 0)
+        
+        correlation_matrices[sub, i, :, :] = fc
+
+correlation_matrices.shape
