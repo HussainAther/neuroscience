@@ -63,3 +63,8 @@ for sub in range(len(fmri_list)):
     timeseries_all[sub, :, :] = timeseries
     
 timeseries_all.shape
+
+# Plot.
+plt.figure(figsize = (15, 5))
+
+_ = plt.plot(timeseries_all[0,:,:])
