@@ -125,3 +125,11 @@ pvals_corrected_thr = np.zeros((len(pvals_corrected)))
 
 pvals = np.array([0 if p >= 0.05 else 1 for p in pvals_corrected])
 sum(pvals)
+
+wei_vector = stat * pvals 
+diag = np.zeros((264))
+
+matrix_wei = vec_to_sym_matrix(wei_vector, diagonal = diag)
+matrix_bin = vec_to_sym_matrix(pvals, diagonal = diag)
+plotting.plot_matrix(matrix_wei)
+
