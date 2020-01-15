@@ -68,3 +68,23 @@ timeseries_all.shape
 plt.figure(figsize = (15, 5))
 
 _ = plt.plot(timeseries_all[0,:,:])
+
+# Generate design matrix.
+
+t_r = 0.72
+n_scans = 405
+
+onsets_dir = "/home/finc/Dropbox/GitHub/nilearn_task_networks/support/onsets_HCP.csv"
+
+events = pd.read_csv(onsets_dir)
+events
+
+frame_times = np.arange(n_scans) * t_r
+frame_times
+
+design_matrix = make_design_matrix(frame_times, events, hrf_model = None)
+design_matrix = design_matrix.reset_index()
+
+plt.plot(design_matrix["0back"])
+plt.plot(design_matrix["2back"])
+plt.legend()
