@@ -148,7 +148,7 @@ stat, pvalues = stats.ttest_rel(zero_back, two_back)
 
 import statsmodels.stats.multitest as ssm
 
-_, pvals_corrected, _, _ = ssm.multipletests(pvalues, alpha = 0.05, method = 'fdr_bh')
+_, pvals_corrected, _, _ = ssm.multipletests(pvalues, alpha = 0.05, method = "fdr_bh")
 
 pvals_corrected_thr = np.zeros((len(pvals_corrected)))
 
@@ -162,3 +162,28 @@ matrix_wei = vec_to_sym_matrix(wei_vector, diagonal = diag)
 matrix_bin = vec_to_sym_matrix(pvals, diagonal = diag)
 plotting.plot_matrix(matrix_wei)
 
+# Load coordinates from activation analysis.
+activ = pd.read_csv("/home/finc/Dropbox/GitHub/nilearn_task_networks/support/coordinates_0back_2back.csv")
+
+activ_coords = pd.DataFrame(activ, columns = ["X", "Y", "Z"]).values
+
+radius = 10
+
+# Estimate neighbors
+clf = neighbors.NearestNeighbors(radius = radius)
+
+# Compute neighborhood matrix
+A = clf.fit(activ_coords).radius_neighbors_graph().toarray()
+A = np.tril(A, 0)
+
+# Plot lower triangle of neighborhood matrix.
+plt.imshow(A)
+
+# Select coordinates to keep.
+selector = A.sum(axis=1) == 0
+
+# Create final object.
+activ_clean = activ_coords[selector]
+
+print(f"Number of coordinates before cleaning: {len(activ_coords)}")
+print(f"Number of coordinates after cleaning: {len(activ_clean)}")
