@@ -15,7 +15,7 @@ t_max= 200 # ms, simulation time period
 tstop = int(t_max/h) # number of time steps
 ref = 0 # refractory period counter
 
-# Generate random input spikes
+# Generate random input spikes.
 # Note: This is not entirely realistic - no refractory period
 # Also: if you change step size h, input spike train changes too...
 thr = 0.9 # threshold for random spikes
@@ -30,23 +30,23 @@ t_vec = np.arange(0, t_a + h, h)
 alpha_func = const * t_vec * (np.exp(-t_vec/t_peak))
 
 plt.plot(t_vec[:80], alpha_func[:80])
-plt.xlabel('t (in ms)')
-plt.title('Alpha Function (Synaptic Conductance for Spike at t=0)')
+plt.xlabel("t (in ms)")
+plt.title("Alpha Function (Synaptic Conductance for Spike at t=0)")
 plt.draw()
 time.sleep(2) 
 
 # capacitance and leak resistance
 C = 0.5 # nF
 R = 40 # M ohms
-print('C = {}'.format(C))
-print('R = {}'.format(R))
+print("C = {}".format(C))
+print("R = {}".format(R))
 
 # conductance and associated parameters to simulate spike rate adaptation
 g_ad = 0
 G_inc = 1/h
 tau_ad = 2
 
-# Initialize basic parameters
+# Initialize basic parameters.
 E_leak = -60 # mV, equilibrium potential
 E_syn = 0 # Excitatory synapse (why is this excitatory?)
 g_syn = 0 # Current syn conductance
@@ -60,19 +60,19 @@ t_trace = [0]
 
 fig, axs = plt.subplots(2, 1)
 axs[0].plot(np.arange(0,t_max,h), spike_train)
-axs[0].set_title('Input spike train')
+axs[0].set_title("Input spike train")
 
 for t in range(tstop):
 
-    # Compute input
+    # Compute input.
     if spike_train[t]: # check for input spike
         t_list = cc([t_list, [1]])
 
-    # Calculate synaptic current due to current and past input spikes
+    # Calculate synaptic current due to current and past input spikes.
     g_syn = np.sum(alpha_func[t_list])
     I_syn = g_syn*(E_syn - V) 
 
-    # Update spike times
+    # Update spike times.
     if np.any(t_list):
         t_list = t_list + 1
         if t_list[0] == t_a: # Reached max duration of syn conductance
@@ -88,7 +88,7 @@ for t in range(tstop):
         V = V_th - 10 # reset voltage after spike
         g_ad = 0
 
-    # Generate spike
+    # Generate spike.
     if (V > V_th) and not ref:
         V = V_spike
         ref = ref_max
@@ -100,5 +100,5 @@ for t in range(tstop):
 
 axs[1].plot(t_trace,V_trace)
 plt.draw()
-axs[1].set_title('Output spike train')
+axs[1].set_title("Output spike train")
 plt.show()
