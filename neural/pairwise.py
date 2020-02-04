@@ -10,6 +10,14 @@ by averaging over samples from the model. Samples at T+1th iteration are obtaine
 the MCMC (Markov Chain Monte Carlo) transition matrix to samples at Tth iteration.
 """
 
+def Dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
+    """
+    Sample the current model J by applying MCMC to past samples in 
+    samplesbatch, and use these to estimate the loss gradient at the
+    current model.
+    """
+
+
 def graddescent(grad, pars0, learningrate, samplesbatch, iter):
     """
     Gradient descent function takes grad ([g, samplesbatch] for g (gradient of optimized function
