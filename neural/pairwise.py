@@ -18,11 +18,11 @@ def graddescent(grad, pars0, learningrate, samplesbatch, iter):
     Return pars that the gradient descent converges to.
     """
     pars = pars0
-    (g, samplesbatch) = grad(pars0, samplesbatch)
+    g = np.gradient(samplebatch)
     i = 0
     while i <= iter:
         pars = pars - learningrate*g
-        i = iter + 1
+        i += 1
     return pars
 
 def samplepairwise(samples, J, nsteps):
