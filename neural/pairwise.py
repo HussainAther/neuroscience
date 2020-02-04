@@ -15,6 +15,15 @@ def samplepairwise(samples, J, nsteps):
     Extract from the Gibbs sampling by applying nsteps (number of steps) to every
     row in samples using J (coupling matrix of the pairwise model).
     """
+    (M, n) = np.shape(samples)
+    # Get the diagnol
+    Joffdiag = diagnol(samples)
+    neuronid = 0
+    # Perform n steps of Gibbs sampling.
+    for j in range(nsteps):
+        deltaE = J[neuronid][neuronid] + 2*samples*Joffdiag[:, neuronid]
+        pspike = 1/(1+np.exp(delta))
+        samples[:, neuronid] = np.random.rand(M, M) < pspike
 
 def fitpairwise(data, J0, gsteps):
     """
@@ -24,7 +33,7 @@ def fitpairwise(data, J0, gsteps):
     Return J (learned coupling matrix).
     """
     # Initialize.
-    M, n = np.shape(data)
+    (M, n) = np.shape(data)
     J0lin = []
     for x in np.nditer(data):
         J0lin.append(x)
