@@ -10,6 +10,12 @@ by averaging over samples from the model. Samples at T+1th iteration are obtaine
 the MCMC (Markov Chain Monte Carlo) transition matrix to samples at Tth iteration.
 """
 
+def samplepairwise(samples, J, nsteps):
+    """
+    Extract from the Gibbs sampling by applying nsteps (number of steps) to every
+    row in samples using J (coupling matrix of the pairwise model).
+    """
+
 def fitpairwise(data, J0, gsteps):
     """
     With input data (binary array of size number of samples x number of neurons), 
