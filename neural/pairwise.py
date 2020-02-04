@@ -1,5 +1,7 @@
 import numpy as np
 
+from random import random
+
 """
 Fit a pairwise model to data. Similar to Schneidman, et al. (2006). "Weak pairwise correlations imply strongly correlated network states in a neural population." Nature.
 
@@ -21,4 +23,5 @@ def fitpairwise(data, J0, options):
         J0lin.append(x)
     # Estimate empirical covariance to be reproduced by the model.
     empcov = np.multiple(data.H * data)/M
-
+    # Initialize Gibbs chain at data distribution.
+    samples = data[random.randint(1, len(data), 1)]
