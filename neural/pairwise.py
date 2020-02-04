@@ -7,21 +7,26 @@ Fit a pairwise model to data. Similar to Schneidman, et al. (2006). "Weak pairwi
 
 This uses gradient descent on negative log-likelihood with gradient estimated
 by averaging over samples from the model. Samples at T+1th iteration are obtained using
-the MCMC transition matrix to samples at Tth iteration.
+the MCMC (Markov Chain Monte Carlo) transition matrix to samples at Tth iteration.
 """
 
-def fitpairwise(data, J0, options):
+def fitpairwise(data, J0, gsteps):
     """
     With input data (binary array of size number of samples x number of neurons), 
-    J0 (initial guess for J), and options, fit the pairwise model ot data.
+    J0 (initial guess for J), and gsteps (number of Gibbs steps), fit the pairwise 
+    model to data.
     Return J (learned coupling matrix).
     """
     # Initialize.
     M, n = np.shape(data)
     J0lin = []
-    for x in np.nditer(datta):
+    for x in np.nditer(data):
         J0lin.append(x)
     # Estimate empirical covariance to be reproduced by the model.
     empcov = np.multiple(data.H * data)/M
     # Initialize Gibbs chain at data distribution.
     samples = data[random.randint(1, len(data), 1)]
+    Msamples = np.shape(samples)[0]
+    # Transform samples into samples from the initial model.    
+    burnin = 10*gsteps # rough guess for MCMC burnin time
+     
