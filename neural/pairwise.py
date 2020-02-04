@@ -1,3 +1,5 @@
+import numpy as np
+
 """
 Fit a pairwise model to data. Similar to Schneidman, et al. (2006). "Weak pairwise correlations imply strongly correlated network states in a neural population." Nature.
 
@@ -12,3 +14,8 @@ def fitpairwise(data, J0, options):
     J0 (initial guess for J), and options, fit the pairwise model ot data.
     Return J (learned coupling matrix).
     """
+    # Initialize.
+    M, n = np.shape(data)
+    J0lin = []
+    for x in np.nditer(datta):
+        J0lin.append(x)
