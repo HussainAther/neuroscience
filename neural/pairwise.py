@@ -16,7 +16,9 @@ def Dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
     samplesbatch, and use these to estimate the loss gradient at the
     current model.
     """
-
+    # Initialize.
+    n = np.shape(data)[1]
+    J = np.reshape(Jlin, (n,n))
 
 def graddescent(grad, pars0, learningrate, samplesbatch, iter):
     """
