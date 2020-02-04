@@ -10,7 +10,7 @@ by averaging over samples from the model. Samples at T+1th iteration are obtaine
 the MCMC (Markov Chain Monte Carlo) transition matrix to samples at Tth iteration.
 """
 
-def Dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
+def dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
     """
     Sample the current model J by applying MCMC to past samples in 
     samplesbatch, and use these to estimate the loss gradient at the
@@ -19,6 +19,8 @@ def Dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
     # Initialize.
     n = np.shape(data)[1]
     J = np.reshape(Jlin, (n,n))
+    # Draw samples and estimate model covariance matrix.
+    modelcovs = np.zeros(n**2)
 
 def graddescent(grad, pars0, learningrate, samplesbatch, iter):
     """
