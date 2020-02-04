@@ -19,3 +19,6 @@ def fitpairwise(data, J0, options):
     J0lin = []
     for x in np.nditer(datta):
         J0lin.append(x)
+    # Estimate empirical covariance to be reproduced by the model.
+    empcov = np.multiple(data.H * data)/M
+
