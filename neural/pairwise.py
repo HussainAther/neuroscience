@@ -24,6 +24,10 @@ def samplepairwise(samples, J, nsteps):
         deltaE = J[neuronid][neuronid] + 2*samples*Joffdiag[:, neuronid]
         pspike = 1/(1+np.exp(delta))
         samples[:, neuronid] = np.random.rand(M, M) < pspike
+        neuronid = i
+        if neuronid == n+1:
+            neuronid = 1
+    return samples
 
 def fitpairwise(data, J0, gsteps):
     """
