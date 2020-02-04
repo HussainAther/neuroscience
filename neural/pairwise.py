@@ -10,6 +10,14 @@ by averaging over samples from the model. Samples at T+1th iteration are obtaine
 the MCMC (Markov Chain Monte Carlo) transition matrix to samples at Tth iteration.
 """
 
+def graddescent(grad, pars0, learningrate, samplesbatch, iter):
+    """
+    Gradient descent function takes grad ([g, samplesbatch] for g (gradient of optimized function
+    at pars)), pars0 (initial guess), learningrate (learning rate), samplesbatch (array of samples
+    being updated by the grad function), and iter (number of iterations).
+    Return pars that the gradient descent converges to.
+    """
+
 def samplepairwise(samples, J, nsteps):
     """
     Extract from the Gibbs sampling by applying nsteps (number of steps) to every
@@ -46,6 +54,15 @@ def fitpairwise(data, J0, gsteps):
     # Initialize Gibbs chain at data distribution.
     samples = data[random.randint(1, len(data), 1)]
     Msamples = np.shape(samples)[0]
+    samplesbatch = np.zeros(int(Msamples)/5, 5)
+    for k in range(1, 6):
+        idxsamples = range(((k-1)*(Msamples/5) + 1), k*Msamples/5)
+        samplesbatch[:,:,k] = samples[idxsamples,:]
     # Transform samples into samples from the initial model.    
     burnin = 10*gsteps # rough guess for MCMC burnin time
-     
+    for k in range(1, 6):
+        samples = np.squeeze(samplesbatch[:,:,k])
+        samples = np.eye(samples)
+        samplesbatch[:,:,k] = samplepairwise(samples, J0, burnin)
+    # Minimize negative log-likelihood.
+    grad =  
