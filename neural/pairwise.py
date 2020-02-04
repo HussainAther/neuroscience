@@ -1,6 +1,14 @@
 """
-Fit a pairwise modeel to data. Similar to Schneidman, et al. (2006). "Weak pairwise correlations imply strongly correlated network states in a neural population." Nature.
+Fit a pairwise model to data. Similar to Schneidman, et al. (2006). "Weak pairwise correlations imply strongly correlated network states in a neural population." Nature.
 
 This uses gradient descent on negative log-likelihood with gradient estimated
-by averaging over samples from the model.
+by averaging over samples from the model. Samples at T+1th iteration are obtained using
+the MCMC transition matrix to samples at Tth iteration.
 """
+
+def fitpairwise(data, J0, options):
+    """
+    With input data (binary array of size number of samples x number of neurons), 
+    J0 (initial guess for J), and options, fit the pairwise model ot data.
+    Return J (learned coupling matrix).
+    """
