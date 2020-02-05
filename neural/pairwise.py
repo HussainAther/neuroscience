@@ -14,13 +14,23 @@ def dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
     """
     Sample the current model J by applying MCMC to past samples in 
     samplesbatch, and use these to estimate the loss gradient at the
-    current model.
+    current model for gibbssteps steps.
     """
     # Initialize.
     n = np.shape(data)[1]
     J = np.reshape(Jlin, (n,n))
     # Draw samples and estimate model covariance matrix.
     modelcovs = np.zeros(n**2)
+    for k in range(1, 6): 
+        samples = np.squeeze(samplesbatch[:,:,k])
+        samples = np.eye(samples)
+        samplesbatch[:,:,k] = samplepairwise(samples, J, gibbssteps)
+        modelcovtmp = (samples.H * samples)/len(samples)
+        modelcovs[:,k] = modelcovtmp[:]
+        samplesbatch[:,:,k] = samples
+    modelcov = np.sum(modelcovs, 1)/5
+    # Calculate gradient.
+    return -modelcov+empcov[:] 
 
 def graddescent(grad, pars0, learningrate, samplesbatch, iter):
     """
