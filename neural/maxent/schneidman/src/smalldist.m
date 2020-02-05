@@ -38,6 +38,7 @@ marginals_data = maxent.getEmpiricalMarginals(samples_test,model);
 marginals_model = maxent.getMarginals(model);
 
 % Plot them on a log scale.
+% Output saved to "doc/smalldist.png".
 figure
 loglog(marginals_data,marginals_model,"b*");
 hold on;
