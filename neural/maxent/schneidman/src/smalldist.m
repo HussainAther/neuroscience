@@ -3,7 +3,7 @@
 % model predictions.
 
 % Load example spiking data of 15 neurons.
-load example15
+load data/example15
 
 % Randomly divide it into a training set and a test set 
 % (so we can verify how well we trained).
