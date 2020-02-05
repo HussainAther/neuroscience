@@ -21,3 +21,10 @@ model = maxent.createModel(ncells,"kising");
 % (50 dimensions) we cannot explicitly iterate over all 5^20 states
 % in memory and will use markov chain monte carlo (MCMC) methods to obtain an approximation
 model = maxent.trainModel(model,samples_train,"threshold",1.5);
+
+% Get the marginals (firing rates and correlations) of the test data and see 
+% how they compare to the model predictions. Here the model marginals could not be 
+% computed exactly so they will be estimated using monte-carlo. We specify the
+% number of samples we use so that their estimation will have the same amoutn noise as the empirical marginal values
+marginals_data = maxent.getEmpiricalMarginals(samples_test,model);
+marginals_model = maxent.getMarginals(model,'nsamples',size(samples_test,2));
