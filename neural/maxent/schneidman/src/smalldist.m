@@ -27,4 +27,16 @@ model = maxent.trainModel(model,samples_train,"threshold",1.5);
 % computed exactly so they will be estimated using monte-carlo. We specify the
 % number of samples we use so that their estimation will have the same amoutn noise as the empirical marginal values
 marginals_data = maxent.getEmpiricalMarginals(samples_test,model);
-marginals_model = maxent.getMarginals(model,'nsamples',size(samples_test,2));
+marginals_model = maxent.getMarginals(model,"nsamples",size(samples_test,2));
+
+% Plot them on a log scale.
+figure
+loglog(marginals_data,marginals_model,"b*");
+hold on;
+minval = min([marginals_data(marginals_data>0)]);
+plot([minval 1],[minval 1],"-r"); % identity line
+xlabel("empirical marginal");
+ylabel("predicted marginal");
+title(sprintf("marginals in %d cells",ncells));
+
+
