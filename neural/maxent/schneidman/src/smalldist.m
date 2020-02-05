@@ -39,4 +39,10 @@ xlabel("empirical marginal");
 ylabel("predicted marginal");
 title(sprintf("marginals in %d cells",ncells));
 
+% The model that the MCMC solver returns is not normalized. If we want to compare the 
+% predicted and actual probabilities of individual firing patterns, we will need to 
+% first normalize the model. We will use the wang-landau algorithm for this. We chose 
+% parameters which are less strict than the default settings so that we will have a faster runtime.
+disp("Normalizing model...");
+model = maxent.wangLandau(model,"binsize",0.1,"depth",15);
 
