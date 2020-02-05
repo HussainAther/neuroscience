@@ -1,5 +1,5 @@
 # MaxEnt
 
-Maximum entroy statistical mechanics tools
+Maximum entropy statistical mechanics tools
 
 
