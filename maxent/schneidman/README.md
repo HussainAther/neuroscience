@@ -7,3 +7,6 @@ The scripts use code by the [maxent_toolbox](https://github.com/orimaoz/maxent_t
 * Data in `data`.
 * Code in `src`.
 * Output in `doc`.
+
+## Working with small distributions of neurons (exhaustively)
+!(https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/smalldist.png)
