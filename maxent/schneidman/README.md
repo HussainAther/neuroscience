@@ -14,15 +14,20 @@ Used in `smalldist.m`.
 
 ## Working with larger distributions of neurons (MCMC)
 `largedist.m`
+![](https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/largedist.png)
 
 ## Working with RP (random projection) models
 `randomprojection.m`
+![](https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/randomprojection.png)
 
 ## Specifying a custom list of correlations
 `correlation.m`
+![](https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/correlations.png)
 
 ## Constructing composite models
 `composite.m`
+![](https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/composite.png)
 
 ## Constructing and sampling a time-dependent model from high order Markov chains.
 `timedep.m`
+![](https://github.com/HussainAther/neuroscience/blob/master/maxent/schneidman/doc/timedep.png)
