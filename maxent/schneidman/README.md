@@ -9,4 +9,4 @@ The scripts use code by the [maxent_toolbox](https://github.com/orimaoz/maxent_t
 * Output in `doc`.
 
 ## Working with small distributions of neurons (exhaustively)
-!(https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/smalldist.png)
+![](https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/smalldist.png)
