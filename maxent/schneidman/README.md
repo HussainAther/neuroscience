@@ -9,4 +9,20 @@ The scripts use code by the [maxent_toolbox](https://github.com/orimaoz/maxent_t
 * Output in `doc`.
 
 ## Working with small distributions of neurons (exhaustively)
+Used in `smalldist.m`.
 ![](https://raw.githubusercontent.com/HussainAther/neuroscience/master/maxent/schneidman/doc/smalldist.png)
+
+## Working with larger distributions of neurons (MCMC)
+`largedist.m`
+
+## Working with RP (random projection) models
+`randomprojection.m`
+
+## Specifying a custom list of correlations
+`correlation.m`
+
+## Constructing composite models
+`composite.m`
+
+## Constructing and sampling a time-dependent model from high order Markov chains.
+`timedep.m`
