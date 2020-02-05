@@ -14,7 +14,14 @@ samples_test = spikes50(:,idx_test);
 % Create a pairwise maximum entropy model.
 model = maxent.createModel(50,"pairwise");
 
-% Train the model to a threshold of 1.5 standard deviations from the error of computing the marginals.
-% because the distribution is larger (50 dimensions) we cannot explicitly iterate over all 5^20 states
-% in memory and will use markov chain monte carlo (MCMC) methods to obtain an approximation.
+% Train the model to a threshold of 1.5 standard deviations from the 
+% error of computing the marginals. Because the distribution is larger (50 dimensions) 
+% we cannot explicitly iterate over all 5^20 states in memory and will use Markov Chain Monte 
+% Carlo (MCMC) methods to obtain an approximation.
 model = maxent.trainModel(model,samples_train,"threshold",1.5);
+
+% Get the marginals (firing rates and correlations) of the test data and see how they compare to the model predictions.
+% here the model marginals could not be computed exactly so they will be estimated using monte-carlo. We specify the
+% number of samples we use so that their estimation will have the same amoutn noise as the empirical marginal values
+marginals_data = maxent.getEmpiricalMarginals(samples_test,model);
+marginals_model = maxent.getMarginals(model,'nsamples',size(samples_test,2));
