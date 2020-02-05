@@ -22,12 +22,20 @@ model = maxent.createModel(ncells,"kising");
 % in memory and will use markov chain monte carlo (MCMC) methods to obtain an approximation
 model = maxent.trainModel(model,samples_train,"threshold",1.5);
 
-% Get the marginals (firing rates and correlations) of the test data and see 
-% how they compare to the model predictions. Here the model marginals could not be 
-% computed exactly so they will be estimated using monte-carlo. We specify the
-% number of samples we use so that their estimation will have the same amoutn noise as the empirical marginal values
+% Now check the kullback-leibler divergence between the model predictions and 
+% the pattern counts in the test-set.
+empirical_distribution = maxent.getEmpiricalModel(samples_test);
+model_logprobs = maxent.getLogProbability(model,empirical_distribution.words);
+test_dkl = maxent.dkl(empirical_distribution.logprobs,model_logprobs);
+fprintf("Kullback-Leibler divergence from test set: %f\n",test_dkl);
+
+model_entropy = maxent.getEntropy(model);
+fprintf("Model entropy: %.03f   empirical dataset entropy: %.03f\n", model_entropy, empirical_distribution.entropy);
+
+% Get the marginals (firing rates and correlations) of the test data and 
+% see how they compare to the model predictions.
 marginals_data = maxent.getEmpiricalMarginals(samples_test,model);
-marginals_model = maxent.getMarginals(model,"nsamples",size(samples_test,2));
+marginals_model = maxent.getMarginals(model);
 
 % Plot them on a log scale.
 figure
@@ -38,11 +46,3 @@ plot([minval 1],[minval 1],"-r"); % identity line
 xlabel("empirical marginal");
 ylabel("predicted marginal");
 title(sprintf("marginals in %d cells",ncells));
-
-% The model that the MCMC solver returns is not normalized. If we want to compare the 
-% predicted and actual probabilities of individual firing patterns, we will need to 
-% first normalize the model. We will use the wang-landau algorithm for this. We chose 
-% parameters which are less strict than the default settings so that we will have a faster runtime.
-disp("Normalizing model...");
-model = maxent.wangLandau(model,"binsize",0.1,"depth",15);
-
