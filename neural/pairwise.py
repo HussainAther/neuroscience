@@ -32,7 +32,7 @@ def dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
     # Calculate gradient.
     return -modelcov+empcov[:] 
 
-def graddescent(grad, pars0, learningrate, samplesbatch, iter):
+def graddescent(pars0, learningrate, samplesbatch, iter):
     """
     Gradient descent function takes grad ([g, samplesbatch] for g (gradient of optimized function
     at pars)), pars0 (initial guess), learningrate (learning rate), samplesbatch (array of samples
@@ -94,4 +94,6 @@ def fitpairwise(data, J0, gsteps):
         samples = np.eye(samples)
         samplesbatch[:,:,k] = samplepairwise(samples, J0, burnin)
     # Minimize negative log-likelihood.
-    grad =  
+    Jlin = graddescent(J0lin, samplesbatch, 100)
+    J = np.reshape(Jlin, (n,n))
+    return J  
