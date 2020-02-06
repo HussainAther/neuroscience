@@ -2,7 +2,7 @@
 % Monte Carlo approach.
 
 % Load 50-neuron dataset.
-load data/example50
+load ../data/example50
 
 % Randomly divide into train/test sets.
 [ncells,nsamples] = size(spikes50);

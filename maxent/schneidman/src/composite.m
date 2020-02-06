@@ -1,6 +1,6 @@
 % Use a composite model.
 % Load spiking data of 15 neurons.
-load data/example15
+load ../data/example15
 
 % Randomly divide it into a training set and a test set (so we can verify how well we trained).
 [ncells,nsamples] = size(spikes15);

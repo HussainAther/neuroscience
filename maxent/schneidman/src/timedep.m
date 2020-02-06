@@ -1,6 +1,6 @@
 % Train a time-dependent model.
 % Load spiking data of 15 neurons.
-load data/example15_spatiotemporal
+load ../data/example15_spatiotemporal
 
 ncells = size(spikes15_time_dependent,1);
 history_length = 2;
