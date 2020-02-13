@@ -144,3 +144,12 @@ def plot_responses(responses):
     fig1.tight_layout()
 
 plot_responses(responses)
+
+# Set values for the free parameters.
+default_params = {"gna_soma": 0.15, "gk_soma": 0.03}
+
+# Run the simulation.
+responses = twostep_protocol.run(cell_model=simple_cell, param_values=default_params, sim=nrn)
+
+# Run the simulation and plot the responses.
+plot_responses(responses)
