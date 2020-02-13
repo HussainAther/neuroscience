@@ -233,3 +233,5 @@ plot_objectives(objectives)
 optimization = bpopt.deapext.optimisations.IBEADEAPOptimisation(                              
         evaluator=cell_evaluator,                                                
         offspring_size = 10)    
+
+final_pop, hall_of_fame, logs, hist = optimisation.run(max_ngen=13)
