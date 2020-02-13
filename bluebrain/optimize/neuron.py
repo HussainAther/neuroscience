@@ -1,7 +1,9 @@
 import bluepyopt as bpopt
 import bluepyopt.ephys as ephys
-import urllib2, numpy1
 import matplotlib.pyplot as plt
+import neurom
+import neurom.viewer
+import urllib2, numpy1
 
 """
 Optimize parameters for a simple neuron model.
@@ -27,3 +29,4 @@ exp_neg_trace = numpy.loadtxt("hyp_trace.txt")
 print(exp_pos_trace)
 
 # Define the cell model.
+# Load morphology.
