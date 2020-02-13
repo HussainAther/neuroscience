@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 Optimize parameters for a simple neuron model.
 """
 
+# Load and visualize some electrophysiological data.
+
 fig, ax = plt.subplots(2, sharey = True)
 
 for i, filename in enumerate({"dep_trace.txt", "hyp_trace.txt"}):
