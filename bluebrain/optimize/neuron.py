@@ -166,3 +166,31 @@ trace = {"T": time, "V": voltage, "stim_start": [250], "stim_end": [450]}
 feature_values = efel.getFeatureValues([trace], ["Spikecount"])[0]
 
 print("Number of spikes in the experimental trace: %s" % feature_values["Spikecount"])
+
+feat_means = {"neg_step": {"Spikecount": 0}, "pos_step": {"Spikecount": 10}}
+
+features = []
+objectives = []
+
+for protocol in sweep_protocols:   
+    stim_start = protocol.stimuli[0].step_delay
+    stim_end = stim_start + protocol.stimuli[0].step_duration
+
+    for efel_feature_name, mean in feat_means[protocol.name].items():
+        feature_name = "%s.%s" % (protocol.name, efel_feature_name)
+        
+        feature = ephys.efeatures.eFELFeature(
+                    feature_name,
+                    efel_feature_name=efel_feature_name,
+                    recording_names={"": "%s.soma.v" % protocol.name},
+                    stim_start=stim_start,
+                    stim_end=stim_end,
+                    exp_mean=mean,
+                    exp_std=0.05 * abs(mean) if mean != 0 else 1)
+        
+        features.append(feature)
+        objective = ephys.objectives.SingletonObjective(
+            feature_name,
+            feature)
+        objectives.append(objective)
+
