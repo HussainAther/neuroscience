@@ -83,3 +83,10 @@ cm = ephys.parameters.NrnSectionParameter(
         value=1.0, # in microfarad/cm2
         locations=[somatic_loc],
         frozen=True)
+
+# Create cell model.
+simple_cell = ephys.models.CellModel(
+        name="simple_cell",
+        morph=morph,
+        mechs=[hh_mech],
+        params=[gna_par, gk_par, gl_par, cm])
