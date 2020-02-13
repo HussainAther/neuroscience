@@ -132,3 +132,15 @@ default_params = {"gna_soma": 0.07, "gk_soma": 0.03}
 # Run the simulation.
 responses = twostep_protocol.run(cell_model=simple_cell, param_values=default_params, sim=nrn)
 
+# Plot.
+def plot_responses(responses):
+    fig1, ax = plt.subplots(len(responses), 2, sharey = True, sharex = "row")
+    ax[0,0].plot(exp_neg_trace[:, 0], exp_neg_trace[:,1], color = "k")            
+    ax[0,1].plot(responses["neg_step.soma.v"]["time"], responses["neg_step.soma.v"]["voltage"])
+    ax[0,0].set_title("Experiment")
+    ax[0,1].set_title("Model")
+    ax[1,0].plot(exp_pos_trace[:, 0], exp_pos_trace[:,1], color = "k")            
+    ax[1,1].plot(responses["pos_step.soma.v"]["time"], responses["pos_step.soma.v"]["voltage"])
+    fig1.tight_layout()
+
+plot_responses(responses)
