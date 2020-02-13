@@ -41,3 +41,12 @@ with open("simple.swc", "w") as f:
 fig, ax = neurom.viewer.draw(neurom.load_neuron("simple.swc"))
 morph = ephys.morphologies.NrnFileMorphology("simple.swc")
 
+# Use Hodgkin-Huxley to add ion channels.
+# Create a section object pointing to the soma.
+somatic_loc = ephys.locations.NrnSeclistLocation("somatic", seclist_name="somatic")
+
+# Insert the HH mechanism in the soma.
+hh_mech = ephys.mechanisms.NrnMODMechanism(                                         
+        name="hh",                                                                  
+        suffix="hh",                                                                
+        locations=[somatic_loc])
