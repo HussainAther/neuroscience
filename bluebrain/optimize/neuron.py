@@ -122,3 +122,13 @@ for protocol_name, amp, dur in [("neg_step", -0.01, 3000), ("pos_step", 0.015, 2
     sweep_protocols.append(protocol)
 
 twostep_protocol = ephys.protocols.SequenceProtocol("twostep", protocols=sweep_protocols)
+
+# Instantiate the simulator.
+nrn = ephys.simulators.NrnSimulator()
+
+# Set values for the free parameters (they have to be within bounds).
+default_params = {"gna_soma": 0.07, "gk_soma": 0.03}
+
+# Run the simulation.
+responses = twostep_protocol.run(cell_model=simple_cell, param_values=default_params, sim=nrn)
+
