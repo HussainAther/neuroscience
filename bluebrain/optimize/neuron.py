@@ -209,3 +209,22 @@ cell_evaluator = ephys.evaluators.CellEvaluator(
 objectives = cell_evaluator.evaluate_with_dicts(default_params)
 print("Scores:")
 print(objectives)
+
+def plot_objectives(objectives):
+    ytick_pos = [x + 0.5 for x in range(len(objectives))]
+    obj_val = objectives.values()
+    obj_keys = objectives.keys()
+    fig, ax = plt.subplots(figsize = (6,2.5))
+    ax.barh(ytick_pos,
+              obj_val,
+              height=0.5,
+              align='center',
+              color='blue',
+              alpha=0.5)
+    ax.axvline(3, color = "gray", ls = "--")
+    ax.set_yticks(ytick_pos)
+    ax.set_ylabel("Score name")
+    ax.set_xlabel("Score value (# STD)")
+    ax.set_yticklabels(obj_keys)
+    fig.tight_layout()
+plot_objectives(objectives)  
