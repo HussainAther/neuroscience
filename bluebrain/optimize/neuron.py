@@ -235,3 +235,28 @@ optimization = bpopt.deapext.optimisations.IBEADEAPOptimisation(
         offspring_size = 10)    
 
 final_pop, hall_of_fame, logs, hist = optimisation.run(max_ngen=13)
+
+# Optimization results
+fig, axs = plt.subplots(1,2, figsize = (5,4))
+      
+ax0 = axs[0].twinx()
+ax0.set_ylabel("gk_soma (S/cm$^2$)")
+for param_set in hall_of_fame:
+    axs[0].plot(0, param_set[0], "o") 
+    axs[0].set_ylabel("gna_soma (S/cm$^2$)")
+    ax0.plot(1, param_set[1], "o")
+    axs[0].set_title("Best individuals")
+
+ax1 = axs[1].twinx()
+axs[1].set_ylabel("gna_soma (S/cm$^2$)")
+ax1.set_ylabel("gk_soma (S/cm$^2$)")
+for param_set in hist.genealogy_history.values()[:100]:
+        axs[1].plot(0,param_set[0], "o", color = "gray")
+        ax1.plot(1,param_set[1], "o", color = "gray")
+        axs[1].set_title("Other individuals")
+      
+for ax in axs:
+    ax.set_xlim([-1,2])
+    ax.set_xticks([])
+    
+fig.tight_layout()
