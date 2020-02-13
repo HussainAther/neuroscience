@@ -228,3 +228,8 @@ def plot_objectives(objectives):
     ax.set_yticklabels(obj_keys)
     fig.tight_layout()
 plot_objectives(objectives)  
+
+# Run optimization.
+optimization = bpopt.deapext.optimisations.IBEADEAPOptimisation(                              
+        evaluator=cell_evaluator,                                                
+        offspring_size = 10)    
