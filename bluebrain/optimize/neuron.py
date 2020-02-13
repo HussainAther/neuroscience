@@ -30,6 +30,9 @@ print(exp_pos_trace)
 
 # Define the cell model.
 # Load morphology.
-
 response = urllib2.urlopen("https://bbp.epfl.ch/public/MOOC_HBP/simple.swc")
 data = response.read()
+
+# Save it.
+with open("simple.swc", "w") as f:
+    f.write(data)
