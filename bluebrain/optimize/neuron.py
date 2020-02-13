@@ -1,5 +1,6 @@
 import bluepyopt as bpopt
 import bluepyopt.ephys as ephys
+import efel
 import matplotlib.pyplot as plt
 import neurom
 import neurom.viewer
@@ -153,3 +154,15 @@ responses = twostep_protocol.run(cell_model=simple_cell, param_values=default_pa
 
 # Run the simulation and plot the responses.
 plot_responses(responses)
+
+# Get the time and voltage array from the experimental data.
+time = exp_pos_trace[:,0]
+voltage = exp_pos_trace[:,1]
+
+# Define the trace dictionary for efel.
+trace = {"T": time, "V": voltage, "stim_start": [250], "stim_end": [450]}
+
+# Extract features.
+feature_values = efel.getFeatureValues([trace], ["Spikecount"])[0]
+
+print("Number of spikes in the experimental trace: %s" % feature_values["Spikecount"])
