@@ -1,3 +1,5 @@
+import bluepyopt as bpopt
+import bluepyopt.ephys as ephys
 import urllib2, numpy1
 import matplotlib.pyplot as plt
 
@@ -23,3 +25,5 @@ for i, filename in enumerate({"dep_trace.txt", "hyp_trace.txt"}):
 exp_pos_trace = numpy.loadtxt("dep_trace.txt")
 exp_neg_trace = numpy.loadtxt("hyp_trace.txt")
 print(exp_pos_trace)
+
+# Define the cell model.
