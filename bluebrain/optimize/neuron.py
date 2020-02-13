@@ -50,3 +50,36 @@ hh_mech = ephys.mechanisms.NrnMODMechanism(
         name="hh",                                                                  
         suffix="hh",                                                                
         locations=[somatic_loc])
+
+# Specify parameters.
+# Sodium conductance
+gna_par = ephys.parameters.NrnSectionParameter(                                    
+        name="gna_soma",
+        param_name="gnabar_hh",
+        locations=[somatic_loc],
+        bounds=[0, 1], # S/cm^2
+        frozen=False) 
+
+# Potassium conductance
+gk_par = ephys.parameters.NrnSectionParameter(
+        name="gk_soma",
+        param_name="gkbar_hh",
+        bounds=[0, 1], # S/cm^2
+        locations=[somatic_loc],
+        frozen=False)
+
+# Leak conductance
+gl_par = ephys.parameters.NrnSectionParameter(
+        name="gl_soma",
+        param_name="gl_hh",
+        value=0.0003, # S/cm^2
+        locations=[somatic_loc],
+        frozen=True)
+
+# Membrane capacitance
+cm = ephys.parameters.NrnSectionParameter(
+        name="cm",
+        param_name="cm",
+        value=1.0, # in microfarad/cm2
+        locations=[somatic_loc],
+        frozen=True)
