@@ -17,3 +17,7 @@ for i, filename in enumerate({"dep_trace.txt", "hyp_trace.txt"}):
     ax[i].plot(trace[:,0], trace[:,1], color = "k")
     ax[i].set_ylabel("Voltage (mV)")
     ax[i].set_xlabel("Time (ms)")
+
+exp_pos_trace = numpy.loadtxt("dep_trace.txt")
+exp_neg_trace = numpy.loadtxt("hyp_trace.txt")
+print(exp_pos_trace)
