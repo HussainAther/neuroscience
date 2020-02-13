@@ -36,3 +36,7 @@ data = response.read()
 # Save it.
 with open("simple.swc", "w") as f:
     f.write(data)
+
+# Visualize.
+fig, ax = neurom.viewer.draw(neurom.load_neuron("simple.swc"))
+
