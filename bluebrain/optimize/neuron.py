@@ -218,8 +218,8 @@ def plot_objectives(objectives):
     ax.barh(ytick_pos,
               obj_val,
               height=0.5,
-              align='center',
-              color='blue',
+              align="center",
+              color="blue",
               alpha=0.5)
     ax.axvline(3, color = "gray", ls = "--")
     ax.set_yticks(ytick_pos)
@@ -269,3 +269,14 @@ plot_responses(responses)
 objectives = score_calc.calculate_scores(responses)
 print("Score: ", objectives)
 plot_objectives(objectives)
+
+gen_numbers = logs.select("gen")
+min_fitness = logs.select("min")
+max_fitness = logs.select("max")
+
+plt.plot(gen_numbers, min_fitness, label="min fitness", color = "k")
+plt.xlabel("generation #")
+plt.ylabel("score (# std)")
+plt.legend()
+plt.xlim(min(gen_numbers) - 1, max(gen_numbers) + 1) 
+plt.ylim(0.9*min(min_fitness), 1.1 * max(min_fitness));
