@@ -90,3 +90,6 @@ simple_cell = ephys.models.CellModel(
         morph=morph,
         mechs=[hh_mech],
         params=[gna_par, gk_par, gl_par, cm])
+
+# Print description.
+print(simple_cell)
