@@ -260,3 +260,12 @@ for ax in axs:
     ax.set_xticks([])
     
 fig.tight_layout()
+best_ind = hall_of_fame[0]
+print("Best individual: {} ".format(best_ind))
+best_ind_dict = cell_evaluator.param_dict(best_ind)
+print(best_ind_dict)
+responses = twostep_protocol.run(cell_model=simple_cell, param_values=best_ind_dict, sim=nrn)
+plot_responses(responses)
+objectives = score_calc.calculate_scores(responses)
+print("Score: ", objectives)
+plot_objectives(objectives)
