@@ -204,3 +204,8 @@ cell_evaluator = ephys.evaluators.CellEvaluator(
         fitness_protocols = {twostep_protocol.name: twostep_protocol},
         fitness_calculator = score_calc,
         sim = nrn)
+
+# Get score.
+objectives = cell_evaluator.evaluate_with_dicts(default_params)
+print("Scores:")
+print(objectives)
