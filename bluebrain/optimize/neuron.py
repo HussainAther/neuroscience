@@ -194,3 +194,13 @@ for protocol in sweep_protocols:
             feature)
         objectives.append(objective)
 
+# Score function
+score_calc = ephys.objectivescalculators.ObjectivesCalculator(objectives)
+
+# Combine them together.
+cell_evaluator = ephys.evaluators.CellEvaluator(
+        cell_model = simple_cell,
+        param_names = ["gna_soma", "gk_soma"],
+        fitness_protocols = {twostep_protocol.name: twostep_protocol},
+        fitness_calculator = score_calc,
+        sim = nrn)
