@@ -39,4 +39,5 @@ with open("simple.swc", "w") as f:
 
 # Visualize.
 fig, ax = neurom.viewer.draw(neurom.load_neuron("simple.swc"))
+morph = ephys.morphologies.NrnFileMorphology("simple.swc")
 
