@@ -93,3 +93,10 @@ simple_cell = ephys.models.CellModel(
 
 # Print description.
 print(simple_cell)
+
+# Set up evaluator.
+soma_loc = ephys.locations.NrnSeclistCompLocation(
+        name="soma",
+        seclist_name="somatic",
+        sec_index=0,
+        comp_x=0.5)
