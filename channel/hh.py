@@ -54,3 +54,33 @@ n = X[:, 3]
 ina = I_Na(V, m, h)
 ik = I_K(V, n)
 il = I_L(V)
+
+plt.subplots_adjust(hspace = 1)
+plt.figure(1)
+
+plt.subplot(5, 1, 1)
+plt.title("Hodgkin-Huxley Neuron")
+plt.plot(t, V, "b")
+plt.ylabel("V (mV)")
+
+plt.subplot(5, 1, 2)
+plt.plot(t, m, "k")
+plt.ylabel("m(V)")
+
+plt.subplot(5, 1, 3)
+plt.plot(t, h, "r")
+plt.ylim(0, 1)
+plt.ylabel("h(V)")
+
+plt.subplot(5, 1, 4)
+plt.plot(t, n, "g")
+plt.ylim(0, 1)
+plt.ylabel("n(V)")
+
+plt.subplot(5, 1, 5)
+plt.plot(t, Input_current(t), "m")
+plt.ylabel("Input current")
+plt.xlabel("Time (ms)")
+plt.ylim(-1, 31)
+
+plt.show()
