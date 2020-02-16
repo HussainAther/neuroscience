@@ -34,3 +34,6 @@ def fn_odes(X, t):
     dv4 = epsilon * (u4 - gamma * v4)
     return (du1, dv1, du2, dv2, du3, dv3, du4, dv4)
 
+y0 = [0.01, 0.01, 0.01, 0.01, 0, 0, 0, 0]
+X = odeint(fn_odes, y0, t, rtol=1e-6)
+u1, v1, u2, v2, u3, v3, u4, v4 = X.T 
