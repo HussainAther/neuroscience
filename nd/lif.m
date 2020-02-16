@@ -7,7 +7,7 @@ from neurodynex.tools import input_factory, plot_tools
 
 %{
 Leaky-integrate-and-fire (leaky integrate fire)
-}%
+%}
 
 LIF.getting_started()
 LIF.print_default_parameters()
