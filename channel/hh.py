@@ -31,3 +31,16 @@ def I_L(V): return g_L * (V - V_L)
 def Input_current(t): return 10 * (t > 100) - 10 * (t > 200) + 25 * (t > 300)
 
 t = np.arange(0.0, 400.0, 0.1)
+
+# Set up the ODEs.
+def hodgkin_huxley(X, t):
+    """
+    With input variables give in X and t, provide the input current
+    and the variables of the HH equation.
+    """
+    V, m, h, n = X
+    dVdt = (Input_current(t) - I_Na(V, m, h) - I_K(V, n) - I_L(V)) / C_m
+    dmdt = alpha_m(V) * (1.0 - m) - beta_m(V) * m
+    dhdt = alpha_h(V) * (1.0 - h) - beta_h(V) * h
+    dndt = alpha_n(V) * (1.0 - n) - beta_n(V) * n
+    return (dVdt, dmdt, dhdt, dndt)
