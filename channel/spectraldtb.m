@@ -38,8 +38,6 @@ function D =  spectral_dtb(drift,t,Bup,Blo,y,y0,notabs_flag)
 % D.notabs.pos_t(drifts,t) probability of not being absorbed and being at y>0
 % D.notabs.neg_t(drifts,t) probability of not being absorbed and being at y<0
 % D.notabs.y the sets of y's considered for the pdf
-%
-% This is a beta version from Daniel Wolpert.
 
 if nargin<7
     notabs_flag=0; % flag to detetrmine whether to store the notabs pdf
