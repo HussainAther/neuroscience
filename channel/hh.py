@@ -26,3 +26,8 @@ def beta_n(V):  return 0.125 * np.exp(-0.0125 * (V + 65))
 def I_Na(V,m,h): return g_Na * m**3 * h * (V - V_Na)
 def I_K(V, n): return g_K * n**4 * (V - V_K)
 def I_L(V): return g_L * (V - V_L)
+
+# Input current
+def Input_current(t): return 10 * (t > 100) - 10 * (t > 200) + 25 * (t > 300)
+
+t = np.arange(0.0, 400.0, 0.1)
