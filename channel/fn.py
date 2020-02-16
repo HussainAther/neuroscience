@@ -16,3 +16,21 @@ theta = gamma = epsilon = 0.1
 tmax, m, c = 2000, -100, 60
 
 t = np.arange(0.0, 2000.0, 0.1)
+
+def fn_odes(X, t):
+    u1, v1, u2, v2, u3, v3, u4, v4 = X
+    du1 = -u1 * (u1 - theta) * (u1 - 1) - v1 + input_1(t)
+    dv1 = epsilon * (u1 - gamma * v1)
+    du2 = -u2 * (u2 - theta) * (u2 - 1) - v2 + input_2(t)
+    dv2 = epsilon * (u2 - gamma * v2)
+    du3 = -u3 * ((u3 - theta) * (u3 - 1) - v3 + 0.8
+          / (1 + np.exp(m*v1 + c)) + 0.8
+          / (1 + np.exp(m*v2 + c)) - 1.5
+          / (1 + np.exp(m*v4 + c)))
+    dv3 = epsilon * (u3 - gamma*v3)
+    du4 = (-u4 * (u4 - theta) * (u4 - 1) - v4 + 0.45
+          / (1 + np.exp(m*v1 + c)) + 0.45
+          / (1 + np.exp(m*v2 + c)))
+    dv4 = epsilon * (u4 - gamma * v4)
+    return (du1, dv1, du2, dv2, du3, dv3, du4, dv4)
+
