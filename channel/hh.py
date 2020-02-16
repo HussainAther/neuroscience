@@ -44,3 +44,13 @@ def hodgkin_huxley(X, t):
     dhdt = alpha_h(V) * (1.0 - h) - beta_h(V) * h
     dndt = alpha_n(V) * (1.0 - n) - beta_n(V) * n
     return (dVdt, dmdt, dhdt, dndt)
+
+y0 = [-65, 0.05, 0.6, 0.32]
+X = odeint(hodgkin_huxley, y0, t)
+V = X[:, 0]
+m = X[:, 1]
+h = X[:, 2]
+n = X[:, 3]
+ina = I_Na(V, m, h)
+ik = I_K(V, n)
+il = I_L(V)
