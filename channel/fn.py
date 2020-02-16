@@ -37,3 +37,32 @@ def fn_odes(X, t):
 y0 = [0.01, 0.01, 0.01, 0.01, 0, 0, 0, 0]
 X = odeint(fn_odes, y0, t, rtol=1e-6)
 u1, v1, u2, v2, u3, v3, u4, v4 = X.T 
+
+# Plot.
+plt.subplots_adjust(hspace=1)
+plt.figure(1)
+
+plt.subplot(4, 1, 1)
+plt.title("Fitzhugh-Nagumo Half-Adder")
+plt.plot(t, u1, "b")
+plt.ylim(-1, 1.5)
+plt.ylabel("I$_1$")
+
+plt.subplot(4, 1, 2)
+plt.plot(t, u2, "b")
+plt.ylim(-1, 1.5)
+plt.ylabel("I$_2$")
+
+plt.subplot(4, 1, 3)
+plt.plot(t, u3, "g")
+plt.ylim(0, 1)
+plt.ylim(-1, 1.5)
+plt.ylabel("O$_1$")
+
+plt.subplot(4, 1, 4)
+plt.plot(t, u4, "g")
+plt.ylim(-1, 1.5)
+plt.ylabel("O$_2$")
+plt.xlabel("Time")
+
+plt.show()
