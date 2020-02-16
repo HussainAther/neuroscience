@@ -7,7 +7,7 @@ from neurodynex.tools import input_factory
 
 %{
 Hodgkin-Huxley (hodgkin huxley) model of squid axon.
-}%
+%}
 
 HH.getting_started()
 
