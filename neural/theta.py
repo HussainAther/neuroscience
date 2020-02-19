@@ -33,7 +33,13 @@ def stabplot(theta1, theta2):
     """
     Plot the stability diagram in omega1, omega2 parameter space.
     """
-    for o1 in range(100):
-        for o2 in range(100):
-            dtheta1dt = o1 + np.sin(theta1)*np.cos(theta2)
-            dtheta1  
+    fig = plt.figure(figsize=(14, 18))
+    gs = gridspec.GridSpec(nrows=3, ncols=2, height_ratios=[1, 1, 2])
+    ax1 = fig.add_subplot(gs[0, 1]) 
+    omega1, omega2 = np.mgrid[100, 100]
+    dtheta1dt = omega1 + np.sin(theta1)*np.cos(theta2)
+    dtheta2dt = omega2 + np.sin(theta2)*np.cos(theta1)
+    strm = ax1.streamplot(omega1, omega2, dtheta1dt, dtheta2dt, color=U, linewidth=np.array(5*np.random.random_sample((100, 100))**2 + 1), cmap="winter", density=10, minlength=0.001, maxlength = 0.07, arrowstyle="fancy", integration_direction="forward", start_points = seed_points.T)
+    fig.colorbar(strm.lines)
+    plt.tight_layout()
+    plt.show()
