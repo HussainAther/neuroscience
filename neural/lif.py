@@ -23,10 +23,10 @@ I = 1.5 # input current (A)
 
 # Iterate over each time step.
 for i, t in enumerate(time):
-   if t > t_rest:
-       Vm[i] = Vm[i-1] + (-Vm[i-1] + I*Rm) / tau_m * dt
+   if t > trest:
+       Vm[i] = Vm[i-1] + (-Vm[i-1] + I*Rm) / taum * dt
    if Vm[i] >= Vth:
-       Vm[i] += V_spike
+       Vm[i] += Vspike
 trest = t + tauref
 
 # Plot.
