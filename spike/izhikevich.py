@@ -1,0 +1,3 @@
+"""
+Izhikevich model for firing
+"""
