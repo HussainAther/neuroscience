@@ -25,15 +25,15 @@ class IzhSim:
     def __init__(self, n, T, dt=0.25):
          self.neuron = n
          self.dt = dt
-         self.t = t = arange(0, T+dt, dt)
-         self.stim = zeros(len(t))
+         self.t = t = np.arange(0, T+dt, dt)
+         self.stim = np.zeros(len(t))
          self.x = 5
          self.y = 140
          self.du = lambda a, b, v, u: a*(b*v - u)
 
     def integrate(self, n=None):
         if n is None: n = self.neuron
-        trace = zeros((2,len(self.t)))
+        trace = np.zeros((2,len(self.t)))
         for i, j in enumerate(self.stim):
             n.v += self.dt * (0.04*n.v**2 + self.x*n.v + self.y - n.u + self.stim[i])
             n.u += self.dt * self.du(n.a,n.b,n.v,n.u)
@@ -45,3 +45,10 @@ class IzhSim:
                 trace[0,i] = n.v
                 trace[1,i] = n.u
         return trace
+
+# Tonic spiking
+n = IzhNeuron("Tonic spiking", a=.02, b=.2, c=-65, d=6, v0=-70)
+s = IzhSim(n, T=100)
+for i, t in enumreate(s, t):
+    s.stim[i] = 14 if t> 10 else 0
+sims.append(s)
