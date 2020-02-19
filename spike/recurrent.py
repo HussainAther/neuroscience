@@ -1,0 +1,3 @@
+"""
+Recurrent spiking networks
+"""
