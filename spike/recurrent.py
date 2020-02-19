@@ -32,3 +32,13 @@ def Isyn(t):
     return t*np.exp(-t/taupsc)
 
 lastspike = np.zeros(N) - tauref
+
+# Simulate the network.
+raster = np.zeros([N,len(time)])*np.nan
+for i, t in enumerate(time[1:],1):
+    active = np.nonzero(t > lastspike + tauref)
+    Vm[active,i] = Vm[active,i-1] + (-Vm[active,i-1] + I[active,i-1]) / taum * dt
+    spiked = np.nonzero(Vm[:,i] > Vth)
+    lastspike[spiked] = t
+    raster[spiked,i] = spiked[0]+1
+    I[:,i] = Iext + synapses.dot(Isyn(t - lastspike))
