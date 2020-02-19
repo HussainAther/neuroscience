@@ -17,3 +17,22 @@ taum = Rm*Cm # time constant (msec)
 tauref = 4 # refractory period (msec)
 Vth = 1 # spike threshold (V)
 Vspike = 0.5 # spike delta (V)
+
+# Input stimulus
+I = 1.5 # input current (A)
+
+# Iterate over each time step.
+for i, t in enumerate(time):
+   if t > t_rest:
+       Vm[i] = Vm[i-1] + (-Vm[i-1] + I*Rm) / tau_m * dt
+   if Vm[i] >= Vth:
+       Vm[i] += V_spike
+trest = t + tauref
+
+# Plot.
+plt.plot(time, Vm)
+plt.title("Leaky Integrate-and-Fire Example")
+plt.ylabel("Membrane Potential (V)")
+plt.xlabel("Time (msec)")
+plt.ylim([0,2])
+plt.show()
