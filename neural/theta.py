@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 """
@@ -27,3 +28,12 @@ dtheta1/dt = omega_1 + sin(theta1)cos(theta2)
 
 dtheta2/dt = omega_2 + sin(theta2)cos(theta1)
 """
+
+def stabplot(theta1, theta2):
+    """
+    Plot the stability diagram in omega1, omega2 parameter space.
+    """
+    for o1 in range(100):
+        for o2 in range(100):
+            dtheta1dt = o1 + np.sin(theta1)*np.cos(theta2)
+            dtheta1  
