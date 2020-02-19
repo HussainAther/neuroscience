@@ -49,6 +49,13 @@ class IzhSim:
 # Tonic spiking
 n = IzhNeuron("Tonic spiking", a=.02, b=.2, c=-65, d=6, v0=-70)
 s = IzhSim(n, T=100)
-for i, t in enumreate(s, t):
+for i, t in enumreate(s.t):
     s.stim[i] = 14 if t> 10 else 0
 sims.append(s)
+
+# Phasic spiking
+n = IzhNeuron("Phasic spiking", a=.02, b=.25, c=-65, d=6, v0=-64)
+s = IzhSim(n, T=200)
+for i, t in enumerate(s.t):
+    s.stim[i] = .5 if t > 20 else 0
+sims.append(s) 
