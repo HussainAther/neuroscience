@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 """
@@ -59,3 +60,17 @@ s = IzhSim(n, T=200)
 for i, t in enumerate(s.t):
     s.stim[i] = .5 if t > 20 else 0
 sims.append(s) 
+
+# Simulate and plot.
+fig = plt.figure()
+fig.title("Izhikevich")
+for i, s in enumerate(sims):
+    res = s.integrate()
+    ax = fig.subplot(5, 4, i+1)
+    ax.plot(s.t, res[0], s.t, -95 + ((s.stim - min(s.stim))/(max(s.stim) - min(s.stim)))*10)
+    ax.set_xlim([0, s.t[-1]])
+    ax.set_ylim([-100, 35])
+    ax.title(s.neuron.label, size="small")
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+plt.show()
