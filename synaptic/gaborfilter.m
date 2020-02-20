@@ -2,7 +2,7 @@
 the receptive fields of simple cells in V1 reflect the orientation and spatial frequency
 preference of the neurons. One way to model this is to use the Gabor function, which is
 basically a two-dimensional Gaussian modulated by a sinusoid.
-}%
+%}
 % gabor_filter.m
 function f = gabor_filter(OR, SF)
 % Creates a Gabor filter for orientation and spatial frequency
