@@ -13,7 +13,7 @@ The stimulus to initiate the wave that you will use is I ¼ 6 for the first 0.5s
 will be off, I ¼ 0, for the rest of the time. You can choose where along the line of
 neurons to initiate the wave. In the following example, you stimulate the center cells.
 The following script, FNmain.m, will produce a traveling wave of activity along a onedimensional population of N neurons whose dynamics are governed by the FitzhughNagumo equations, as shown in Figure 23.3.
-}%
+%}
 
 global N I BC %by making these variables global they can exist within
 %the workspace of functions without explicitly being input to the functions
