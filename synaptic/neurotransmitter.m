@@ -2,7 +2,7 @@
 Upon release, the neurotransmitter molecules enter the synaptic cleft and diffuse across
 fairly quickly. On a microscopic level, diffusion is the aggregate effect of many particles
 moving randomly. As a first step, examine the motion of a single molecule.
-}%
+%}
 
 xbounds = [0 10];
 ybounds = [0 4];
