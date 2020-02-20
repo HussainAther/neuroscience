@@ -1,6 +1,6 @@
 N= 17;
 
-dt = 1;   %time step: This should be chosen carefully: remember that the
+dt = 1; %time step: This should be chosen carefully: remember that the
 % in the system is T_fund=RC. If you want to simulate, you should choose
 % the time step to be significantly smaller RC, perhaps say, dt=RC/100, see
 % below;  but we also have a 10 ms pulse in the system, so let's choose
@@ -15,11 +15,9 @@ dV=zeros(1,17);
 R = .06;  %I set R=C=1; that is a bit too far from the real time constant 
 % in the expeirment, so I reduced C to 0.05 to get closer
 C = .1;
-
-
-
 t = 0;
 Time=linspace(0,10000,17); % I think this is a wrong interpretation of
+
 % linspace. I would define a time axis as after the loop
 
 V(:,1) = 16;  %set V_1 = 16 for each time step
@@ -54,7 +52,7 @@ end
 
 Time=(0:dt:t);
 
-%plot voltage as a function of time
+% Plot voltage as a function of time.
 figure(1);clf
 plot(Time, V(:,:))
 xlabel('Time (s)')
