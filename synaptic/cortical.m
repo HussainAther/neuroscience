@@ -10,7 +10,7 @@ other, inhibit the corresponding LIP neuron of the opposing neuron. In other wor
 neurons integrate the difference between sensory cells with opposing preferred direction
 sensitivities. For this simulation, you will draw firing rates from a normal distribution of typical rates
 for an MT neuron, varying with orientation.
-}%
+%}
 
 function rate = mtneurons(preferred, stimulus, neurons)
     % assuming index 1 is preferred
