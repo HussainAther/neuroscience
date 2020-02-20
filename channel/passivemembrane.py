@@ -27,3 +27,13 @@ def bepswI(dt, Tfin):
         v[j] = (v[j-1] + dt*(VCl/tau + Istim/A/Cm))/(1+dt/tau) # backward euler
         ICl[j] = gCl*(v[j]-VCl) 
         IC[j] = Istim/A - ICl[j] 
+    plt.subplot(1,2,1)
+    plt.plot(t, v)
+    plt.xlabel("t  (ms)",fontsize=14)
+    plt.ylabel("V  (mV)",fontsize=14)
+    plt.subplot(1,2,2)
+    plot(t, IC, "r", t, ICl, "k")
+    plt.legend(["$I_C$","$I_{Cl}$"], loc="best")
+    plt.xlabel("t  (ms)",fontsize=14)
+    plt.ylabel("I  $(\mu A/cm^2)$",fontsize=14)
+    plt.show()
