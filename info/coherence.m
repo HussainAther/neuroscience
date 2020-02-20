@@ -19,4 +19,11 @@ n_seg = 32;
 seg_len = 2048;
 n_v = 0:(n_seg*seg_len-1);
 t_v = n_v*dt;
-n_t_v = length(t_v);
+n_t_v = length(t_v)
+
+%numerical simulation factors
+nsf_1 = exp(-dt/tau_ou);
+nsf_2 = sqrt(1-exp(-2*dt/tau_ou));
+
+%initial value of the random conductance variable
+x0 = 0;;
