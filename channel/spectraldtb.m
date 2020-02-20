@@ -3,8 +3,6 @@ function D =  spectral_dtb(drift,t,Bup,Blo,y,y0,notabs_flag)
 % Spectral solutions to bounded drift diffusion (drift to bound).
 % This can handle arbitrary changing bounds.
 %
-% Inputs (all in SI units)
-% ~~~~~~~~~~~~~~~
 % drift:     vector of drift rates
 %            a second column can be used to specify coherence so that we
 %            can calculaye the probability of a correct choice - if not 2nd
@@ -20,8 +18,6 @@ function D =  spectral_dtb(drift,t,Bup,Blo,y,y0,notabs_flag)
 % notabs_flag: flag as to whether (1) or not (0) to calculate the notabs pdf (can take a
 %            lot of memory) - default is 0 if  not specified 
 %
-% Outputs
-% ~~~~~~~~~~~~~~~
 % Returns D, a structure - the first four have 'lo' vesions too
 % D.up.p(drift)       total probability of hitting the upper bound for each drift level
 % D.mean_t           mean decision time 
@@ -150,6 +146,3 @@ D.up.cdf_t=cumsum(D.up.pdf_t);
 D.lo.cdf_t=cumsum(D.lo.pdf_t);
 D.corr=D.up.p.*(drift_dir>0) + D.lo.p.*(drift_dir<0)  +0.5*(drift_dir==0);
 D.mean_t=D.up.p.*D.up.mean_t+D.lo.p.*D.lo.mean_t;
-
-
-
