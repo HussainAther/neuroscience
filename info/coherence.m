@@ -8,3 +8,15 @@ Use this result and Exercise 7 to derive numerically the coherence between X and
 tau_ou = 2.7; %ms
 sig_ou = 0.55; %mu S
 
+%time step and time vector
+dt = 0.5; %ms
+fs = 1/(dt*1e-3); %sampling freq
+fn = fs/2; %nyquist freq
+
+%this gives 16 segments to average over for the 
+%power spectrum
+n_seg = 32;
+seg_len = 2048;
+n_v = 0:(n_seg*seg_len-1);
+t_v = n_v*dt;
+n_t_v = length(t_v);
