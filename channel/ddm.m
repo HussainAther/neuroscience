@@ -1,4 +1,4 @@
-%% simpleDDMtutorial (simple drift diffusion model)
+% simpleDDMtutorial (simple drift diffusion model)
 
 %% Preliminaries. Paths and test data
 %%
@@ -57,7 +57,6 @@ theStrengths = unique(D.strength);
 % we expect that the choices will be evenly split (on average) unless
 % there's a bias. For a given strength we expect the actual split follows
 % a binomial distribution.
-
 
 %% Part 1. Simplest diffusion model
 % This model assumes that the evidence starts from a delta function at 0
@@ -238,7 +237,6 @@ theStrengths = unique(D.strength);
 % times. We will make a related point in Part 2 when we discuss the
 % rationale for collapsing bounds.
 
-
 %% 1.1 Identify the trials we wish to include for RT
 % This step is not part of the fitting per se. It is essential,
 % nonetheless, to identify a set of trials that we wish to exclude from the
@@ -261,7 +259,6 @@ strength_bias = -beta(1)/beta(2); %  bias in units of strength
 % For each trial we set a boolean variable that reflects this inclusion criterion for fitting reaction times
  
 D.include_for_rt=(D.strength>= strength_bias & D.choice==1) | (D.strength<= strength_bias & D.choice==0);
-  
 
 %% 1.2 Estimate the standard deviation of the RT
 % This is another preliminary step before we fit the RT. The fit will
@@ -314,7 +311,6 @@ end
     'tnd_delta_opt',1,'mu_opt',1);
 % Dout contains the original D structure plus the fit parameters and their standard error
 
-
 %% 1.4 Fit both the reaction times and the choices
 % Here we use the same RTs as in step 3, but we allow the choices to
 % contribute to the log likelihood. The model provides the probability of a
@@ -342,7 +338,6 @@ end
 %   mu          strength bias
 %   tnd         non decision time
 %   tnd_delta   non decision time offset for positive strengths 
-
 
 %% 1.5 Plot the data, fits and prediction
 hFig = figure(); clf;
@@ -489,7 +484,7 @@ options.MaxFunEvals = 200; % comment out to do full optimization
 %% 2.4 Use optimal params to get predictions
 [nlogl,G1] = cost_dtb_collapse(theta_opt,P,D);
 %%
-% ALso get fit predictions at interpolated values (for plotting)
+% Also get fit predictions at interpolated values (for plotting)
 
 clear Dopt;
 Dopt.strength=sort([-logspace(log10(0.032) ,log10(0.512) ,33) 0 logspace(log10(0.032) ,log10(0.512) ,33)])';
@@ -498,7 +493,6 @@ Dopt.corr=Dopt.strength>=0;
 Dopt.rt=max(D.rt)*ones(size(Dopt.strength));
 
 [nlogl,G1] = cost_dtb_collapse(theta_opt,P,Dopt);
-
 
 %% 2.5 Plot
 
@@ -522,14 +516,3 @@ title('Bounds');
 xlabel('Time (s)');
 ylabel('Accumulated Evidence');
 shg
-
-%% Fokker-Planck method
-% I will write more about this. For now, this is simply an introduction to
-% some useful but yet to be properly documented code. Actually, for now
-% it's a place holder; I've run out of time.
-
-
-
-
-
-
