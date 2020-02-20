@@ -182,8 +182,8 @@ function [net, varargout] = hebbRNN_learn_model(x0, net, F, perturbProb, eta, va
 %
 % The details of training the network are based on those
 % presented in the following work:
-% "Flexible decision-making in recurrent neural networks trained with a
-% biologically plausible rule. Thomas Miconi (2016)"
+% 'Flexible decision-making in recurrent neural networks trained with a
+% biologically plausible rule. Thomas Miconi (2016)'
 % Published on BioRxiv. The current version can be found under the following URL:
 % http://biorxiv.org/content/early/2016/07/26/057729
 %

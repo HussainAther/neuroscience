@@ -11,7 +11,7 @@ FitzHugh-Nagumo (fitzhugh nagumo) model
 fitzhugh_nagumo.plot_flow()
 
 fixed_point = fitzhugh_nagumo.get_fixed_point()
-print("fixed_point: {}".format(fixed_point))
+print('fixed_point: {}'.format(fixed_point))
 
 plt.figure()
 trajectory = fitzhugh_nagumo.get_trajectory()

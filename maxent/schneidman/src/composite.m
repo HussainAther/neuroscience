@@ -29,7 +29,7 @@ limited_empirical_distribution = maxent.getEmpiricalModel(samples_test,'min_coun
 model_logprobs = maxent.getLogProbability(model,limited_empirical_distribution.words);
 
 % Plot on a log scale.
-% Output saved to "doc/composite.png".
+% Output saved to 'doc/composite.png'.
 figure
 plot(limited_empirical_distribution.logprobs,model_logprobs,'bo');
 hold on;

@@ -17,11 +17,11 @@ figure(1);
 subplot(1,2,1);
 plot(t, real(y1), t, imag(y1))
 xlim([0.01 0.03])
-legend("real","imaginary")
-title("hilbert Function")
+legend('real','imaginary')
+title('hilbert Function')
 
 subplot(1,2,2);
 plot(t, real(y2), t, imag(y2))
 xlim([0.01 0.03])
-legend("real","imaginary")
-title("bdHilbert.hilbert Function")
+legend('real','imaginary')
+title('bdHilbert.hilbert Function')

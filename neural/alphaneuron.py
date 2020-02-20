@@ -4,9 +4,9 @@ import time
 
 from numpy import concatenate as cc
 
-"""
+'''
 Fire a neuron via alpha function synapse and random input spike train
-"""
+'''
 
 np.random.seed(0)
 # I & F implementation dV/dt = - V/RC + I/C
@@ -30,16 +30,16 @@ t_vec = np.arange(0, t_a + h, h)
 alpha_func = const * t_vec * (np.exp(-t_vec/t_peak))
 
 plt.plot(t_vec[:80], alpha_func[:80])
-plt.xlabel("t (in ms)")
-plt.title("Alpha Function (Synaptic Conductance for Spike at t=0)")
+plt.xlabel('t (in ms)')
+plt.title('Alpha Function (Synaptic Conductance for Spike at t=0)')
 plt.draw()
 time.sleep(2) 
 
 # capacitance and leak resistance
 C = 0.5 # nF
 R = 40 # M ohms
-print("C = {}".format(C))
-print("R = {}".format(R))
+print('C = {}'.format(C))
+print('R = {}'.format(R))
 
 # conductance and associated parameters to simulate spike rate adaptation
 g_ad = 0
@@ -60,7 +60,7 @@ t_trace = [0]
 
 fig, axs = plt.subplots(2, 1)
 axs[0].plot(np.arange(0,t_max,h), spike_train)
-axs[0].set_title("Input spike train")
+axs[0].set_title('Input spike train')
 
 for t in range(tstop):
 
@@ -100,5 +100,5 @@ for t in range(tstop):
 
 axs[1].plot(t_trace,V_trace)
 plt.draw()
-axs[1].set_title("Output spike train")
+axs[1].set_title('Output spike train')
 plt.show()

@@ -2,7 +2,7 @@ function [movieFrames] = driftingBar(maxY, maxX, nFramesToMake, backgroundGray, 
 %
 % [movieFrames] = driftingBar(maxY, maxX, nFramesToMake, backgroundGray, angle, barWidthPix, barLengthPix, barGray, speed_PixPerFrame)
 %  
-% Will make a single bar that drifts across the screen in a direction indicated by "angle".
+% Will make a single bar that drifts across the screen in a direction indicated by 'angle'.
 % The bar length is perpendicular to the direction of drift.  The bar is
 % windowed by a circular apeture of diameter min(maxX,maxY).  The output values in each frame
 % range from 0 (black) to 255 (white)

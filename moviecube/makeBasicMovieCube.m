@@ -20,7 +20,7 @@ function [movieCube, startTimeMS, endTimeMS] = makeBasicMovieCube
 %  screen in front of the fly, this means that we will move the bar across
 %  retina of the fly.  Note, that this is just one type of motion and you 
 %  can think of  all kinds of stimuli that contain what visual scientists 
-%  call "motion energy" (e.g. drifting dots, running dogs, waterfalls, etc.).
+%  call 'motion energy' (e.g. drifting dots, running dogs, waterfalls, etc.).
 %
 %  Now that we have decided on a type of motion stimulus, we want to hold
 %  that constant and systematically test the effect of motion direction.

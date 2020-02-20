@@ -197,7 +197,7 @@ while persistent_state.i < num_steps
         persistent_state.time_since_last_adjustment = 0;
         
         
-        % every time increase the number of samples by one "jump"
+        % every time increase the number of samples by one 'jump'
         persistent_state.max_nsamples = persistent_state.max_nsamples + original_max_samples;
 
         % also remember a longer history of steps for a more accurate variance estimation
@@ -381,7 +381,7 @@ end
 model = persistent_state.model;
 
 
-    % print a message only if message printing has not been disabled ("silent mode")
+    % print a message only if message printing has not been disabled ('silent mode')
     function internal_print(varargin)
         if (~silent)
             disp(sprintf(varargin{:}));

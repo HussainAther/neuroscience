@@ -2,13 +2,13 @@ import numpy as np
 
 from sklearn import make_blobs
 
-"""
+'''
 Synaptic plasticity with Hebbian Learning. Using neurons of the brain as processing units
 using cable theory as extensions, we can simulate models of neurons firing using action potentials
 that deliber chemical siganls (neurotransmitters) as ion channels open and close to allow
 ions to flow.
 
-"Neurons that fire together wire together."
+'Neurons that fire together wire together.'
 With Hebbian theory, we can calculate the synaptic weight from a neuron if both pre-synaptic
 and post-synaptic units behave in the same way (whether they're firing or in steady state).
 Hebbian learning uses principal component analysis by extracting the first principal component.
@@ -25,16 +25,16 @@ Finnish computer scientist Erkki Oja proposed an alternative. Like Hebb's rule, 
 to the C eigenvector, but, in this case, to a finite (small) number.
 
 Δw_i = α y(x̄_i - w̅_iy)
-"""
+'''
 
 # create the dataset
 X, y =  make_blobs(n_samples=500, centers=2, cluster_std=5.0, random_state=1000)
 
 def scale(x):
-    """
+    '''
     Transform dataset x such that it will have a mean value 0 and
     standard deviation 1.
-    """
+    '''
     a = np.mean(x) # find the mean/average of the dataset
     s = np.std(x) # find the standard deviation of the dataset
     r = [] # output result list
@@ -62,7 +62,7 @@ while np.linalg.norm(prevwoja - woja) > eps:
     Ys = np.dot(Xs, woja) # get the dot-product with the Oja weights
     woja += a * np.sum(Ys*Xs - np.square(Ys)*woja.T, axis=0).reshape((2,1)) # perform the calculation and add to overall Oja weights
 
-"""
+'''
 We may extend Oja's rule to multi-output networks by the Sanger (Sanger's) rule
 which is also known as the Generalized Hebbian Algorithm.
 
@@ -73,7 +73,7 @@ such that the update rule is now
 Δw =  α (y̅ . x̄^T - tril(y̅ x y̅^T) . w̅)
 
 in which tril is a function that returns the lower triangle of a square matrix.
-"""
+'''
 
 n = 3000 # number of iterations
 t = 0 # initial time

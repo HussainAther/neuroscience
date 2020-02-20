@@ -32,7 +32,7 @@ https://doi.org/10.3389/fpsyg.2017.00142
 Aru, J., & Vicente, R. (2018). What deep learning can tell us about higher cognitive functions like mindreading?. arXiv preprint arXiv:1803.10470.
 https://arxiv.org/abs/1803.10470
 
-Barrett, David GT, Ari S. Morcos, and Jakob H. Macke. "Analyzing biological and artificial neural networks: challenges with opportunities for synergy?." arXiv preprint arXiv:1810.13373 (2018). https://arxiv.org/abs/1810.13373
+Barrett, David GT, Ari S. Morcos, and Jakob H. Macke. 'Analyzing biological and artificial neural networks: challenges with opportunities for synergy?.' arXiv preprint arXiv:1810.13373 (2018). https://arxiv.org/abs/1810.13373
 Good overview on challenges and opportunities in comparing DNNs with BioNets. What analysis methods can be used on both? What methods can be used to compare them to each other?
 
 Glaser, J. I., Benjamin, A. S., Farhoodi, R., & Kording, K. P. (2018). The Roles of Supervised Machine Learning in Systems Neuroscience. arXiv preprint arXiv:1805.08239.
@@ -437,7 +437,7 @@ Work using older DNN models (e.g. HMAX)
 
 Fukushima, K. (1988). Neocognitron: A hierarchical neural network capable of visual pattern recognition. Neural networks, 1(2), 119-130.
 
-van Gerven, Marcel AJ, Floris P. de Lange, and Tom Heskes (2010). "Neural decoding with hierarchical generative models." Neural computation 22.12 (2010): 3127-3142.
+van Gerven, Marcel AJ, Floris P. de Lange, and Tom Heskes (2010). 'Neural decoding with hierarchical generative models.' Neural computation 22.12 (2010): 3127-3142.
 
 Zeman et al (2013) The Müller-Lyer Illusion in a Computational Model of Biological Object Recognition. PLoS ONE8(2): e56126. https://doi.org/10.1371/journal.pone.0056126
 

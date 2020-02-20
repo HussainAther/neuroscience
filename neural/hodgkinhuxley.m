@@ -43,5 +43,5 @@ for t=-30:dt:50
     end
 end % time loop
 plot(x_plot, y_plot);
-xlabel("Time");
-ylabel("Voltage"); 
+xlabel('Time');
+ylabel('Voltage'); 

@@ -5,7 +5,7 @@ sys = FHN();
 
 % parameters
 %sys.pardef(5).value = 1000;     % Idur = 1000
-sys.pardef = bdSetValue(sys.pardef,"Idur",1000);
+sys.pardef = bdSetValue(sys.pardef,'Idur',1000);
 
 % time domain
 sys.tspan = [0 200];
@@ -34,12 +34,12 @@ for Iamp = linspace(0,5,100)
 
     % plot the results
     %plot(t,V);
-    %plot(V,W,".-");
-    plot3(Iamp*ones(size(V)),V,W,"k.-");
+    %plot(V,W,'.-');
+    plot3(Iamp*ones(size(V)),V,W,'k.-');
     title(Iamp);
-    xlabel("Iamp");
-    ylabel("V");
-    zlabel("W");
+    xlabel('Iamp');
+    ylabel('V');
+    zlabel('W');
     xlim([0 5])
     ylim([-3 3]);
     zlim([-1 5]);

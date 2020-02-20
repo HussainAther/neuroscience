@@ -22,7 +22,7 @@ function D =  spectral_dtb(drift,t,Bup,Blo,y,y0,notabs_flag)
 %
 % Outputs
 % ~~~~~~~~~~~~~~~
-% Returns D, a structure - the first four have "lo" vesions too
+% Returns D, a structure - the first four have 'lo' vesions too
 % D.up.p(drift)       total probability of hitting the upper bound for each drift level
 % D.mean_t           mean decision time 
 % D.up.mean_t(drift)  mean decision time for upper bound

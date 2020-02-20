@@ -5,7 +5,7 @@ function sol = dde23a(ddefun,lags,history,tspan,options,varargin)
 %   It will be likely be included in MATLAB R2017a (or later).
 %
 %   SOL = DDE23(DDEFUN,LAGS,HISTORY,TSPAN) integrates a system of DDEs 
-%   y"(t) = f(t,y(t),y(t - tau_1),...,y(t - tau_k)). The constant, positive 
+%   y'(t) = f(t,y(t),y(t - tau_1),...,y(t - tau_k)). The constant, positive 
 %   delays tau_1,...,tau_k are input as the vector LAGS. DDEFUN is a function 
 %   handle. DDEFUN(T,Y,Z) must return a column vector corresponding to 
 %   f(t,y(t),y(t - tau_1),...,y(t - tau_k)). In the call to DDEFUN, a scalar T 
@@ -23,25 +23,25 @@ function sol = dde23a(ddefun,lags,history,tspan,options,varargin)
 %   DEVAL: YINT = DEVAL(SOL,TINT). The output SOL is a structure with 
 %       SOL.x  -- mesh selected by DDE23
 %       SOL.y  -- approximation to y(t) at the mesh points of SOL.x
-%       SOL.yp -- approximation to y"(t) at the mesh points of SOL.x
-%       SOL.solver -- "dde23"
+%       SOL.yp -- approximation to y'(t) at the mesh points of SOL.x
+%       SOL.solver -- 'dde23'
 %
 %   SOL = DDE23(DDEFUN,LAGS,HISTORY,TSPAN,OPTIONS) solves as above with default
 %   parameters replaced by values in OPTIONS, a structure created with the
 %   DDESET function. See DDESET for details. Commonly used options are
-%   scalar relative error tolerance "RelTol" (1e-3 by default) and vector of
-%   absolute error tolerances "AbsTol" (all components 1e-6 by default).
+%   scalar relative error tolerance 'RelTol' (1e-3 by default) and vector of
+%   absolute error tolerances 'AbsTol' (all components 1e-6 by default).
 %
 %   DDE23 can solve problems with discontinuities in the solution prior to T0
 %   (the history) or discontinuities in coefficients of the equations at known
 %   values of t after T0 if the locations of these discontinuities are
-%   provided in a vector as the value of the "Jumps" option.
+%   provided in a vector as the value of the 'Jumps' option.
 %
 %   By default the initial value of the solution is the value returned by
 %   HISTORY at T0. A different initial value can be supplied as the value of
-%   the "InitialY" property. 
+%   the 'InitialY' property. 
 %
-%   With the "Events" property in OPTIONS set to a function handle EVENTS, 
+%   With the 'Events' property in OPTIONS set to a function handle EVENTS, 
 %   DDE23 solves as above while also finding where event functions 
 %   g(t,y(t),y(t - tau_1),...,y(t - tau_k)) are zero. For each function 
 %   you specify whether the integration is to terminate at a zero and whether 
@@ -82,13 +82,13 @@ function sol = dde23a(ddefun,lags,history,tspan,options,varargin)
 %   S. Thompson, Applied Numerical Mathematics, 37 (2001). 
 
 
-solver_name = "dde23";
+solver_name = 'dde23';
 
 % Check inputs
 if nargin < 5
   options = [];
   if nargin < 4
-    error(message("MATLAB:dde23:NotEnoughInputs"));    
+    error(message('MATLAB:dde23:NotEnoughInputs'));    
   end
 end
 
@@ -100,7 +100,7 @@ nfevals  = 0;
 t0 = tspan(1);
 tfinal = tspan(end);   % Ignore all entries of tspan except first and last.
 if tfinal <= t0
-  error(message("MATLAB:dde23:TspandEndLTtspan1"))
+  error(message('MATLAB:dde23:TspandEndLTtspan1'))
 end
 
 sol.solver = solver_name;
@@ -109,7 +109,7 @@ if isnumeric(history)
   sol.history = history;
 elseif isstruct(history)
   if history.x(end) ~= t0
-    error(message("MATLAB:dde23:NotContinueFromHistoryEnd"))
+    error(message('MATLAB:dde23:NotContinueFromHistoryEnd'))
   end
   temp = history.y(:,end);
   sol.history = history.history;  
@@ -119,7 +119,7 @@ else
 end 
 y0 = temp(:);
 maxlevel = 4;
-initialy = ddeget(options,"InitialY",[],"fast");
+initialy = ddeget(options,'InitialY',[],'fast');
 if ~isempty(initialy)
   y0 = initialy(:);
   maxlevel = 5;
@@ -135,10 +135,10 @@ if isempty(lags)
   discont = tfinal;
   minlag = Inf;
 else
-  lags = lags(:)";
+  lags = lags(:)';
   minlag = min(lags);
   if minlag <= 0
-    error(message("MATLAB:dde23:NotPosLags"))
+    error(message('MATLAB:dde23:NotPosLags'))
   end
   vl = t0;
   maxlag = max(lags);
@@ -150,12 +150,12 @@ else
       vl = [history.discont(ndex+1:end) t0];
     end
   end
-  jumps = ddeget(options,"Jumps",[],"fast");
+  jumps = ddeget(options,'Jumps',[],'fast');
   if ~isempty(jumps)
     indices = find( ((t0 - maxlag) <= jumps) & (jumps <= tfinal) );
     if ~isempty(indices)
       jumps = jumps(indices);
-      vl = sort([vl jumps(:)"]);
+      vl = sort([vl jumps(:)']);
       maxlevel = 5;
     end
   end
@@ -220,9 +220,9 @@ f0 = feval(ddefun,t0,y0,Z0,varargin{:});
 nfevals = nfevals + 1;                  
 [m,n] = size(f0);
 if n > 1
-  error(message("MATLAB:dde23:DDEOutputNotCol"))
+  error(message('MATLAB:dde23:DDEOutputNotCol'))
 elseif m ~= neq
-  error(message("MATLAB:dde23:DDELengthMismatchHistory"));
+  error(message('MATLAB:dde23:DDELengthMismatchHistory'));
 end
 
 % Determine the dominant data type
@@ -233,49 +233,49 @@ classF0 = class(f0);
 dataType = superiorfloat(t0,y0,Z0,f0);
 if ~( strcmp(classT0,dataType) && strcmp(classY0,dataType) && ...
       strcmp(classZ0,dataType) && strcmp(classF0,dataType))
-  warning(message("MATLAB:dde23:InconsistentDataType"));
+  warning(message('MATLAB:dde23:InconsistentDataType'));
 end    
 
 
 % Get options, and set defaults.
-rtol = ddeget(options,"RelTol",1e-3,"fast");
+rtol = ddeget(options,'RelTol',1e-3,'fast');
 if (length(rtol) ~= 1) || (rtol <= 0)
-  error(message("MATLAB:dde23:OptRelTolNotPosScalar"));
+  error(message('MATLAB:dde23:OptRelTolNotPosScalar'));
 end
 if rtol < 100 * eps(dataType) 
   rtol = 100 * eps(dataType);
-  warning(message("MATLAB:dde23:RelTolIncrease", sprintf( "%g", rtol )))
+  warning(message('MATLAB:dde23:RelTolIncrease', sprintf( '%g', rtol )))
 end
 
-atol = ddeget(options,"AbsTol",1e-6,"fast");
+atol = ddeget(options,'AbsTol',1e-6,'fast');
 if any(atol <= 0)
-  error(message("MATLAB:dde23:OptAbsTolNotPos"));
+  error(message('MATLAB:dde23:OptAbsTolNotPos'));
 end
 
-normcontrol = strcmp(ddeget(options,"NormControl","off","fast"),"on");   
+normcontrol = strcmp(ddeget(options,'NormControl','off','fast'),'on');   
 
 if normcontrol
   if length(atol) ~= 1
-    error(message("MATLAB:dde23:NonScalarAbstolNormControl"));
+    error(message('MATLAB:dde23:NonScalarAbstolNormControl'));
   end
   normy = norm(y0);
 else
   if (length(atol) ~= 1) && (length(atol) ~= neq)
-    error(message("MATLAB:dde23:AbsTolSize", funstring( ddefun ), neq)); 
+    error(message('MATLAB:dde23:AbsTolSize', funstring( ddefun ), neq)); 
   end
   atol = atol(:);
 end
 threshold = atol / rtol;
 
 % By default, hmax is 1/10 of the interval of integration.
-hmax = min(tfinal-t0, ddeget(options,"MaxStep",0.1*(tfinal-t0),"fast"));
+hmax = min(tfinal-t0, ddeget(options,'MaxStep',0.1*(tfinal-t0),'fast'));
 if hmax <= 0
-  error(message("MATLAB:dde23:OptMaxStepNotPos"));
+  error(message('MATLAB:dde23:OptMaxStepNotPos'));
 end
 
-htry = ddeget(options,"InitialStep",[],"fast");
+htry = ddeget(options,'InitialStep',[],'fast');
 if htry <= 0
-  error(message("MATLAB:dde23:OptInitialStepNotPos"));
+  error(message('MATLAB:dde23:OptInitialStepNotPos'));
 end
 
 % Allocate storage for output arrays and initialize them.
@@ -292,7 +292,7 @@ tout(nout) = t0;
 yout(:,nout) = y0;
 ypout(:,nout) = f0;
 
-events = ddeget(options,"Events",[],"fast");
+events = ddeget(options,'Events',[],'fast');
 haveeventfun = ~isempty(events);
 if haveeventfun
   valt = feval(events,t0,y0,Z0,varargin{:});
@@ -303,33 +303,33 @@ ieout = [];
 
 % Handle the output
 if nargout > 0
-  outputFcn = ddeget(options,"OutputFcn",[],"fast");
+  outputFcn = ddeget(options,'OutputFcn',[],'fast');
 else
-  outputFcn = ddeget(options,"OutputFcn",@odeplot,"fast");
+  outputFcn = ddeget(options,'OutputFcn',@odeplot,'fast');
 end
 outputArgs = {};  
 if isempty(outputFcn)
   haveOutputFcn = false;
 else
   haveOutputFcn = true;
-  outputs = ddeget(options,"OutputSel",1:neq,"fast");
+  outputs = ddeget(options,'OutputSel',1:neq,'fast');
   outputArgs = varargin;  
 end
-refine = max(1,ddeget(options,"Refine",1,"fast"));
+refine = max(1,ddeget(options,'Refine',1,'fast'));
 ntspan = numel(tspan);
 if ntspan > 2
-  outputAt = "RequestedPoints";         % output only at tspan points
+  outputAt = 'RequestedPoints';         % output only at tspan points
 elseif refine <= 1
-  outputAt = "SolverSteps";             % computed points, no refinement
+  outputAt = 'SolverSteps';             % computed points, no refinement
 else
-  outputAt = "RefinedSteps";            % computed points, with refinement
+  outputAt = 'RefinedSteps';            % computed points, with refinement
   S = (1:refine-1) / refine;
 end
-printstats = strcmp(ddeget(options,"Stats","off","fast"),"on");
+printstats = strcmp(ddeget(options,'Stats','off','fast'),'on');
 
 hmin = 16*eps(t0);
 if isempty(htry)
-  % Compute an initial step size h using y"(t).
+  % Compute an initial step size h using y'(t).
   h = min(hmax, tfinal - t0);
   if normcontrol
     rh = (norm(f0) / max(normy,threshold)) / (0.8 * rtol^pow);
@@ -349,7 +349,7 @@ h = min(h,0.5*minlag);
 
 % Initialize the output function.
 if haveOutputFcn
-  feval(outputFcn,[t0 tfinal],y0(outputs),"init",outputArgs{:});
+  feval(outputFcn,[t0 tfinal],y0(outputs),'init',outputArgs{:});
   next = 2;
 end
 
@@ -364,7 +364,7 @@ while ~done
   % By default, hmin is a small number such that t+hmin is only slightly
   % different than t.  It might be 0 if t is 0.
   hmin = 16*eps(t);
-  h = min(hmax, max(hmin, h));    % couldn"t limit h until new hmin
+  h = min(hmax, max(hmin, h));    % couldn't limit h until new hmin
   
   % Adjust step size to hit discontinuity. tfinal = discont(end).
   hitdsc = false;  
@@ -444,7 +444,7 @@ while ~done
     if itfail
       nfailed = nfailed + 1;            
       if h <= hmin
-        warning(message("MATLAB:dde23:IntegrationTolNotMet", sprintf( "%e", t ), sprintf( "%e", hmin )));        
+        warning(message('MATLAB:dde23:IntegrationTolNotMet', sprintf( '%e', t ), sprintf( '%e', hmin )));        
 
         sol = odefinalize(solver_name, sol,...
                           outputFcn, outputArgs,...
@@ -476,7 +476,7 @@ while ~done
       if err > rtol   % Failed step               
         nfailed = nfailed + 1;            
         if h <= hmin
-          warning(message("MATLAB:dde23:IntegrationTolNotMet", sprintf( "%e", t ), sprintf( "%e", hmin )));        
+          warning(message('MATLAB:dde23:IntegrationTolNotMet', sprintf( '%e', t ), sprintf( '%e', hmin )));        
 
           sol = odefinalize(solver_name, sol,...
                             outputFcn, outputArgs,...
@@ -541,16 +541,16 @@ while ~done
 
   if haveOutputFcn
     switch outputAt
-     case "SolverSteps"        % computed points, no refinement
+     case 'SolverSteps'        % computed points, no refinement
       nout_new = 1;
       tout_new = tnew;
       yout_new = ynew;
-     case "RefinedSteps"       % computed points, with refinement
+     case 'RefinedSteps'       % computed points, with refinement
       tref = t + (tnew-t)*S;
       nout_new = refine;
       tout_new = [tref, tnew];
       yout_new = [ntrp3h(tref,t,y,tnew,ynew,f(:,1),f(:,4)), ynew];
-     case "RequestedPoints"    % output only at tspan points
+     case 'RequestedPoints'    % output only at tspan points
       nout_new =  0;
       tout_new = [];
       yout_new = [];
@@ -574,7 +574,7 @@ while ~done
       end
     end
     if nout_new > 0
-      stop = feval(outputFcn,tout_new,yout_new(outputs,:),"",outputArgs{:});
+      stop = feval(outputFcn,tout_new,yout_new(outputs,:),'',outputArgs{:});
       if stop  % Stop per user request.
         done = true;
       end
@@ -671,7 +671,7 @@ for j = 1:Nxint
         end
       else    
         % Evaluate computed history by interpolation. Mute unwanted warning.
-        ws = warning("off","MATLAB:deval:NonuniqueSolution");
+        ws = warning('off','MATLAB:deval:NonuniqueSolution');
         temp = deval(history,xint(j));
         warning(ws);
       end
@@ -730,13 +730,13 @@ function solver_output = odefinalize(solver, sol,...
 %            ODE23T, ODE23TB, ODE45, DDE23, DDESD.
 
 if ~isempty(outfun)
-  feval(outfun,[],[],"done",outargs{:});
+  feval(outfun,[],[],'done',outargs{:});
 end
 
 % Return more stats for implicit solvers: ODE15i, ODE15s, ODE23s, ODE23t, ODE23tb
-fullstats = (length(statvect) > 3);  % faster than "switch" or "ismember"
+fullstats = (length(statvect) > 3);  % faster than 'switch' or 'ismember'
 
-stats = struct("nsteps",statvect(1),"nfailed",statvect(2),"nfevals",statvect(3)); 
+stats = struct('nsteps',statvect(1),'nfailed',statvect(2),'nfevals',statvect(3)); 
 if fullstats
   stats.npds     = statvect(4);
   stats.ndecomps = statvect(5);
@@ -746,13 +746,13 @@ else
 end  
 
 if printstats
-  fprintf(getString(message("MATLAB:odefinalize:LogSuccessfulSteps", sprintf("%g",stats.nsteps))));
-  fprintf(getString(message("MATLAB:odefinalize:LogFailedAttempts", sprintf("%g",stats.nfailed))));
-  fprintf(getString(message("MATLAB:odefinalize:LogFunctionEvaluations", sprintf("%g",stats.nfevals))));
+  fprintf(getString(message('MATLAB:odefinalize:LogSuccessfulSteps', sprintf('%g',stats.nsteps))));
+  fprintf(getString(message('MATLAB:odefinalize:LogFailedAttempts', sprintf('%g',stats.nfailed))));
+  fprintf(getString(message('MATLAB:odefinalize:LogFunctionEvaluations', sprintf('%g',stats.nfevals))));
   if fullstats
-    fprintf(getString(message("MATLAB:odefinalize:LogPartialDerivatives", sprintf("%g",stats.npds))));
-    fprintf(getString(message("MATLAB:odefinalize:LogLUDecompositions", sprintf("%g",stats.ndecomps))));
-    fprintf(getString(message("MATLAB:odefinalize:LogSolutionsOfLinearSystems", sprintf("%g",stats.nsolves))));
+    fprintf(getString(message('MATLAB:odefinalize:LogPartialDerivatives', sprintf('%g',stats.npds))));
+    fprintf(getString(message('MATLAB:odefinalize:LogLUDecompositions', sprintf('%g',stats.ndecomps))));
+    fprintf(getString(message('MATLAB:odefinalize:LogSolutionsOfLinearSystems', sprintf('%g',stats.nsolves))));
   end
 end
 
@@ -760,12 +760,12 @@ solver_output = {};
 
 if (nout > 0) % produce output
   if isempty(sol) % output [t,y,...]
-    solver_output{1} = tout(1:nout).";
-    solver_output{2} = yout(:,1:nout).";
+    solver_output{1} = tout(1:nout).';
+    solver_output{2} = yout(:,1:nout).';
     if haveeventfun
-      solver_output{3} = teout.";
-      solver_output{4} = yeout.";
-      solver_output{5} = ieout.";
+      solver_output{3} = teout.';
+      solver_output{4} = yeout.';
+      solver_output{5} = ieout.';
     end
     solver_output{end+1} = statvect(:);  % Column vector
   else % output sol  
@@ -779,15 +779,15 @@ if (nout > 0) % produce output
     end
     sol.stats = stats;
     switch solver
-     case {"dde23","ddesd"}
+     case {'dde23','ddesd'}
       [history,ypout] = deal(interp_data{:});
       sol.yp = ypout(:,1:nout);
       if isstruct(history)
         sol.x = [history.x sol.x];
         sol.y = [history.y sol.y];
         sol.yp = [history.yp sol.yp];
-        if isfield(history,"xe")
-          if isfield(sol,"xe")
+        if isfield(history,'xe')
+          if isfield(sol,'xe')
             sol.xe = [history.xe sol.xe];
             sol.ye = [history.ye sol.ye];
             sol.ie = [history.ie sol.ie];
@@ -798,49 +798,49 @@ if (nout > 0) % produce output
           end
         end
       end
-     case "ode45"
+     case 'ode45'
       [f3d,idxNonNegative] = deal(interp_data{:});
       sol.idata.f3d = f3d(:,:,1:nout);      
       sol.idata.idxNonNegative = idxNonNegative;
-     case "ode15s"      
+     case 'ode15s'      
       [kvec,dif3d,idxNonNegative] = deal(interp_data{:});
       sol.idata.kvec = kvec(1:nout);
       maxkvec = max(sol.idata.kvec);
       sol.idata.dif3d = dif3d(:,1:maxkvec+2,1:nout);
       sol.idata.idxNonNegative = idxNonNegative;
-     case "ode113"
+     case 'ode113'
       [klastvec,phi3d,psi2d,idxNonNegative] = deal(interp_data{:});
       sol.idata.klastvec = klastvec(1:nout);
       kmax = max(sol.idata.klastvec);
       sol.idata.phi3d = phi3d(:,1:kmax+1,1:nout);
       sol.idata.psi2d = psi2d(1:kmax,1:nout);
       sol.idata.idxNonNegative = idxNonNegative;
-     case "ode23"
+     case 'ode23'
       [f3d,idxNonNegative] = deal(interp_data{:});
       sol.idata.f3d = f3d(:,:,1:nout);      
       sol.idata.idxNonNegative = idxNonNegative;
-     case "ode23s"
+     case 'ode23s'
       [k1data,k2data] = deal(interp_data{:});
       sol.idata.k1 = k1data(:,1:nout);
       sol.idata.k2 = k2data(:,1:nout);
-     case "ode23t"
+     case 'ode23t'
       [zdata,znewdata,idxNonNegative] = deal(interp_data{:});
       sol.idata.z = zdata(:,1:nout);
       sol.idata.znew = znewdata(:,1:nout);      
       sol.idata.idxNonNegative = idxNonNegative;
-     case "ode23tb"
+     case 'ode23tb'
       [t2data,y2data,idxNonNegative] = deal(interp_data{:});
       sol.idata.t2 = t2data(1:nout);
       sol.idata.y2 = y2data(:,1:nout);           
       sol.idata.idxNonNegative = idxNonNegative;
-     case "ode15i"      
+     case 'ode15i'      
       [kvec,ypfinal] = deal(interp_data{:});
       sol.idata.kvec = kvec(1:nout);
       sol.extdata.ypfinal = ypfinal;
      otherwise
-      error(message("MATLAB:odefinalize:UnrecognizedSolver", solver));
+      error(message('MATLAB:odefinalize:UnrecognizedSolver', solver));
     end  
-    if strcmp(solver,"dde23") || strcmp(solver,"ddesd")
+    if strcmp(solver,'dde23') || strcmp(solver,'ddesd')
       solver_output = sol;
     else  
       solver_output{1} = sol;

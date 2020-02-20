@@ -5,7 +5,7 @@
 % Change the matlab path to the ddm_tutorial directory
 %%
 % From the ddm_tutorial directory, please add the following to your path
-addpath(genpath("mytools"))
+addpath(genpath('mytools'))
 addpath collapsing_bound
 
 %%
@@ -52,7 +52,7 @@ theStrengths = unique(D.strength);
 % A choice coded as 1 is correct if D.strength(i)>0, and error if
 % D.strength(i)<0. The user can decide what do with data when
 % D.strength==0. The choice field shows what the subject did, not whether
-% it was correct. There is no "correct" field in D. Typically, the choices
+% it was correct. There is no 'correct' field in D. Typically, the choices
 % will be mixed because the subjects make errors. When the strengths is 0,
 % we expect that the choices will be evenly split (on average) unless
 % there's a bias. For a given strength we expect the actual split follows
@@ -155,7 +155,7 @@ theStrengths = unique(D.strength);
 %
 % 
 % Together, assumptions *1a-c* lead to a parsimonious representation of the
-% drift rate. To understand how, we need to remind ourselves that what we"re
+% drift rate. To understand how, we need to remind ourselves that what we're
 % trying to explain is how often the accumulation of samples of momentary
 % evidence will stop at the upper (positive) bound. This is a logistic
 % function of the product of two terms
@@ -164,7 +164,7 @@ theStrengths = unique(D.strength);
 %
 % where _B_ is bound height and $\theta_1$ is the non-trivial root of the
 % moment generating function of the distribution of momentary evidence. The
-% reason this term shows up has to do with something called Wald"s
+% reason this term shows up has to do with something called Wald's
 % martingale (see Shadlen et al 2006 for a tutorial). For the Gaussian
 % distribution (and many others) $\theta_1$ is proportional to the mean
 % divided by the variance of this random variable. Assumptions *1b* and
@@ -175,7 +175,7 @@ theStrengths = unique(D.strength);
 % Importantly, if variance were to change as a function of strength, it
 % would affect the estimate of $\kappa$ or require replacement of 
 % $\kappa C$ by some $f(C)$. These considerations remind us that the
-% "drift rate" ought to be affected by noise.
+% 'drift rate' ought to be affected by noise.
 %
 % Note that the same $\theta_1$ term also shows up in the expression for
 % the mean time of decision termination: (the number of steps to
@@ -230,8 +230,8 @@ theStrengths = unique(D.strength);
 % rule of thumb is that a drift offset will dominate when there are many
 % difficult conditions and a drift offset will dominate when there are only
 % a few. In the random dot motion task, we sample the difficult conditions
-% heavily. That"s because we want to encourage integration as a strategy,
-% and let"s face it, without an incentive to accumulate many samples of
+% heavily. That's because we want to encourage integration as a strategy,
+% and let's face it, without an incentive to accumulate many samples of
 % evidence, why would one do it? And not to put too fine a point on it, but
 % if one is interested in applying or studying integration in time, then it
 % makes sense to establish conditions that promote long(ish) integration
@@ -246,7 +246,7 @@ theStrengths = unique(D.strength);
 % 
 % Fit a logistic to the data and express the bias in units of motion
 % strength
-beta = glmfit(D.strength,D.choice, "binomial", "link", "logit");
+beta = glmfit(D.strength,D.choice, 'binomial', 'link', 'logit');
 strength_bias = -beta(1)/beta(2); %  bias in units of strength 
 %% 
 % We do not estimate the bias from this logistic. We use it only to figure
@@ -254,7 +254,7 @@ strength_bias = -beta(1)/beta(2); %  bias in units of strength
 % in the direction that is opposite the sign of the drift. The simple
 % symmetric diffusion model cannot explain the mean RT on these errors. So
 % we should not try to fit those data. Same reasoning applies to the shapes
-% of the RT distributions. So we don"t try to get that right either. Note
+% of the RT distributions. So we don't try to get that right either. Note
 % that bias in our experiment is approximated by a change in drift rate. And
 % this is why the classification makes sense. 
 % 
@@ -310,8 +310,8 @@ end
 % obtained from the logistic fit to choice in step 1.
 %
 
-[Dout,W,T_opt,T_opt_se,grad,hess,nlogl,Wpred]=dtb_fit_means(D,"rt_only",true,...
-    "tnd_delta_opt",1,"mu_opt",1);
+[Dout,W,T_opt,T_opt_se,grad,hess,nlogl,Wpred]=dtb_fit_means(D,'rt_only',true,...
+    'tnd_delta_opt',1,'mu_opt',1);
 % Dout contains the original D structure plus the fit parameters and their standard error
 
 
@@ -333,10 +333,10 @@ end
 % importantly, the choice function depends on the product, $\kappa(C+\mu)B$. 
 % Thus it is not possible to separate _B_ and $\kappa$.
 
-[DbOut,Wb,~,~,~,~,~,WbPred]=dtb_fit_means(D,"rt_only",false,"tnd_delta_opt",1,"mu_opt",1);
+[DbOut,Wb,~,~,~,~,~,WbPred]=dtb_fit_means(D,'rt_only',false,'tnd_delta_opt',1,'mu_opt',1);
  
 % Here are the fit parameters and their s.e.
-[DbOut.theta_opt" DbOut.theta_opt_se]
+[DbOut.theta_opt' DbOut.theta_opt_se]
 %   B           bound 
 %   kappa       multiplier on strenghth to get drift
 %   mu          strength bias
@@ -347,47 +347,47 @@ end
 %% 1.5 Plot the data, fits and prediction
 hFig = figure(); clf;
 hax(1) = subplot(2,1,1); hold on
-plot(theStrengths,pCh,"ko","markerfacecolor","k","MarkerSize",4);
+plot(theStrengths,pCh,'ko','markerfacecolor','k','MarkerSize',4);
 xint =  linspace(min(theStrengths),max(theStrengths),100);
-plot(xint,glmval(beta,xint,"logit"),"k-");
-h = ylabel("Prob. positive choice");
-set(h,"VerticalAlignment","bottom","fontsize",16);
+plot(xint,glmval(beta,xint,'logit'),'k-');
+h = ylabel('Prob. positive choice');
+set(h,'VerticalAlignment','bottom','fontsize',16);
 
 hax(2) = subplot(2,1,2); hold on
 [hsym,hxe,hye] = errorbar2(theStrengths,meanRT,semRT,semRT);
 delete(hxe);
-set(hsym,"markerfacecolor","k","MarkerSize",4);
+set(hsym,'markerfacecolor','k','MarkerSize',4);
 
-set(hFig,"CurrentAxes",hax(1));
-hPredCh = plot(Wpred.strength,Wpred.choice,"b-"); 
+set(hFig,'CurrentAxes',hax(1));
+hPredCh = plot(Wpred.strength,Wpred.choice,'b-'); 
 
-set(hFig,"CurrentAxes",hax(1));
-hFitCh = plot(WbPred.strength,WbPred.choice,"r--");
-set(hFig,"CurrentAxes",hax(2));
-hFitRTonly = plot(Wpred.strength,Wpred.rt,"b-");
-hFitRTboth = plot(WbPred.strength,WbPred.rt,"r--");
+set(hFig,'CurrentAxes',hax(1));
+hFitCh = plot(WbPred.strength,WbPred.choice,'r--');
+set(hFig,'CurrentAxes',hax(2));
+hFitRTonly = plot(Wpred.strength,Wpred.rt,'b-');
+hFitRTboth = plot(WbPred.strength,WbPred.rt,'r--');
 
-xlabel("Stimulus strength","fontsize",16);
-ylabel("RT (s)","fontsize",16);
-set(hax,"tickdir","out");
-set(hax(1),"XTickLabel",[]);
-ptop = get(hax(1),"position");
-pbot = get(hax(2),"position");
-set(hax(1),"position",[ptop(1), 0.1*pbot(4)+sum(pbot([2 4])),ptop([3 4])]);
-set(hax,"xgrid","on");
+xlabel('Stimulus strength','fontsize',16);
+ylabel('RT (s)','fontsize',16);
+set(hax,'tickdir','out');
+set(hax(1),'XTickLabel',[]);
+ptop = get(hax(1),'position');
+pbot = get(hax(2),'position');
+set(hax(1),'position',[ptop(1), 0.1*pbot(4)+sum(pbot([2 4])),ptop([3 4])]);
+set(hax,'xgrid','on');
 
 % add legends
-set(hFig,"CurrentAxes",hax(1));
-[LEGH,OBJH,~,~]=legend("data","GLM","prediction","joint fit");
-set(OBJH(1:4),"FontSize",14);
-set(LEGH,"box","off");
+set(hFig,'CurrentAxes',hax(1));
+[LEGH,OBJH,~,~]=legend('data','GLM','prediction','joint fit');
+set(OBJH(1:4),'FontSize',14);
+set(LEGH,'box','off');
 
-set(hFig,"CurrentAxes",hax(2));
-[LEGH,OBJH,OUTH,OUTM]=legend("","data","fit","joint fit");
-set(OBJH(2:4),"FontSize",14);
-set(OUTH(1),"visible","on");
-set(LEGH,"box","off");
-set(OBJH([5 6]),"visible","off");
+set(hFig,'CurrentAxes',hax(2));
+[LEGH,OBJH,OUTH,OUTM]=legend('','data','fit','joint fit');
+set(OBJH(2:4),'FontSize',14);
+set(OUTH(1),'visible','on');
+set(LEGH,'box','off');
+set(OBJH([5 6]),'visible','off');
 
 %% Part 2. Diffusion with collapsing bounds
 %%
@@ -410,7 +410,7 @@ set(OBJH([5 6]),"visible","off");
 % represented by a few parameters (3 in the code below).
 %
 % To early mathematical psychologists, it seemed obvious that the extension
-% of the absorbing markov chains, gambler"s ruin, sequential probability
+% of the absorbing markov chains, gambler's ruin, sequential probability
 % ratio test would invite the same flat bound (i.e. stationary bound)
 % solution. It seemed justified on the grounds of parsimony and assumed
 % optimality, although we have not seen this stated explicitly. However,
@@ -447,7 +447,7 @@ set(OBJH([5 6]),"visible","off");
 %% 2.1 Read in the data
 %
 % You can use the data above, but it contains some extra fields that we
-% appended. That"s okay, but all you need are the three fields(.strength,
+% appended. That's okay, but all you need are the three fields(.strength,
 %  .rt, .choice).
 
 D.use_like=ones(size(D.choice)); % for collapse we use all choices for rt fit
@@ -455,7 +455,7 @@ D.use_like=ones(size(D.choice)); % for collapse we use all choices for rt fit
 %% 2.2 Set initial parameters
 % We use a bounded search for the fit. We use T to establish the starting
 % guess and range. Check to see if your fits are at the the extreme end of
-% the range. If so, expand the range or rescale strength. Either way, don"t
+% the range. If so, expand the range or rescale strength. Either way, don't
 % trust the fit!
 clear T
 T{1}.kappa=15;  T{2}.kappa=0.1;     T{3}.kappa=30;
@@ -466,9 +466,9 @@ T{1}.Bbeta=1;     T{2}.Bbeta=0.01;        T{3}.Bbeta=10;
 T{1}.tnd=0.4;   T{2}.tnd=0.02;      T{3}.tnd=0.8;
 T{1}.tnd_sd=0.05; T{2}.tnd_sd=0.005;    T{3}.tnd_sd=0.15;
 
-options = optimset("fminsearch");
+options = optimset('fminsearch');
 options.MaxFunEvals = 200; % comment out to do full optimization
-% options =    optimoptions("fmincon","Algorithm","interior-point")
+% options =    optimoptions('fmincon','Algorithm','interior-point')
 
 % next bit repackages structure T into jittered initial guess and upper and
 % lower bounds in the format that fminsearch needs
@@ -480,7 +480,7 @@ options.MaxFunEvals = 200; % comment out to do full optimization
 
 [T_opt, D_opt]=opt_unpack(theta_opt,P); % return optimal parameters
 %% 
-% If you"re using the collapse_data, you can compare the fit (even the one
+% If you're using the collapse_data, you can compare the fit (even the one
 % that stopped prematurely) with the parameters used to generate the
 % simulated data: 
 %
@@ -492,7 +492,7 @@ options.MaxFunEvals = 200; % comment out to do full optimization
 % ALso get fit predictions at interpolated values (for plotting)
 
 clear Dopt;
-Dopt.strength=sort([-logspace(log10(0.032) ,log10(0.512) ,33) 0 logspace(log10(0.032) ,log10(0.512) ,33)])";
+Dopt.strength=sort([-logspace(log10(0.032) ,log10(0.512) ,33) 0 logspace(log10(0.032) ,log10(0.512) ,33)])';
 Dopt.choice=Dopt.strength>=0;
 Dopt.corr=Dopt.strength>=0;
 Dopt.rt=max(D.rt)*ones(size(Dopt.strength));
@@ -503,30 +503,30 @@ Dopt.rt=max(D.rt)*ones(size(Dopt.strength));
 %% 2.5 Plot
 
 clf;
-col="k";
+col='k';
 
 subplot(2,2,1);
-plot_psychometric(G1,"data",0,"rt",0,"col",col,"folded",0);
-plot_psychometric(D,"pred",0,"rt",0,"col",col,"folded",0);
+plot_psychometric(G1,'data',0,'rt',0,'col',col,'folded',0);
+plot_psychometric(D,'pred',0,'rt',0,'col',col,'folded',0);
 
 subplot(2,2,2)
-plot_psychometric(G1,"data",0,"choice",0,"col",col,"folded",0);
-plot_psychometric(D,"pred",0,"choice",0,"col",col,"folded",0);
+plot_psychometric(G1,'data',0,'choice',0,'col',col,'folded',0);
+plot_psychometric(D,'pred',0,'choice',0,'col',col,'folded',0);
 
 subplot(2,2,3);
 s=G1.Bup>0;
 plot(G1.t,G1.Bup.*s);
 hold on
 plot(G1.t,-G1.Bup.*s);
-title("Bounds");
-xlabel("Time (s)");
-ylabel("Accumulated Evidence");
+title('Bounds');
+xlabel('Time (s)');
+ylabel('Accumulated Evidence');
 shg
 
 %% Fokker-Planck method
 % I will write more about this. For now, this is simply an introduction to
 % some useful but yet to be properly documented code. Actually, for now
-% it"s a place holder; I"ve run out of time.
+% it's a place holder; I've run out of time.
 
 
 

@@ -17,37 +17,37 @@ function sys = RFB2017()
     % SDE Parameters
     sys.pardef = [
         % Connection weights [aee, aei, aie, ane, ani]
-        struct("name","a",    "value", [0.36, 2.0, 2.0, 1.0, 0.4]);
+        struct('name','a',    'value', [0.36, 2.0, 2.0, 1.0, 0.4]);
         
         % Time constant of inhibition
-        struct("name","b",    "value",  0.10);
+        struct('name','b',    'value',  0.10);
 
         % Relative contribution of NMDA versus AMPA receptors
-        struct("name","r",    "value",  0.25); 
+        struct('name','r',    'value',  0.25); 
 
         % Temperature scaling factor                   
-        struct("name","phi",  "value",  0.7);
+        struct('name','phi',  'value',  0.7);
 
         % Ion channel parameters
-        struct("name","gion", "value", [1.0, 2.0, 6.70, 0.5]);     % Ion Conductances [gCa, gK, gNa, gL]
-        struct("name","Vion", "value", [1.0,-0.7, 0.53,-0.5]);     % Nernst Potential [VCa, VK, VNa, VL]
+        struct('name','gion', 'value', [1.0, 2.0, 6.70, 0.5]);     % Ion Conductances [gCa, gK, gNa, gL]
+        struct('name','Vion', 'value', [1.0,-0.7, 0.53,-0.5]);     % Nernst Potential [VCa, VK, VNa, VL]
                    
         % Gain parameters
-        struct("name","thrsh", "value", [ 0.00, 0.00,-0.01, 0.00, 0.30]);    % Firing threshold [VT, ZT, TCa, TK, TNa]
-        struct("name","delta", "value", [ 0.65, 0.65, 0.15, 0.30, 0.15]);    % Firing fun slope [deltaV, deltaZ, deltaCa, deltaK, deltaNa]
+        struct('name','thrsh', 'value', [ 0.00, 0.00,-0.01, 0.00, 0.30]);    % Firing threshold [VT, ZT, TCa, TK, TNa]
+        struct('name','delta', 'value', [ 0.65, 0.65, 0.15, 0.30, 0.15]);    % Firing fun slope [deltaV, deltaZ, deltaCa, deltaK, deltaNa]
 
         % Strength of subcortical input
-        struct("name","I",    "value", 0.3);
+        struct('name','I',    'value', 0.3);
         
         % Noise volatility parameters
-        struct("name","alpha", "value", 0);
-        struct("name","beta",  "value", 0);
+        struct('name','alpha', 'value', 0);
+        struct('name','beta',  'value', 0);
         ];
                
     % SDE state variables
-    sys.vardef = [ struct("name","V", "value",-0.2);      % Mean firing rate of excitatory cells
-                   struct("name","W", "value", 0.3);      % Proportion of open K channels
-                   struct("name","Z", "value", 0.12) ];   % Mean firing rate of inhibitory cells
+    sys.vardef = [ struct('name','V', 'value',-0.2);      % Mean firing rate of excitatory cells
+                   struct('name','W', 'value', 0.3);      % Proportion of open K channels
+                   struct('name','Z', 'value', 0.12) ];   % Mean firing rate of inhibitory cells
                
     % Integration time span
     sys.tspan = [0 2000]; 
@@ -58,33 +58,33 @@ function sys = RFB2017()
     sys.sdeoption.NoiseSources = 1;     % Number of Wiener noise processes
 
     % Include the Latex (Equations) panel in the GUI
-    sys.panels.bdLatexPanel.title = "Equations"; 
+    sys.panels.bdLatexPanel.title = 'Equations'; 
     sys.panels.bdLatexPanel.latex = {
-        "\textbf{Roberts, Friston \& Breakspear (2017)} Biol. Psychiatry: Cognitive Neuroscience \& Neuroimaging.";
-        "Clinical Applications of Stochastic Dynamic Models of the Brain, Part 1: A Primer.";
-        "\qquad $dV = \Big( -(g_{Ca} + r\,a_{ee}\, Q_V)\,m_{Ca}\,(V {-} V_{Ca}) \, - \, (g_{Na}\,m_{Na} + a_{ee}\,Q_V)\,(V {-} V_{Na}) $";
-        "\qquad \qquad \qquad $ - \, g_K\,W\,(V {-} V_K) \, - \, g_L\,(V {-} V_L) \, - \, a_{ie}\,Z\,Q_Z + a_{ne}\,I \Big)\,dt \, + \, a_{ne}\,\big( \alpha + \beta\,V \big) \,d \xi,$";
-        "";
-        "\qquad $dW = \frac{\phi}{\tau}\,(m_K {-} W) \, dt$";
-        "";
-        "\qquad $dZ = b\,(a_{ni}\,I + a_{ei}\,V\,Q_V) \, dt$";
-        "where";
-        "\qquad $V(t)$ is the average membrane potential of \textit{excitatory} cells,";
-        "\qquad $W(t)$ is the proportion of open Potassium channels,";
-        "\qquad $Z(t)$ is the average membrane potential of \textit{inhibitory} cells,";
-        "\qquad $d\xi(t)$ is a Wiener noise process,";
-        "\qquad $m_{ion} = \frac{1}{2} \big(1 + \tanh((V{-}V_{ion})/\delta_{ion})\big)$ is the proportion of open ion channels for a given $V,$";
-        "\qquad $Q_{V} = \frac{1}{2} \big(1 + \tanh((V{-}V_{T})/\delta_{V})\big)$ is the mean firing rate of \textit{excitatory} cells,";
-        "\qquad $Q_{Z} = \frac{1}{2} \big(1 + \tanh((Z{-}Z_{T})/\delta_{Z})\big)$ is the mean firing rate of \textit{inhibitory} cells,";
-        "\qquad a $= [a_{ee},a_{ei},a_{ie},a_{ne},a_{ni}]$ are the connection weights ($a_{ei}$ denotes $e$ to $i$),";
-        "\qquad b is the time constant of inhibition,";
-        "\qquad r is the number of NMDA receptors relative to the number of AMPA receptors,";
-        "\qquad phi $=\frac{\phi}{\tau}$ is the temperature scaling factor,";
-        "\qquad gion $= [g_{Ca},g_{K},g_{Na},g_L]$ are the ion conducances, Vion $= [V_{Ca},V_{K},V_{Na},V_L]$ are the Nernst potentials,";
-        "\qquad thrsh $= [V_T,Z_T,T_{Ca},T_K,T_{Na}]$ are the gain thresholds, delta $= [\delta_V,\delta_Z,\delta_{Ca},\delta_K,\delta_{Na}]$ are the gain slopes,";
-        "\qquad $I$ is the strength of the subcortical input,";
-        "\qquad $\alpha$ is the volatility of the \textit{additive} noise,";
-        "\qquad $\beta$ is the volatility of the \textit{multiplicative} noise,";
+        '\textbf{Roberts, Friston \& Breakspear (2017)} Biol. Psychiatry: Cognitive Neuroscience \& Neuroimaging.';
+        'Clinical Applications of Stochastic Dynamic Models of the Brain, Part 1: A Primer.';
+        '\qquad $dV = \Big( -(g_{Ca} + r\,a_{ee}\, Q_V)\,m_{Ca}\,(V {-} V_{Ca}) \, - \, (g_{Na}\,m_{Na} + a_{ee}\,Q_V)\,(V {-} V_{Na}) $';
+        '\qquad \qquad \qquad $ - \, g_K\,W\,(V {-} V_K) \, - \, g_L\,(V {-} V_L) \, - \, a_{ie}\,Z\,Q_Z + a_{ne}\,I \Big)\,dt \, + \, a_{ne}\,\big( \alpha + \beta\,V \big) \,d \xi,$';
+        '';
+        '\qquad $dW = \frac{\phi}{\tau}\,(m_K {-} W) \, dt$';
+        '';
+        '\qquad $dZ = b\,(a_{ni}\,I + a_{ei}\,V\,Q_V) \, dt$';
+        'where';
+        '\qquad $V(t)$ is the average membrane potential of \textit{excitatory} cells,';
+        '\qquad $W(t)$ is the proportion of open Potassium channels,';
+        '\qquad $Z(t)$ is the average membrane potential of \textit{inhibitory} cells,';
+        '\qquad $d\xi(t)$ is a Wiener noise process,';
+        '\qquad $m_{ion} = \frac{1}{2} \big(1 + \tanh((V{-}V_{ion})/\delta_{ion})\big)$ is the proportion of open ion channels for a given $V,$';
+        '\qquad $Q_{V} = \frac{1}{2} \big(1 + \tanh((V{-}V_{T})/\delta_{V})\big)$ is the mean firing rate of \textit{excitatory} cells,';
+        '\qquad $Q_{Z} = \frac{1}{2} \big(1 + \tanh((Z{-}Z_{T})/\delta_{Z})\big)$ is the mean firing rate of \textit{inhibitory} cells,';
+        '\qquad a $= [a_{ee},a_{ei},a_{ie},a_{ne},a_{ni}]$ are the connection weights ($a_{ei}$ denotes $e$ to $i$),';
+        '\qquad b is the time constant of inhibition,';
+        '\qquad r is the number of NMDA receptors relative to the number of AMPA receptors,';
+        '\qquad phi $=\frac{\phi}{\tau}$ is the temperature scaling factor,';
+        '\qquad gion $= [g_{Ca},g_{K},g_{Na},g_L]$ are the ion conducances, Vion $= [V_{Ca},V_{K},V_{Na},V_L]$ are the Nernst potentials,';
+        '\qquad thrsh $= [V_T,Z_T,T_{Ca},T_K,T_{Na}]$ are the gain thresholds, delta $= [\delta_V,\delta_Z,\delta_{Ca},\delta_K,\delta_{Na}]$ are the gain slopes,';
+        '\qquad $I$ is the strength of the subcortical input,';
+        '\qquad $\alpha$ is the volatility of the \textit{additive} noise,';
+        '\qquad $\beta$ is the volatility of the \textit{multiplicative} noise,';
         };
     
     % Include the Time Portrait panel in the GUI

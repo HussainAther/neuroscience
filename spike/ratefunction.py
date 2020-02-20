@@ -1,6 +1,6 @@
 import numpy as np
 
-"""
+'''
 Represent spike train  as a function of time to place an infinitely thin, infinitely tall window
 to mark each spike. Use the Dirac delta function centered at t = t_hat:
 
@@ -10,36 +10,36 @@ to mark each spike. Use the Dirac delta function centered at t = t_hat:
 
 We solve this using a convolution integral of two functions. These smoothing functions can convert
 messy, noisy data into spike trains that can be analyzed.
-"""
+'''
 
 A = [1,2,3,4,5,6,7,8,9]
 b = [1,2,3]
 
 np.convolve(A, b) # numpy's built-in convolution operator
 
-"""
+'''
 Interspike interval (ISI) is the time between spikes. ISI rate can be used to calcualte the number
 of spikes over time. Then we can calculate a peri-stimulus time histogram (PSTH) from many trials of the
 same experiment.
-"""
+'''
 
 def interspike_interval_histogram(self, bins):
-    """
+    '''
     Return ISI in discrete time bins bins.
-    """
+    '''
     intervals = self.interspike_intervals()
     return np.diff([np.count_nonzero(intervals < (t / 1000.)) for t in [0] + list(bins)]) / float(intervals.size)
 
-"""
+'''
 We can take into account the Fano factor with every counting interval.
-"""
+'''
 
 def fano_factor(self, counting_intervals):
-    """
+    '''
     Compute the Fano factor sigma^2_n / mean_n with every given interval. It measures the 
     dispersion of a probability distributino of Fano noise. We use it to describe variability
     of the peak signal.
-    """
+    '''
     ls = []
     for i in counting_intervals:
         counts = self.spike_counts(i)

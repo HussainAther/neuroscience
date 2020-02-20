@@ -6,33 +6,33 @@ import zipfile
 import pandas as pd
 import nibabel
 
-"""
+'''
 Generalized linear model (GLM general) for fMRI.
-"""
+'''
 
 # Define the URL of the data and download it using the Requests libary
-url = "http://www.fil.ion.ucl.ac.uk/spm/download/data/MoAEpilot/MoAEpilot.zip"
+url = 'http://www.fil.ion.ucl.ac.uk/spm/download/data/MoAEpilot/MoAEpilot.zip'
 data = requests.get(url)
 
 # Check if the targed folder for storing the data already exists. If not create it and save the zip file.
-if os.path.exists("./fMRI_data") == False:
-    os.mkdir("fMRI_data")
+if os.path.exists('./fMRI_data') == False:
+    os.mkdir('fMRI_data')
     
-open("./fMRI_data/data.zip", "wb").write(data.content)
+open('./fMRI_data/data.zip', 'wb').write(data.content)
 
 # Unzip the file
-zip_ref = zipfile.ZipFile("./fMRI_data/data.zip", "r")
-zip_ref.extractall("./fMRI_data/")
+zip_ref = zipfile.ZipFile('./fMRI_data/data.zip', 'r')
+zip_ref.extractall('./fMRI_data/')
 zip_ref.close()
 
 # Find all files in the structural data folder
-data_path = "./fMRI_data/sM00223/"
+data_path = './fMRI_data/sM00223/'
 files = os.listdir(data_path)
 
 # Read in the data
 data_all = []
 for data_file in files:
-    if data_file[-3:] == "hdr":
+    if data_file[-3:] == 'hdr':
         data = nibabel.load(data_path + data_file).get_data()
 
 data = np.rot90(data.squeeze(), 1)
@@ -60,13 +60,13 @@ n_slice = 64
 n_volumes = 96
 
 # Find all files in the data folder
-data_path = "./fMRI_data/fM00223/"
+data_path = './fMRI_data/fM00223/'
 files = os.listdir(data_path)
 
 # Read in the data and organize it with respect to the acquisition parameters
 data_all = []
 for data_file in files:
-    if data_file[-3:] == "hdr":
+    if data_file[-3:] == 'hdr':
         data = nibabel.load(data_path + data_file).get_data()        
         data_all.append(data.reshape(x_size, y_size, n_slice))
 
@@ -88,29 +88,29 @@ sagittal = np.rot90(sagittal, 1)
 # Plot some of the images in different planes
 n = 10
 for i in range(6):
-    ax[0][i].imshow(coronal[:, :, n, 0], cmap="gray")
+    ax[0][i].imshow(coronal[:, :, n, 0], cmap='gray')
     ax[0][i].set_xticks([])
     ax[0][i].set_yticks([])
     if i == 0:
-        ax[0][i].set_ylabel("coronal", fontsize=25, color="r")
+        ax[0][i].set_ylabel('coronal', fontsize=25, color='r')
     n += 10
     
 n = 5
 for i in range(6):
-    ax[1][i].imshow(transversal[:, :, n, 0], cmap="gray")
+    ax[1][i].imshow(transversal[:, :, n, 0], cmap='gray')
     ax[1][i].set_xticks([])
     ax[1][i].set_yticks([])
     if i == 0:
-        ax[1][i].set_ylabel("transversal", fontsize=25, color="r")
+        ax[1][i].set_ylabel('transversal', fontsize=25, color='r')
     n += 10
     
 n = 5
 for i in range(6):
-    ax[2][i].imshow(sagittal[:, :, n, 0], cmap="gray")
+    ax[2][i].imshow(sagittal[:, :, n, 0], cmap='gray')
     ax[2][i].set_xticks([])
     ax[2][i].set_yticks([])
     if i == 0:
-        ax[2][i].set_ylabel("sagittal", fontsize=25, color="r')
+        ax[2][i].set_ylabel('sagittal', fontsize=25, color='r')
     n += 10
 
 fig.subplots_adjust(wspace=0, hspace=0)
@@ -122,9 +122,9 @@ fig, ax = plt.subplots(1, 1, figsize=[18, 5])
 # Plot the timecourse of a random voxel
 ax.plot(transversal[30, 30, 35, :], lw=3)
 ax.set_xlim([0, transversal.shape[3]-1])
-ax.set_xlabel("time [s]", fontsize=20)
-ax.set_ylabel("signal strength", fontsize=20)
-ax.set_title("voxel time course", fontsize=25)
+ax.set_xlabel('time [s]', fontsize=20)
+ax.set_ylabel('signal strength', fontsize=20)
+ax.set_title('voxel time course', fontsize=25)
 ax.tick_params(labelsize=12)
 
 plt.show()
@@ -134,19 +134,19 @@ data_all = np.transpose(data_all, [3, 2, 1, 0])
 data_all = np.reshape(data_all, [n_slice, y_size*x_size, n_volumes])
 
 # Check if output path exists, if not create it.
-if os.path.exists(".fMRI_data/csv_data") == False:
-    os.mkdir("./fMRI_data/csv_data")
+if os.path.exists('.fMRI_data/csv_data') == False:
+    os.mkdir('./fMRI_data/csv_data')
 
 # Export each slice as a .csv file 
 n = 0
 for export in data_all:
-    save_file = "slice_{}.csv".format(n)
-    save_path = "./fMRI_data/csv_data/{}".format(save_file)
+    save_file = 'slice_{}.csv'.format(n)
+    save_path = './fMRI_data/csv_data/{}'.format(save_file)
     pd.DataFrame(export).to_csv(save_path, header=False, index=False)
     n += 1
 
 # Main parameters of the fMRI scan and experimental desgin
-block_design = ["rest", "stim"]
+block_design = ['rest', 'stim']
 block_size = 6
 block_RT = 7
 block_total = 16
@@ -195,10 +195,10 @@ plt.show()
 
 
 def do_GLM(X, y):
-    """
+    '''
     For design matrix X and expected response y, perform the generalized
     linear model (GLM) fit and error assessment.
-    """
+    '''
     # Make sure design matrix has the right orientation
     if X.shape[1] > X.shape[0]:
         X = X.transpose()
@@ -225,31 +225,31 @@ r = r.reshape(x_size,y_size)
 map = r.copy()
 map[map<0.35] = np.nan
 fig, ax = plt.subplots(1,3,figsize=(18, 6))
-ax[0].imshow(mean_data, cmap="gray")
-ax[0].set_title("1st EPI image", fontsize=25)
+ax[0].imshow(mean_data, cmap='gray')
+ax[0].set_title('1st EPI image', fontsize=25)
 ax[0].set_xticks([])
 ax[0].set_yticks([])
-ax[1].imshow(r, cmap="afmhot")
-ax[1].set_title("un-thresholded map", fontsize=25)
+ax[1].imshow(r, cmap='afmhot')
+ax[1].set_title('un-thresholded map', fontsize=25)
 ax[1].set_xticks([])
 ax[1].set_yticks([])
-ax[2].imshow(mean_data, cmap="gray")
-ax[2].imshow(map, cmap="afmhot")
-ax[2].set_title("thresholded map (overlay)", fontsize=25)
+ax[2].imshow(mean_data, cmap='gray')
+ax[2].imshow(map, cmap='afmhot')
+ax[2].set_title('thresholded map (overlay)', fontsize=25)
 ax[2].set_xticks([])
 ax[2].set_yticks([])
 plt.show()
 
 def scale(data):
-    """
+    '''
     Scale data data of an array using the max and min values.
-    """
+    '''
     return (data - data.min()) / (data.max() - data.min())
 
 def z_score(data):
-    """
+    '''
     Calculate z-score Z-score Z score.
-    """
+    '''
     mean = data.mean(axis=1, keepdims=True)
     std = data.std(axis=1, keepdims=True)
     norm_data = (data-mean)/std
@@ -265,7 +265,7 @@ fig, ax = plt.subplots(3,1, figsize=(15, 5))
 ax[0].plot(design_matrix[0], lw=3)
 ax[0].set_xlim(0, acq_num-1)
 ax[0].set_ylim(0, 1.5)
-ax[0].set_title("constant", fontsize=25)
+ax[0].set_title('constant', fontsize=25)
 ax[0].set_xticks([])
 ax[0].set_yticks([0,1])
 ax[0].tick_params(labelsize=12)
@@ -273,7 +273,7 @@ ax[0].tick_params(labelsize=12)
 ax[1].plot(design_matrix[1], lw=3)
 ax[1].set_xlim(0, acq_num-1)
 ax[1].set_ylim(0, 1.5)
-ax[1].set_title("expected response", fontsize=25)
+ax[1].set_title('expected response', fontsize=25)
 ax[1].set_yticks([0,1])
 ax[1].set_xticks([])
 ax[1].tick_params(labelsize=12)
@@ -281,9 +281,9 @@ ax[1].tick_params(labelsize=12)
 ax[2].plot(design_matrix[2], lw=3)
 ax[2].set_xlim(0, acq_num-1)
 ax[2].set_ylim(0, 1.5)
-ax[2].set_title("mean response", fontsize=25)
+ax[2].set_title('mean response', fontsize=25)
 ax[2].set_yticks([0,1])
-ax[2].set_xlabel("time [volumes]", fontsize=20)
+ax[2].set_xlabel('time [volumes]', fontsize=20)
 ax[2].tick_params(labelsize=12)
 ax[2].tick_params(labelsize=12)
 fig.subplots_adjust(wspace=0, hspace=0.5)
@@ -291,9 +291,9 @@ plt.show()
 
 # Gaussian kernel
 def gaussian_kernel(size, size_y=None):
-    """
+    '''
     Generate Gaussian kernel normalized by size
-    """
+    '''
     size = int(size)
     if not size_y:
         size_y = size

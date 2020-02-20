@@ -425,7 +425,7 @@ figure
 subplot(121)
 contourf(times2save,freqs2use,spectcoher,20,'linecolor','none') % 
 set(gca,'clim',[0 .2],'yscale','log','ytick',round(logspace(log10(freqs2use(1)),log10(freqs2use(end)),8)),'xlim',[times2save(1) times2save(end)])
-title('"Raw" spectral coherence')
+title(''Raw' spectral coherence')
 
 subplot(122)
 contourf(times2save,freqs2use,spectcoher-repmat(mean(spectcoher(:,baselineidx(1):baselineidx(2)),2),1,size(spectcoher,2)),20,'linecolor','none') % 
@@ -433,7 +433,7 @@ set(gca,'clim',[-.1 .1],'yscale','log','ytick',round(logspace(log10(freqs2use(1)
 xlabel('Time (ms)'), ylabel('Frequency (Hz)')
 title('Baseline-subtracted spectral coherence')
 
-% number of "trials"
+% number of 'trials'
 n = 100;
 
 figure

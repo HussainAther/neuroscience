@@ -4,12 +4,12 @@ import nitime.utils as utils
 import nitime.timeseries as ts
 import nitime.viz as viz
 
-"""
+'''
 Calculate signal-to-noise (signal to noise snr) ratio. Where SNR(omega) is the ratio of the signal power and the noise power at the 
 frequency band centered on \omega.This equation holde true for a Gaussian channel and is an upper bound for all other cases.
 The signal power is estimated as the power of the mean response to repeated presentations of the same signal and the noise power 
 is calculated as the average of the power in the deviation from this average in each trial
-"""
+'''
 
 # Generate auto-regressive sequence as the signal
 ar_seq, nz, alpha = utils.ar_generator(N=128, drop_transients=10)
@@ -33,10 +33,10 @@ sample_mean = np.mean(sample[-1], 0)
 fig_tseries.append(plt.figure())
 ax = fig_tseries[-1].add_subplot(1, 1, 1)
 ax.plot(sample[-1].T)
-ax.plot(ar_seq, "b", linewidth=4)
-ax.plot(sample_mean, "r", linewidth=4)
-ax.set_xlabel("Time")
-ax.set_ylabel("Amplitude")
+ax.plot(ar_seq, 'b', linewidth=4)
+ax.plot(sample_mean, 'r', linewidth=4)
+ax.set_xlabel('Time')
+ax.set_ylabel('Amplitude')
 
 # low noise
 tseries = ts.TimeSeries(sample[-1], sampling_rate=1.)

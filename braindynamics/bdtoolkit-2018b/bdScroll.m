@@ -2,10 +2,10 @@ classdef bdScroll < handle
     %bdScroll - A scrolling uipanel for the Brain Dynamics Toolbox.
     %
     %EXAMPLE
-    %   fig = figure("Units","pixels");
+    %   fig = figure('Units','pixels');
     %   scr = bdScroll(fig,300,300);
-    %   ax = axes("Parent",scr.panel);
-    %   imagesc(rand(100,100),"Parent",ax);
+    %   ax = axes('Parent',scr.panel);
+    %   imagesc(rand(100,100),'Parent',ax);
     
     properties (Access = public)
         panel        % uipanel for user-defined graphics objects
@@ -22,42 +22,42 @@ classdef bdScroll < handle
         % Constructor
         function this = bdScroll(parent,panelw,panelh,varargin)
             % Construct a container panel at the given position within the parent 
-            this.cpanel = uipanel("Parent",parent, "BorderType","none");
+            this.cpanel = uipanel('Parent',parent, 'BorderType','none');
             
             % construct view panel within the container (approximate position only)
-            this.vpanel = uipanel("Parent",this.cpanel, ...
-                "Units","pixels", ...
-                "Position",[0 20 80 80], ...
+            this.vpanel = uipanel('Parent',this.cpanel, ...
+                'Units','pixels', ...
+                'Position',[0 20 80 80], ...
                 varargin{:});
             
             % construct the vertical scrollbar within the container (approximate position only)
-            this.vscroll = uicontrol("Style","slider", ...
-                "Value",1, ...
-                "Parent",this.cpanel, ...
-                "Units","pixels", ...
-                "Position", [20,20,80,80] );
+            this.vscroll = uicontrol('Style','slider', ...
+                'Value',1, ...
+                'Parent',this.cpanel, ...
+                'Units','pixels', ...
+                'Position', [20,20,80,80] );
 
             % Slider callbacks are only executed when the user releases the
             % slider thumb. But we also want it to execute when the thumb
             % is being dragged. So we use a listener instead. 
-            addlistener(this.vscroll,"Value","PostSet",@(~,~) this.vscrollCallback());
+            addlistener(this.vscroll,'Value','PostSet',@(~,~) this.vscrollCallback());
             
             % construct the horizontal scrollbar within the container (approximate position only)
-            this.hscroll = uicontrol("Style","slider", ...
-                "Parent",this.cpanel, ...
-                "Units","pixels", ...
-                "Position", [0 0 80,20] );
+            this.hscroll = uicontrol('Style','slider', ...
+                'Parent',this.cpanel, ...
+                'Units','pixels', ...
+                'Position', [0 0 80,20] );
             
             % Slider callbacks are only executed when the user releases the
             % slider thumb. But we also want it to execute when the thumb
             % is being dragged. So we use a listener instead. 
-            addlistener(this.hscroll,"Value","PostSet",@(~,~) this.hscrollCallback());
+            addlistener(this.hscroll,'Value','PostSet',@(~,~) this.hscrollCallback());
 
             % construct the users panel within the view panel.
-            this.panel = uipanel("parent",this.vpanel, ...
-                "Units","pixels", ...
-                "Position",[2 2 panelw panelh], ...
-                "BorderType","none");
+            this.panel = uipanel('parent',this.vpanel, ...
+                'Units','pixels', ...
+                'Position',[2 2 panelw panelh], ...
+                'BorderType','none');
 
             % resize the widgets within the container (to their accurate positions)
             this.SizeChanged();
@@ -75,11 +75,11 @@ classdef bdScroll < handle
  
         % Callback for changes to the size of the container panel.
         function SizeChanged(this)
-            %disp("bdScroll.SizeChanged");
+            %disp('bdScroll.SizeChanged');
             
             % set container units to pixels
             cpanelunits = this.cpanel.Units;
-            this.cpanel.Units = "pixels";
+            this.cpanel.Units = 'pixels';
 
             % get geometry of container panel (in pixels)
             cpanelw = this.cpanel.Position(3);
@@ -95,25 +95,25 @@ classdef bdScroll < handle
             hscrollpos = [3,1,max(cpanelw-23,0),20];
             
             % if the user panel is narrower than our container panel
-            % then we don"t need the horizontal scrollbar
+            % then we don't need the horizontal scrollbar
             if (panelw < cpanelw)
-                this.hscroll.Visible="off";
+                this.hscroll.Visible='off';
                 this.hscroll.Value=0;                
                 vpanelpos(2) = 2;
                 vpanelpos(4) = cpanelh-1;
             else
-                this.hscroll.Visible="on";
+                this.hscroll.Visible='on';
             end
 
             % if the user panel is shorter than our container panel
-            % then we don"t need the vertical scrollbar
+            % then we don't need the vertical scrollbar
             if (panelh < cpanelh)
-                this.vscroll.Visible="off";
+                this.vscroll.Visible='off';
                 this.vscroll.Value=1;                
                 vpanelpos(1) = 2;
                 vpanelpos(3) = cpanelw-2;
             else
-                this.vscroll.Visible="on";
+                this.vscroll.Visible='on';
             end
             
             % Apply the new widget geometries
@@ -136,7 +136,7 @@ classdef bdScroll < handle
         % The SizeChanged callback of the enclosing container  panel will
         % also be invoked (after this function).
         function SizeChangedUser(this,src)
-            %disp("bdScroll.SizeChangedUser");
+            %disp('bdScroll.SizeChangedUser');
 
             % re-align the user panel to the top of the viewport.
             vpanely = this.vpanel.Position(2);
@@ -149,7 +149,7 @@ classdef bdScroll < handle
         end
  
         function vscrollCallback(this)
-            %disp("bdScroll.vscrollCallback");
+            %disp('bdScroll.vscrollCallback');
             vpanelh = this.vpanel.Position(4);
             panelh = this.panel.Position(4);
             shifth = panelh-vpanelh;
@@ -158,7 +158,7 @@ classdef bdScroll < handle
         end
         
         function hscrollCallback(this)
-            %disp("bdScroll.hscrollCallback");
+            %disp('bdScroll.hscrollCallback');
             vpanelw = this.vpanel.Position(3);
             panelw = this.panel.Position(3);
             shiftw = max(panelw-vpanelw,0);

@@ -271,7 +271,7 @@ for fi=1:length(freqs2plot)
             
             % cluster coefficient not computed for islands
             if n>1
-                % "local" network of neighbors
+                % 'local' network of neighbors
                 localnetwork = connmat(neighbors,neighbors);
                 % localnetwork is symmetric; remove redundant values by replacing with NaN
                 localnetwork = localnetwork + tril(nan(n));
@@ -323,7 +323,7 @@ for ti=1:length(thresholds)
         
         % cluster coefficient not computed for islands
         if n>1
-            % "local" network of neighbors
+            % 'local' network of neighbors
             localnetwork = connmat(neighbors,neighbors);
             % localnetwork is symmetric; remove redundant values by replacing with NaN
             localnetwork = localnetwork + tril(nan(n));
@@ -417,7 +417,7 @@ for neti=1:10
             n = length(neighbors);
             
             if n>1
-                % "local" network of neighbors
+                % 'local' network of neighbors
                 localnetwork = connmat_rewired(neighbors,neighbors);
                 % localnetwork is symmetric; remove redundant values by replacing with NaN
                 localnetwork = localnetwork + tril(nan(n));

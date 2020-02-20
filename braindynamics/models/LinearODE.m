@@ -1,8 +1,8 @@
 function sys = LinearODE()
     % LinearODE  Linear Ordinary Differential Equation in two variables
     %   Implements the system of linear ordinary differential equations
-    %        x"(t) = a*x(t) + b*y(t)
-    %        y"(t) = c*x(t) + d*y(t)
+    %        x'(t) = a*x(t) + b*y(t)
+    %        y'(t) = c*x(t) + d*y(t)
     %   for use with the Brain Dynamics Toolbox.
     %
     % Example 1: Using the Brain Dynamics graphical toolbox
@@ -11,40 +11,40 @@ function sys = LinearODE()
     % 
     % Example 2: Using the Brain Dynamics command-line solver
     %   sys = LinearODE();                              % system struct
-    %   sys.pardef = bdSetValue(sys.pardef,"a",1);      % parameter a=1
-    %   sys.pardef = bdSetValue(sys.pardef,"b",-1);     % parameter b=-1
-    %   sys.pardef = bdSetValue(sys.pardef,"c",10);     % parameter c=10
-    %   sys.pardef = bdSetValue(sys.pardef,"d",-2);     % parameter d=-2
-    %   sys.vardef = bdSetValue(sys.vardef,"x",rand);   % variable x=rand
-    %   sys.vardef = bdSetValue(sys.vardef,"y",rand);   % variable y=rand
+    %   sys.pardef = bdSetValue(sys.pardef,'a',1);      % parameter a=1
+    %   sys.pardef = bdSetValue(sys.pardef,'b',-1);     % parameter b=-1
+    %   sys.pardef = bdSetValue(sys.pardef,'c',10);     % parameter c=10
+    %   sys.pardef = bdSetValue(sys.pardef,'d',-2);     % parameter d=-2
+    %   sys.vardef = bdSetValue(sys.vardef,'x',rand);   % variable x=rand
+    %   sys.vardef = bdSetValue(sys.vardef,'y',rand);   % variable y=rand
     %   tspan = [0 10];                                 % soln time span
     %   sol = bdSolve(sys,tspan);                       % call the solver
     %   tplot = 0:0.1:10;                               % plot time domain
     %   Y = bdEval(sol,tplot);                          % extract solution
     %   plot(tplot,Y);                                  % plot the result
-    %   xlabel("time"); ylabel("x,y");
+    %   xlabel('time'); ylabel('x,y');
     % Handle to our ODE function
     sys.odefun = @odefun;
     
     % ODE parameter definitions
-    sys.pardef = [ struct("name","a", "value", 1);
-                   struct("name","b", "value",-1);
-                   struct("name","c", "value",10);
-                   struct("name","d", "value",-2) ];
+    sys.pardef = [ struct('name','a', 'value', 1);
+                   struct('name','b', 'value',-1);
+                   struct('name','c', 'value',10);
+                   struct('name','d', 'value',-2) ];
     
     % ODE variable definitions
-    sys.vardef = [ struct("name","x", "value",2*rand-1);
-                   struct("name","y", "value",2*rand-1) ];
+    sys.vardef = [ struct('name','x', 'value',2*rand-1);
+                   struct('name','y', 'value',2*rand-1) ];
 
     % Latex (Equations) panel
-    sys.panels.bdLatexPanel.title = "Equations"; 
+    sys.panels.bdLatexPanel.title = 'Equations'; 
     sys.panels.bdLatexPanel.latex = { 
-        "\textbf{LinearODE}";
-        "";
-        "System of linear ordinary differential equations";
-        "\qquad $\dot x(t) = a\,x(t) + b\,y(t)$";
-        "\qquad $\dot y(t) = c\,x(t) + d\,y(t)$";
-        "where $a,b,c,d$ are scalar constants.";
+        '\textbf{LinearODE}';
+        '';
+        'System of linear ordinary differential equations';
+        '\qquad $\dot x(t) = a\,x(t) + b\,y(t)$';
+        '\qquad $\dot y(t) = c\,x(t) + d\,y(t)$';
+        'where $a,b,c,d$ are scalar constants.';
         };
 
     % Time Portrait panel 

@@ -55,6 +55,6 @@ Due to size, they are separate a submission file.
 
 Basic utility functions that construct 3-D (intensity) and 4-D
 (RGB) movie arrays from your intensity images and movies are
-included.  See "mplay_demo" for demonstrations of its use.
+included.  See 'mplay_demo' for demonstrations of its use.
 
 

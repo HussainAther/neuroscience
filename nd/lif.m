@@ -30,8 +30,8 @@ step_current = input_factory.get_step_current(
 
 % Plot I and vm.
 plot_tools.plot_voltage_and_current_traces(
-state_monitor, step_current, title="min input", firing_threshold=LIF.FIRING_THRESHOLD)
-print("nr of spikes: {}".format(spike_monitor.count[0])) % Should be 0.
+state_monitor, step_current, title='min input', firing_threshold=LIF.FIRING_THRESHOLD)
+print('nr of spikes: {}'.format(spike_monitor.count[0])) % Should be 0.
 
 % Get a random parameter. Provide a random seed to have a reproducible experiment.
 random_parameters = LIF.get_random_param_set(random_seed=432)
@@ -44,7 +44,7 @@ test_current = input_factory.get_step_current(
 state_monitor, spike_monitor = LIF.simulate_random_neuron(test_current, random_parameters)
 
 % Plot.
-plot_tools.plot_voltage_and_current_traces(state_monitor, test_current, title="experiment")
+plot_tools.plot_voltage_and_current_traces(state_monitor, test_current, title='experiment')
 
 % Print the parameters to the console and compare with your estimates.
 % LIF.print_obfuscated_parameters(random_parameters)
@@ -58,5 +58,5 @@ sinusoidal_current = input_factory.get_sinusoidal_current(200, 1000, unit_time=0
 (state_monitor, spike_monitor) = LIF.simulate_LIF_neuron(input_current=sinusoidal_current, simulation_time = 120 * b2.ms, firing_threshold=0*b2.mV)
 
 % Plot the membrane voltage.
-plot_tools.plot_voltage_and_current_traces(state_monitor, sinusoidal_current, title="Sinusoidal input current")
-print("nr of spikes: {}".format(spike_monitor.count[0]))
+plot_tools.plot_voltage_and_current_traces(state_monitor, sinusoidal_current, title='Sinusoidal input current')
+print('nr of spikes: {}'.format(spike_monitor.count[0]))

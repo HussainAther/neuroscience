@@ -1,6 +1,6 @@
 %bdGetValue  Read a named value from a pardef/vardef/lagdef cell array.
 %Usage:
-%   [val,idx] = bdGetValue(xxxdef,"name")
+%   [val,idx] = bdGetValue(xxxdef,'name')
 %where
 %   xxxdef is the incoming pardef, vardef, lagdef or auxdef cell array.
 %   name is the string name of the element to be updated.
@@ -9,10 +9,10 @@
 %   Both val and indx are returned empty if no matching name was found.
 %
 %EXAMPLE
-%  pardef = [ struct("name","a", "value", 1);
-%             struct("name","b", "value",[2,3,4]);
-%             struct("name","c", "value",[5 6; 7 8]) ];
-%  val = bdGetValue(pardef,"b")
+%  pardef = [ struct('name','a', 'value', 1);
+%             struct('name','b', 'value',[2,3,4]);
+%             struct('name','c', 'value',[5 6; 7 8]) ];
+%  val = bdGetValue(pardef,'b')
 %
 %  val =
 %     2     3     4
@@ -27,5 +27,5 @@ function [val,idx] = bdGetValue(xxxdef,name)
             return
         end
     end
-    %warning("bdGetValue() failed to find a matching name");
+    %warning('bdGetValue() failed to find a matching name');
 end

@@ -4,18 +4,18 @@ import numpy as np
 
 from neuron import h
 
-"""
+'''
 Stochastic synapse Tsodyks-Markram Model
-"""
+'''
 
 # Load external files & initialize.
-neuron.h.load_file("stdrun.hoc")
+neuron.h.load_file('stdrun.hoc')
 neuron.h.stdinit()
 
 soma = neuron.h.Section()
 soma.L = 40
 soma.diam = 40
-soma.insert("pas")
+soma.insert('pas')
 
 # Configure the passive biophysics.
 for sec in h.allsec():
@@ -28,7 +28,7 @@ num_synapses = 10
 for i in range(num_synapses):
     synapse = h.StochasticTsodyksMarkram_AMPA_NMDA(soma(0.5))
     rng = h.Random()                                                          
-    rng.Random123(1) # Configure the random number generator (rng) type, and the "seed".                     
+    rng.Random123(1) # Configure the random number generator (rng) type, and the 'seed'.                     
     rng.uniform(0,1) # Configure the rng to emit uniformly distributed random numbers between 0 and 1
                       # as required by the synapse MOD file.
     synapse.setRNG(rng)
@@ -76,14 +76,14 @@ for synapse in synapse_list:
 h.tstop = 1000.0 # ms
 neuron.h.run()
 
-def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel="Membrane voltage (mV)", constants=[]):
-    """Convenience function to plot time courses of dependent variables"""
+def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel='Membrane voltage (mV)', constants=[]):
+    '''Convenience function to plot time courses of dependent variables'''
     if newfigure:
         plt.figure()
     plt.plot(time_array, dependent_var, label=label)
     for constant in constants:
         plt.plot(time_array, constant*np.ones(len(time_array)))
-    plt.xlabel("Time (ms)")
+    plt.xlabel('Time (ms)')
     plt.ylabel(ylabel)
     if show:
         plt.show()
@@ -96,10 +96,10 @@ def plot_synapse_traces():
     from matplotlib.collections import PolyCollection
     
     fig = plt.figure()
-    ax = fig.gca(projection="3d")
+    ax = fig.gca(projection='3d')
 
     # use the hsv colormap (https://matplotlib.org/users/colormaps.html)
-    colormap = plt.get_cmap("hsv")
+    colormap = plt.get_cmap('hsv')
 
     verts = []
     for i, g_syn in enumerate(g_syn_list):
@@ -110,13 +110,13 @@ def plot_synapse_traces():
     facecolors = [colormap(x, alpha=0.6) for x in np.linspace(0,1,10)]
     poly = PolyCollection(verts, facecolors=facecolors, edgecolors=facecolors)
     poly.set_alpha(0.7)
-    ax.add_collection3d(poly, zs=range(num_synapses), zdir="y")
+    ax.add_collection3d(poly, zs=range(num_synapses), zdir='y')
 
-    ax.set_xlabel("time [ms]")
+    ax.set_xlabel('time [ms]')
     ax.set_xlim3d(0, 1000)
-    ax.set_zlabel("conductance [nS]")
+    ax.set_zlabel('conductance [nS]')
     ax.set_zlim3d(0, 1.)
-    ax.set_ylabel("synapse #")
+    ax.set_ylabel('synapse #')
     ax.set_ylim3d(0, num_synapses)
     ax.view_init(30, -80)
 
@@ -130,7 +130,7 @@ h.tstop = 1000.0 # ms
 neuron.h.run()
 plot_synapse_traces()
 
-plot_timecourse(time, np.mean(g_syn_list, axis=0), ylabel="conductance [us]")
+plot_timecourse(time, np.mean(g_syn_list, axis=0), ylabel='conductance [us]')
 plt.axis([0, 1000, 0, 0.001])
 plot_timecourse(time, v_soma)
 plt.axis([0, 1000, -70, -60])
@@ -149,18 +149,18 @@ for i in range(num_trials):
 
 plt.figure()
 for v in v_list:
-    plt.plot(time, v, "-", color='0.7')
-plt.plot(time, np.mean(v_list, axis=0), "b-", lw=2)
+    plt.plot(time, v, '-', color='0.7')
+plt.plot(time, np.mean(v_list, axis=0), 'b-', lw=2)
 plt.axis([50, 1000, -70, -60])
-plt.ylabel("voltage [mV]")
-plt.xlabel("time [ms]")
+plt.ylabel('voltage [mV]')
+plt.xlabel('time [ms]')
 
 def extract_peaks(time, trace, event_times, window=10):
-    """
+    '''
     Computes the peak between event_times and returns the times of occurence and the maximums
     Useful for finding PSP or conductance peaks due to synaptic events.
-    kwarg "window" defines the time in ms after the event to consider when searching for the peak
-    """
+    kwarg 'window' defines the time in ms after the event to consider when searching for the peak
+    '''
     
     peaks_list = []
     peaks_times_list = []
@@ -178,12 +178,12 @@ def extract_peaks(time, trace, event_times, window=10):
 peak_times, peaks = extract_peaks(np.array(time), np.mean(v_list, axis=0), spike_times)
 plt.figure()
 for v in v_list:
-    plt.plot(time, v, "-", color='0.7')
-plt.plot(time, np.mean(v_list, axis=0), "b-", lw=2)
-plt.plot(peak_times, peaks, "r.", ms=5)
+    plt.plot(time, v, '-', color='0.7')
+plt.plot(time, np.mean(v_list, axis=0), 'b-', lw=2)
+plt.plot(peak_times, peaks, 'r.', ms=5)
 plt.axis([50, 1000, -70, -60])
-plt.ylabel("voltage [mV]")
-plt.xlabel("time [ms]")
+plt.ylabel('voltage [mV]')
+plt.xlabel('time [ms]')
 psps = []
 for v in v_list:
     peak_times, peaks = extract_peaks(np.array(time), v, spike_times)
@@ -192,5 +192,5 @@ for v in v_list:
 psps = np.vstack(psps) - np.min(v)
 plt.figure()
 bins = np.linspace(0., 10., 50)
-plt.hist(psps[:,0], bins=bins, facecolor="blue", alpha=0.5, label="PSP dist of $1^\mathrm{st}$ spike")  # 1st spike is the 0th column
-plt.hist(psps[:,7], bins=bins, facecolor="red", alpha=0.5, label="PSP dist of $8^\mathrm{th}$ spike")  # 1st spike is the 0th column
+plt.hist(psps[:,0], bins=bins, facecolor='blue', alpha=0.5, label='PSP dist of $1^\mathrm{st}$ spike')  # 1st spike is the 0th column
+plt.hist(psps[:,7], bins=bins, facecolor='red', alpha=0.5, label='PSP dist of $8^\mathrm{th}$ spike')  # 1st spike is the 0th column

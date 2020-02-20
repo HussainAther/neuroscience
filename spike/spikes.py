@@ -4,14 +4,14 @@ import random
 
 from neuronpy.graphics import spikeplot
 
-"""
+'''
 Simple, approximate descriptions of spike statistics. They can be useful for analytic statements about the
 qimplications of whole classes of such models for idfferent interesting quantities such as the reliability of code
 or the possibility of decoding the spike train.
 
 We can begin with a Poisson model. One spike firing with some probability per unit time can depend on time
 but no explicitly on the occurrence times of the other spikes.
-"""
+'''
 
 # Poisson theta values: these are decided such that the model is Poisson-like
 spikes = []
@@ -28,12 +28,12 @@ for i in range(num_cells):
 sp = spikeplot.SpikePlot()
 sp.plot_spikes(spikes)
 
-"""
+'''
 Real spike trains can't be exactly Poisson processes. Spikes can't come too close together in time because the
 spike-generating mechanism of all cells is refractory.
 
 With a stochastic process of N spikes over T time period, we can create a distribution of event.
-"""
+'''
 
 N = 1000.0
 T = 2.0
@@ -60,5 +60,5 @@ timestamps[:10]
 
 deltas = [y - x for x, y in zip(timestamps, timestamps[1:])]
 plt.figure(figsize=(16, 4))
-plt.plot(deltas, "r+")
+plt.plot(deltas, 'r+')
 plt.show()

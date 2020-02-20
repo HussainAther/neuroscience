@@ -5,7 +5,7 @@ import sk_dsp_comm.sigsys as ss
 from np.random import randn
 from scipy import signal
 
-"""
+'''
 We make a simple Python simulation of Adaptive Line Enhancement using a single
 sinusoid at normalized frequency plus additive white Gaussian noise. We assume
 we have a narrowband signal buried in broadband additive noise. For statistically
@@ -22,10 +22,10 @@ obtained as a linear function of the observation (signal applied) to the input.
 An optimum linear filter in the minimum mean square sense can be designed to extract a signal from noise by
 minimizing the error signal formed by subtracting the filtered signal from the desired signal. For noisy
 signals with time varying statistics, this minimization process is often done using an adaptive filter.
-"""
+'''
 
 def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
-    """
+    '''
     Least Mean Squares Adaptive
     Line Enhancement Algorithm using an IIR filter.
     SNR = Sinusoid signal-to-noise ratio in dB
@@ -40,7 +40,7 @@ def lms_ale(SNR,N,M,mu,sqwav=False,Nfft=1024):
     ao = Final value of weight vector
     F = Frequency response axis vector
     Ao = Frequency response of filter in dB
-    """
+    '''
     n = arange(0,N+1) # length N+1
     if not(sqwav):
         x = 1 * np.cos(2 * np.pi * 1/20 * n) # A = 1, Fo/Fs = 1/20
@@ -73,29 +73,29 @@ n, x, x_hat, e, ao, F, Ao = lms_ale(10, 1000, Ntaps, 0.01, sqwav=False)
 
 # Plot how the ALE filters noisy input and clean output
 plt.plot(n,e**2)
-plt.ylabel(r"$e^2[n]$")
-plt.xlabel(r"Index $n$")
-plt.title(r"Squared Error")
+plt.ylabel(r'$e^2[n]$')
+plt.xlabel(r'Index $n$')
+plt.title(r'Squared Error')
 plt.grid()
-plt.savefig("ALE_mse.pdf")
+plt.savefig('ALE_mse.pdf')
 
 # Plot frequency response of the approximately optimum filter
 plt.plot(F, Ao)
 plt.ylim([-40, 2])
-plt.plot([.05, .05], [-40, 0], "r--")
-plt.xlabel(r"Normalized Frequency $f/f_s$")
-plt.ylabel("r$|W_o(e^{j2\pi f/f_s})|$ (dB)")
-plt.title(r"ALE Freq. Response for SNR = 10 dB, $\mu = .01/64$")
+plt.plot([.05, .05], [-40, 0], 'r--')
+plt.xlabel(r'Normalized Frequency $f/f_s$')
+plt.ylabel('r$|W_o(e^{j2\pi f/f_s})|$ (dB)')
+plt.title(r'ALE Freq. Response for SNR = 10 dB, $\mu = .01/64$')
 plt.grid()
-plt.savefig("ALE_fresp.pdf")
+plt.savefig('ALE_fresp.pdf')
 
-"""
+'''
 With Adaptive Interference Canceling, we implement canceling
 in the scikit-dpscomm module sigsys.
-"""
+'''
 
 def lms_ic(r, M, mu, delta=1):
-    """
+    '''
     Least Mean Square (LMS) interference canceller adaptive filter.
     Complete LMS adaptive filter simulation function for the case
     of interference cancellation.
@@ -109,7 +109,7 @@ def lms_ic(r, M, mu, delta=1):
     ao is ndarray final value of weight vector
     F is ndarray frequency response axis vector
     Ao is ndarray frequency response of filter
-    """
+    '''
     N = len(r)-1;
     y = signal.lfilter(np.hstack((np.zeros(delta), np.array([1]))),1,r)
     r_hat = np.zeros(N+1)

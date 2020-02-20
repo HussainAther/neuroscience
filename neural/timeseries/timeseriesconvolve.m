@@ -14,7 +14,7 @@ data10hz   = zeros(nTrials,EEG.pnts);
 
 for triali=1:nTrials
     
-    % create single trial "ERP"
+    % create single trial 'ERP'
     data(triali,:) = .5*sin(2*pi*6.*EEG.times/1000 + 2*pi*triali/nTrials-pi) + randn(1,EEG.pnts)/6;
     % add non-phase-locked stimulus potential (note distributed phases in sine wave)
     data(triali,260:360) = data(triali,260:360) + sin(2*pi*10.*EEG.times(260:360)/1000 + 2*pi*triali/nTrials-pi) + randn(1,101)/5;

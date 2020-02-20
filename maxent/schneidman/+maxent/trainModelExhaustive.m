@@ -326,7 +326,7 @@ end
 
 internal_print(sprintf('Standard deviations from marginals: %.03f (mean), %.03f (max) [%d]  DKL: %.03f',meanerror,maxerror,maxidx,current_dkl));
 
-% print a message only if message printing has not been disabled ("silent mode")
+% print a message only if message printing has not been disabled ('silent mode')
 function internal_print(varargin)
     if (~silent)
         disp(sprintf(varargin{:}));

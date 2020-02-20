@@ -22,11 +22,11 @@ function sys = BrownianMotion()
     sys.sdeG   = @sdeG;                 % stochastic coefficints
 
     % Our SDE parameters
-    sys.pardef = [ struct("name", "mu",    "value",-0.1);
-                   struct("name","sigma", "value", 0.1) ];
+    sys.pardef = [ struct('name', 'mu',    'value',-0.1);
+                   struct('name','sigma', 'value', 0.1) ];
                
     % Our SDE variables
-    sys.vardef =  struct("name","Y", "value",5);
+    sys.vardef =  struct('name','Y', 'value',5);
     
     % Default time span
     sys.tspan = [0 10];
@@ -37,14 +37,14 @@ function sys = BrownianMotion()
     sys.sdeoption.NoiseSources = 1;     % Number of driving Wiener processes
 
     % Include the Latex (Equations) panel in the GUI
-    sys.panels.bdLatexPanel.title = "Equations"; 
-    sys.panels.bdLatexPanel.latex = {"\textbf{Brownian Motion}";
-        "";
-        "An Ito Stochastic Differential Equation of geometric Brownian motion";
-        "\qquad $dY = \mu\,Y\,dt + \sigma\,Y\,dW_t$";
-        "where";
-        "\qquad $Y(t)$ is the dynamic variable,";
-        "\qquad $\mu$ and $\sigma$ are scalar constants."};
+    sys.panels.bdLatexPanel.title = 'Equations'; 
+    sys.panels.bdLatexPanel.latex = {'\textbf{Brownian Motion}';
+        '';
+        'An Ito Stochastic Differential Equation of geometric Brownian motion';
+        '\qquad $dY = \mu\,Y\,dt + \sigma\,Y\,dW_t$';
+        'where';
+        '\qquad $Y(t)$ is the dynamic variable,';
+        '\qquad $\mu$ and $\sigma$ are scalar constants.'};
     
     % Include the Time Portrait panel in the GUI
     sys.panels.bdTimePortrait = [];

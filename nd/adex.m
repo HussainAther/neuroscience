@@ -11,7 +11,7 @@ Adaptive Exponential Integrate-and-Fire mode
 current = input_factory.get_step_current(10, 250, 1. * b2.ms, 65.0 * b2.pA)
 state_monitor, spike_monitor = AdEx.simulate_AdEx_neuron(I_stim=current, simulation_time=400 * b2.ms)
 plot_tools.plot_voltage_and_current_traces(state_monitor, current)
-print("nr of spikes: {}".format(spike_monitor.count[0]))
+print('nr of spikes: {}'.format(spike_monitor.count[0]))
 # AdEx.plot_adex_state(state_monitor)
 
 # Get a random parameter. provide a random seed to have a reproducible experiment.
@@ -25,7 +25,7 @@ test_current = input_factory.get_step_current(
 state_monitor, spike_monitor = LIF.simulate_random_neuron(test_current, random_parameters)
 
 # Plot.
-plot_tools.plot_voltage_and_current_traces(state_monitor, test_current, title="experiment")
+plot_tools.plot_voltage_and_current_traces(state_monitor, test_current, title='experiment')
 
 # Print the parameters to the console and compare with your estimates.
 # LIF.print_obfuscated_parameters(random_parameters)
@@ -39,5 +39,5 @@ sinusoidal_current = input_factory.get_sinusoidal_current(200, 1000, unit_time=0
 (state_monitor, spike_monitor) = LIF.simulate_LIF_neuron(input_current=sinusoidal_current, simulation_time = 120 * b2.ms, firing_threshold=0*b2.mV)
 
 # Plot the membrane voltage.
-plot_tools.plot_voltage_and_current_traces(state_monitor, sinusoidal_current, title="Sinusoidal input current")
-print("nr of spikes: {}".format(spike_monitor.count[0]))
+plot_tools.plot_voltage_and_current_traces(state_monitor, sinusoidal_current, title='Sinusoidal input current')
+print('nr of spikes: {}'.format(spike_monitor.count[0]))

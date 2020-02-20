@@ -17,23 +17,23 @@ function test01()
     y = 20*rand(nsig,nfft) - 10;
     
     % compute Hilbert using the Signal Processing Toolbox
-    h1 = hilbert(y.").";
+    h1 = hilbert(y.').';
     
     % compute Hilbert using bdHilbert panel
     h2 = bdHilbert.hilbert(y);
     
     figure(1); clf; hold on;
-    plot(h1,"go","LineWidth",3);
-    plot(h2,"k.","LineWidth",1);
+    plot(h1,'go','LineWidth',3);
+    plot(h2,'k.','LineWidth',1);
     
     % compute mean-square error
     err = abs(h1-h2);
     mse = mean(err(:));
     
-    disp(num2str([nsig nfft mse],"test01: y is (%d x %d)  mse=%g"));
+    disp(num2str([nsig nfft mse],'test01: y is (%d x %d)  mse=%g'));
     
     if mse > 1e-8
-        error("testOne failed");
+        error('testOne failed');
     end
 end
 

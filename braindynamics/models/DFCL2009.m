@@ -12,25 +12,25 @@ function sys = DFCL2009()
     sys.odefun = @odefun;
     
     % Our ODE parameters
-    sys.pardef = [ struct("name","pee",   "value",9.43);
-                   struct("name","pie",   "value",0);
-                   struct("name","pei",   "value",8.742);
-                   struct("name","pii",   "value",0);
-                   struct("name","abAB",  "value",[1/0.99 1/7.06 1.22 3.6]);   % [a b A B]
-                   struct("name","Nqq",   "value",[3034 536 3034 536]);   % [Nee Nie Nei Nii]
-                   struct("name","hr",    "value",[-70 -70]);   % [her hir]
-                   struct("name","heq",   "value",[45 -90]);    % [heeq hieq]
-                   struct("name","Smax",  "value",[0.5 0.5]);   % [Semax Simax]
-                   struct("name","theta", "value",[-49 -41]);   % [thetae thetai]
-                   struct("name","s",     "value",[4.75 5.25]); % [se si]
-                   struct("name","tau",   "value",[98 34]);     % [taue taui]
+    sys.pardef = [ struct('name','pee',   'value',9.43);
+                   struct('name','pie',   'value',0);
+                   struct('name','pei',   'value',8.742);
+                   struct('name','pii',   'value',0);
+                   struct('name','abAB',  'value',[1/0.99 1/7.06 1.22 3.6]);   % [a b A B]
+                   struct('name','Nqq',   'value',[3034 536 3034 536]);   % [Nee Nie Nei Nii]
+                   struct('name','hr',    'value',[-70 -70]);   % [her hir]
+                   struct('name','heq',   'value',[45 -90]);    % [heeq hieq]
+                   struct('name','Smax',  'value',[0.5 0.5]);   % [Semax Simax]
+                   struct('name','theta', 'value',[-49 -41]);   % [thetae thetai]
+                   struct('name','s',     'value',[4.75 5.25]); % [se si]
+                   struct('name','tau',   'value',[98 34]);     % [taue taui]
                  ];
                    
     % Our ODE variables
-    sys.vardef = [ struct("name","he",  "value",-78+13*rand);
-                   struct("name","hi",  "value",-90+35*rand);
-                   struct("name","Iqq", "value",rand(4,1));
-                   struct("name","Jqq", "value",rand(4,1));
+    sys.vardef = [ struct('name','he',  'value',-78+13*rand);
+                   struct('name','hi',  'value',-90+35*rand);
+                   struct('name','Iqq', 'value',rand(4,1));
+                   struct('name','Jqq', 'value',rand(4,1));
                  ];
 
     % Default time span
@@ -38,52 +38,52 @@ function sys = DFCL2009()
               
     % Specify ODE solvers and default options
     sys.odesolver = {@ode45,@ode23,@ode113};            % ODE solvers
-    sys.odeoption = odeset("RelTol",1e-6);              % ODE solver options
+    sys.odeoption = odeset('RelTol',1e-6);              % ODE solver options
 
     % Include the Latex (Equations) panel in the GUI
-    sys.panels.bdLatexPanel.title = "Equations"; 
-    sys.panels.bdLatexPanel.latex = {"\textbf{DFCL2009}";
-        "";
-        "Neural-mass model of the electroencephalogram (EEG) described in";
-        "Dafilis, Frascoli, Cadush, Liley (2009) Physica D 238:1056-1060.";
-        "";
-        "It models the mass neural activity of a single cortical macro-column driven by the thalamus";
-        "\qquad $\tau_e \dot h_e    = (h_{er}-h_e)   + \frac{h_{eeq}-h_e}{|h_{eeq}-h_{er}|} I_{ee}    + \frac{h_{ieq}-h_e}{|h_{ieq}-h_{er}|} I_{ie} $";
-        "\qquad $\tau_i \dot h_i \, = (h_{ir}-h_i)\, + \frac{h_{eeq}-h_i}{|h_{eeq}-h_{ir}|} I_{ei} \, + \frac{h_{ieq}-h_i}{|h_{ieq}-h_{ir}|} I_{ii} $";
-        "\qquad $\dot I_{ee}    = J_{ee}$";
-        "\qquad $\dot I_{ie} \, = J_{ie}$";
-        "\qquad $\dot I_{ei} \, = J_{ei}$";
-        "\qquad $\dot I_{ii} \; = J_{ii}$";
-        "\qquad $\dot J_{ee}    = -2a J_{ee}    - a^2 I_{ee}    + A a e \, \big(N_{ee} S_e(h_e)    + p_{ee}\big)$";
-        "\qquad $\dot J_{ie} \, = -2b J_{ie} \, - b^2 I_{ie} \, + B b e \, \big(N_{ie} S_i(h_i) \; + p_{ie}\big)$";
-        "\qquad $\dot J_{ei} \, = -2a J_{ei}    - a^2 I_{ei} \, + A a e \, \big(N_{ei} S_e(h_e)    + p_{ei}\big)$";
-        "\qquad $\dot J_{ii} \; = -2b J_{ii} \, - b^2 I_{ii} \; + B b e \, \big(N_{ii} S_i(h_i) \; + p_{ii}\big)$";
-        "where";
-        "\qquad $S(h) = \frac{S^{max}}{1 + \exp(-\sqrt{2}(h - \theta)/s)}$ is a sigmoidal activation function,";
-        "\qquad $h_e(t)$ and $h_i(t)$ are the mean somatic potentials of the \textit{excitatory} and \textit{inhibitory} neural populations,";
-        "\qquad $I_{ei}(t)$ is the mean synaptic current from the \textit{excitatory} to the \textit{inhibitory} population,";
-        "\qquad $J_{ei}(t)$ is the instantaneous rate of change of the synaptic current $I_{ei}(t)$,";
-        "\qquad $\tau_e$ and $\tau_i$ are the time constants of \textit{excitation} and \textit{inhibition},";
-        "\qquad $h_{er}$ and $h_{ir}$ are the resting potentials of \textit{excitatory} and \textit{inhibitory} membranes,";
-        "\qquad $h_{eeq}$ and $h_{ieq}$ are the ionic reversal potentials for \textit{excitatory} and \textit{inhibitory} membranes,";
-        "\qquad $1/a$ and $1/b$ are the rise times of the \textit{excitatory} and \textit{inhibitory} post-synaptic potentials (PSPs),";
-        "\qquad $A$ and $B$ are the (average) peak amplitudes of the \textit{excitatory} and \textit{inhibitory} PSPs,";
-        "\qquad $N_{ei}$ is the (average) number of synapses from \textit{excitatory} cells to \textit{inhibitory} cells,";
-        "\qquad $p_{ei}$ is the exogenous input from \textit{excitatory} thalamic cells to \textit{inhibitory} cortical cells.";
-        "";
-        "The parameters of the model are grouped into the following control vectors for brevity";
-        "\qquad abAB = $[a,b,A,B]$,";
-        "\qquad Nqq = $[N_{ee},N_{ie},N_{ei},N_{ii}]$,";
-        "\qquad hr = $[h_{er},h_{ir}]$,";
-        "\qquad heq = $[h_{eeq},h_{ieq}]$,";
-        "\qquad Smax = $[S_{e}^{max},S_{i}^{max}]$,";
-        "\qquad theta = $[\theta_{e},\theta_{i}]$,";
-        "\qquad s = $[s_{e},s_{i}]$,";
-        "\qquad tau = $[\tau_{e},\tau_{i}]$,";
-        "";
-        "The dynamic variables $I(t)$ and $J(t)$ are likewise grouped into vectors";
-        "\qquad Iqq = $[I_{ee}, I_{ie}, I_{ei}, I_{ii}]$,";
-        "\qquad Jqq = $[J_{ee}, J_{ie}, J_{ei}, J_{ii}]$,";
+    sys.panels.bdLatexPanel.title = 'Equations'; 
+    sys.panels.bdLatexPanel.latex = {'\textbf{DFCL2009}';
+        '';
+        'Neural-mass model of the electroencephalogram (EEG) described in';
+        'Dafilis, Frascoli, Cadush, Liley (2009) Physica D 238:1056-1060.';
+        '';
+        'It models the mass neural activity of a single cortical macro-column driven by the thalamus';
+        '\qquad $\tau_e \dot h_e    = (h_{er}-h_e)   + \frac{h_{eeq}-h_e}{|h_{eeq}-h_{er}|} I_{ee}    + \frac{h_{ieq}-h_e}{|h_{ieq}-h_{er}|} I_{ie} $';
+        '\qquad $\tau_i \dot h_i \, = (h_{ir}-h_i)\, + \frac{h_{eeq}-h_i}{|h_{eeq}-h_{ir}|} I_{ei} \, + \frac{h_{ieq}-h_i}{|h_{ieq}-h_{ir}|} I_{ii} $';
+        '\qquad $\dot I_{ee}    = J_{ee}$';
+        '\qquad $\dot I_{ie} \, = J_{ie}$';
+        '\qquad $\dot I_{ei} \, = J_{ei}$';
+        '\qquad $\dot I_{ii} \; = J_{ii}$';
+        '\qquad $\dot J_{ee}    = -2a J_{ee}    - a^2 I_{ee}    + A a e \, \big(N_{ee} S_e(h_e)    + p_{ee}\big)$';
+        '\qquad $\dot J_{ie} \, = -2b J_{ie} \, - b^2 I_{ie} \, + B b e \, \big(N_{ie} S_i(h_i) \; + p_{ie}\big)$';
+        '\qquad $\dot J_{ei} \, = -2a J_{ei}    - a^2 I_{ei} \, + A a e \, \big(N_{ei} S_e(h_e)    + p_{ei}\big)$';
+        '\qquad $\dot J_{ii} \; = -2b J_{ii} \, - b^2 I_{ii} \; + B b e \, \big(N_{ii} S_i(h_i) \; + p_{ii}\big)$';
+        'where';
+        '\qquad $S(h) = \frac{S^{max}}{1 + \exp(-\sqrt{2}(h - \theta)/s)}$ is a sigmoidal activation function,';
+        '\qquad $h_e(t)$ and $h_i(t)$ are the mean somatic potentials of the \textit{excitatory} and \textit{inhibitory} neural populations,';
+        '\qquad $I_{ei}(t)$ is the mean synaptic current from the \textit{excitatory} to the \textit{inhibitory} population,';
+        '\qquad $J_{ei}(t)$ is the instantaneous rate of change of the synaptic current $I_{ei}(t)$,';
+        '\qquad $\tau_e$ and $\tau_i$ are the time constants of \textit{excitation} and \textit{inhibition},';
+        '\qquad $h_{er}$ and $h_{ir}$ are the resting potentials of \textit{excitatory} and \textit{inhibitory} membranes,';
+        '\qquad $h_{eeq}$ and $h_{ieq}$ are the ionic reversal potentials for \textit{excitatory} and \textit{inhibitory} membranes,';
+        '\qquad $1/a$ and $1/b$ are the rise times of the \textit{excitatory} and \textit{inhibitory} post-synaptic potentials (PSPs),';
+        '\qquad $A$ and $B$ are the (average) peak amplitudes of the \textit{excitatory} and \textit{inhibitory} PSPs,';
+        '\qquad $N_{ei}$ is the (average) number of synapses from \textit{excitatory} cells to \textit{inhibitory} cells,';
+        '\qquad $p_{ei}$ is the exogenous input from \textit{excitatory} thalamic cells to \textit{inhibitory} cortical cells.';
+        '';
+        'The parameters of the model are grouped into the following control vectors for brevity';
+        '\qquad abAB = $[a,b,A,B]$,';
+        '\qquad Nqq = $[N_{ee},N_{ie},N_{ei},N_{ii}]$,';
+        '\qquad hr = $[h_{er},h_{ir}]$,';
+        '\qquad heq = $[h_{eeq},h_{ieq}]$,';
+        '\qquad Smax = $[S_{e}^{max},S_{i}^{max}]$,';
+        '\qquad theta = $[\theta_{e},\theta_{i}]$,';
+        '\qquad s = $[s_{e},s_{i}]$,';
+        '\qquad tau = $[\tau_{e},\tau_{i}]$,';
+        '';
+        'The dynamic variables $I(t)$ and $J(t)$ are likewise grouped into vectors';
+        '\qquad Iqq = $[I_{ee}, I_{ie}, I_{ei}, I_{ii}]$,';
+        '\qquad Jqq = $[J_{ee}, J_{ie}, J_{ei}, J_{ii}]$,';
         };
     
     % Include the Time Portrait panel in the GUI

@@ -39,24 +39,24 @@ function [D,W,T_opt,T_opt_se,grad,hess,nlogl,Wpred]=dtb_fit_means(D,varargin)
 
 pSet = inputParser;
 
-addParameter(pSet,"B",NaN);
-addParameter(pSet,"kappa",NaN);
-addParameter(pSet,"tnd",NaN);
+addParameter(pSet,'B',NaN);
+addParameter(pSet,'kappa',NaN);
+addParameter(pSet,'tnd',NaN);
 
-addParameter(pSet,"mu",0);
-addParameter(pSet,"tnd_delta",0);
-addParameter(pSet,"var_coeff",0);
-addParameter(pSet,"y0",0);
+addParameter(pSet,'mu',0);
+addParameter(pSet,'tnd_delta',0);
+addParameter(pSet,'var_coeff',0);
+addParameter(pSet,'y0',0);
 
-addParameter(pSet,"tnd_delta_opt",0);
-addParameter(pSet,"var_coeff_opt",0);
-addParameter(pSet,"y0_opt",0);
-addParameter(pSet,"mu_opt",0);
+addParameter(pSet,'tnd_delta_opt',0);
+addParameter(pSet,'var_coeff_opt',0);
+addParameter(pSet,'y0_opt',0);
+addParameter(pSet,'mu_opt',0);
 
-addParameter(pSet,"rt_only",0);
-addParameter(pSet,"opt",1); 
+addParameter(pSet,'rt_only',0);
+addParameter(pSet,'opt',1); 
 
-addParameter(pSet,"printGrad",true,@islogical);
+addParameter(pSet,'printGrad',true,@islogical);
 
 parse(pSet,varargin{:});
 v2struct(pSet.Results);
@@ -112,7 +112,7 @@ else
 end
 
 [theta,theta_lo,theta_hi,P]=opt_pack(T,0.1);
-options = optimoptions("fmincon","GradObj","on","Display","notify");
+options = optimoptions('fmincon','GradObj','on','Display','notify');
 
 if opt
   hess_flag=0;
@@ -125,15 +125,15 @@ end
 
 hess_flag=1;
 [nlogl,grad,hess, W]=dtb_cost_means(theta_opt,P,D,rt_only,hess_flag);
-theta_opt_se=sqrt(diag(inv(hess)))";
+theta_opt_se=sqrt(diag(inv(hess)))';
 T_opt_se=opt_unpack(theta_opt_se,P);
 
 if pSet.Results.printGrad  % mns added conditional
-    fprintf("Norm of final gradient = %f\n",norm(grad))
+    fprintf('Norm of final gradient = %f\n',norm(grad))
 end
 
 %this generates predictions over and interpolated range
-Dopt.strength=sort([-logspace(log10(0.032) ,log10(0.512) ,33) 0 logspace(log10(0.032) ,log10(0.512) ,33)])";
+Dopt.strength=sort([-logspace(log10(0.032) ,log10(0.512) ,33) 0 logspace(log10(0.032) ,log10(0.512) ,33)])';
 Dopt.choice=Dopt.strength>=0;
 Dopt.include_for_rt=Dopt.choice==Dopt.choice;
 Dopt.rt=rand(size(Dopt.choice));
@@ -215,7 +215,7 @@ if hess_flag
     hess(:,s)=[];
 end
 nlogl=ds(1);
-%fprintf("nlogl = %f\n",nlogl)
+%fprintf('nlogl = %f\n',nlogl)
 R.bic= 2*nlogl + length(theta)*log(sum(D.strength));
 R.nlogl=nlogl;
 

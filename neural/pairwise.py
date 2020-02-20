@@ -2,20 +2,20 @@ import numpy as np
 
 from random import random
 
-"""
-Fit a pairwise model to data. Similar to Schneidman, et al. (2006). "Weak pairwise correlations imply strongly correlated network states in a neural population." Nature.
+'''
+Fit a pairwise model to data. Similar to Schneidman, et al. (2006). 'Weak pairwise correlations imply strongly correlated network states in a neural population.' Nature.
 
 This uses gradient descent on negative log-likelihood with gradient estimated
 by averaging over samples from the model. Samples at T+1th iteration are obtained using
 the MCMC (Markov Chain Monte Carlo) transition matrix to samples at Tth iteration.
-"""
+'''
 
 def dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
-    """
+    '''
     Sample the current model J by applying MCMC to past samples in 
     samplesbatch, and use these to estimate the loss gradient at the
     current model for gibbssteps steps.
-    """
+    '''
     # Initialize.
     n = np.shape(data)[1]
     J = np.reshape(Jlin, (n,n))
@@ -33,12 +33,12 @@ def dloss(Jlin, data, empcov, samplesbatch, gibbssteps):
     return -modelcov+empcov[:] 
 
 def graddescent(pars0, learningrate, samplesbatch, iter):
-    """
+    '''
     Gradient descent function takes grad ([g, samplesbatch] for g (gradient of optimized function
     at pars)), pars0 (initial guess), learningrate (learning rate), samplesbatch (array of samples
     being updated by the grad function), and iter (number of iterations).
     Return pars that the gradient descent converges to.
-    """
+    '''
     pars = pars0
     g = np.gradient(samplebatch)
     i = 0
@@ -48,10 +48,10 @@ def graddescent(pars0, learningrate, samplesbatch, iter):
     return pars
 
 def samplepairwise(samples, J, nsteps):
-    """
+    '''
     Extract from the Gibbs sampling by applying nsteps (number of steps) to every
     row in samples using J (coupling matrix of the pairwise model).
-    """
+    '''
     (M, n) = np.shape(samples)
     # Get the diagnol
     Joffdiag = diagnol(samples)
@@ -67,12 +67,12 @@ def samplepairwise(samples, J, nsteps):
     return samples
 
 def fitpairwise(data, J0, gsteps):
-    """
+    '''
     With input data (binary array of size number of samples x number of neurons), 
     J0 (initial guess for J), and gsteps (number of Gibbs steps), fit the pairwise 
     model to data.
     Return J (learned coupling matrix).
-    """
+    '''
     # Initialize.
     (M, n) = np.shape(data)
     J0lin = []

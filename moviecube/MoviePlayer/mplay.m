@@ -14,7 +14,7 @@ function mov = mplay(varargin)
 %
 %   M=MPLAY(...) returns a MoviePlayerAPI object, M, useful for
 %   programmatic control of the movie player GUI.  A list of
-%   all available object methods is obtained from "methods(M)".
+%   all available object methods is obtained from 'methods(M)'.
 %
 %   Movie formats
 %   -------------
@@ -45,7 +45,7 @@ function mov = mplay(varargin)
 %   EXAMPLE: Playback of standard MATLAB movies.
 %      Run 'crulspin' or 'logospin' from the command line.
 %      These demos create a MATLAB movie structure in the
-%      workspace in variable 'm'.  Run "mplay(m)" and be
+%      workspace in variable 'm'.  Run 'mplay(m)' and be
 %      sure to turn on looping playback.
 %
 % See also MOVIE, INT2RGBM, INT2STRUCT, STRUCT2RGBM, IMVIEW.
@@ -571,7 +571,7 @@ hStatusBar.Region = uicontrol('parent',hfig, ...
     'foregr', [1 1 1]);
 
 % Render right after background frame, so when resizing occurs,
-% this will be "overwritten" by other data
+% this will be 'overwritten' by other data
 hStatusBar.StatusText = uicontrol('parent',hfig, ...
     'style','text', ...
     'units','pix', ...
@@ -819,7 +819,7 @@ end
 % --------------------------------------------------------
 function cb_rewind(hbutton, eventStruct, hfig)
 % Rewind button callback
-% Backup "stepsize" frames
+% Backup 'stepsize' frames
 if nargin<3, hfig  = gcbf; end
 ud = get(hfig,'userdata');
 stepsize = 10;
@@ -991,7 +991,7 @@ function cb_step_fwd(hbutton, eventStruct, hfig)
 %   Ignore looping mode
 %   We always go from fwd to bkwd when step_fwd pressed at last frame
 %   When we're at frame 1, we must continue to frame 2 regardless of the
-%   looping setting since we don't know "how" we got there
+%   looping setting since we don't know 'how' we got there
 
 if nargin<3, hfig  = gcbf; end
 ud = get(hfig,'userdata');
@@ -1230,7 +1230,7 @@ cols=ud.frameCols;
 
 % Adjust image limits and axis limits appropriately
 set(ud.himage,'xdata', 1:cols, 'ydata', 1:rows);
-% Do a "truesize" like operation
+% Do a 'truesize' like operation
 set(ud.haxis, ...
     'xlim',[1 cols], ...
     'ylim',[1 rows], ...
@@ -1384,9 +1384,9 @@ set(ud.hStatusBar.FrameSize,'string',readoutStr,'tooltip',tipStr);
 function UpdateFrameReadout(ud)
 % Update current frame number readout in status bar
 % If fwd/bkwd mode not on,
-%    show "current frame : total frames"
+%    show 'current frame : total frames'
 % If on,
-%    show "+/- current frame : total frames"
+%    show '+/- current frame : total frames'
 %  where + means fwd play, - means bkwd play
 
 str = sprintf('%d:%d',ud.currframe,ud.numFrames);
@@ -1478,9 +1478,9 @@ end
 % --------------------------------------------------------
 function EditFrameNum(hfig)
 % Get manually specified frame number in dialog box
-% "Jump to" operation
+% 'Jump to' operation
 
-% Initialize to last "jump to" value, NOT to the current frame
+% Initialize to last 'jump to' value, NOT to the current frame
 % This way, the edit operation becomes useful for continually
 % jumping to a particular frame
 
@@ -1569,7 +1569,7 @@ ud = get(hco,'userdata');     % hco = timer object
 hfig = ud.hfig;
 ud = get(hfig,'userdata');
 ud.currframe = ud.nextframe;
-ShowMovieFrame(hfig, 1);  % "fast" display
+ShowMovieFrame(hfig, 1);  % 'fast' display
 
 % Increment frame or stop playback if finished
 if (ud.currframe == ud.numFrames),

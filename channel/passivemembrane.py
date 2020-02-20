@@ -1,15 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-"""
+'''
 Passive membrane subject to current pulse solved with
 Backward Euler method.
-"""
+'''
 
 def bepswI(dt, Tfin):
-    """
+    '''
     Bakcwards Euler passive membrane 
-    """
+    '''
     VCl = -68 # mV source chloride voltage at beginning
     A = 4*np.pi*1e-6 # cm^2 patch area
     Cm = 1 # micro F/cm^2 capacitance per area
@@ -29,11 +29,11 @@ def bepswI(dt, Tfin):
         IC[j] = Istim/A - ICl[j] 
     plt.subplot(1,2,1)
     plt.plot(t, v)
-    plt.xlabel("t  (ms)",fontsize=14)
-    plt.ylabel("V  (mV)",fontsize=14)
+    plt.xlabel('t  (ms)',fontsize=14)
+    plt.ylabel('V  (mV)',fontsize=14)
     plt.subplot(1,2,2)
-    plot(t, IC, "r", t, ICl, "k")
-    plt.legend(["$I_C$","$I_{Cl}$"], loc="best")
-    plt.xlabel("t  (ms)",fontsize=14)
-    plt.ylabel("I  $(\mu A/cm^2)$",fontsize=14)
+    plot(t, IC, 'r', t, ICl, 'k')
+    plt.legend(['$I_C$','$I_{Cl}$'], loc='best')
+    plt.xlabel('t  (ms)',fontsize=14)
+    plt.ylabel('I  $(\mu A/cm^2)$',fontsize=14)
     plt.show()

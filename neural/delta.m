@@ -15,13 +15,13 @@ for j=1:200,
         otherwise
             w2 = w2 + r*(1-(w1+w2>1/2+eps));
     end
-    plot(j,w1,"ro")
+    plot(j,w1,'ro')
     hold on
-    plot(j,w2,"kx")
+    plot(j,w2,'kx')
 end
 hold off
-legend("w_1","w_2","location","se")
-xlabel("iteration","fontsize",14)
-ylabel("synaptic weight","fontsize",14)
+legend('w_1','w_2','location','se')
+xlabel('iteration','fontsize',14)
+ylabel('synaptic weight','fontsize',14)
 box off
 

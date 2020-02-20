@@ -21,11 +21,11 @@ t_vect = t_On:dt:(NumTimePoints-1)*dt; % time vector for each trial
 % Plot rasters.
 figure(1);
 for trial=1:NumTrials
-   plot(t_vect,trial*spikes(2,:,trial), "+")
+   plot(t_vect,trial*spikes(2,:,trial), '+')
    hold on
 end
-xlabel("time (ms)");
-ylabel("trial number");
+xlabel('time (ms)');
+ylabel('trial number');
 hold off;
 
 % Plot averaged (PSTH) data for one particular angle.
@@ -34,8 +34,8 @@ SmoothingWidth = 61; % smooth data over +/- [(this # - 1)/2] bins
 TrialSum_smooth_vect = smooth(TrialSum_vect,SmoothingWidth);
 figure(2);
 plot(t_vect,1000*TrialSum_smooth_vect/(NumTrials*dt));
-xlabel("time (ms)");
-ylabel("Average firing rate (Hz)");
+xlabel('time (ms)');
+ylabel('Average firing rate (Hz)');
 
 % Compute Fano factor.
 TStartCount = 600; % time to start computing average
@@ -50,8 +50,8 @@ isi_vect = diff(SpikeTimes_vect);
 % Plot ISI histogram.
 figure(3);
 hist(isi_vect,8);
-xlabel("isi (ms)");
-ylabel("Number of occurrences");
+xlabel('isi (ms)');
+ylabel('Number of occurrences');
 
 % Compute coefficient of variation (CV) ISI.
 mean_isi = mean(isi_vect);
@@ -72,13 +72,13 @@ DeltaTheta = 360/NumAngles;
 Orientation_vect = 0:DeltaTheta:(NumAngles-1)*DeltaTheta;
 figure(4);
 plot(Orientation_vect,TuningCurve_AveRate_vect(1:NumAngles));
-xlabel("orientation (deg)");
-ylabel("Ave firing rate (Hz)");
+xlabel('orientation (deg)');
+ylabel('Ave firing rate (Hz)');
 Control_AveRate = mean(TuningCurve_AveRate_vect(17:18));
 
 % Plot difference from the control's average rate.
 TuningCurve_RateDiff_vect = TuningCurve_AveRate_vect - Control_AveRate;
 figure(5);
 plot(Orientation_vect,TuningCurve_RateDiff_vect(1:NumAngles));
-xlabel("orientation (deg)");
-ylabel("Ave firing rate relative to control(Hz)");
+xlabel('orientation (deg)');
+ylabel('Ave firing rate relative to control(Hz)');

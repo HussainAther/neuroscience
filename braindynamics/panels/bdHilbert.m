@@ -3,7 +3,7 @@ classdef bdHilbert < bdPanel
     %   This display panel applies the Hilbert transform to the output
     %   of a dynamical system.
     properties (Constant)
-        title = "Hilbert";
+        title = 'Hilbert';
     end    
 
     properties (Access=public)
@@ -54,7 +54,7 @@ classdef bdHilbert < bdPanel
             this.InitSubpanel(control);
 
             % listen to the control panel for redraw events
-            this.listener = addlistener(control,"redraw",@(~,~) this.redraw(control));    
+            this.listener = addlistener(control,'redraw',@(~,~) this.redraw(control));    
         end
         
         function delete(this)
@@ -70,17 +70,17 @@ classdef bdHilbert < bdPanel
         function InitCalibrateMenu(this,control)
             % construct the menu item
             uimenu(this.menu, ...
-               "Label","Calibrate Axes", ...
-                "Callback", @CalibrateMenuCallback );
+               'Label','Calibrate Axes', ...
+                'Callback', @CalibrateMenuCallback );
             
             % Menu callback function
             function CalibrateMenuCallback(~,~)
                 % if the TRANSIENT menu is checked then ...
                 switch this.tranmenu.Checked
-                    case "on"
+                    case 'on'
                         % adjust the limits to fit all of the data
                         tindx = true(size(control.tindx));
-                    case "off"
+                    case 'off'
                         % adjust the limits to fit the non-transient data only
                         tindx = control.tindx;
                 end
@@ -96,10 +96,10 @@ classdef bdHilbert < bdPanel
                 control.sys.vardef(varindx).lim = bdPanel.RoundLim(lo,hi);
 
                 % refresh the vardef control widgets
-                notify(control,"vardef");
+                notify(control,'vardef');
                 
                 % redraw all panels (because the new limits apply to all panels)
-                notify(control,"redraw");
+                notify(control,'redraw');
             end
 
         end
@@ -108,24 +108,24 @@ classdef bdHilbert < bdPanel
         function InitTransientsMenu(this,control)
             % get the default transient menu setting from sys.panels
             if control.sys.panels.bdHilbert.transients
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.tranmenu = uimenu(this.menu, ...
-                "Label","Transients", ...
-                "Checked",checkflag, ...
-                "Callback", @TranMenuCallback);
+                'Label','Transients', ...
+                'Checked',checkflag, ...
+                'Callback', @TranMenuCallback);
 
             % Menu callback function
             function TranMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -136,24 +136,24 @@ classdef bdHilbert < bdPanel
         function InitMarkerMenu(this,control)
             % get the marker menu setting from sys.panels
             if control.sys.panels.bdHilbert.markers
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.markmenu = uimenu(this.menu, ...
-                "Label","Markers", ...
-                "Checked",checkflag, ...
-                "Callback", @MarkMenuCallback);
+                'Label','Markers', ...
+                'Checked',checkflag, ...
+                'Callback', @MarkMenuCallback);
 
             % Menu callback function
             function MarkMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -164,24 +164,24 @@ classdef bdHilbert < bdPanel
         function InitRelPhaseMenu(this,control)
             % get the relative menu setting from sys.panels
             if control.sys.panels.bdHilbert.relphase
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.relmenu = uimenu(this.menu, ...
-                "Label","Relative Phase", ...
-                "Checked",checkflag, ...
-                "Callback", @RelMenuCallback);
+                'Label','Relative Phase', ...
+                'Checked',checkflag, ...
+                'Callback', @RelMenuCallback);
 
             % Menu callback function
             function RelMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -192,15 +192,15 @@ classdef bdHilbert < bdPanel
         function InitExportMenu(this,~)
             % construct the menu item
             uimenu(this.menu, ...
-               "Label","Export Figure", ...
-               "Callback",@callback);
+               'Label','Export Figure', ...
+               'Callback',@callback);
            
             function callback(~,~)
                 % Construct a new figure
                 fig = figure();    
                 
                 % Change mouse cursor to hourglass
-                set(fig,"Pointer","watch");
+                set(fig,'Pointer','watch');
                 drawnow;
                 
                 % Copy the plot data to the new figure
@@ -210,15 +210,15 @@ classdef bdHilbert < bdPanel
                 ax2new.OuterPosition = [0 0.03 1 0.47];
 
                 % Allow the user to hit everything in ax1new
-                objs = findobj(ax1new,"-property", "HitTest");
-                set(objs,"HitTest","on");
+                objs = findobj(ax1new,'-property', 'HitTest');
+                set(objs,'HitTest','on');
                 
                 % Allow the user to hit everything in ax2new
-                objs = findobj(ax2new,"-property", "HitTest");
-                set(objs,"HitTest","on");
+                objs = findobj(ax2new,'-property', 'HitTest');
+                set(objs,'HitTest','on');
                 
                 % Change mouse cursor to arrow
-                set(fig,"Pointer","arrow");
+                set(fig,'Pointer','arrow');
                 drawnow;
             end
         end
@@ -227,32 +227,32 @@ classdef bdHilbert < bdPanel
         function InitCloseMenu(this,~)
             % construct the menu item
             uimenu(this.menu, ...
-                   "Label","Close", ...
-                   "Callback",@(~,~) this.close());
+                   'Label','Close', ...
+                   'Callback',@(~,~) this.close());
         end
 
         % Initialise the subpanel
         function InitSubpanel(this,control)
             % construct the subpanel
             [this.ax1,cmenu,spanel] = bdPanel.Subpanel(this.tab,[0 0 1 1],[0 0.51 1 0.47]);
-            xlabel(this.ax1,"time");
-            title(this.ax1,"Time Series");
+            xlabel(this.ax1,'time');
+            title(this.ax1,'Time Series');
 
             % construct the second axis
-            this.ax2 = axes("Parent",spanel, ...
-                "Units","normal", ...
-                "OuterPosition",[0 0.01 1 0.47], ...
-                "NextPlot","add", ...
-            ...    "PlotBoxAspectRatioMode","manual", ...
-            ...    "PlotBoxAspectRatio",[3 1 1], ...
-                "YDir","reverse", ...
-                "XLim",[-1.1 1.1], ...
-                "YLim",[-1.1 1.1], ...
-                "YTick", [], ...
-                "ZTick", [], ...                
-                "FontSize",12, ...
-                "Box","on");
-            xlabel(this.ax2,"time");
+            this.ax2 = axes('Parent',spanel, ...
+                'Units','normal', ...
+                'OuterPosition',[0 0.01 1 0.47], ...
+                'NextPlot','add', ...
+            ...    'PlotBoxAspectRatioMode','manual', ...
+            ...    'PlotBoxAspectRatio',[3 1 1], ...
+                'YDir','reverse', ...
+                'XLim',[-1.1 1.1], ...
+                'YLim',[-1.1 1.1], ...
+                'YTick', [], ...
+                'ZTick', [], ...                
+                'FontSize',12, ...
+                'Box','on');
+            xlabel(this.ax2,'time');
 
             % Constuct the cylinder for the second axis
             edgecolor = 0.8*[1 1 1];
@@ -265,7 +265,7 @@ classdef bdHilbert < bdPanel
                 this.cylinderX.*(t1-t0) + t0, ...
                 this.cylinderY, ...
                 this.cylinderZ, ...
-                "EdgeColor",edgecolor,"FaceColor",facecolor, "FaceAlpha",facealpha, "EdgeAlpha",edgealpha);
+                'EdgeColor',edgecolor,'FaceColor',facecolor, 'FaceAlpha',facealpha, 'EdgeAlpha',edgealpha);
 
             % Set the initial view angle
             view(this.ax2,-5,0);
@@ -274,11 +274,11 @@ classdef bdHilbert < bdPanel
             this.submenu = bdPanel.SelectorMenuFull(cmenu, ...
                 control.sys.vardef, ...
                 @callback, ...
-                "off", "mb1",1,1);
+                'off', 'mb1',1,1);
             
             % Callback function for the subpanel selector menu
             function callback(menuitem,~)
-                % check "on" the selected menu item and check "off" all others
+                % check 'on' the selected menu item and check 'off' all others
                 bdPanel.SelectorCheckItem(menuitem);
                 % update our handle to the selected menu item
                 this.submenu = menuitem;
@@ -288,7 +288,7 @@ classdef bdHilbert < bdPanel
         end
         
         function redraw(this,control)
-            %disp("bdHilbert.redraw()")
+            %disp('bdHilbert.redraw()')
 
             % get the details of the variable currently selected variable
             varname  = this.submenu.UserData.xxxname;          % generic name of variable
@@ -300,9 +300,9 @@ classdef bdHilbert < bdPanel
 
             % Ensure we are using equi-spaced time points
             switch control.solvertype
-                case "sde"
+                case 'sde'
                     % The SDE solvers use fixed time steps already
-                    % so we simply use the solver"s own time steps.
+                    % so we simply use the solver's own time steps.
                     this.t = control.sol.x;
 
                 otherwise
@@ -327,11 +327,11 @@ classdef bdHilbert < bdPanel
             cla(this.ax1);
             
             % clear parts of the bottom axes
-            delete( findobj(this.ax2,"Tag","fgnd") );
+            delete( findobj(this.ax2,'Tag','fgnd') );
 
             % if the RELATIVE PHASE menu is enabled then  ...
             switch this.relmenu.Checked
-                case "on"
+                case 'on'
                     % adjust the phase angles of the all variables relative to the first variable.
                     
                     % repeat the first row of this.p as a matrix
@@ -341,11 +341,11 @@ classdef bdHilbert < bdPanel
                     this.p = this.p - p2;
                     
                     % title
-                    title(this.ax2,["Phase of " varlabel " relative to " varname "_1"]);
+                    title(this.ax2,['Phase of ' varlabel ' relative to ' varname '_1']);
 
-                case "off"
+                case 'off'
                     % title
-                    title(this.ax2,["Phase of " varlabel]);
+                    title(this.ax2,['Phase of ' varlabel]);
             end
 
             % set the y-axes limits on the upper plot
@@ -357,12 +357,12 @@ classdef bdHilbert < bdPanel
                     
             % if the TRANSIENT menu is enabled then  ...
             switch this.tranmenu.Checked
-                case "on"
+                case 'on'
                     % set the x-axes limits to the full time span
                     this.ax1.XLim = control.sys.tspan + [-1e-4 0];
                     this.ax2.XLim = control.sys.tspan + [-1e-4 0];
 
-                case "off"
+                case 'off'
                     % limit the x-axes to the non-transient part of the time domain
                     this.ax1.XLim = [control.sys.tval control.sys.tspan(2)] + [-1e-4 0];
                     this.ax2.XLim = [control.sys.tval control.sys.tspan(2)] + [-1e-4 0];
@@ -373,9 +373,9 @@ classdef bdHilbert < bdPanel
 
             % Plot the original signal in ax1
             % ... with the background traces in grey
-            plot(this.ax1, this.t, this.y, "color",[0.75 0.75 0.75], "HitTest","off");              
+            plot(this.ax1, this.t, this.y, 'color',[0.75 0.75 0.75], 'HitTest','off');              
             % ... and variable of interest in black
-            plot(this.ax1, this.t(tindx), this.y(valindx,tindx), "color","k", "Linewidth",1.5);
+            plot(this.ax1, this.t(tindx), this.y(valindx,tindx), 'color','k', 'Linewidth',1.5);
 
             % rescale the cylinder mesh to fit the simulation time span
             t0 = control.sys.tspan(1);
@@ -386,49 +386,49 @@ classdef bdHilbert < bdPanel
             sinp = sin(this.p);
             cosp = cos(this.p);   
             % ... with the background traces in grey
-            plot3(this.ax2, this.t, 0.975*cosp, 0.975*sinp, "color",[0.5 0.5 0.5], "HitTest","off", "Tag","fgnd");
+            plot3(this.ax2, this.t, 0.975*cosp, 0.975*sinp, 'color',[0.5 0.5 0.5], 'HitTest','off', 'Tag','fgnd');
             % ... and variable of interest in black
-            plot3(this.ax2, this.t(tindx), cosp(valindx,tindx), sinp(valindx,tindx), "color","k", "Linewidth",1.5, "Tag","fgnd");
+            plot3(this.ax2, this.t(tindx), cosp(valindx,tindx), sinp(valindx,tindx), 'color','k', 'Linewidth',1.5, 'Tag','fgnd');
             
             % if the TRANSIENT menu is enabled then  ...
-            if strcmp(this.tranmenu.Checked,"on")                            
+            if strcmp(this.tranmenu.Checked,'on')                            
                 % plot the pentagram marker on the first axes
                 plot(this.ax1, this.t(1), this.y(valindx,1), ...
-                    "Marker","p", ...
-                    "Color","k", ...
-                    "MarkerFaceColor","y", ...
-                    "MarkerSize",10 , ...
-                    "Visible",this.markmenu.Checked, ...
-                    "Tag","fgnd");
+                    'Marker','p', ...
+                    'Color','k', ...
+                    'MarkerFaceColor','y', ...
+                    'MarkerSize',10 , ...
+                    'Visible',this.markmenu.Checked, ...
+                    'Tag','fgnd');
 
                 % plot the pentagram marker on the second axes
                 plot3(this.ax2, this.t(1), cosp(valindx,1), sinp(valindx,1), ...
-                    "Marker","p", ...
-                    "Color","k", ...
-                    "MarkerFaceColor","y", ...
-                    "MarkerSize",10 , ...
-                    "Visible",this.markmenu.Checked, ...
-                    "Tag","fgnd");
+                    'Marker','p', ...
+                    'Color','k', ...
+                    'MarkerFaceColor','y', ...
+                    'MarkerSize',10 , ...
+                    'Visible',this.markmenu.Checked, ...
+                    'Tag','fgnd');
             end
 
             if ~isempty(indxt)
                 % plot the circle marker on teh first axes
                 plot(this.ax1, this.t(indxt), this.y(valindx,indxt), ...
-                    "Marker","o", ...
-                    "Color","k", ...
-                    "MarkerFaceColor","y", ...
-                    "MarkerSize",6, ...
-                    "Visible",this.markmenu.Checked, ...
-                    "Tag","fgnd");
+                    'Marker','o', ...
+                    'Color','k', ...
+                    'MarkerFaceColor','y', ...
+                    'MarkerSize',6, ...
+                    'Visible',this.markmenu.Checked, ...
+                    'Tag','fgnd');
 
                 % plot the circle marker on the second axes
                 plot3(this.ax2, this.t(indxt), cosp(valindx,indxt), sinp(valindx,indxt), ...
-                    "Marker","o", ...
-                    "Color","k", ...
-                    "MarkerFaceColor","y", ...
-                    "MarkerSize",6 , ...
-                    "Visible",this.markmenu.Checked, ...
-                    "Tag","fgnd");
+                    'Marker','o', ...
+                    'Color','k', ...
+                    'MarkerFaceColor','y', ...
+                    'MarkerSize',6 , ...
+                    'Visible',this.markmenu.Checked, ...
+                    'Tag','fgnd');
             end
             
         end        
@@ -471,27 +471,27 @@ classdef bdHilbert < bdPanel
             syspanel.relphase = false;
 
             % Nothing more to do if sys.panels.bdHilbert is undefined
-            if ~isfield(sys,"panels") || ~isfield(sys.panels,"bdHilbert")
+            if ~isfield(sys,'panels') || ~isfield(sys.panels,'bdHilbert')
                 return;
             end
             
             % sys.panels.bdHilbert.title
-            if isfield(sys.panels.bdHilbert,"title")
+            if isfield(sys.panels.bdHilbert,'title')
                 syspanel.title = sys.panels.bdHilbert.title;
             end
             
             % sys.panels.bdHilbert.transients
-            if isfield(sys.panels.bdHilbert,"transients")
+            if isfield(sys.panels.bdHilbert,'transients')
                 syspanel.transients = sys.panels.bdHilbert.transients;
             end
             
             % sys.panels.bdHilbert.markers
-            if isfield(sys.panels.bdHilbert,"markers")
+            if isfield(sys.panels.bdHilbert,'markers')
                 syspanel.markers = sys.panels.bdHilbert.markers;
             end
             
             % sys.panels.bdHilbert.relphase
-            if isfield(sys.panels.bdHilbert,"relphase")
+            if isfield(sys.panels.bdHilbert,'relphase')
                 syspanel.markers = sys.panels.bdHilbert.relphase;
             end
         end
@@ -510,8 +510,8 @@ classdef bdHilbert < bdPanel
             % except that here it operates along the rows of Y instead
             % of the columns.
             %
-            % [1] Marple S L "Computing the Discrete-Time Analytic Signal
-            %     via FFT" IEEE Transactions on Signal Processing. Vol 47
+            % [1] Marple S L 'Computing the Discrete-Time Analytic Signal
+            %     via FFT' IEEE Transactions on Signal Processing. Vol 47
             %     1999, pp 2600-2603.
             %
             % SEE ALSO

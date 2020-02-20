@@ -1,9 +1,9 @@
 classdef bdPhasePortrait < bdPanel
     %bdPhasePortrait Display panel for plotting phase portraits in bdGUI.
     %  The Phase Portrait shows the temporal relationship between two or
-    %  three dynamic variables of the user"s choosing.
+    %  three dynamic variables of the user's choosing.
     properties (Constant)
-        title = "Phase Portrait";
+        title = 'Phase Portrait';
     end    
      
     properties
@@ -66,7 +66,7 @@ classdef bdPhasePortrait < bdPanel
             this.InitSubpanel(control);
             
             % listen to the control panel for redraw events
-            this.listener = addlistener(control,"redraw",@(~,~) this.redraw(control));    
+            this.listener = addlistener(control,'redraw',@(~,~) this.redraw(control));    
         end
         
         function delete(this)
@@ -82,17 +82,17 @@ classdef bdPhasePortrait < bdPanel
         function InitCalibrateMenu(this,control)
             % construct the menu item
             uimenu(this.menu, ...
-               "Label","Calibrate Axes", ...
-               "Callback", @CalibrateMenuCallback );
+               'Label','Calibrate Axes', ...
+               'Callback', @CalibrateMenuCallback );
             
             % Menu callback function
             function CalibrateMenuCallback(~,~)
                 % if the TRANSIENT menu is checked then ...
                 switch this.tranmenu.Checked
-                    case "on"
+                    case 'on'
                         % adjust the limits to fit all of the data
                         tindx = true(size(control.tindx));
-                    case "off"
+                    case 'off'
                         % adjust the limits to fit the non-transient data only
                         tindx = control.tindx;
                 end
@@ -114,7 +114,7 @@ classdef bdPhasePortrait < bdPanel
                     hi1 = max(hi1,hi2);  hi2 = hi1;
                 end
                 
-                if strcmp(this.viewmenu.Checked,"on")
+                if strcmp(this.viewmenu.Checked,'on')
                     % find the limits of the z- data
                     lo3 = min(this.y3(tindx));
                     hi3 = max(this.y3(tindx));
@@ -145,10 +145,10 @@ classdef bdPhasePortrait < bdPanel
                 control.sys.vardef(varindx2).lim = bdPanel.RoundLim(lo2,hi2);
                 
                 % refresh the vardef control widgets (becasue their limits have changed)
-                notify(control,"vardef");
+                notify(control,'vardef');
                  
                 % redraw all panels (because the new limits apply to all panels)
-                notify(control,"redraw");
+                notify(control,'redraw');
             end
 
         end
@@ -157,24 +157,24 @@ classdef bdPhasePortrait < bdPanel
         function InitModuloMenu(this,control)
             % get the mod menu setting from sys.panels
             if control.sys.panels.bdPhasePortrait.mod
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.modmenu = uimenu(this.menu, ...
-                "Label","Modulo Axes", ...
-                "Checked",checkflag, ...
-                "Callback", @ModuloMenuCallback);
+                'Label','Modulo Axes', ...
+                'Checked',checkflag, ...
+                'Callback', @ModuloMenuCallback);
 
             % Menu callback function
             function ModuloMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -186,20 +186,20 @@ classdef bdPhasePortrait < bdPanel
         function InitViewMenu(this,control)
             % construct the menu item
             this.viewmenu = uimenu(this.menu, ...
-                "Label","3D View", ...
-                "Checked","off", ...
-                "Callback", @ViewMenuCallback);
+                'Label','3D View', ...
+                'Checked','off', ...
+                'Callback', @ViewMenuCallback);
 
             % Menu callback function
             function ViewMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        % 3D menu state goes from "on" to "off"
-                        menuitem.Checked="off";
+                    case 'on'
+                        % 3D menu state goes from 'on' to 'off'
+                        menuitem.Checked='off';
                         this.ax.View = [0 90];
-                    case "off"
-                        % 3D menu state goes from "off" to "on"
-                        menuitem.Checked="on";
+                    case 'off'
+                        % 3D menu state goes from 'off' to 'on'
+                        menuitem.Checked='on';
                         this.ax.View = [45 45];
                 end
                 % redraw this panel
@@ -211,24 +211,24 @@ classdef bdPhasePortrait < bdPanel
         function InitTransientsMenu(this,control)
             % get the default transient menu setting from sys.panels
             if control.sys.panels.bdPhasePortrait.transients
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.tranmenu = uimenu(this.menu, ...
-                "Label","Transients", ...
-                "Checked",checkflag, ...
-                "Callback", @TranMenuCallback);
+                'Label','Transients', ...
+                'Checked',checkflag, ...
+                'Callback', @TranMenuCallback);
 
             % Menu callback function
             function TranMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -239,24 +239,24 @@ classdef bdPhasePortrait < bdPanel
         function InitMarkerMenu(this,control)
             % get the marker menu setting from sys.panels
             if control.sys.panels.bdPhasePortrait.markers
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.markmenu = uimenu(this.menu, ...
-                "Label","Markers", ...
-                "Checked",checkflag, ...
-                "Callback", @MarkMenuCallback);
+                'Label','Markers', ...
+                'Checked',checkflag, ...
+                'Callback', @MarkMenuCallback);
 
             % Menu callback function
             function MarkMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -267,24 +267,24 @@ classdef bdPhasePortrait < bdPanel
         function InitPointsMenu(this,control)
             % get the points menu setting from sys.panels
             if control.sys.panels.bdPhasePortrait.points
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
 
             % construct the menu item
             this.pointmenu = uimenu(this.menu, ...
-                "Label","Discrete Points", ...
-                "Checked",checkflag, ...
-                "Callback", @PointsMenuCallback);
+                'Label','Discrete Points', ...
+                'Checked',checkflag, ...
+                'Callback', @PointsMenuCallback);
 
             % Menu callback function
             function PointsMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel only
                 this.redraw(control);
@@ -295,33 +295,33 @@ classdef bdPhasePortrait < bdPanel
         function InitVectorFieldMenu(this,control)
              % get the default menu setting from sys.panels options
             if control.sys.panels.bdPhasePortrait.vecfield
-                checkflag = "on";
+                checkflag = 'on';
             else
-                checkflag = "off";
+                checkflag = 'off';
             end
             
             % Vector fields work for ODEs only
             switch control.solvertype
-                case "odesolver"
-                    enableflag = "on";
+                case 'odesolver'
+                    enableflag = 'on';
                 otherwise
-                    enableflag = "off";
+                    enableflag = 'off';
             end
             
             % construct the menu item
             this.vecfmenu = uimenu(this.menu, ...
-                "Label","Vector Field", ...
-                "Checked",checkflag, ...
-                "Enable",enableflag, ...
-                "Callback", @callback );
+                'Label','Vector Field', ...
+                'Checked',checkflag, ...
+                'Enable',enableflag, ...
+                'Callback', @callback );
 
             % Menu callback function
             function callback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel
                 this.redraw(control);
@@ -332,33 +332,33 @@ classdef bdPhasePortrait < bdPanel
         function InitNullclineMenu(this,control)
             % get the default grid menu setting from sys.panels
             if control.sys.panels.bdPhasePortrait.nullclines
-                nullcheck = "on";
+                nullcheck = 'on';
             else
-                nullcheck = "off";
+                nullcheck = 'off';
             end
             
             % Nullclines work for ODEs only
             switch control.solvertype
-                case "odesolver"
-                    enableflag = "on";
+                case 'odesolver'
+                    enableflag = 'on';
                 otherwise
-                    enableflag = "off";
+                    enableflag = 'off';
             end
 
             % construct the menu item
             this.nullmenu = uimenu(this.menu, ...
-                "Label","Nullclines", ...
-                "Checked",nullcheck, ...
-                "Enable",enableflag, ...
-                "Callback", @NullMenuCallback);
+                'Label','Nullclines', ...
+                'Checked',nullcheck, ...
+                'Enable',enableflag, ...
+                'Callback', @NullMenuCallback);
 
             % Menu callback function
             function NullMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel
                 this.redraw(control);
@@ -369,26 +369,26 @@ classdef bdPhasePortrait < bdPanel
         function InitGridMenu(this,control)
             % get the default grid menu setting from sys.panels
             if control.sys.panels.bdPhasePortrait.grid
-                gridcheck = "on";
+                gridcheck = 'on';
             else
-                gridcheck = "off";
+                gridcheck = 'off';
             end
 
             % construct the menu item
             this.gridmenu = uimenu(this.menu, ...
-                "Label","Grid", ...
-                "Checked",gridcheck, ...
-                "Callback", @GridMenuCallback);
+                'Label','Grid', ...
+                'Checked',gridcheck, ...
+                'Callback', @GridMenuCallback);
 
             % Menu callback function
             function GridMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                        grid(this.ax,"off");
-                    case "off"
-                        menuitem.Checked="on";
-                        grid(this.ax,"on");
+                    case 'on'
+                        menuitem.Checked='off';
+                        grid(this.ax,'off');
+                    case 'off'
+                        menuitem.Checked='on';
+                        grid(this.ax,'on');
                 end
                 grid(this.ax, menuitem.Checked);
             end
@@ -398,24 +398,24 @@ classdef bdPhasePortrait < bdPanel
         function InitHoldMenu(this,control)
              % get the hold menu setting from sys.panels options
             if control.sys.panels.bdPhasePortrait.hold
-                holdcheck = "on";
+                holdcheck = 'on';
             else
-                holdcheck = "off";
+                holdcheck = 'off';
             end
             
             % construct the menu item
             this.holdmenu = uimenu(this.menu, ...
-                "Label","Hold", ...
-                "Checked",holdcheck, ...
-                "Callback", @HoldMenuCallback );
+                'Label','Hold', ...
+                'Checked',holdcheck, ...
+                'Callback', @HoldMenuCallback );
 
             % Menu callback function
             function HoldMenuCallback(menuitem,~)
                 switch menuitem.Checked
-                    case "on"
-                        menuitem.Checked="off";
-                    case "off"
-                        menuitem.Checked="on";
+                    case 'on'
+                        menuitem.Checked='off';
+                    case 'off'
+                        menuitem.Checked='on';
                 end
                 % redraw this panel
                 this.redraw(control);
@@ -426,15 +426,15 @@ classdef bdPhasePortrait < bdPanel
         function InitExportMenu(this,control)
             % construct the menu item
             uimenu(this.menu, ...
-               "Label","Export Figure", ...
-               "Callback",@callback);
+               'Label','Export Figure', ...
+               'Callback',@callback);
            
             function callback(~,~)
                 % Construct a new figure
                 fig = figure();    
                 
                 % Change mouse cursor to hourglass
-                set(fig,"Pointer","watch");
+                set(fig,'Pointer','watch');
                 drawnow;
                 
                 % Copy the plot data to the new figure
@@ -442,11 +442,11 @@ classdef bdPhasePortrait < bdPanel
                 axnew.OuterPosition = [0 0 1 1];
                 
                 % Allow the user to hit everything in the new figure
-                objs = findobj(axnew,"-property", "HitTest");
-                set(objs,"HitTest","on");
+                objs = findobj(axnew,'-property', 'HitTest');
+                set(objs,'HitTest','on');
                 
                 % Change mouse cursor to arrow
-                set(fig,"Pointer","arrow");
+                set(fig,'Pointer','arrow');
                 drawnow;
             end
         end
@@ -455,41 +455,41 @@ classdef bdPhasePortrait < bdPanel
         function InitCloseMenu(this,control)
             % construct the menu item
             uimenu(this.menu, ...
-                   "Label","Close", ...
-                   "Callback",@(~,~) this.close());
+                   'Label','Close', ...
+                   'Callback',@(~,~) this.close());
         end
         
         % Initialise the subpanel
         function InitSubpanel(this,control)
             % construct the subpanel
             [this.ax,cmenu] = bdPanel.Subpanel(this.tab,[0 0 1 1],[0 0 1 1]);
-            xlabel(this.ax,"?");
-            ylabel(this.ax,"?");
+            xlabel(this.ax,'?');
+            ylabel(this.ax,'?');
             
             % construct a selector menu comprising items from sys.vardef
             this.xselector = bdPanel.SelectorMenuFull( ...
-                uimenu(cmenu,"Label","x-axis"), ...
+                uimenu(cmenu,'Label','x-axis'), ...
                 control.sys.vardef, ...
                 @xcallback, ...
-                "off", "mb1",1,1);
+                'off', 'mb1',1,1);
 
             % construct a selector menu comprising items from sys.vardef
             this.yselector = bdPanel.SelectorMenuFull( ...
-                uimenu(cmenu,"Label","y-axis"), ...
+                uimenu(cmenu,'Label','y-axis'), ...
                 control.sys.vardef, ...
                 @ycallback, ...
-                "off", "mb2",min(this.nvar,2),1);
+                'off', 'mb2',min(this.nvar,2),1);
 
             % construct a selector menu comprising items from sys.vardef
             this.zselector = bdPanel.SelectorMenuFull(...
-                uimenu(cmenu,"Label","z-axis"), ...
+                uimenu(cmenu,'Label','z-axis'), ...
                 control.sys.vardef, ...
                 @zcallback, ...
-                "off", "mb3",min(this.nvar,3),1);
+                'off', 'mb3',min(this.nvar,3),1);
             
             % Callback function for the x-axis selector menu
             function xcallback(menuitem,~)
-                % check "on" the selected menu item and check "off" all others
+                % check 'on' the selected menu item and check 'off' all others
                 bdPanel.SelectorCheckItem(menuitem);
                 % update our handle to the selected menu item
                 this.xselector = menuitem;
@@ -499,7 +499,7 @@ classdef bdPhasePortrait < bdPanel
             
             % Callback function for the y-axis selector menu
             function ycallback(menuitem,~)
-                % check "on" the selected menu item and check "off" all others
+                % check 'on' the selected menu item and check 'off' all others
                 bdPanel.SelectorCheckItem(menuitem);
                 % update our handle to the selected menu item
                 this.yselector = menuitem;
@@ -509,7 +509,7 @@ classdef bdPhasePortrait < bdPanel
             
             % Callback function for the z-axis selector menu
             function zcallback(menuitem,~)
-                % check "on" the selected menu item and check "off" all others
+                % check 'on' the selected menu item and check 'off' all others
                 bdPanel.SelectorCheckItem(menuitem);
                 % update our handle to the selected menu item
                 this.zselector = menuitem;
@@ -520,26 +520,26 @@ classdef bdPhasePortrait < bdPanel
         
         % Redraw the data plots
         function redraw(this,control)
-            %disp("bdPhasePortrait.redraw()")
+            %disp('bdPhasePortrait.redraw()')
             
             % if the DISCRETE POINTS menu is checked then ...
             switch this.pointmenu.Checked
-                case "on"
+                case 'on'
                     % set our plot style to discrete points
-                    markerstyle = ".";
-                    linestyle = "none";
-                case "off"
+                    markerstyle = '.';
+                    linestyle = 'none';
+                case 'off'
                     % set our plot style to continuous lines
-                    markerstyle = "none";
-                    linestyle = "-";
+                    markerstyle = 'none';
+                    linestyle = '-';
             end
 
-            % if "hold" menu is checked then ...
+            % if 'hold' menu is checked then ...
             switch this.holdmenu.Checked
-                case "on"
+                case 'on'
                     % Remove everything tagged as foreground (eg markers)
-                    delete( findobj(this.ax,"Tag","fgnd") );
-                case "off"
+                    delete( findobj(this.ax,'Tag','fgnd') );
+                case 'off'
                     % Clear everything from the axis
                     cla(this.ax);
             end
@@ -547,10 +547,10 @@ classdef bdPhasePortrait < bdPanel
             % We need to compute the vector field if either of the
             % VECTOR FIELD or NULLCLINE menu items are checked.
             vecflag = false; 
-            if strcmp(this.vecfmenu.Checked,"on")
+            if strcmp(this.vecfmenu.Checked,'on')
                 vecflag = true;
             end
-            if strcmp(this.nullmenu.Checked,"on")
+            if strcmp(this.nullmenu.Checked,'on')
                 vecflag = true;
             end
 
@@ -588,7 +588,7 @@ classdef bdPhasePortrait < bdPanel
             % if the 3D VIEW menu is checked then plot 3D view else plot 2D view
             switch this.viewmenu.Checked
                 % 3D plot
-                case "on"                       
+                case 'on'                       
                     % get the details of the currently selected z-variable
                     varname3  = this.zselector.UserData.xxxname;          % generic name of variable
                     varlabel3 = this.zselector.UserData.label;            % plot label for selected variable
@@ -613,31 +613,31 @@ classdef bdPhasePortrait < bdPanel
                     end
                     
                     % if the VECTOR FIELD menu is checked then ...
-                    if strcmp(this.vecfmenu.Checked,"on")
+                    if strcmp(this.vecfmenu.Checked,'on')
                         % plot the 3D vector field (after deleting the existing one)
                         delete(this.vecfplot);
-                        this.vecfplot = quiver3(xmesh,ymesh,zmesh,dxmesh,dymesh,dzmesh,"parent",this.ax, "color",[0.75 0.75 0.75], "ShowArrowHead","off", "Marker","none", "HitTest","off");
+                        this.vecfplot = quiver3(xmesh,ymesh,zmesh,dxmesh,dymesh,dzmesh,'parent',this.ax, 'color',[0.75 0.75 0.75], 'ShowArrowHead','off', 'Marker','none', 'HitTest','off');
                     end
                     
                     % if the NULLCLINE menu is checked then ...
-                    if strcmp(this.nullmenu.Checked,"on")
+                    if strcmp(this.nullmenu.Checked,'on')
                         % delete existing nullclines (FIX ME)
                         delete(this.nullplot(:));
                         
-                        px = patch(this.ax,isosurface(xmesh,ymesh,zmesh,dxmesh,0), "FaceAlpha",0.2);
+                        px = patch(this.ax,isosurface(xmesh,ymesh,zmesh,dxmesh,0), 'FaceAlpha',0.2);
                         isonormals(xmesh,ymesh,zmesh,dxmesh,px);
-                        px.FaceColor = "g";
-                        px.EdgeColor = "none";
+                        px.FaceColor = 'g';
+                        px.EdgeColor = 'none';
 
-                        py = patch(this.ax,isosurface(xmesh,ymesh,zmesh,dymesh,0), "FaceAlpha",0.2);
+                        py = patch(this.ax,isosurface(xmesh,ymesh,zmesh,dymesh,0), 'FaceAlpha',0.2);
                         isonormals(xmesh,ymesh,zmesh,dymesh,py);
-                        py.FaceColor = "y";
-                        py.EdgeColor = "none";
+                        py.FaceColor = 'y';
+                        py.EdgeColor = 'none';
 
-                        pz = patch(this.ax,isosurface(xmesh,ymesh,zmesh,dzmesh,0), "FaceAlpha",0.2);
+                        pz = patch(this.ax,isosurface(xmesh,ymesh,zmesh,dzmesh,0), 'FaceAlpha',0.2);
                         isonormals(xmesh,ymesh,zmesh,dymesh,pz);
-                        pz.FaceColor = "r";
-                        pz.EdgeColor = "none";
+                        pz.FaceColor = 'r';
+                        pz.EdgeColor = 'none';
 
                         this.nullplot = [px py pz];
                         
@@ -647,38 +647,38 @@ classdef bdPhasePortrait < bdPanel
 
                     % if the MODULO AXES menu is checked then ...
                     switch this.modmenu.Checked
-                        case "on"
+                        case 'on'
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")
+                            if strcmp(this.tranmenu.Checked,'on')
                                 % plot the background traces as a thin grey line
                                 modplot3(this.ax, ...
                                     this.y1, this.y2, this.y3, ...
                                     lim1, lim2, lim3, ...
-                                    "color",[0.75 0.75 0.75], ...
-                                    "HitTest","off");
+                                    'color',[0.75 0.75 0.75], ...
+                                    'HitTest','off');
                             end
                             
                             % plot the non-transient part of the trajectory as a heavy black line
                             modplot3(this.ax, ...
                                 this.y1(tindx), this.y2(tindx), this.y3(tindx), ...
                                 lim1, lim2, lim3, ...
-                                "color","k", ...
-                                "Marker",markerstyle, ...
-                                "LineStyle",linestyle, ...
-                                "Linewidth",1.5 );
+                                'color','k', ...
+                                'Marker',markerstyle, ...
+                                'LineStyle',linestyle, ...
+                                'Linewidth',1.5 );
 
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")                            
+                            if strcmp(this.tranmenu.Checked,'on')                            
                                 % plot the pentagram marker
                                 modplot3(this.ax, ...
                                     this.y1(1), this.y2(1), this.y3(1), ...
                                     lim1, lim2, lim3, ...
-                                    "Marker","p", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",10 , ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','p', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',10 , ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
                             
                             if ~isempty(indxt)
@@ -686,61 +686,61 @@ classdef bdPhasePortrait < bdPanel
                                 modplot3(this.ax, ...
                                     this.y1(indxt), this.y2(indxt), this.y3(indxt), ...
                                     lim1, lim2, lim3, ...
-                                    "Marker","o", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",6, ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','o', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',6, ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
 
-                        case "off"
+                        case 'off'
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")
+                            if strcmp(this.tranmenu.Checked,'on')
                                 % plot the transients (actually the whole trajectory) as a thin grey line
                                 plot3(this.ax, ...
                                     this.y1, this.y2, this.y3, ...
-                                    "color",[0.75 0.75 0.75], ...
-                                    "HitTest","off");
+                                    'color',[0.75 0.75 0.75], ...
+                                    'HitTest','off');
                             end
 
                             % plot the non-transient part of the trajectory as a heavy black line
                             plot3(this.ax, ...
                                 this.y1(tindx), this.y2(tindx), this.y3(tindx), ...
-                                "color","k", ...
-                                "LineStyle",linestyle, ...
-                                "Linewidth",1.5, ...
-                                "Marker",markerstyle );
+                                'color','k', ...
+                                'LineStyle',linestyle, ...
+                                'Linewidth',1.5, ...
+                                'Marker',markerstyle );
 
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")                            
+                            if strcmp(this.tranmenu.Checked,'on')                            
                                 % plot the pentagram marker
                                 plot3(this.ax, ...
                                     this.y1(1), this.y2(1), this.y3(1), ...
-                                    "Marker","p", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",10 , ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','p', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',10 , ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end                            
                             
                             if ~isempty(indxt)
                                 % plot the circle marker
                                 plot3(this.ax, ...
                                     this.y1(indxt), this.y2(indxt), this.y3(indxt), ...
-                                    "Marker","o", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",6, ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','o', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',6, ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
                     end
                     
                     % update the plot title
-                    %title(this.ax,[varname1 " versus " varname2 " versus " varname3]);
-                    title(this.ax,"Phase Portrait (3D)");
+                    %title(this.ax,[varname1 ' versus ' varname2 ' versus ' varname3]);
+                    title(this.ax,'Phase Portrait (3D)');
 
                     % update the plot labels
                     xlabel(this.ax, varlabel1);
@@ -748,7 +748,7 @@ classdef bdPhasePortrait < bdPanel
                     zlabel(this.ax, varlabel3);
                   
                 % 2D plot
-                case "off"
+                case 'off'
                     % reset the z-axes limits
                     this.ax.ZLim = [-1 1];
                     zlabel(this.ax,[]);
@@ -762,104 +762,104 @@ classdef bdPhasePortrait < bdPanel
                     end
 
                     % if the VECTOR FIELD menu is checked then ...
-                    if strcmp(this.vecfmenu.Checked,"on")
+                    if strcmp(this.vecfmenu.Checked,'on')
                         % plot the 2D vector field (after deleting the existing one)
                         delete(this.vecfplot);
-                        this.vecfplot = quiver(xmesh,ymesh,dxmesh,dymesh,"parent",this.ax, "color",[0.75 0.75 0.75], "ShowArrowHead","off", "Marker",".", "HitTest","off");
+                        this.vecfplot = quiver(xmesh,ymesh,dxmesh,dymesh,'parent',this.ax, 'color',[0.75 0.75 0.75], 'ShowArrowHead','off', 'Marker','.', 'HitTest','off');
                     end
                     
                     % if the NULLCLINE menu is checked then ...
-                    if strcmp(this.nullmenu.Checked,"on")
+                    if strcmp(this.nullmenu.Checked,'on')
                         % plot the x-nullcline
-                        contour(this.ax,xmesh,ymesh,dxmesh, [0 0], "color", [0 1 0], "HitTest","off", "LineStyle","-", "LineWidth",1);
+                        contour(this.ax,xmesh,ymesh,dxmesh, [0 0], 'color', [0 1 0], 'HitTest','off', 'LineStyle','-', 'LineWidth',1);
                         % plot the y-nullcline
-                        contour(this.ax,xmesh,ymesh,dymesh, [0 0], "color", [0 1 0], "HitTest","off", "LineStyle","-", "LineWidth",1);
+                        contour(this.ax,xmesh,ymesh,dymesh, [0 0], 'color', [0 1 0], 'HitTest','off', 'LineStyle','-', 'LineWidth',1);
                     end                    
                     
                     % if the MODULO AXES menu is checked then ...
                     switch this.modmenu.Checked
-                        case "on"
+                        case 'on'
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")                            
+                            if strcmp(this.tranmenu.Checked,'on')                            
                                 % plot the background trace as a thin grey line
                                 modplot(this.ax, this.y1, this.y2, lim1, lim2, ...
-                                    "color",[0.75 0.75 0.75], ...
-                                    "HitTest","off");
+                                    'color',[0.75 0.75 0.75], ...
+                                    'HitTest','off');
                             end
 
                             % plot the non-transient trace as a heavy black line
                             modplot(this.ax, this.y1(tindx), this.y2(tindx), lim1, lim2, ...
-                                "color",[0 0 0], ...
-                                "LineStyle",linestyle, ...
-                                "LineWidth",1.5, ...
-                                "Marker",markerstyle);
+                                'color',[0 0 0], ...
+                                'LineStyle',linestyle, ...
+                                'LineWidth',1.5, ...
+                                'Marker',markerstyle);
                             
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")                            
+                            if strcmp(this.tranmenu.Checked,'on')                            
                                 % plot the pentagram marker
                                 modplot(this.ax, this.y1(1), this.y2(1), lim1, lim2, ...
-                                    "Marker","p", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",10 , ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','p', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',10 , ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
                             
                             if ~isempty(indxt)
                                 % plot the circle marker
                                 modplot(this.ax, this.y1(indxt), this.y2(indxt), lim1, lim2, ...
-                                    "Marker","o", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",6, ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','o', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',6, ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
                             
-                        case "off"
+                        case 'off'
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")                            
+                            if strcmp(this.tranmenu.Checked,'on')                            
                                 % plot the background trace as a thin grey line
                                 plot(this.ax, this.y1, this.y2, ...
-                                    "color",[0.75 0.75 0.75], ...
-                                    "HitTest","off");
+                                    'color',[0.75 0.75 0.75], ...
+                                    'HitTest','off');
                             end
 
                             % plot the non-transients as a heavy black line
                             plot(this.ax, this.y1(tindx), this.y2(tindx), ...
-                                "color","k", ...
-                                "Marker",markerstyle, ...
-                                "LineStyle",linestyle, ...
-                                "Linewidth",1.5 );
+                                'color','k', ...
+                                'Marker',markerstyle, ...
+                                'LineStyle',linestyle, ...
+                                'Linewidth',1.5 );
 
                             % if the TRANSIENT menu is enabled then  ...
-                            if strcmp(this.tranmenu.Checked,"on")                            
+                            if strcmp(this.tranmenu.Checked,'on')                            
                                 % plot the pentagram marker
                                 plot(this.ax, this.y1(1), this.y2(1), ...
-                                    "Marker","p", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",10 , ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','p', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',10 , ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
                             
                             if ~isempty(indxt)
                                 % plot the circle marker
                                 plot(this.ax, this.y1(indxt), this.y2(indxt), ...
-                                    "Marker","o", ...
-                                    "Color","k", ...
-                                    "MarkerFaceColor","y", ...
-                                    "MarkerSize",6, ...
-                                    "Visible",this.markmenu.Checked, ...
-                                    "Tag","fgnd");
+                                    'Marker','o', ...
+                                    'Color','k', ...
+                                    'MarkerFaceColor','y', ...
+                                    'MarkerSize',6, ...
+                                    'Visible',this.markmenu.Checked, ...
+                                    'Tag','fgnd');
                             end
                     end
                     
                     % update the plot title
-                    %title(this.ax,[varname1 " versus " varname2]);
-                    title(this.ax,"Phase Portrait");
+                    %title(this.ax,[varname1 ' versus ' varname2]);
+                    title(this.ax,'Phase Portrait');
 
                     % update the plot labels
                     xlabel(this.ax, varlabel1);
@@ -876,7 +876,7 @@ classdef bdPhasePortrait < bdPanel
             % Evaluate the 2D vector field.
 
             % Only compute vector fields for ODEs 
-            if ~strcmp(control.solvertype,"odesolver")
+            if ~strcmp(control.solvertype,'odesolver')
                 xmesh=[];
                 ymesh=[];
                 dxmesh=[];
@@ -917,7 +917,7 @@ classdef bdPhasePortrait < bdPanel
             % Evaluate the 3D vector field.
 
             % Only compute vector fields for ODEs 
-            if ~strcmp(control.solvertype,"odesolver")
+            if ~strcmp(control.solvertype,'odesolver')
                 xmesh=[];
                 ymesh=[];
                 zmesh=[];
@@ -978,53 +978,53 @@ classdef bdPhasePortrait < bdPanel
             syspanel.hold = false;
             
             % Nothing more to do if sys.panels.bdTimePortrait is undefined
-            if ~isfield(sys,"panels") || ~isfield(sys.panels,"bdPhasePortrait")
+            if ~isfield(sys,'panels') || ~isfield(sys.panels,'bdPhasePortrait')
                 return;
             end
             
             % sys.panels.bdPhasePortrait.title
-            if isfield(sys.panels.bdPhasePortrait,"title")
+            if isfield(sys.panels.bdPhasePortrait,'title')
                 syspanel.title = sys.panels.bdPhasePortrait.title;
             end
             
             % sys.panels.bdPhasePortrait.mod
-            if isfield(sys.panels.bdPhasePortrait,"mod")
+            if isfield(sys.panels.bdPhasePortrait,'mod')
                 syspanel.mod = sys.panels.bdPhasePortrait.mod;
             end
             
 
             % sys.panels.bdPhasePortrait.transients
-            if isfield(sys.panels.bdPhasePortrait,"transients")
+            if isfield(sys.panels.bdPhasePortrait,'transients')
                 syspanel.transients = sys.panels.bdPhasePortrait.transients;
             end
             
             % sys.panels.bdPhasePortrait.markers
-            if isfield(sys.panels.bdPhasePortrait,"markers")
+            if isfield(sys.panels.bdPhasePortrait,'markers')
                 syspanel.markers = sys.panels.bdPhasePortrait.markers;
             end
             
             % sys.panels.bdPhasePortrait.points
-            if isfield(sys.panels.bdPhasePortrait,"points")
+            if isfield(sys.panels.bdPhasePortrait,'points')
                 syspanel.points = sys.panels.bdPhasePortrait.points;
             end
             
             % sys.panels.bdPhasePortrait.vecfield
-            if isfield(sys.panels.bdPhasePortrait,"vecfield")
+            if isfield(sys.panels.bdPhasePortrait,'vecfield')
                 syspanel.vecfield = sys.panels.bdPhasePortrait.vecfield;
             end
             
             % sys.panels.bdPhasePortrait.nullclines
-            if isfield(sys.panels.bdPhasePortrait,"nullclines")
+            if isfield(sys.panels.bdPhasePortrait,'nullclines')
                 syspanel.nullclines = sys.panels.bdPhasePortrait.nullclines;
             end
             
             % sys.panels.bdPhasePortrait.grid
-            if isfield(sys.panels.bdPhasePortrait,"grid")
+            if isfield(sys.panels.bdPhasePortrait,'grid')
                 syspanel.grid = sys.panels.bdPhasePortrait.grid;
             end
             
             % sys.panels.bdPhasePortrait.hold
-            if isfield(sys.panels.bdPhasePortrait,"hold")
+            if isfield(sys.panels.bdPhasePortrait,'hold')
                 syspanel.hold = sys.panels.bdPhasePortrait.hold;
             end
         end

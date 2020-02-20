@@ -4,9 +4,9 @@ import numpy as np
 
 from simexample import plottv
 
-"""
+'''
 Parameter sensitivity
-"""
+'''
 
 for gnabar in [0.1, 0.15]:
     soma.gkbar_hh = 0.01
@@ -16,7 +16,7 @@ for gnabar in [0.1, 0.15]:
 
     neuron.h.run()
 
-    plt.plot(time, max(voltage)*np.ones(len(time)), "r")
+    plt.plot(time, max(voltage)*np.ones(len(time)), 'r')
     plottv(time, voltage, show=False)
 
 plt.show()
@@ -37,21 +37,21 @@ for gnabar in gnabar_range:
 
     max_voltages.append(max(voltage))
 
-plt.plot(gnabar_range, max_voltages, "oC0")
-plt.xlabel("gnabar (S/cm2)")
-plt.ylabel("Maximum AP voltage")
+plt.plot(gnabar_range, max_voltages, 'oC0')
+plt.xlabel('gnabar (S/cm2)')
+plt.ylabel('Maximum AP voltage')
 for xs in [0.1, 0.15]:
-    plt.axvline(x=xs, color="r")
+    plt.axvline(x=xs, color='r')
 plt.show()
 
 # Extend model with dendrite.
-dend = neuron.h.Section(name="dend")
+dend = neuron.h.Section(name='dend')
 dend.connect(soma)
 dend.L = 400 # micron
 dend.diam = 2.0 # micron
 dend.nseg = 9 # number of segments in the dendritic section
 
-dend.insert("hh")
+dend.insert('hh')
 dend.el_hh = -65 # Reversal potential leak current, mV
 dend.gl_hh = 5e-4 # Leak conductance, S/cm^2
 
@@ -71,7 +71,7 @@ for with_dend in [False, True]:
         
     neuron.h.run()
 
-    plottv(time, voltage, show=False, label="with dend" if with_dend else "without dend")
+    plottv(time, voltage, show=False, label='with dend' if with_dend else 'without dend')
 
 plt.legend()
 plt.show()
@@ -102,7 +102,7 @@ for with_dend in [False, True]:
     time_py = time.to_python()
     voltage_py = voltage.to_python()
 
-    plottv(time_py, voltage_py, show=False, label="with dend" if with_dend else "without dend")
+    plottv(time_py, voltage_py, show=False, label='with dend' if with_dend else 'without dend')
 
 plt.legend()
 plt.show()
@@ -123,7 +123,7 @@ neuron.h.tstop = 40
 neuron.h.run()
 
 for distance in distance_range:
-    plottv(time, voltage_dend[distance], show=False, label="%.0f%% of dend length" % (distance*100))
+    plottv(time, voltage_dend[distance], show=False, label='%.0f%% of dend length' % (distance*100))
     
 plt.legend()
 plt.show()
@@ -132,9 +132,9 @@ max_voltage_dend = []
 for distance in distance_range:
     max_voltage_dend.append(max(voltage_dend[distance]))
 
-plt.plot(distance_range*100, max_voltage_dend, "o")
-plt.xlabel("percentage of dend length")
-plt.ylabel("Max voltage (mV)")
+plt.plot(distance_range*100, max_voltage_dend, 'o')
+plt.xlabel('percentage of dend length')
+plt.ylabel('Max voltage (mV)')
 plt.show()
 
 # Add synapse.
@@ -156,10 +156,10 @@ neuron.h.run()
 plottv(time, voltage)
 
 # Connect two cells.
-soma_pre = neuron.h.Section(name="soma")
+soma_pre = neuron.h.Section(name='soma')
 soma_pre.L = 40
 soma_pre.diam = 40
-soma_pre.insert("hh")
+soma_pre.insert('hh')
 
 iclamp_pre = neuron.h.IClamp(.5, sec=soma_pre)
 iclamp_pre.amp = 1.0 # nA
@@ -176,9 +176,9 @@ expsyn.tau = .9
 netcon_pre = neuron.h.NetCon(soma_pre(.5)._ref_v, expsyn, sec=soma_pre)
 netcon_pre.weight[0] = 1
 
-if "netstim" in locals():
+if 'netstim' in locals():
     del netstim
-if "netcon" in locals():
+if 'netcon' in locals():
     del netcon
 
 neuron.h.run()
@@ -186,8 +186,8 @@ neuron.h.run()
 time_py = time.to_python()
 voltage_py = voltage.to_python()
 
-plottv(time_pre, voltage_pre, show=False, label="presynaptic")
-plottv(time, voltage, show=False, label="postsynaptic")
+plottv(time_pre, voltage_pre, show=False, label='presynaptic')
+plottv(time, voltage, show=False, label='postsynaptic')
 plt.legend()
 plt.show()
 

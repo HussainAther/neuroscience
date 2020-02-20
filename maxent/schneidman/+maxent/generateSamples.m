@@ -6,8 +6,8 @@
 %
 % The function accepts a model and the number of samples to be generated from it.
 % The samples are generated via a Metropolis-Hastings sampling scheme. In order to obtain samples which
-% represent the target disribution, default settings include dropping the first 10000 generated samples ("burn-in") and skipping 
-% most of the samples generated along the way ("separation"). These parameters can be controlled by the user.
+% represent the target disribution, default settings include dropping the first 10000 generated samples ('burn-in') and skipping 
+% most of the samples generated along the way ('separation'). These parameters can be controlled by the user.
 %
 % Arguments (mandatory):
 %   model    - maximum entropy model as returned by trainModel()
@@ -57,8 +57,8 @@ if (((max(fix_indices)) > model.ncells) | (min(fix_indices) < 1))
 end
 
 
-% change the "fixed" elements into a list of "to change" elements that the internal implementation expects.
-% the "-1" is because the C code expects indices to be zero-based
+% change the 'fixed' elements into a list of 'to change' elements that the internal implementation expects.
+% the '-1' is because the C code expects indices to be zero-based
 params.variable_indices = uint32(setdiff(1:model.ncells,fix_indices) - 1);
 
 if (numel(params.variable_indices) == 0)

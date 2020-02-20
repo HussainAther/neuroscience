@@ -21,7 +21,7 @@ plot_tools.plot_pattern_list(pattern_list)
 overlap_matrix = pattern_tools.compute_overlap_matrix(pattern_list)
 plot_tools.plot_overlap_matrix(overlap_matrix)
 
-# Let the hopfield network "learn" the patterns. Note: they are not stored
+# Let the hopfield network 'learn' the patterns. Note: they are not stored
 # explicitly but only network weights are updated !
 hopfield_net.store_patterns(pattern_list)
 
@@ -35,4 +35,4 @@ states = hopfield_net.run_with_monitoring(nr_steps=4)
 # Each network state is a vector. Reshape it to the same shape used to create the patterns.
 states_as_patterns = factory.reshape_patterns(states)
 # Plot the states of the network.
-plot_tools.plot_state_sequence_and_overlap(states_as_patterns, pattern_list, reference_idx=0, suptitle="Network dynamics")
+plot_tools.plot_state_sequence_and_overlap(states_as_patterns, pattern_list, reference_idx=0, suptitle='Network dynamics')

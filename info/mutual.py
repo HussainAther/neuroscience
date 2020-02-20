@@ -1,21 +1,21 @@
 import numpy as np
 
-"""
+'''
 We can measure how much one random variable tells us
 about another with mutual information.
-"""
+'''
 
 def P(x, y):
-    """
+    '''
     Joint probability distribution P for x and y.
-    """
+    '''
     return x*y      
 
 def mutI(x, y):
-    """
+    '''
     Mutual information between two arrays of discrete variables x and y
     with a joint probability distribution Pxy.
-    """
+    '''
     summ = 0
     for i in x:
         for j in y:
@@ -23,13 +23,13 @@ def mutI(x, y):
     return summ
    
 def H(x,y):
-    """
+    '''
     Uncertainty that (1) should be maximal when Px(x) is uniform and should
     increase with the number of possible values x can take, (2) should be 
     same if we reorder probabilities assigned to different values of x,
     (3) uncertainty about two independent random variables should be the 
     sum of hte uncertainties about each of them. 
-    """
+    '''
     Px = np.zeros(len(x)) # marginals
     Py = np.zeros(len(y))
     Hx = 0 # uncertainty of random variable x
@@ -43,9 +43,9 @@ def H(x,y):
     return Hx, Hy 
  
 def jointentropy(*x):
-    """
+    '''
     Measure of uncertainty using joint Shannon entropy in bits of two discrete random variables.
-    """
+    '''
     return = np.sum(-p * np.log2(p) if p > 0 else 0 for p in
         (np.mean(reduce(np.logical_and, (predictions == c for predictions, c in zip(x, classes))))
             for classes in itertools.product(*[set(a) for a in x])))

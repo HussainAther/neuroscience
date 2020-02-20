@@ -1,7 +1,7 @@
 % FRRB2012 Freyer, Roberts, Ritter, Breakspear (2012) Equation 4.
 % Replicates equation (4) from Freyer, Roberts, Ritter and Breakspear
-% (2012) "A Canonical Model of Multistability and Scale-Invariance in
-% Biological Systems" PLoS Comput Biol 8(8): e1002634.
+% (2012) 'A Canonical Model of Multistability and Scale-Invariance in
+% Biological Systems' PLoS Comput Biol 8(8): e1002634.
 % doi:10.1371/journal.pcbi.1002634
 %
 % Equation (4) is a Stochastic Differential Equation with both

@@ -3,7 +3,7 @@
 %
 % 
 % based on:
-% "Efficient, Multiple-Range Random Walk Algorithm to Calculate the Density of States",
+% 'Efficient, Multiple-Range Random Walk Algorithm to Calculate the Density of States',
 % Wang and Landau (2001), Physical Review Letters.
 %
 % input:

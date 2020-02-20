@@ -2,7 +2,7 @@ function [movieFrames] = spotOfMotion(maxY, maxX, nFramesToMake, backgroundGray,
 %
 % [movieFrames] = spotOfMotion(maxY, maxX, nFramesToMake, backgroundGray, posY, posX, diameter,  angle, spatialPeriod_pixPerCycle, speed_PixPerFrame, contrast );
 %  
-% Will make a circular spot of "motion" (drifting sinusoid) centered at posX, posY.   
+% Will make a circular spot of 'motion' (drifting sinusoid) centered at posX, posY.   
 % The spot will stay on (and in motion) for the number of indicated nFramesToMake
 %
 % parameters:
@@ -15,7 +15,7 @@ function [movieFrames] = spotOfMotion(maxY, maxX, nFramesToMake, backgroundGray,
 % diameter = diameter of the spot in pixels
 % angle = drift angle of the sinusoid (i.e. the direction of motion)
 % spatialPeriod_pixPerCycle = number of pixels covered by each cycle of the
-%   sinusoid  (this is basically how "thin" or "fat" the lines are)
+%   sinusoid  (this is basically how 'thin' or 'fat' the lines are)
 % speed_PixPerFrame = number of pixels the sinusoid drifts on each frame
 % contrast = the depth of modulation of the sinusoid.  (1 = full modulation
 %   from black to white, 0 = no modulation = gray screen)

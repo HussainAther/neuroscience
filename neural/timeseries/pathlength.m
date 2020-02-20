@@ -18,7 +18,7 @@ function Plength = pathlength(A)
 %
 
 % This function was downloaded from the following reference:
-% Taylor, A., and D.J. Higham. "Contest: A Controllable Test Matrix Toolbox for % Matlab." ACM Transactions on Mathematical Software (TOMS) 35, no. 4 
+% Taylor, A., and D.J. Higham. 'Contest: A Controllable Test Matrix Toolbox for % Matlab.' ACM Transactions on Mathematical Software (TOMS) 35, no. 4 
 % (2009): 1-16.
 % 
 

@@ -4,20 +4,20 @@ import matplotlib.pyplot as plt
 
 from numpy.random import standard_normal as normal
 
-"""
+'''
 Fourier transformation is a weighted summation of sinusoidal waves that reproduces the original oscillating signal
 used in collecting neuroimaging data. The transformed frequency spectrum plot is the graph of the amount of each frequency
 found. A uniform signal can have a timestep in between each measurements such that the esries of values can represented as x_k
 where k is the time index (from 0 to N-1). The Fast fourier transformation determines the discrete fourier transform
 when N is a power of 2. This reduces the number of operations from O(N^2) to O(NlogN).
-"""
+'''
 
 I = 1j # square root of -1 
 
 def createSignal(parameters, tStep, nPoints, noise):
-    """
+    '''
     Generate the amplitude of the signal with noise.
-    """
+    '''
     sig = np.zeros(nPoints, dtype=complex)
     t = tStep * np.arange(nPoints, dtype=float)
     for amplitude, frequency, decay in parameters:
@@ -27,10 +27,10 @@ def createSignal(parameters, tStep, nPoints, noise):
     return sig
 
 def savePlot(x, y, xlabel, ylabel):
-    plt.plot(x, y, color="k")
+    plt.plot(x, y, color='k')
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    fileName = ylabel.replace(" ","")
+    fileName = ylabel.replace(' ','')
     plt.savefig(fileName)
     plt.close()
 
@@ -43,27 +43,27 @@ noise = .5
 sig = createSignal(sigParams, tStep, nPoints, noise)
 
 times = [i*tStep for i in range(nPoints)]
-savePlot(times, sig, "time", "signal")
+savePlot(times, sig, 'time', 'signal')
 
 freqs = np.fft.fft(sig)
 
 freqReal = [f.real for f in freqs] # frequency of real numbers
-savePlot(times, freqReal, "freq", "FT real")
+savePlot(times, freqReal, 'freq', 'FT real')
 
 freqImag = [f.imag for f in freqs] # frequency of imaginary numbers
-savePlot(times, freqImag, "freq", "FT imag")
+savePlot(times, freqImag, 'freq', 'FT imag')
 
 powerSpec = [abs(f)**2 for f in freqs] # power series of the spectrum
-savePlot(times, powerSpec, "freq", "FT power")
+savePlot(times, powerSpec, 'freq', 'FT power')
 
 class Peak:
-    """
+    '''
     Peak class for analyzing and graphing.
-    """
+    '''
     def __init__(self, position, data, dataHeight=None,linewidth=None):
-        """
+        '''
         Initialize with graph quantitites.
-        """
+        '''
         self.position = tuple(position)
         self.data = data
         self.point = tuple([int(round(x)) for x in position])
@@ -78,9 +78,9 @@ class Peak:
         self.fitData = self._getRegionData(region) / self.dataHeight
 
     def __calcHalfHeightWidth(self):
-        """
+        '''
         For marking the graph get the half-height and widths.
-        """
+        '''
         dimWidths = []
         for dim in range(self.data.ndim):
             posA, posB = self._findHalfPoints(dim)
@@ -89,9 +89,9 @@ class Peak:
         return dimWidths
 
     def _findHalfPoints(self, dim):
-        """
+        '''
         Get half-points under each bar.
-        """
+        '''
         height = abs(self.dataHeight)
         halfHt = .5 * height
         data = self.data
@@ -120,16 +120,16 @@ class Peak:
         return posA, posB
 
     def _getRegionData(self, region):
-        """
+        '''
         Extract specific regions from the data.
-        """
+        '''
         slices = tuple([slice(start, end) for start,end in region])
         return self.data[slices]
 
     def _fitFunc(self, region, params):
-        """
+        '''
         Fit the function across the parameters for our region in the model data.
-        """
+        '''
         ndim = self.data.ndim
         amplitudeScale = params[0]
         offset = params[1:1+ndim]
@@ -151,9 +151,9 @@ class Peak:
         return np.sqrt(diff2)
 
     def _outerProduct(self,data):
-        """
+        '''
         Outer product of two coordinate vectors.
-        """
+        '''
         size = [d.shape[0] for d in data]
         product = data[0]
         for dim in range(1, len(size)):
@@ -162,9 +162,9 @@ class Peak:
         return product
 
     def fit(self, fitWidth=2):
-        """
+        '''
         Fit our data to the model prediction.
-        """
+        '''
         region = []
         numPoints = self.data.shape
         for dim, point in enumerate(peak.position):
@@ -187,11 +187,11 @@ class Peak:
         peak.fitPosition = list(peak.position + offset)
         peak.fitLineWidth = list(linewidthScale * peak.linewidth)
 
-def findPeaks(data, threshold, size=3, mode="wrap"):
-    """
+def findPeaks(data, threshold, size=3, mode='wrap'):
+    '''
     Look for local maxima above a specified threshold. It works well for
     data that is not especially noisy or crowded.
-    """
+    '''
     peaks = []
     if (data.size == 0) or (data.max() < threshold):
         return peaks

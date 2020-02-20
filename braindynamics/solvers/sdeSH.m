@@ -75,14 +75,14 @@
 %  plot(T,Y);                       % plot the results
 function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
     % Get the number of noise sources (driving Wiener processes).
-    if isfield(options,"NoiseSources")
+    if isfield(options,'NoiseSources')
         m = options.NoiseSources;
     else
-        error("options.NoiseSources is undefined");
+        error('options.NoiseSources is undefined');
     end
     
     % Get the time step from the InitialStep option (if it exists)
-    if isfield(options,"InitialStep")
+    if isfield(options,'InitialStep')
         dt = options.InitialStep;
     else
         % Default to 101 steps in tspan
@@ -94,7 +94,7 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
     % the number of noise sources m.
     % This value of dt overrides that given by the InitialStep option.
     % However the value of m must match the NoiseSources option exactly.
-    if isfield(options,"randn") && ~isempty(options.randn)
+    if isfield(options,'randn') && ~isempty(options.randn)
         % The rows of dW determine the number of noise sources (m).
         % The cols of dW determine the number of time steps (tcount).
         [mm,tcount] = size(options.randn);
@@ -103,7 +103,7 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
         dt = (tspan(end) - tspan(1))/(tcount-1);
         
         % Assert that m matches the NoiseSources option
-        assert(mm==m,"The number of rows in options.randn must equal options.NoiseSources");
+        assert(mm==m,'The number of rows in options.randn must equal options.NoiseSources');
     end
     
     % span the time domain in fixed steps
@@ -115,7 +115,7 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
     sol.yp = sol.y;                     % values of dy(t)/dt
 
     % compute the Wiener increments
-    if isfield(options,"randn") && ~isempty(options.randn)
+    if isfield(options,'randn') && ~isempty(options.randn)
         % The user has supplied us with random samples,
         % we only need scale it by sqrt(dt)
         sol.dW = sqrt(dt) .* options.randn;
@@ -132,10 +132,10 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
     sol.ex21tdata.varargin = varargin;
     
     % Get the OutputFcn callback.
-    OutputFcn = odeget(options,"OutputFcn");
+    OutputFcn = odeget(options,'OutputFcn');
     if ~isempty(OutputFcn)
         % initialize the OutputFcn
-        OutputFcn(tspan,sol.y(:,1),"init");
+        OutputFcn(tspan,sol.y(:,1),'init');
     end
     
     % We call OutputFcn whenever the integration time exceeds a time
@@ -154,7 +154,7 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
         % Hence the while loop.
         while ~isempty(OutputFcn) && sol.x(indx)>=tspan(tspanidx)
             % call the output function
-            status = OutputFcn(sol.x(indx),sol.y(:,indx),"");
+            status = OutputFcn(sol.x(indx),sol.y(:,indx),'');
             if status==1
                 % User has cancelled the operation.
                 sol.stats.nsteps = indx;
@@ -181,8 +181,8 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
         
         % Check the Stratonovish-Heun step for overflow
         if any(~isfinite(sol.y(:,indx+1)))
-            msg = num2str(sol.x(indx),"Failure at t=%g. The numerical values are no longer finite.");
-            warning("sdeSH:Overflow",msg);
+            msg = num2str(sol.x(indx),'Failure at t=%g. The numerical values are no longer finite.');
+            warning('sdeSH:Overflow',msg);
             sol.stats.nsteps = indx;
             sol.stats.nfailed = 1;
             sol.stats.nfevals = tcount;
@@ -205,8 +205,8 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
     
     % Check the final Stratonovich-Heun step for overflow
     if any(~isfinite(sol.y(:,end)))
-        msg = num2str(sol.x(end),"Failure at t=%g. The numerical values are no longer finite.");
-        warning("sdeSH:Overflow",msg);
+        msg = num2str(sol.x(end),'Failure at t=%g. The numerical values are no longer finite.');
+        warning('sdeSH:Overflow',msg);
         sol.stats.nsteps = tcount;
         sol.stats.nfailed = 1;
         sol.stats.nfevals = tcount;
@@ -216,7 +216,7 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
     % Execute the OutputFcn for the final entry in tspan.
     if ~isempty(OutputFcn)
         % call the output function
-        status = OutputFcn(sol.x(end),sol.y(:,end),"");
+        status = OutputFcn(sol.x(end),sol.y(:,end),'');
         if status==1
             % User has cancelled the operation.
             sol.stats.nsteps = tcount;
@@ -225,7 +225,7 @@ function sol = sdeSH(odefun,sdefun,tspan,y0,options,varargin)
             return
         end        
         % cleanup the OutputFcn
-        OutputFcn([],[],"done");
+        OutputFcn([],[],'done');
     end
         
     % Stats

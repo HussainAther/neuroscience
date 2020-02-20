@@ -25,7 +25,7 @@ classdef bdDisplay < handle
             try
                 sys = bd.syscheck(sys);
             catch ME
-                throwAsCaller(MException("bdtoolkit:bdDisplay",ME.message));
+                throwAsCaller(MException('bdtoolkit:bdDisplay',ME.message));
             end
             
             % get parent figure geometry
@@ -37,16 +37,16 @@ classdef bdDisplay < handle
             y = this.dpanely;
             w = figw - bdControl.cpanelw - 10;
             h = figh - this.dpanely - this.dpanelm;
-            this.dpanel = uipanel("Parent",fig,"Units","pixels","Position",[x y w h],"BorderType","none");
+            this.dpanel = uipanel('Parent',fig,'Units','pixels','Position',[x y w h],'BorderType','none');
             
             % construct the tab group within the container uipanel.
             % new axes in the tab group default to FontSize=12, Box=on, Hold=on 
-            this.tabgroup = uitabgroup("Parent",this.dpanel, ...
-                "SelectionChangedFcn", @bdPanel.PanelSelectionChangedFcn, ...
-                "Interruptible","off", ...
-                "DefaultAxesFontSize",12, ...
-                "DefaultAxesBox","on", ...
-                "DefaultAxesNextPlot", "add");
+            this.tabgroup = uitabgroup('Parent',this.dpanel, ...
+                'SelectionChangedFcn', @bdPanel.PanelSelectionChangedFcn, ...
+                'Interruptible','off', ...
+                'DefaultAxesFontSize',12, ...
+                'DefaultAxesBox','on', ...
+                'DefaultAxesNextPlot', 'add');
         end
        
         % Resize the display panel to fit the figure window.
@@ -65,11 +65,11 @@ classdef bdDisplay < handle
         
         % load all display panels specified in control.sys.panels
         function LoadPanels(this,control)
-            if isfield(control.sys,"panels")
+            if isfield(control.sys,'panels')
                 panelnames = fieldnames(control.sys.panels);
                 for indx = 1:numel(panelnames)
                     classname = panelnames{indx};
-                    if exist(classname,"class")
+                    if exist(classname,'class')
                         % construct the panel, keep a handle to it.
                         classhndl = feval(classname,this.tabgroup,control);
                         if ~isfield(this.panelmgr,classname)
@@ -78,7 +78,7 @@ classdef bdDisplay < handle
                             this.panelmgr.(classname)(end+1) = classhndl;
                         end
                     else
-                        dlg = warndlg({["""", classname, ".m"" not found"],"That panel will not be displayed"},"Missing file","modal");
+                        dlg = warndlg({['''', classname, '.m'' not found'],'That panel will not be displayed'},'Missing file','modal');
                         uiwait(dlg);
                     end
                 end
@@ -182,21 +182,21 @@ classdef bdDisplay < handle
         % Construct the Panel menu
         function menuobj = PanelsMenu(this,fig,control)
             % find all panel classes in the bdtoolkit/panels directory
-            panelspath = what("panels");
+            panelspath = what('panels');
             if isempty(panelspath)
-                msg = {"The display panels were not found in the search path."
-                ""
-                "Ensure the ""bdtoolkit/panels"" directory is added to the PATH before starting ""bdGUI""."
-                ""
-                "See Chapter 1 of the Handbook for the Brain Dynamics Toolbox."
-                ""
+                msg = {'The display panels were not found in the search path.'
+                ''
+                'Ensure the ''bdtoolkit/panels'' directory is added to the PATH before starting ''bdGUI''.'
+                ''
+                'See Chapter 1 of the Handbook for the Brain Dynamics Toolbox.'
+                ''
                 };
-                uiwait( errordlg(msg,"Missing Display Panels") );
-                throw(MException("bdGUI:badpath","The ""panels"" directory was not found"));
+                uiwait( errordlg(msg,'Missing Display Panels') );
+                throw(MException('bdGUI:badpath','The ''panels'' directory was not found'));
             end
 
             % construct the New Panels menu
-            menuobj = uimenu("Parent",fig, "Label","New Panel");
+            menuobj = uimenu('Parent',fig, 'Label','New Panel');
             
             % add the found panels to the menu ...
             for indx = 1:numel(panelspath.m)
@@ -205,65 +205,65 @@ classdef bdDisplay < handle
                 
                 % get the title of the panel
                 mc = meta.class.fromName(panelclass);
-                mp = findobj(mc.PropertyList,"Name","title");
+                mp = findobj(mc.PropertyList,'Name','title');
                 if ~isempty(mp)
-                    uimenu("Parent",menuobj, ...
-                        "Label",mp.DefaultValue, ...
-                        "Callback", @(~,~) NewPanel(control,panelclass));
+                    uimenu('Parent',menuobj, ...
+                        'Label',mp.DefaultValue, ...
+                        'Callback', @(~,~) NewPanel(control,panelclass));
                 else
-                    warning([panelspath.m{indx} " is not a valid display panel class."]);
+                    warning([panelspath.m{indx} ' is not a valid display panel class.']);
                 end
             end
             
             return
             
-            classnames = {"bdLatexPanel","bdTimePortrait","bdPhasePortrait","bdBifurcation","bdSpaceTime","bdCorrPanel","bdHilbert","bdSurrogate","bdSolverPanel","bdTrapPanel"};
-            menuobj = uimenu("Parent",fig, "Label","New Panel");
-            uimenu("Parent",menuobj, ...
-                    "Label","Equations", ...
-                    "Callback", @(~,~) NewPanel(control,"bdLatexPanel"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Time Portrait", ...
-                    "Callback", @(~,~) NewPanel(control,"bdTimePortrait"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Phase Portrait", ...
-                    "Callback", @(~,~) NewPanel(control,"bdPhasePortrait"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Bifurcation Diagram", ...
-                    "Callback", @(~,~) NewPanel(control,"bdBifurcation"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Space-Time", ...
-                    "Callback", @(~,~) NewPanel(control,"bdSpaceTime"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Correlations", ...
-                    "Callback", @(~,~) NewPanel(control,"bdCorrPanel"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Hilbert Transform", ...
-                    "Callback", @(~,~) NewPanel(control,"bdHilbert"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Surrogate Signal", ...
-                    "Callback", @(~,~) NewPanel(control,"bdSurrogate"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Solver Panel", ...
-                    "Callback", @(~,~) NewPanel(control,"bdSolverPanel"));
-            uimenu("Parent",menuobj, ...
-                    "Label","Trap Panel", ...
-                    "Callback", @(~,~) NewPanel(control,"bdTrapPanel"));
+            classnames = {'bdLatexPanel','bdTimePortrait','bdPhasePortrait','bdBifurcation','bdSpaceTime','bdCorrPanel','bdHilbert','bdSurrogate','bdSolverPanel','bdTrapPanel'};
+            menuobj = uimenu('Parent',fig, 'Label','New Panel');
+            uimenu('Parent',menuobj, ...
+                    'Label','Equations', ...
+                    'Callback', @(~,~) NewPanel(control,'bdLatexPanel'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Time Portrait', ...
+                    'Callback', @(~,~) NewPanel(control,'bdTimePortrait'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Phase Portrait', ...
+                    'Callback', @(~,~) NewPanel(control,'bdPhasePortrait'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Bifurcation Diagram', ...
+                    'Callback', @(~,~) NewPanel(control,'bdBifurcation'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Space-Time', ...
+                    'Callback', @(~,~) NewPanel(control,'bdSpaceTime'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Correlations', ...
+                    'Callback', @(~,~) NewPanel(control,'bdCorrPanel'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Hilbert Transform', ...
+                    'Callback', @(~,~) NewPanel(control,'bdHilbert'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Surrogate Signal', ...
+                    'Callback', @(~,~) NewPanel(control,'bdSurrogate'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Solver Panel', ...
+                    'Callback', @(~,~) NewPanel(control,'bdSolverPanel'));
+            uimenu('Parent',menuobj, ...
+                    'Label','Trap Panel', ...
+                    'Callback', @(~,~) NewPanel(control,'bdTrapPanel'));
       
             % add any custom gui panels to the menu and also to this.panelclasses
-            if isfield(control.sys,"panels")
+            if isfield(control.sys,'panels')
                 panelnames = fieldnames(control.sys.panels);
                 for indx = 1:numel(panelnames)
                     classname = panelnames{indx};
-                    if exist(classname,"class")
+                    if exist(classname,'class')
                         switch classname
                             case classnames
                                 % Nothing to do. We have this one already.
                             otherwise
                                 % Add a menu item for the novel panel
-                                uimenu("Parent",menuobj, ...
-                                       "Label",classname, ...
-                                       "Callback", @(~,~) NewPanel(control,classname));
+                                uimenu('Parent',menuobj, ...
+                                       'Label',classname, ...
+                                       'Callback', @(~,~) NewPanel(control,classname));
                                 % Remember the name of the novel panel class
                                 classnames{end} = classname;
                         end
@@ -273,7 +273,7 @@ classdef bdDisplay < handle
             
             % Menu Callback function
             function NewPanel(control,classname)
-               if exist(classname,"class")
+               if exist(classname,'class')
                     % construct the panel, keep a handle to it.
                     classhndl = feval(classname,this.tabgroup,control);
                     if ~isfield(this.panelmgr,classname)
@@ -283,9 +283,9 @@ classdef bdDisplay < handle
                     end
                     
                     % force a redraw event
-                    notify(control,"redraw");
+                    notify(control,'redraw');
                 else
-                    dlg = warndlg({["""", classname, ".m"" not found"],"That panel will not be displayed"},"Missing file","modal");
+                    dlg = warndlg({['''', classname, '.m'' not found'],'That panel will not be displayed'},'Missing file','modal');
                     uiwait(dlg);
                 end          
             end

@@ -1,4 +1,4 @@
-%% This script shows you how to compute "frequency sliding,"
+%% This script shows you how to compute 'frequency sliding,'
 %  time-varying changes in the peak frequency of an oscillation.
 %  This script corresponds to a paper:
 
@@ -6,7 +6,7 @@
 % eeglab toolbox is not necessary and it should be fairly straight forward
 % to adapt this script to whatever format you use for your data.
 % Because the median filter involves computing the median many many times,
-% I recommend installing a free Matlab toolbox called "nth_element"
+% I recommend installing a free Matlab toolbox called 'nth_element'
 % http://www.mathworks.com/matlabcentral/fileexchange/29453-nth-element
 % The toolbox will speed the analysis but is not necessary
 

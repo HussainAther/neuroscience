@@ -14,18 +14,18 @@ from neo import io
 from neo.core import SpikeTrain
 from bartlett import bartlett # from bartlett.py import the Bartlett's method function
 
-"""
+'''
 We can measure the information rate of spike firing using the following method. First, we estimate
 the signal from spikes (using the noise-reduction approaches), then we compute noise in the estimated
 signal (measuring the random errors and removing them), after that we compute the signal-to-noise-ratio of the
 estimated signal, and finally calcualte lower bound to information rate from the signal-to-noise ratio.
-"""
+'''
 
 class AsciiSpikeTrainIO(BaseIO):
-    """
+    '''
     Class for reading/writing SpikeTrains in a text file.
     Each Spiketrain is a line.
-    """
+    '''
     is_readable = True
     is_writable = True
     supported_objects = [Segment, SpikeTrain]
@@ -33,38 +33,38 @@ class AsciiSpikeTrainIO(BaseIO):
     writeable_objects = [Segment]
     has_header = False
     is_streameable = False
-    read_params = { Segment: [ ("delimiter", {"value": "\t", "possible": ["\t", " ", ",", ";"]}), ("t_start", {"value": 0., }),]}
-    write_params = { Segment: [("delimiter", {"value": "\t", "possible": ["\t", " ", ",", ";"]}),]}
+    read_params = { Segment: [ ('delimiter', {'value': '\t', 'possible': ['\t', ' ', ',', ';']}), ('t_start', {'value': 0., }),]}
+    write_params = { Segment: [('delimiter', {'value': '\t', 'possible': ['\t', ' ', ',', ';']}),]}
     name = None
-    extensions = ["txt"]
+    extensions = ['txt']
 
-    mode = "file"
+    mode = 'file'
 
     def __init__(self, filename=None):
-        """
+        '''
         This class read/write SpikeTrains in a text file.
         Each row is a spiketrain. filename is the filename to read/write
-        """
+        '''
         BaseIO.__init__(self)
         self.filename = filename
 
-    def read_segment(self, lazy=False, delimiter="\t", t_start=0. * pq.s, unit=pq.s, ):
-        """
-        delimiter is the columns delimiter in file  "\t" or one space or two space or "," or ";"
+    def read_segment(self, lazy=False, delimiter='\t', t_start=0. * pq.s, unit=pq.s, ):
+        '''
+        delimiter is the columns delimiter in file  '\t' or one space or two space or ',' or ';'
         t_start is the time start of all spiketrain 0 by default. unit is the unit of spike times,
         can be a str or directly a quantity.
-        """
-        assert not lazy, "Do not support lazy"
+        '''
+        assert not lazy, 'Do not support lazy'
         unit = pq.Quantity(1, unit)
         seg = Segment(file_origin=os.path.basename(self.filename))
-        f = open(self.filename, "Ur")
+        f = open(self.filename, 'Ur')
         for i, line in enumerate(f):
             alldata = line[:-1].split(delimiter)
-            if alldata[-1] == '":
+            if alldata[-1] == '':
                 alldata = alldata[:-1]
-            if alldata[0] == '":
+            if alldata[0] == '':
                 alldata = alldata[1:]
-            spike_times = np.array(alldata).astype("f")
+            spike_times = np.array(alldata).astype('f')
             t_stop = spike_times.max() * unit
             sptr = SpikeTrain(spike_times * unit, t_start=t_start, t_stop=t_stop)
             sptr.annotate(channel_index=i)
@@ -73,22 +73,22 @@ class AsciiSpikeTrainIO(BaseIO):
         seg.create_many_to_one_relationship()
         return seg
 
-    def write_segment(self, segment, delimiter="\t",):
-        """
+    def write_segment(self, segment, delimiter='\t',):
+        '''
         Write SpikeTrain of a Segment in a txt file. Each row is a spiketrain. segment is the segment to write.
-        Only analog signals will be written. delimiter  is the columns delimiter in file  "\t" or one space
-        or two space or "," or ";". information of t_start is lost.
-        """
-        f = open(self.filename, "w")
+        Only analog signals will be written. delimiter  is the columns delimiter in file  '\t' or one space
+        or two space or ',' or ';'. information of t_start is lost.
+        '''
+        f = open(self.filename, 'w')
         for s, sptr in enumerate(segment.spiketrains):
             for ts in sptr:
-                f.write("%f%s" % (ts, delimiter))
-            f.write("\n")
+                f.write('%f%s' % (ts, delimiter))
+            f.write('\n')
         f.close()
 
 # Information provided to us by spike-train
 def fanofactor(spiketrains):
-    """
+    '''
     Evaluates the empirical Fano factor F of the spike counts of
     a list of `neo.core.SpikeTrain` objects. Given the vector v containing the observed
     spike counts (one per spike train) in the time window [t0, t1], F is defined as:
@@ -98,7 +98,7 @@ def fanofactor(spiketrains):
     process, F=1. spiketrains is a list of neo.SpikeTrain objects, quantity arrays, numpy arrays or lists.
     It's spike trains for which to compute the Fano factor of spike counts. Returns fano (float or nan),
     the Fano factor of the spike counts of the input spike trains. If an empty list is specified, or if all spike trains are empty, F:=nan.
-    """
+    '''
     # Build array of spike counts (one per spike train)
     spike_counts = np.array([len(t) for t in spiketrains])
 
@@ -109,19 +109,19 @@ def fanofactor(spiketrains):
         fano = spike_counts.var() / spike_counts.mean()
     return fano
 
-def instantaneous_rate(spiketrain, sampling_period, kernel="auto", cutoff=5.0, t_start=None, t_stop=None, trim=False):
-    """
+def instantaneous_rate(spiketrain, sampling_period, kernel='auto', cutoff=5.0, t_start=None, t_stop=None, trim=False):
+    '''
     Estimate instantaneous firing rate by kernel convolution.
     spiketrain is the (neo.SpikeTrain or list of neo.SpikeTrain objects) Neo object
     that contains spike times, the unit of the time stamps and t_start and t_stop of the spike train.
     sampling_period (Time Quantity) is the time stamp resolution of the spike times.
     The same resolution will be assumed for the kernel.
-    kernel is the (string) "auto" or callable object of :class:`Kernel` from module
-    "kernels.py". Currently implemented kernel forms are rectangular, triangular,
+    kernel is the (string) 'auto' or callable object of :class:`Kernel` from module
+    'kernels.py'. Currently implemented kernel forms are rectangular, triangular,
     epanechnikovlike, gaussian, laplacian, exponential, and alpha function. Example: kernel =
     kernels.RectangularKernel(sigma=10*ms, invert=False) The kernel is used for convolution
     with the spike train and its standard deviation determines the time resolution of the instantaneous
-    rate estimation. Default: "auto". In this case, the optimized kernel width for the rate estimation
+    rate estimation. Default: 'auto'. In this case, the optimized kernel width for the rate estimation
     is calculated according to [1] and with this width a gaussian kernel is constructed. Automatized
     calculation of the kernel width is not available for other than gaussian kernel shapes.
     cutoff (float) determines the cutoff of the probability distribution of the kernel, i.e.,
@@ -135,10 +135,10 @@ def instantaneous_rate(spiketrain, sampling_period, kernel="auto", cutoff=5.0, t
     there is complete overlap between kernel and spike train. This is achieved by reducing the length of the output of the Fast Fourier
     Transformation by a total of two times the size of the kernel, and
     t_start and t_stop are adjusted. Default: False Return rate (neo.AnalogSignal) that contains the rate estimation in unit
-    hertz (Hz). Has a property "rate.times" which contains the time axis of the rate estimate. The unit of this property
-    is the same as the resolution that is given via the argument "sampling_period" to the function.
+    hertz (Hz). Has a property 'rate.times' which contains the time axis of the rate estimate. The unit of this property
+    is the same as the resolution that is given via the argument 'sampling_period' to the function.
     Raise TypeError if `spiketrain` is not an instance of :class:`SpikeTrain` of Neo, if `sampling_period` is not a time quantity,
-    if `kernel` is neither instance of :class:`Kernel` or string "auto", if `cutoff` is neither float nor int,
+    if `kernel` is neither instance of :class:`Kernel` or string 'auto', if `cutoff` is neither float nor int,
     if `t_start` and `t_stop` are neither None nor a time quantity, if `trim` is not bool.
     Raise ValueError if `sampling_period` is smaller than zero.
     Example:
@@ -146,7 +146,7 @@ def instantaneous_rate(spiketrain, sampling_period, kernel="auto", cutoff=5.0, t
     rate = instantaneous_rate(spiketrain, sampling_period = 2*ms, kernel)
     Reference:
     ..[1] H. Shimazaki, S. Shinomoto, J Comput Neurosci (2010) 29:171–182.
-    """
+    '''
     # Merge spike trains if list of spike trains given:
     if isinstance(spiketrain, list):
         _check_consistency_of_spiketrainlist(
@@ -162,25 +162,25 @@ def instantaneous_rate(spiketrain, sampling_period, kernel="auto", cutoff=5.0, t
                                   kernel=kernel, cutoff=cutoff, t_start=t_start,
                                   t_stop=t_stop, trim=trim)
 
-spiketrains = io.AsciiSpikeTrainIO( filename = "../DATA_001.txt")
+spiketrains = io.AsciiSpikeTrainIO( filename = '../DATA_001.txt')
 arrivaltimes = instantaneous_rate(spiketrain, sampling_period) # Elephant function of the first kind of real order and complex argument
 T = 30 # limit of time we integrate over
 
 I = integrate.quad(lambda x: arrivaltimes, 0, T) * integate.quad(fanofactor(spiketrains))
 
-"""
+'''
 As a strategy for measuring information rate of stimulus signals, we can generally
 1. Estimate signal from spikes
 2. Compute noise in estimate
 3. Compure signal to noise ratio of estimates
 4. Calculate lower bound to information rate from signal to noise ratio.
-"""
+'''
 
 def nfs(t, eps=1e-9):
-    """
+    '''
     Noise from spike. We can remove the highest spike from an array t of spikes.
     Eps (epsilon) is accuracy.
-    """
+    '''
     n = len(t)
     x = np.arange(n)
     c = np.argmax(t) # find the max of our spike train array
@@ -206,12 +206,12 @@ def nfs(t, eps=1e-9):
 t = [1,1,1,1,1,10,1,1,1,1,15] # sample spike train
 signal = nfs(t) # 1. Estimate signal from spikes
 
-"""
+'''
 Other methods of separating the signal from spike trains (raw input data) involve
 finding the entropy of the stimulus distribution and the corresponding conditional distribution
 averaged over the distribution of spike trains. The entropy is determined by 
 the setup of the experiment.
-"""
+'''
 
 # the power spectral density of a spike train during spontaneous activity is the noise spectrum of the neuron
 

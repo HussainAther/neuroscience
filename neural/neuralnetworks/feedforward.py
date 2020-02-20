@@ -5,25 +5,25 @@ import matplotlib.pyplot as plt
 
 random.seed(int(time.time())) # some random seed lol
 
-"""
+'''
 A feedforward neural network is an artificial neural network wherein
 connections between the nodes do not form a cycle. As such, it is
 different from recurrent neural networks. The feedforward neural
 network was the first and simplest type of artificial neural network devised.
  
 We'll create one with backpropagation, the backward propogation of errors. 
-"""
+'''
 
 def tansig(x):
-    """
+    '''
     Approximate sigmoid activation function with the tanh function
-    """
+    '''
     return tanh(x)
 
 def dtansig(x):
-    """
+    '''
     Derivative of the sigmoid function
-    """
+    '''
     return 1.0 - (np.multiply(x,x))
 
 # numpy matrix of input examples
@@ -95,7 +95,7 @@ for i in range(maxepochs):
     # compute errors across all targets
     errors[i] = 0.5 * sum(np.square(net_out - xor_out))
     if ((i % 2)==0):
-        print "*** Epoch %4d/%4d : SS_error = %6.5f" % (i,maxepochs,errors[i])
+        print '*** Epoch %4d/%4d : SS_error = %6.5f' % (i,maxepochs,errors[i])
         print net_out
         # now do our plotting
         net_perf = np.zeros(np.shape(g1))
@@ -107,7 +107,7 @@ for i in range(maxepochs):
                 net_perf[i1,i2] = o_grid
         plt.cla()
         plt.imshow(net_perf, extent=[-1,2,-1,2])
-        plt.plot((0,0,1,1),(0,1,0,1),"ws",markersize=10)
+        plt.plot((0,0,1,1),(0,1,0,1),'ws',markersize=10)
         plt.axis([-1, 2, -1, 2])
         plt.draw()
 
@@ -115,9 +115,9 @@ for i in range(maxepochs):
 plt.figure()
 plt.subplot(2,1,1)
 plt.plot(errors)
-plt.xlabel("Epoch")
-plt.ylabel("SS_error")
+plt.xlabel('Epoch')
+plt.ylabel('SS_error')
 plt.subplot(2,1,2)
 plt.plot(log(errors))
-plt.xlabel("Epoch")
-plt.ylabel("Log (SS_ERROR)")
+plt.xlabel('Epoch')
+plt.ylabel('Log (SS_ERROR)')

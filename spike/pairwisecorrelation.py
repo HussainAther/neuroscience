@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-"""
+'''
 Quantifying the degree of correlation between neural spike trains is a key part of analyses of experimental data in many systems.
 Neural coordination is thought to play a key role in information propagation and processing and also in self-organization of the
 neural system during development. For example, correlated activity plays a critical role in forming the retinotopic map.
@@ -13,14 +13,14 @@ There is strong evidence that correlation between neuronal spike times is involv
 
 We can determine the correlation index between two spike trains A and B as the factor by which the firing rate
 of neuron A increases over its mean value if measured within a fixed window of spikes frmo neuron B.
-"""
+'''
 
 def corrCoef(i, j):
-    """
+    '''
     Calculate the len(i)x(len(j) matrix of pairwise Pearson's correlation coefficients between all combinations of N binned
     spike trains. For each pair of spike trains (equal-sized arrays i and j), we determine the correlation by binning i and j
     at the desired bin size. Let b_i and b_j denote the binary vectors and m_i and m_j their respective averages.
-    """
+    '''
     m_i = sum(i)/len(i) # average of a
     m_j = sum(j)/len(j) # average of b
     b_i = np.where(i > 0.5, 1, 0) # binary vector of i
@@ -34,10 +34,10 @@ def corrCoef(i, j):
     return result
 
 def covariance(i, j):
-    """
+    '''
     Calculate the len(i)x(len(j) matrix of pairwise covariances between all combinations of N binned spike trains.
     See the comment for the corrCoef function.
-    """
+    '''
     m_i = sum(i)/len(i) # average of a
     m_j = sum(j)/len(j) # average of b
     b_i = np.where(i > 0.5, 1, 0) # binary vector of i
@@ -51,11 +51,11 @@ def covariance(i, j):
     return result
 
 def spikeTTC(i ,j):
-    """
+    '''
     For spike trains i and j, compute the spike time tiling coefficient following Cutts & Eglen (2014).
     It's sensitive to firing patterns, not confounded by firing rate, can distinguish lack of correlation
     from anti-correlation, and has periods of silence not add to the correlation.
-    """
+    '''
     pa = 0 # proportion factor for spike train i
     pb = 0 # proportion factor for spike train j
     ta = 0 # total recording time for spike train i

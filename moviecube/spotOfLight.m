@@ -2,7 +2,7 @@ function [movieFrames] = spotOfLight(maxY, maxX, nFramesToMake, backgroundGray, 
 %
 % [movieFrames] = spotOfLight(maxY, maxX, nFramesToMake, backgroundGray,posX, posY, diameter, spotGray )
 %  
-% Will make a circular spot of "light"  (can be black, white, or any gray level)
+% Will make a circular spot of 'light'  (can be black, white, or any gray level)
 % The spot will stay on for the number of indicated nFramesToMake
 %
 % parameters:

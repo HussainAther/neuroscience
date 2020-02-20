@@ -15,26 +15,26 @@ correlations = cat(1,num2cell(nchoosek(1:ncells,1),2), ...
                 num2cell(nchoosek(1:ncells,2),2),...
                 num2cell(nchoosek(1:ncells,3),2));
 
-model = maxent.createModel(ncells,"highorder",correlations);
+model = maxent.createModel(ncells,'highorder',correlations);
 
 % Train it.
-model = maxent.trainModel(model,samples_train,"threshold",1);
+model = maxent.trainModel(model,samples_train,'threshold',1);
 
 % Use the model to predict the frequency of activity patterns.
 % We will start by observing all the patterns that repeated at least twice (because a pattern that repeated at least
 % once may grossly overrepresent its probability and is not meaningful in this sort of analysis)
-limited_empirical_distribution = maxent.getEmpiricalModel(samples_test,"min_count",2);
+limited_empirical_distribution = maxent.getEmpiricalModel(samples_test,'min_count',2);
 
 % Get the model predictions for these patterns.
 model_logprobs = maxent.getLogProbability(model,limited_empirical_distribution.words);
 
 % Plot on a log scale.
-% Output saved to "data/correlation.png".
+% Output saved to 'data/correlation.png'.
 figure
-plot(limited_empirical_distribution.logprobs,model_logprobs,"bo");
+plot(limited_empirical_distribution.logprobs,model_logprobs,'bo');
 hold on;
 minval = min(limited_empirical_distribution.logprobs);
-plot([minval 0],[minval 0],"-r");  % identity line
-xlabel("empirical pattern log frequency");
-ylabel("predicted pattern log frequency");
-title(sprintf("Third order model: activity patterns in %d cells",ncells));
+plot([minval 0],[minval 0],'-r');  % identity line
+xlabel('empirical pattern log frequency');
+ylabel('predicted pattern log frequency');
+title(sprintf('Third order model: activity patterns in %d cells',ncells));

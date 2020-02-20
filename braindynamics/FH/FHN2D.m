@@ -1,7 +1,7 @@
 % FHN2D Sheet of FitzHugh-Nagumo neurons
 % The spatial equations are
-%    V" = V - 1/3*V^3 - W + c^2*(Vxx +Vyy) + Iext
-%    tau * W" = V + a - b*W
+%    V' = V - 1/3*V^3 - W + c^2*(Vxx +Vyy) + Iext
+%    tau * W' = V + a - b*W
 % where V(x,t) is the membrane voltage at time t for the neuron at
 % position x and W(x,t) is the corresponding recovery variable. 
 %
@@ -30,21 +30,21 @@ function sys = FHN2D(nr,nc)
     
     % Our ODE parameters
     sys.pardef = [
-        struct("name","a",     "value",1.0,  "lim",[0 5])
-        struct("name","b",     "value",0.5,  "lim",[0 1])
-        struct("name","c",     "value",0.5,  "lim",[0 5])
-        struct("name","S",     "value",S,    "lim",[0 1])
-        struct("name","Iamp",  "value",1,    "lim",[0 5])
-        struct("name","Idur",  "value",100,  "lim",[0 50])
-        struct("name","tau",   "value",50,   "lim",[1 20])
-        struct("name","dx",    "value",1,    "lim",[0.1 10])
-        struct("name","dy",    "value",1,    "lim",[0.1 10])
+        struct('name','a',     'value',1.0,  'lim',[0 5])
+        struct('name','b',     'value',0.5,  'lim',[0 1])
+        struct('name','c',     'value',0.5,  'lim',[0 5])
+        struct('name','S',     'value',S,    'lim',[0 1])
+        struct('name','Iamp',  'value',1,    'lim',[0 5])
+        struct('name','Idur',  'value',100,  'lim',[0 50])
+        struct('name','tau',   'value',50,   'lim',[1 20])
+        struct('name','dx',    'value',1,    'lim',[0.1 10])
+        struct('name','dy',    'value',1,    'lim',[0.1 10])
         ];
     
     % Our ODE variables
     sys.vardef = [
-        struct("name","V", "value",-1.3*ones(nr,nc), "lim",[-3 3])
-        struct("name","W", "value",-0.6*ones(nr,nc), "lim",[-3 3])
+        struct('name','V', 'value',-1.3*ones(nr,nc), 'lim',[-3 3])
+        struct('name','W', 'value',-0.6*ones(nr,nc), 'lim',[-3 3])
         ];
                
     % Default time span
@@ -56,37 +56,37 @@ function sys = FHN2D(nr,nc)
     sys.odeoption.InitialStep = 0.1;
 
     % Include the Latex (Equations) panel in the GUI
-    sys.panels.bdLatexPanel.title = "Equations"; 
+    sys.panels.bdLatexPanel.title = 'Equations'; 
     sys.panels.bdLatexPanel.latex = {
-        "\textbf{FitzhughNagumo2D}";
-        "";
-        num2str([nr nc], "A  %dx%d sheet of FitzHugh-Nagumo neurons");
-        "\qquad $\dot V = V - \frac{1}{3}V^3 - W + c^2 (\frac{\partial^2{V}}{\partial x^2} + \frac{\partial^2{V}}{\partial y^2} ) + I$";
-        "\qquad $\tau \dot W = V + a - b W$";
-        "where";
-        "\qquad $V(x,y,t)$ is the membrane voltage at position $x,y$,";
-        "\qquad $W(x,y,t)$ is the recovery variable at position $x,y$,";
-        "\qquad $I(x,y,t)$ is the injection current at position $x,y$,";
-        "\qquad $a,b,c$ are constants,";
-        "\qquad $\tau$ is a time constant,";
-        "\qquad $dx$ and $dy$ are spatial step sizes.";
-        "";
-        "The stimulus is defined as";
-        "\qquad $I(x,y,t) = I_{amp} \times S(x,y)$";
-        "where"
-        "\qquad $S(x,y)$ is the spatial profile of the stimulus,";
-        "\qquad $Iamp$ is the amplitude of the stimulus,";
-        "\qquad $Idur$ is the duration of the stimulus.";
-        "";
-        "Spatial derivatives are approximated with second-order central differences,";
-        "\qquad $\partial^2 V / \partial x^2 \approx \big( V_{i,j-1} - 2V_{i,j} + V_{i,j+1} \big) / dx^2$";
-        "\qquad $\partial^2 V / \partial y^2 \approx \big( V_{i-1,j} - 2V_{i,j} + V_{i+1,j} \big) / dy^2$";
-        "";
-        "\textbf{References}";
-        "Fitzhugh (1961) Impulses and physiological states in theoretical models of nerve membrane. Biophysical J. 1:445--466";
-        "Nagumo, Arimoto and Yoshizawa (1962) An active pulse transmission line simulating nerve axon. Proc. IRE. 50:2061--2070.";
-        "";
-...        num2str([n n],"$U$ and $V$ are both %d x %d arrays in this simulation.");
+        '\textbf{FitzhughNagumo2D}';
+        '';
+        num2str([nr nc], 'A  %dx%d sheet of FitzHugh-Nagumo neurons');
+        '\qquad $\dot V = V - \frac{1}{3}V^3 - W + c^2 (\frac{\partial^2{V}}{\partial x^2} + \frac{\partial^2{V}}{\partial y^2} ) + I$';
+        '\qquad $\tau \dot W = V + a - b W$';
+        'where';
+        '\qquad $V(x,y,t)$ is the membrane voltage at position $x,y$,';
+        '\qquad $W(x,y,t)$ is the recovery variable at position $x,y$,';
+        '\qquad $I(x,y,t)$ is the injection current at position $x,y$,';
+        '\qquad $a,b,c$ are constants,';
+        '\qquad $\tau$ is a time constant,';
+        '\qquad $dx$ and $dy$ are spatial step sizes.';
+        '';
+        'The stimulus is defined as';
+        '\qquad $I(x,y,t) = I_{amp} \times S(x,y)$';
+        'where'
+        '\qquad $S(x,y)$ is the spatial profile of the stimulus,';
+        '\qquad $Iamp$ is the amplitude of the stimulus,';
+        '\qquad $Idur$ is the duration of the stimulus.';
+        '';
+        'Spatial derivatives are approximated with second-order central differences,';
+        '\qquad $\partial^2 V / \partial x^2 \approx \big( V_{i,j-1} - 2V_{i,j} + V_{i,j+1} \big) / dx^2$';
+        '\qquad $\partial^2 V / \partial y^2 \approx \big( V_{i-1,j} - 2V_{i,j} + V_{i+1,j} \big) / dy^2$';
+        '';
+        '\textbf{References}';
+        'Fitzhugh (1961) Impulses and physiological states in theoretical models of nerve membrane. Biophysical J. 1:445--466';
+        'Nagumo, Arimoto and Yoshizawa (1962) An active pulse transmission line simulating nerve axon. Proc. IRE. 50:2061--2070.';
+        '';
+...        num2str([n n],'$U$ and $V$ are both %d x %d arrays in this simulation.');
         };
               
     % Other display panels

@@ -11,30 +11,30 @@
 % Example 2: Using the Brain Dynamics command-line solver
 %   n = 20;                                            % num of processes
 %   sys = OrnsteinUhlenbeck(n);                        % system struct
-%   sys.pardef = bdSetValue(sys.pardef,"mu",0.5);      % "mu" parameter
-%   sys.pardef = bdSetValue(sys.pardef,"sigma",0.1);   % "sigma" parameter
-%   sys.vardef = bdSetValue(sys.vardef,"Y",rand(n,1)); % "Y" initial values
+%   sys.pardef = bdSetValue(sys.pardef,'mu',0.5);      % 'mu' parameter
+%   sys.pardef = bdSetValue(sys.pardef,'sigma',0.1);   % 'sigma' parameter
+%   sys.vardef = bdSetValue(sys.vardef,'Y',rand(n,1)); % 'Y' initial values
 %   sys.tspan = [0 10];                                % time domain
 %   sol = bdSolve(sys);                                % solve
 %   t = sol.x;                                         % time steps
 %   Y = sol.y;                                         % solution variables
 %   dW = sol.dW;                                       % Wiener increments
 %   subplot(1,2,1); 
-%   plot(t,Y); xlabel("time"); ylabel("Y");            % plot time trace 
+%   plot(t,Y); xlabel('time'); ylabel('Y');            % plot time trace 
 %   subplot(1,2,2);
-%   histfit(dW(:)); xlabel("dW"); ylabel("count");     % noise histogram
+%   histfit(dW(:)); xlabel('dW'); ylabel('count');     % noise histogram
 function sys = OrnsteinUhlenbeck(n)
     % Handle to our SDE functions
     sys.sdeF = @sdeF;       % deterministic part 
     sys.sdeG = @sdeG;       % stochastic part
  
     % SDE parameters
-    sys.pardef = [ struct("name","theta", "value",1.0);
-                   struct("name","mu",    "value",0.5);
-                   struct("name","sigma", "value",0.5) ];
+    sys.pardef = [ struct('name','theta', 'value',1.0);
+                   struct('name','mu',    'value',0.5);
+                   struct('name','sigma', 'value',0.5) ];
                
     % SDE state variables
-    sys.vardef = struct("name","Y",  "value",5*ones(n,1));
+    sys.vardef = struct('name','Y',  'value',5*ones(n,1));
     
     % Nominate the applicable SDE solvers
     sys.sdesolver = {@sdeEM,@sdeSH};    % Euler-Marayuma, Stratonovich-Huen
@@ -44,19 +44,19 @@ function sys = OrnsteinUhlenbeck(n)
     sys.sdeoption.NoiseSources = n;     % Number of noise sources
 
     % Latex (Equations) panel
-    sys.panels.bdLatexPanel.title = "Equations"; 
-    sys.panels.bdLatexPanel.latex = {"\textbf{Ornstein-Uhlenbeck}";
-        "";
-        "System of $n$ independent Ornstein-Uhlenbeck processes";
-        "\qquad $dY_i = \theta (\mu - Y_i)\,dt + \sigma dW_i$";
-        "where";
-        "\qquad $Y_i(t)$ are the $n$ state variables,";
-        "\qquad $\mu$ dictates the long-term mean of $Y_i(t)$,";
-        "\qquad $\theta>0$ is the rate of convergence to the mean,";
-        "\qquad $\sigma>0$ is the volatility of the noise.";
-        "";
-        "Notes";
-        ["\qquad 1. This simulation has $n{=}",num2str(n),"$."]};
+    sys.panels.bdLatexPanel.title = 'Equations'; 
+    sys.panels.bdLatexPanel.latex = {'\textbf{Ornstein-Uhlenbeck}';
+        '';
+        'System of $n$ independent Ornstein-Uhlenbeck processes';
+        '\qquad $dY_i = \theta (\mu - Y_i)\,dt + \sigma dW_i$';
+        'where';
+        '\qquad $Y_i(t)$ are the $n$ state variables,';
+        '\qquad $\mu$ dictates the long-term mean of $Y_i(t)$,';
+        '\qquad $\theta>0$ is the rate of convergence to the mean,';
+        '\qquad $\sigma>0$ is the volatility of the noise.';
+        '';
+        'Notes';
+        ['\qquad 1. This simulation has $n{=}',num2str(n),'$.']};
               
     % Time Portrait panel
     sys.panels.bdTimePortrait = [];

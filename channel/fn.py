@@ -3,9 +3,9 @@ import numpy as np
 
 from scipy.integrate import odeint
 
-"""
+'''
 Fitzhugh-Nagumo Half-Adder (fitzhugh nagumo) 
-"""
+'''
 
 # Input current
 def input_1(t): return 1 * (t > 500) - 1 * (t>1000) + 1 * (t > 1500)
@@ -43,26 +43,26 @@ plt.subplots_adjust(hspace=1)
 plt.figure(1)
 
 plt.subplot(4, 1, 1)
-plt.title("Fitzhugh-Nagumo Half-Adder")
-plt.plot(t, u1, "b")
+plt.title('Fitzhugh-Nagumo Half-Adder')
+plt.plot(t, u1, 'b')
 plt.ylim(-1, 1.5)
-plt.ylabel("I$_1$")
+plt.ylabel('I$_1$')
 
 plt.subplot(4, 1, 2)
-plt.plot(t, u2, "b")
+plt.plot(t, u2, 'b')
 plt.ylim(-1, 1.5)
-plt.ylabel("I$_2$")
+plt.ylabel('I$_2$')
 
 plt.subplot(4, 1, 3)
-plt.plot(t, u3, "g")
+plt.plot(t, u3, 'g')
 plt.ylim(0, 1)
 plt.ylim(-1, 1.5)
-plt.ylabel("O$_1$")
+plt.ylabel('O$_1$')
 
 plt.subplot(4, 1, 4)
-plt.plot(t, u4, "g")
+plt.plot(t, u4, 'g')
 plt.ylim(-1, 1.5)
-plt.ylabel("O$_2$")
-plt.xlabel("Time")
+plt.ylabel('O$_2$')
+plt.xlabel('Time')
 
 plt.show()

@@ -3,7 +3,7 @@ classdef bdLatexPanel < bdPanel
     %It renders the LaTeX strings found in the sys.panels.bdLatexPanel.latex
     %field of the system structure.
     properties (Constant)
-        title = "Equations";
+        title = 'Equations';
     end    
 
     properties
@@ -31,9 +31,9 @@ classdef bdLatexPanel < bdPanel
             
             % customise the menu
             this.menu.Label = control.sys.panels.bdLatexPanel.title;
-            uimenu("Parent",this.menu, "Label","Larger Font", "Callback",@(~,~) this.FontCallback(1.25));
-            uimenu("Parent",this.menu, "Label","Smaller Font", "Callback",@(~,~) this.FontCallback(0.8));
-            uimenu("Parent",this.menu, "Label","Close", "Callback",@(~,~) close(this)); 
+            uimenu('Parent',this.menu, 'Label','Larger Font', 'Callback',@(~,~) this.FontCallback(1.25));
+            uimenu('Parent',this.menu, 'Label','Smaller Font', 'Callback',@(~,~) this.FontCallback(0.8));
+            uimenu('Parent',this.menu, 'Label','Close', 'Callback',@(~,~) close(this)); 
 
             % customise the tab
             this.tab.Title = control.sys.panels.bdLatexPanel.title;
@@ -43,19 +43,19 @@ classdef bdLatexPanel < bdPanel
 
             % construct scrolling uipanel
             panelh = numel(this.latex)*this.fontsize;      % only approximate (exact height depends on font:pixel ratio)
-            this.scrollpanel = bdScroll(this.tab,900,panelh,"BackgroundColor",[1 1 1]); 
+            this.scrollpanel = bdScroll(this.tab,900,panelh,'BackgroundColor',[1 1 1]); 
 
             % get panel height
             parenth = this.scrollpanel.panel.Position(4);
 
             % construct the axes
-            this.ax = axes("Parent",this.scrollpanel.panel, ...
-                "Units","normal", ...
-                "Position",[0 0 1 1], ...
-                "XTick", [], ...
-                "YTick", [], ...
-                "XColor", [1 1 1], ...
-                "YColor", [1 1 1]);
+            this.ax = axes('Parent',this.scrollpanel.panel, ...
+                'Units','normal', ...
+                'Position',[0 0 1 1], ...
+                'XTick', [], ...
+                'YTick', [], ...
+                'XColor', [1 1 1], ...
+                'YColor', [1 1 1]);
 
             % render the equations
             this.redraw();
@@ -89,12 +89,12 @@ classdef bdLatexPanel < bdPanel
             
                 % render the text
                 obj = text(8,yoffset, this.latex{l}, ...
-                    "interpreter","latex", ...
-                    "Parent",this.ax, ...
-                    "Units","pixels", ...
-                    "FontUnits","pixels", ...
-                    "FontSize",this.fontsize, ...
-                    "VerticalAlignment","bottom"); 
+                    'interpreter','latex', ...
+                    'Parent',this.ax, ...
+                    'Units','pixels', ...
+                    'FontUnits','pixels', ...
+                    'FontSize',this.fontsize, ...
+                    'VerticalAlignment','bottom'); 
                 
                 % error handling 
                 if obj.Extent(4)==0
@@ -129,32 +129,32 @@ classdef bdLatexPanel < bdPanel
 
             % Default panel settings
             syspanel.title = bdLatexPanel.title;
-            syspanel.latex = {"\textbf{No latex equations to display}",
-                              "", 
-                              "The \texttt{latex} strings need to be defined for this model.",
-                              ""
-                              "\texttt{sys.panels.bdLatexPanel.latex} = \{`latex string 1"", `latex string 2"", ... \};",
-                              ""
-                              "See the section on \textsl{LaTeX Equations} in the Handbook for the Brain Dynamics Toolbox."};
+            syspanel.latex = {'\textbf{No latex equations to display}',
+                              '', 
+                              'The \texttt{latex} strings need to be defined for this model.',
+                              ''
+                              '\texttt{sys.panels.bdLatexPanel.latex} = \{`latex string 1'', `latex string 2'', ... \};',
+                              ''
+                              'See the section on \textsl{LaTeX Equations} in the Handbook for the Brain Dynamics Toolbox.'};
             syspanel.fontsize = 16;              
             
             % Nothing more to do if sys.panels.bdLatexPanel is undefined
-            if ~isfield(sys,"panels") || ~isfield(sys.panels,"bdLatexPanel")
+            if ~isfield(sys,'panels') || ~isfield(sys.panels,'bdLatexPanel')
                 return;
             end
             
             % sys.panels.bdLatexPanel.title
-            if isfield(sys.panels.bdLatexPanel,"title")
+            if isfield(sys.panels.bdLatexPanel,'title')
                 syspanel.title = sys.panels.bdLatexPanel.title;
             end
             
             % sys.panels.bdLatexPanel.latex
-            if isfield(sys.panels.bdLatexPanel,"latex")
+            if isfield(sys.panels.bdLatexPanel,'latex')
                 syspanel.latex = sys.panels.bdLatexPanel.latex;
             end
             
             % sys.panels.bdLatexPanel.fontsize
-            if isfield(sys.panels.bdLatexPanel,"fontsize")
+            if isfield(sys.panels.bdLatexPanel,'fontsize')
                 syspanel.fontsize = sys.panels.bdLatexPanel.fontsize;
             end            
         end   

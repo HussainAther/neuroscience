@@ -4,18 +4,18 @@ import numpy as np
 
 from neuron import h
 
-"""
+'''
 Excitatory and inhibitory synapsae
-"""
+'''
 
 # Load external files & initialize.
-neuron.h.load_file("stdrun.hoc")
+neuron.h.load_file('stdrun.hoc')
 neuron.h.stdinit()
 
 soma = neuron.h.Section()
 soma.L = 40
 soma.diam = 40
-soma.insert("pas")
+soma.insert('pas')
 
 # Configure the passive biophysics.
 for sec in h.allsec():
@@ -47,24 +47,24 @@ time.record(neuron.h._ref_t)
 h.tstop = 1000.0 # ms
 neuron.h.run()
 
-def plottimecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel="Membrane voltage (mV)", constants=[]):
-    """
+def plottimecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel='Membrane voltage (mV)', constants=[]):
+    '''
     Convenience function to plot time courses of dependent variables.
-    """
+    '''
     if newfigure:
         plt.figure()
     plt.plot(time_array, dependent_var, label=label)
     for constant in constants:
         plt.plot(time_array, constant*np.ones(len(time_array)))
-    plt.xlabel("Time (ms)")
+    plt.xlabel('Time (ms)')
     plt.ylabel(ylabel)
     if show:
         plt.show()
 
 def dual_exp(t, tau_r, tau_d, t_start):
-    """
+    '''
     Compute the dual exponential time course using the closed form expression.
-    """
+    '''
     t = np.array(t)
     time_to_peak = (tau_r*tau_d)/(tau_d-tau_r)*np.log(tau_d/tau_r)
     factor = -np.exp(-time_to_peak/tau_r)+numpy.exp(-time_to_peak/tau_d)
@@ -74,8 +74,8 @@ def dual_exp(t, tau_r, tau_d, t_start):
     return dual_exp
 
 # Plot.
-plottimecourse(time, g_syn, ylabel="Conductance (uS)", label="NEURON")
+plottimecourse(time, g_syn, ylabel='Conductance (uS)', label='NEURON')
 plt.plot(time, connection.weight[0]*dual_exp(time, synapse.tau1, synapse.tau2, 
-                                                   t_start=100.0+connection.delay), "r--", lw=2, label="math. expr.")
+                                                   t_start=100.0+connection.delay), 'r--', lw=2, label='math. expr.')
 plt.legend()
 plottimecourse(time, v_soma)

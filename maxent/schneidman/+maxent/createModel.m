@@ -24,7 +24,7 @@
 %   distribution - distribution the random projection values are drawn from (for RP model)
 %   indegree     - average number of nonzero projection elements for RP model
 %   threshold    - relative threshold for random projection (for RP model)
-%   interactions - cell array of interacting groups for high-order maxent model (for "custom" model)
+%   interactions - cell array of interacting groups for high-order maxent model (for 'custom' model)
 function model = createModel(ncells, model_string, varargin)
 
 if nargin<2

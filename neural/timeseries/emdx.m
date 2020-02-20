@@ -82,7 +82,7 @@ for chani=1:nchans
             numiter  = 0;
             signal   = imfsignal;
             
-            % "Sifting" means iteratively identifying peaks/troughs in the
+            % 'Sifting' means iteratively identifying peaks/troughs in the
             % signal, interpolating across peaks/troughs, and then recomputing
             % peaks/troughs in the interpolated signal. Sifting ends when
             % variance between interpolated signal and previous sifting

@@ -10,78 +10,78 @@ function sys = BOLDHRF()
     
     % Our ODE parameters
     sys.pardef = [
-        struct("name","V0",    "value",0.02,   "lim",[0 1]);
-        struct("name","E0",    "value",0.34,   "lim",[0.01 1]);
-        struct("name","tau0",  "value",0.98,   "lim",[0.01 2]);
-        struct("name","tau1",  "value",1.00,   "lim",[0.01 2]);
-        struct("name","alpha", "value",0.33,   "lim",[0.01 1]);
-        struct("name","kappa", "value",0.65,   "lim",[0 1]);
-        struct("name","gamma", "value",0.41,   "lim",[0 1]);
-        struct("name","Z",     "value",1.00,   "lim",[0 2]);
-        struct("name","ton",   "value",0,      "lim",[0 1]);
-        struct("name","toff",  "value",1,      "lim",[0 1]);
+        struct('name','V0',    'value',0.02,   'lim',[0 1]);
+        struct('name','E0',    'value',0.34,   'lim',[0.01 1]);
+        struct('name','tau0',  'value',0.98,   'lim',[0.01 2]);
+        struct('name','tau1',  'value',1.00,   'lim',[0.01 2]);
+        struct('name','alpha', 'value',0.33,   'lim',[0.01 1]);
+        struct('name','kappa', 'value',0.65,   'lim',[0 1]);
+        struct('name','gamma', 'value',0.41,   'lim',[0 1]);
+        struct('name','Z',     'value',1.00,   'lim',[0 2]);
+        struct('name','ton',   'value',0,      'lim',[0 1]);
+        struct('name','toff',  'value',1,      'lim',[0 1]);
         ];
                    
     % Our ODE variables
     sys.vardef = [
-        struct("name","v", "value",1, "lim",[0.9 1.4]);
-        struct("name","q", "value",1, "lim",[0.7 1.1])
-        struct("name","f", "value",1, "lim",[0.8 1.9]);
-        struct("name","s", "value",0, "lim",[-0.3 0.8]);
+        struct('name','v', 'value',1, 'lim',[0.9 1.4]);
+        struct('name','q', 'value',1, 'lim',[0.7 1.1])
+        struct('name','f', 'value',1, 'lim',[0.8 1.9]);
+        struct('name','s', 'value',0, 'lim',[-0.3 0.8]);
         ];
 
     % Default time span
     sys.tspan = [0 30];
               
     % ODE solvers options
-    sys.odeoption = odeset("RelTol",1e-6);
+    sys.odeoption = odeset('RelTol',1e-6);
 
     % Include the Latex (Equations) panel in the GUI
-    sys.panels.bdLatexPanel.title = "Equations"; 
-    sys.panels.bdLatexPanel.latex = {"\textbf{BOLDHRF}";
-        "";
-        "The haemodynamic model of the fMRI BOLD response is";
-        "\qquad $y(t) = V_0 \; ( k_1\;(1-q) + k_2\;(1-q/v) + k_3\;(1-v))$";
-        "where";
-        "\qquad $v(t)$ is the normalised volume of blood";
-        "\qquad $q(t)$ is the normalised deoxyhaemoglobin content";
-        "\qquad $V_0 \approx 0.02$ is the resting blood volume";
-        "\qquad $k_1 = 7 E_0$";
-        "\qquad $k_2 = 2$";
-        "\qquad $k_3 = 2 E_0 - 0.2$";
-        "\qquad $E_0 \approx 0.34$ is the resting oxygen extraction fraction";
-        "";
-        "The changes in blood volume and deoxyhaemoglobin are governed";
-        "by the net inflow and outflow of blood acording to the equations,";
-        "\qquad $\tau_0 \; \dot v = f_{in} - f_{out}$";
-        "\qquad $\tau_0 \; \dot q = f_{in} \, E(f_{in})/E_0 - f_{out} \, q/v$";
-        "where $\tau_0 \approx 0.98$ seconds and $E(f)=1-(1{-}E_0)^{1/f}$.";
-        "";
-        "\textbf{Blood outflow}";
-        "The rate of blood outflow depends on the volume of blood,";
-        "\qquad $f_{out}(v) = v^{1/\alpha}$";       
-        "where $\alpha \approx 0.33$ is the stiffness of the venous balloon.";
-        "";
-        "\textbf{Blood inflow}";
-        "The inflow of blood changes in response to an unspecified";
-        "vasodilatory signal that is mediated by neural activity,";
-        "\qquad $\tau_1 \dot f = s$";       
-        "\qquad $\tau_1 \dot s = u(t) - \kappa s - \gamma\; (f-1)$";
-        "where";
-        "\qquad $s(t)$ is the vasodilatory signal";
-        "\qquad $u(t)$ is the neural activity in the voxel";
-        "\qquad $\kappa \approx 0.65$ represents the decay rate of $s(t)$";
-        "\qquad $\gamma \approx 0.41$ represents autoregulatory feedback for $s(t)$";
-        "";
-        "\textbf{Neuronal activity}";
-        "The neuronal activity in this simulation is a square pulse, ";
-        "\qquad $u(t) = Z$ when $t_{on} \leq t < t_{off}$";
-        "\qquad $u(t) = 0$ otherwise.";
-        "The response to the pulse can be used to create a convolution kernel.";
-        "";
-        "\textbf{Further Reading}";
-        "A complete description of the haemodynamic model is included";
-        "in the Handbook for the Brain Dynamics Toolbox (2018b).";
+    sys.panels.bdLatexPanel.title = 'Equations'; 
+    sys.panels.bdLatexPanel.latex = {'\textbf{BOLDHRF}';
+        '';
+        'The haemodynamic model of the fMRI BOLD response is';
+        '\qquad $y(t) = V_0 \; ( k_1\;(1-q) + k_2\;(1-q/v) + k_3\;(1-v))$';
+        'where';
+        '\qquad $v(t)$ is the normalised volume of blood';
+        '\qquad $q(t)$ is the normalised deoxyhaemoglobin content';
+        '\qquad $V_0 \approx 0.02$ is the resting blood volume';
+        '\qquad $k_1 = 7 E_0$';
+        '\qquad $k_2 = 2$';
+        '\qquad $k_3 = 2 E_0 - 0.2$';
+        '\qquad $E_0 \approx 0.34$ is the resting oxygen extraction fraction';
+        '';
+        'The changes in blood volume and deoxyhaemoglobin are governed';
+        'by the net inflow and outflow of blood acording to the equations,';
+        '\qquad $\tau_0 \; \dot v = f_{in} - f_{out}$';
+        '\qquad $\tau_0 \; \dot q = f_{in} \, E(f_{in})/E_0 - f_{out} \, q/v$';
+        'where $\tau_0 \approx 0.98$ seconds and $E(f)=1-(1{-}E_0)^{1/f}$.';
+        '';
+        '\textbf{Blood outflow}';
+        'The rate of blood outflow depends on the volume of blood,';
+        '\qquad $f_{out}(v) = v^{1/\alpha}$';       
+        'where $\alpha \approx 0.33$ is the stiffness of the venous balloon.';
+        '';
+        '\textbf{Blood inflow}';
+        'The inflow of blood changes in response to an unspecified';
+        'vasodilatory signal that is mediated by neural activity,';
+        '\qquad $\tau_1 \dot f = s$';       
+        '\qquad $\tau_1 \dot s = u(t) - \kappa s - \gamma\; (f-1)$';
+        'where';
+        '\qquad $s(t)$ is the vasodilatory signal';
+        '\qquad $u(t)$ is the neural activity in the voxel';
+        '\qquad $\kappa \approx 0.65$ represents the decay rate of $s(t)$';
+        '\qquad $\gamma \approx 0.41$ represents autoregulatory feedback for $s(t)$';
+        '';
+        '\textbf{Neuronal activity}';
+        'The neuronal activity in this simulation is a square pulse, ';
+        '\qquad $u(t) = Z$ when $t_{on} \leq t < t_{off}$';
+        '\qquad $u(t) = 0$ otherwise.';
+        'The response to the pulse can be used to create a convolution kernel.';
+        '';
+        '\textbf{Further Reading}';
+        'A complete description of the haemodynamic model is included';
+        'in the Handbook for the Brain Dynamics Toolbox (2018b).';
         };
     
     % Display Panels
@@ -134,10 +134,10 @@ function UserData = BOLD(ax,t,sol,V0,E0,tau0,tau1,alpha,kappa,gamma,Z,ton,toff)
     t = sol.x;
     
     % plot the BOLD signal
-    plot(t, 100*y, "color","k", "LineWidth",1);
-    ylabel("BOLD (%)");
-    xlabel("time");
-    title("BOLD Haemodynamic Response");
+    plot(t, 100*y, 'color','k', 'LineWidth',1);
+    ylabel('BOLD (%)');
+    xlabel('time');
+    title('BOLD Haemodynamic Response');
     
     % make the data accessible to the workspace
     UserData.t = t;
@@ -154,10 +154,10 @@ function UserData = NeuralActivity(ax,t,sol,V0,E0,tau0,tau1,alpha,kappa,gamma,Z,
     tindx = (ton<=t & t<toff);
     u(tindx) = Z;
     
-    stairs(t, u, "color","k", "LineWidth",1);
-    ylabel("u(t)");
-    xlabel("time");
-    title("Neural Activity Pulse");
+    stairs(t, u, 'color','k', 'LineWidth',1);
+    ylabel('u(t)');
+    xlabel('time');
+    title('Neural Activity Pulse');
     
     % make the data accessible to the workspace
     UserData.t = t;

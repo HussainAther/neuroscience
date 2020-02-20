@@ -3,7 +3,7 @@ function [movieFrames] = driftingSinusoid(maxY, maxX, nFramesToMake, backgroundG
 % [movieFrames] = driftingSinusoid(maxY, maxX, nFramesToMake, backgroundGray, angle, spatialPeriod_pixPerCycle, speed_PixPerFrame, contrast)
 %  
 % Will make a planar sinusoid that drifts in a direction perpendicular to
-% the "lines" in the pattern.  The sinusoid will always be presented in a
+% the 'lines' in the pattern.  The sinusoid will always be presented in a
 % circular apeture of diameter min(maxX,maxY).  The output values in each frame
 % range from 0 (black) to 255 (white)
 %
@@ -14,7 +14,7 @@ function [movieFrames] = driftingSinusoid(maxY, maxX, nFramesToMake, backgroundG
 % backgroundGray = gray level of the background, range: 0 (black) - 255(white)
 % angle = drift angle of the sinusoid (i.e. the direction of motion)
 % spatialPeriod_pixPerCycle = number of pixels covered by each cycle of the
-%   sinusoid  (this is basically how "thin" or "fat" the lines are)
+%   sinusoid  (this is basically how 'thin' or 'fat' the lines are)
 % speed_PixPerFrame = number of pixels the sinusoid drifts on each frame
 % contrast = the depth of modulation of the sinusoid.  (1 = full modulation
 %   from black to white, 0 = no modulation = gray screen)

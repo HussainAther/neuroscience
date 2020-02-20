@@ -41,7 +41,7 @@ while kt < 10000 % need a discrete index, since the loop refers to
     for i = 2:16
         % in the following you must make dV(t+1,i) depend on the previous
         % values of V, so the right hand side should have t and NOT t+1; also
-        % you cannot use t as a "real" number to index an array, so use k
+        % you cannot use t as a 'real' number to index an array, so use k
         % instead
         dV(i) = dt*(V(kt,i-1) - 2*V(kt,i) + V(kt,i+1))/(R*C);%discrete eq
     end

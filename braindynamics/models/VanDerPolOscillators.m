@@ -1,8 +1,8 @@
 function sys = VanDerPolOscillators(Kij)
     % VanDerPolOscillators  System of N coupled van der Pol ocillators
     %   Implements a set of n coupled van der Pol equation
-    %        Ui" = Vi
-    %        Vi" = a*(1-Ui^2)*Vi - Ui - b*Kij*Ui
+    %        Ui' = Vi
+    %        Vi' = a*(1-Ui^2)*Vi - Ui - b*Kij*Ui
     %   where i=1..n and Kij is an nxn coupling matrix
     %
     % Example 1: Using the Brain Dynamics GUI
@@ -17,17 +17,17 @@ function sys = VanDerPolOscillators(Kij)
     %   Kij = circshift(eye(n),1) + ...                     % nearest-neighbour
     %         circshift(eye(n),-1);                         % coupling
     %   sys = VanDerPolOscillators(Kij);                    % system struct
-    %   sys.pardef = bdSetValue(sys.pardef,"a",1);          % set "a" parameter
-    %   sys.pardef = bdSetValue(sys.pardef,"b",1.3);        % set "b" parameter
-    %   sys.vardef = bdSetValue(sys.vardef,"U",rand(n,1));  % set "y1" variable
-    %   sys.vardef = bdSetValue(sys.vardef,"V",rand(n,1));  % set "y2" variable
+    %   sys.pardef = bdSetValue(sys.pardef,'a',1);          % set 'a' parameter
+    %   sys.pardef = bdSetValue(sys.pardef,'b',1.3);        % set 'b' parameter
+    %   sys.vardef = bdSetValue(sys.vardef,'U',rand(n,1));  % set 'y1' variable
+    %   sys.vardef = bdSetValue(sys.vardef,'V',rand(n,1));  % set 'y2' variable
     %   sys.tspan = [0 10];                                 % set time domain
     %   sol = bdSolve(sys);                                 % solve
     %   tplot = 0:0.1:10;                                   % plot time domain
     %   U = bdEval(sol,tplot,1:n);                          % U solution
     %   V = bdEval(sol,tplot,(1:n)+n);                      % V solution
-    %   plot(tplot,U,"b", tplot,V,"r");                     % plot the result
-    %   xlabel("time"); ylabel("U (blue), V (red)");        % axis labels
+    %   plot(tplot,U,'b', tplot,V,'r');                     % plot the result
+    %   xlabel('time'); ylabel('U (blue), V (red)');        % axis labels
     % determine the number of nodes from Kij
     n = size(Kij,1);
 
@@ -35,13 +35,13 @@ function sys = VanDerPolOscillators(Kij)
     sys.odefun = @odefun;
     
     % ODE parameters
-    sys.pardef = [ struct("name","Kij", "value",Kij,  "lim",[0 2]);
-                   struct("name","a",   "value",  1,  "lim",[-1 2]);
-                   struct("name","b",   "value",0.2,  "lim",[0 1]) ];
+    sys.pardef = [ struct('name','Kij', 'value',Kij,  'lim',[0 2]);
+                   struct('name','a',   'value',  1,  'lim',[-1 2]);
+                   struct('name','b',   'value',0.2,  'lim',[0 1]) ];
     
     % ODE variables           
-    sys.vardef = [ struct("name","U",   "value",rand(n,1), "lim",[-2.5 2.5]);
-                   struct("name","V",   "value",rand(n,1), "lim",[-2.5 2.5]) ];
+    sys.vardef = [ struct('name','U',   'value',rand(n,1), 'lim',[-2.5 2.5]);
+                   struct('name','V',   'value',rand(n,1), 'lim',[-2.5 2.5]) ];
                
     % Default time span
     sys.tspan = [0 100];
@@ -52,22 +52,22 @@ function sys = VanDerPolOscillators(Kij)
     %sys.odeoption.AbsTol = 1e-6;                % see odeset 
 
     % Include the Latex (Equations) panel in the GUI
-    sys.panels.bdLatexPanel.title = "Equations"; 
-    sys.panels.bdLatexPanel.latex = {"\textbf{Van der Pol Oscillators}";
-        "";
-        "A network of coupled van der Pol oscillators";
-        "\qquad $\dot U_i = V_i$";
-        "\qquad $\dot V_i = a\,(1 - U_i^2)\,V_i - U_i - b\,\sum_j K_{ij}\,U_j$";
-        "where";
-        "\qquad $U_i(t)$ and $V_i(t)$ are the dynamic variables ($n$ x $1$),";
-        "\qquad $K_{ij}$ is the connectivity matrix ($n$ x $n$),";
-        "\qquad $a$ and $b$ are scalar constants,";
-        "\qquad $i,j{=}1 \dots n$.";
-        "";
-        "Notes";
-        ["\qquad 1. This simulation has $n{=}",num2str(n),"$."];
-        "\qquad 2. Oscillations occur for $a>0$.";
-        "\qquad 3. Network coupling is scaled by $b$."};
+    sys.panels.bdLatexPanel.title = 'Equations'; 
+    sys.panels.bdLatexPanel.latex = {'\textbf{Van der Pol Oscillators}';
+        '';
+        'A network of coupled van der Pol oscillators';
+        '\qquad $\dot U_i = V_i$';
+        '\qquad $\dot V_i = a\,(1 - U_i^2)\,V_i - U_i - b\,\sum_j K_{ij}\,U_j$';
+        'where';
+        '\qquad $U_i(t)$ and $V_i(t)$ are the dynamic variables ($n$ x $1$),';
+        '\qquad $K_{ij}$ is the connectivity matrix ($n$ x $n$),';
+        '\qquad $a$ and $b$ are scalar constants,';
+        '\qquad $i,j{=}1 \dots n$.';
+        '';
+        'Notes';
+        ['\qquad 1. This simulation has $n{=}',num2str(n),'$.'];
+        '\qquad 2. Oscillations occur for $a>0$.';
+        '\qquad 3. Network coupling is scaled by $b$.'};
     
     % Include the Time Portrait panel in the GUI
     sys.panels.bdTimePortrait = [];
