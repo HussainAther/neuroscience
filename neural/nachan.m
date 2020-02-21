@@ -1,10 +1,7 @@
-%{Response of blowfly photoreceptors to light pulses delivered in the dark (black dots) or from different background 
-luminance values (black triangles). The corresponding background luminances are indicated by the arrows on the abscissa. 
-The red dots correspond to the steady-state adaptation of the membrane potential to varying background intensities. 
-The abscissa is the logarithm of the light intensity (background or background plus pulse) relative to a fixed reference level. 
-
-The ordinate is the membrane potential deflection normalized relative to the maximal deflection, VMax, that could be elicited by a light pulse
-Adapted from Laughlin and Hardie's "Common strategies for light adaptation in the peripheral visual systems of fly and dragonfly"
+%{Simulate a single sodium channel at V = −37.94 mV using the following two methods.
+(i) Simulate three independent m gates and one h gate. Then use the gate states to 
+compute the state of the associated sodium channel.
+(ii) Use a transition matrix and the Gillespie algorithm.
 %}
 
 %target membrane potential
