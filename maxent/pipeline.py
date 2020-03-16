@@ -4,12 +4,12 @@ import numpy as np
 from genSamples import generateSamples
 from os.path import dirname, join as pjoin
 
-'''
+"""
 Pipeline for Maximum entropy analysis
-'''
+"""
 
 # Read in data.
-spike15 = h5py.File('example15.mat', 'r')
+spike15 = h5py.File("example15.mat", "r")
 
 # Randomly divide it into a training set and 
 # a test set (so we can verify how well we trained).
