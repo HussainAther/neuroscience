@@ -24,8 +24,8 @@ for i in range(2):
     M[i][3+i] = 0.25
 
 # We need to matrix multiply W and u together to get h
-# NOTE: cannot use W * u, that's going to do a scalar multiply
-# it's element wise otherwise
+# NOTE: cannot use W * u, that"s going to do a scalar multiply
+# it"s element wise otherwise
 h = W.dot(u)
 
 # Ok then the big deal is:

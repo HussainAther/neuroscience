@@ -23,15 +23,15 @@ T = np.linspace(tmin, tmax, 10000)
 # Potassium ion-channel rate functions
 
 def alpha_n(Vm):
-    '''
+    """
     Alpha rate constant for membrane voltage.
-    ''' 
+    """ 
     return (0.01 * (10.0 - Vm)) / (np.exp(1.0 - (0.1 * Vm)) - 1.0)
 
 def beta_n(Vm):
-    '''
+    """
     Beta rate constant for membrane voltage.
-    ''' 
+    """ 
     return 0.125 * np.exp(-Vm / 80.0)
 
 # Sodium ion-channel rate functions
@@ -64,9 +64,9 @@ def h_inf(Vm=0.0):
     return alpha_h(Vm) / (alpha_h(Vm) + beta_h(Vm))
 
 def Id(t):
-    '''
+    """
     Input stimulus current.
-    '''
+    """
     if 0.0 < t < 1.0:
         return 150.0
     elif 10.0 < t < 11.0:
@@ -74,9 +74,9 @@ def Id(t):
     return 0.0
 
 def compute_derivatives(y, t0):
-    '''
+    """
     Use the definition of a derivative to compute the derivates at each point.
-    '''
+    """
     dy = np.zeros((4,))
     
     Vm = y[0]

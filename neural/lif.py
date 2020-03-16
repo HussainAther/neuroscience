@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-'''
+"""
 Leaky integrate and fire (leaky-integrate-and-fire LIF) 
-'''
+"""
 
 # Initialize vairables.
 T = 50 # total time to simulate (msec)
@@ -31,8 +31,8 @@ trest = t + tauref
 
 # Plot.
 plt.plot(time, Vm)
-plt.title('Leaky Integrate-and-Fire Example')
-plt.ylabel('Membrane Potential (V)')
-plt.xlabel('Time (msec)')
+plt.title("Leaky Integrate-and-Fire Example")
+plt.ylabel("Membrane Potential (V)")
+plt.xlabel("Time (msec)")
 plt.ylim([0,2])
 plt.show()

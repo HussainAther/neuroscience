@@ -1,22 +1,22 @@
 import numpy as np
 
-'''
+"""
 The Wilson-Cowan model describes dynamics of interactions between simple exchitatory
-and inhibitory model neurons. It's used in modeling neuronal popuatlions with phase
+and inhibitory model neurons. It"s used in modeling neuronal popuatlions with phase
 plane methods and numerical solutions to describe the responses of neuronal populations
 to stimuli. H.R. Wilson and Jack D. Cowan created the model in the 1970s to prove the existence
 of limit cycle dynamics in response to one class of stimuli implies the existence
 of multiple stable states and hysteresis in response to a different class of stimuli.
-'''
+"""
 
 def sig(x)
-    '''
+    """
     Sigmoid function of some value x.
-    '''
+    """
     return 1 / (1 + np.exp(-x))
 
 def fire(ie0, ie1, ii0, ii1, w, t, dt, uu, vv, wee, wei, wie, wii, ze, zi):
-    '''
+    """
     Each variable represents a different neuron and function in our firing model.
     ie is current of the excitatory neuron, ii is current of the inhibitory neuron,
     dt is time step size, wee, wie, wii, wei = synaptic weights for excitatory and 
@@ -25,7 +25,7 @@ def fire(ie0, ie1, ii0, ii1, w, t, dt, uu, vv, wee, wei, wie, wii, ze, zi):
     Use these to create a spatially homogenous weighing function.
     u and v are the proportion of exchitatory and inhibitory cells firing, respectively.
     z_e and z_e are the constant modulatory currents applied ot the populations.
-    '''
+    """
     i_e = ie0 + ie1 * np.sin(w*t) # current through excitatory neuron
     i_i = ii0 + ii1 * np.sin(w*t) # current through inhibitory neuron
     dE = dt * (-uu + sig((wee * uu) - (wie * vv) - ze + i_e))/tau # excitatory differential

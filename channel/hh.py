@@ -3,9 +3,9 @@ import numpy as np
 
 from scipy.integrate import odeint
 
-'''
+"""
 Hodgkin-Huxley (Hodgkin Huxley) using scipy
-'''
+"""
 
 # Constants
 C_m = 1.0  # uF/cm^2
@@ -34,10 +34,10 @@ t = np.arange(0.0, 400.0, 0.1)
 
 # Set up the ODEs.
 def hodgkin_huxley(X, t):
-    '''
+    """
     With input variables give in X and t, provide the input current
     and the variables of the HH equation.
-    '''
+    """
     V, m, h, n = X
     dVdt = (Input_current(t) - I_Na(V, m, h) - I_K(V, n) - I_L(V)) / C_m
     dmdt = alpha_m(V) * (1.0 - m) - beta_m(V) * m
@@ -59,28 +59,28 @@ plt.subplots_adjust(hspace = 1)
 plt.figure(1)
 
 plt.subplot(5, 1, 1)
-plt.title('Hodgkin-Huxley Neuron')
-plt.plot(t, V, 'b')
-plt.ylabel('V (mV)')
+plt.title("Hodgkin-Huxley Neuron")
+plt.plot(t, V, "b")
+plt.ylabel("V (mV)")
 
 plt.subplot(5, 1, 2)
-plt.plot(t, m, 'k')
-plt.ylabel('m(V)')
+plt.plot(t, m, "k")
+plt.ylabel("m(V)")
 
 plt.subplot(5, 1, 3)
-plt.plot(t, h, 'r')
+plt.plot(t, h, "r")
 plt.ylim(0, 1)
-plt.ylabel('h(V)')
+plt.ylabel("h(V)")
 
 plt.subplot(5, 1, 4)
-plt.plot(t, n, 'g')
+plt.plot(t, n, "g")
 plt.ylim(0, 1)
-plt.ylabel('n(V)')
+plt.ylabel("n(V)")
 
 plt.subplot(5, 1, 5)
-plt.plot(t, Input_current(t), 'm')
-plt.ylabel('Input current')
-plt.xlabel('Time (ms)')
+plt.plot(t, Input_current(t), "m")
+plt.ylabel("Input current")
+plt.xlabel("Time (ms)")
 plt.ylim(-1, 31)
 
 plt.show()
