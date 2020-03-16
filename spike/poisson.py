@@ -1,23 +1,23 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from matplotlib.delauney.triangulate import Triangulation
 
-'''
+"""
 Poisson process between vectors A and b to see if there is some event that occurs in both.
 
-Poisson's equation is obtained from adding a source term to the right-hand-side of Laplace's equation:
+Poisson"s equation is obtained from adding a source term to the right-hand-side of Laplace"s equation:
 
 ∂2p/∂x2+∂2p/∂y2 = b
 
 So, unlike the Laplace equation, there is some finite value inside the field that affects the solution.
-Poisson's equation acts to 'relax' the initial sources in the field.
-'''
+Poisson"s equation acts to "relax" the initial sources in the field.
+"""
 
 def meshgrid(xs, ys, npoints):
-    '''
+    """
     Meshgrids are 2-D grid coordinates for the simulation.
-    '''
+    """
     # randomly choose some points
     rng = np.random.RandomState(1234567890)
     rx = rng.uniform(xs[0], xs[1], size=npoints)
@@ -33,23 +33,23 @@ def meshgrid(xs, ys, npoints):
     return tri
 
 def A_e(v):
-    '''
+    """
     Take vertices of element and return contribution to A
-    '''
+    """
     G = np.vstack((np.ones((1,3)), v.T)).I * np.vstack((np.matlib.zeros((1,2)), np.eye(2)))
     return np.linalg.det(vstack((np.ones((1,3)), v.T))) * G * G.T / 2
 
 def b_e(v):
-    '''
+    """
     Take vertices of element and return contribution to b
-    '''
+    """
     vS = v.sum(axis=0)/3.0 # center of gravity
     return f(vS) * ((v[1,0]-v[0,0])*(v[2,1]-v[0,1])-(v[2,0]-v[0,0])*(v[1,1]-v[0,1])) / 6.0
 
 def poisson(tri, boundary):
-    '''
+    """
     Get elements and vertices from meshgrid using the triangle tri and boundary points boundary
-    '''
+    """
     elements = tri.triangle_nodes
     vertices = np.vstack((tri.x,tri.y)).T
     
@@ -65,28 +65,28 @@ def poisson(tri, boundary):
         A[ix_(index,index)] += A_e(vertices[index,:])
         b[index] += b_e(vertices[index,:])
     
-    # find the 'free' vertices that we need to solve for
+    # find the "free" vertices that we need to solve for
     free = list(set(range(len(vertices))) - set(boundary))
     
-    # initialise solution to zero so 'non-free' vertices are by default zero
+    # initialise solution to zero so "non-free" vertices are by default zero
     u = np.matlib.zeros((N,1))
     
-    # solve for 'free' vertices.
+    # solve for "free" vertices.
     u[free] = np.solve(A[ix_(free,free)], b[free])
     return np.array(u)
 
 def f(v):
-    '''
+    """
     The RHS f
-    '''
+    """
     x, y = v
     f = 2.0*np.cos(10.0*x)*np.sin(10.0*y) + np.sin(10.0*x*y)
     return 1
 
 def in_domain(x,y):
-    '''
+    """
     Is a point in the domain?
-    '''
+    """
     return np.sqrt(x**2 + y**2) <= 1
 
 xs = (-1.,1.)
@@ -108,16 +108,16 @@ z = where(isinf(z), 0.0, z)
 extent = (xs[0], xs[1], ys[0], ys[1])
 plt.ioff()
 plt.clf()
-plt.imshow(nan_to_num(z), interpolation='bilinear', extent=extent, origin='lower')
-plt.savefig('sol.png', bb_inches='tight')
+plt.imshow(nan_to_num(z), interpolation="bilinear", extent=extent, origin="lower")
+plt.savefig("sol.png", bb_inches="tight")
 
-'''
+"""
 Compare the Poisson model to actual data using Fano factors, interspike interval distributions,
 and coefficients of variation.
 
 Fano factor describes relationship between mean spike count over a given interval and the spike-
 count variance.
-'''
+"""
 
 a = [ 1.00000000000000000000, 0.57721566490153286061, -0.65587807152025388108,
          -0.04200263503409523553, 0.16653861138229148950, -0.04219773455554433675,
@@ -131,9 +131,9 @@ a = [ 1.00000000000000000000, 0.57721566490153286061, -0.65587807152025388108,
           0.00000000000000000141, -0.00000000000000000023, 0.00000000000000000002]
 
 def gamma(n, product=1):
-    '''
+    """
     Gamma function for some number n. Based off distribution.
-    '''
+    """
     y = float(n) - 1.0;
     s = a[-1];
     for an in a[-2::-1]:
@@ -141,13 +141,13 @@ def gamma(n, product=1):
     return 1.0 / sm
 
 def interspikeInterval(x, alpha, beta):
-    '''
+    """
     Gamma distribution is better for modeling interspike intrevals than the exponential Poisson
     distribution. The refractoriness makes short spike intervals less liekly than the
     Poisson model would predict. We use a x is gamma-distributed with a shape alpha and rate beta.
     In this case, beta is the time constant, x is the rate of firing, and alpha
     is the refractory exponential.
-    '''
+    """
     num = (beta**alpha) * (x**(alpha-1)) * np.exp(-beta*x) # numerator
     den = gamma(alpha) # denominator
     return num/den
