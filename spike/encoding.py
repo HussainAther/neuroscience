@@ -1,7 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-'''
+"""
 Encoding models address the question of how the firing rate of a neuron is related to the stimulus that is presented.
 
 A biological example would be where we stimulate a neuron with a particular light intensity.
@@ -10,7 +10,7 @@ that doubling (or halving) the light intensity should double (or halve) the firi
 The second property says that adding two light intensities together should produce a firing rate that
 is equal to the sum of the firing rates to each individual lights. This assumption of linearity does
 not hold really well in reality as neural firing rates cannot increase indefinitely.
-'''
+"""
 
 # Definition of the stimulus
 dt = 0.01 # Time step [s]
@@ -31,8 +31,8 @@ for i in range(delay,len(stim)):
 
 plt.plot(t,stim)
 plt.plot(t,response)
-plt.xlabel('Time (s)')
-plt.legend(['Stimulus','response'])
+plt.xlabel("Time (s)")
+plt.legend(["Stimulus","response"])
 
 # Running average
 N= 10
@@ -43,8 +43,8 @@ for i in range(N, len(stim)):
 
 plt.plot(t, stim)
 plt.plot(t, response)
-plt.xlabel('Time (s)')
-plt.legend(['Stimulus','response'])
+plt.xlabel("Time (s)")
+plt.legend(["Stimulus","response"])
 
 # Leaky average
 response = np.zeros(len(stim))
@@ -59,8 +59,8 @@ for i in range(N, len(stim)):
 
 plt.plot(t, stim)
 plt.plot(t, response)
-plt.xlabel('Time (s)')
-plt.legend(['Stimulus','response'])
+plt.xlabel("Time (s)")
+plt.legend(["Stimulus","response"])
 
 # Retinal ganglion cells
 [X,Y] = np.meshgrid(np.arange(-2,2,0.1),np.arange(-2,2,0.1))
@@ -72,14 +72,14 @@ rgc = (1/(2*np.pi*sigma_c**2))*np.exp(- (X**2 + Y**2)/(2*sigma_c**2)) - (B/(2*np
 
 plt.subplot(1,2,1)
 plt.imshow(rgc)
-plt.axhline(20,color='g')
-plt.title('On center ganglion cell')
-plt.axis('off')
+plt.axhline(20,color="g")
+plt.title("On center ganglion cell")
+plt.axis("off")
 plt.subplot(1,2,2)
 plt.plot(rgc[20,:])
-plt.axis('off')
-plt.axhline(0,color='k')
-plt.title('Receptive field cross section')
+plt.axis("off")
+plt.axhline(0,color="k")
+plt.title("Receptive field cross section")
 
 # Primal visual cortex single cells
 [X,Y] = np.meshgrid(np.arange(-2,2,0.1),np.arange(-2,2,0.1))
@@ -95,11 +95,11 @@ Y_rot = -X*np.sin(theta) + Y*np.cos(theta)
 
 g = np.exp( - (X_rot**2 + (gamma**2)*(Y_rot**2))/(2*sigma**2))*np.cos(2*np.pi*f*X_rot + phi)
 plt.subplot(1,2,1)
-plt.title('Simple cell RF')
-plt.axis('off')
+plt.title("Simple cell RF")
+plt.axis("off")
 plt.imshow(g)
 plt.subplot(1,2,2)
 plt.plot(g[20,:])
-plt.title('RF cross-section')
-plt.axis('off')
-plt.axhline(0,color='k')
+plt.title("RF cross-section")
+plt.axis("off")
+plt.axhline(0,color="k")
