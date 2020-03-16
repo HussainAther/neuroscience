@@ -1,8 +1,8 @@
 import numpy as np
 
-'''
+"""
 Recurrent spiking networks
-'''
+"""
 # Initialize vairables.
 N = 10 # matrix dimension
 T = 50 # total time to simulate (msec)
@@ -24,10 +24,10 @@ synapses = np.roll(synapses, -1, 1)
 
 # Synapse current model
 def Isyn(t):
-    '''
-    t is an array of times since each neuron's 
+    """
+    t is an array of times since each neuron"s 
     last spike event.
-    '''
+    """
     t[np.nonzero(t < 0)] = 0
     return t*np.exp(-t/taupsc)
 
