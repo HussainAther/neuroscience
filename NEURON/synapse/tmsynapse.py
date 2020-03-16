@@ -5,17 +5,17 @@ import numpy
 from neuron import h
 
 # Load external files & initialize.
-neuron.h.load_file('stdrun.hoc')
+neuron.h.load_file("stdrun.hoc")
 neuron.h.stdinit()
 
-'''
+"""
 Tsodyks-Markram (tsodyks markram) model.
-'''
+"""
 
 soma = neuron.h.Section()
 soma.L = 40
 soma.diam = 40
-soma.insert('pas')
+soma.insert("pas")
 
 # Configure the passive biophysics.
 for sec in h.allsec():
@@ -56,16 +56,16 @@ synapse.tau_facil = 200 # ms - relaxation from facilitation
 h.tstop = 1000.0 # ms
 neuron.h.run()
 
-def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel='Membrane voltage (mV)', constants=[]):
-    '''
+def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=None, ylabel="Membrane voltage (mV)", constants=[]):
+    """
     Convenience function to plot time courses of dependent variables.
-    '''
+    """
     if newfigure:
         plt.figure()
     plt.plot(time_array, dependent_var, label=label)
     for constant in constants:
         plt.plot(time_array, constant*numpy.ones(len(time_array)))
-    plt.xlabel('Time (ms)')
+    plt.xlabel("Time (ms)")
     plt.ylabel(ylabel)
     if show:
         plt.show()
@@ -73,9 +73,9 @@ def plot_timecourse(time_array, dependent_var, newfigure=True, show=True, label=
 plot_timecourse(time, v_soma)
 plt.axis([0, 1000, -70, -69.5])
 
-plot_timecourse(time, R_syn, ylabel='', label='$R$ - frac. of pool avail.')
-plot_timecourse(time, Use_syn, ylabel='', label='$U_{SE}$ - running rel. prob.', newfigure=False)
+plot_timecourse(time, R_syn, ylabel="", label="$R$ - frac. of pool avail.")
+plot_timecourse(time, Use_syn, ylabel="", label="$U_{SE}$ - running rel. prob.", newfigure=False)
 plt.legend()
 plt.axis([0,1000,0,1.5])
-plot_timecourse(time, g_syn, ylabel='Conductance (uS)', label='$g_{syn}$')
+plot_timecourse(time, g_syn, ylabel="Conductance (uS)", label="$g_{syn}$")
 plt.legend()

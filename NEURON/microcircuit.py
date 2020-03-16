@@ -7,36 +7,36 @@ import os
 import urllib # Download files from the web.
 import zipfile # Extract zip files.
 
-'''
+"""
 The Neocortical Microcircuit (microcircuit) Collaboration Portal (NMC Portal, 
 at [https://bbp.epfl.ch/nmc-portal](https://bbp.epfl.ch/nmc-portal)) 
-provides an online public resource of the Blue Brain Project's 
+provides an online public resource of the Blue Brain Project"s 
 first release of a digital reconstruction of the microcircuitry 
 of juvenile Rat somatosensory cortex, access to experimental 
 data sets used in the reconstruction, and the resulting single cell models.
-'''
+"""
 
 # Download neocortical layer 5 thick tufted pyramidal cell model.
-urllib.urlretrieve('https://bbp.epfl.ch/nmc-portal/documents/10184/1921755/L5_TTPC2_cADpyr232_1.zip/a058fc9c-6c67-417b-a65b-20742902ccbb','L5_TTPC2_cADpyr232_1.zip')
+urllib.urlretrieve("https://bbp.epfl.ch/nmc-portal/documents/10184/1921755/L5_TTPC2_cADpyr232_1.zip/a058fc9c-6c67-417b-a65b-20742902ccbb","L5_TTPC2_cADpyr232_1.zip")
 
 # Extract the zip file.
-with zipfile.ZipFile('L5_TTPC2_cADpyr232_1.zip', 'r') as zip_file:
-    zip_file.extractall('.')
+with zipfile.ZipFile("L5_TTPC2_cADpyr232_1.zip", "r") as zip_file:
+    zip_file.extractall(".")
 
 # Move into the directory.
-os.chdir('L5_TTPC2_cADpyr232_1')
+os.chdir("L5_TTPC2_cADpyr232_1")
 
 # Compile the files. 
-os.system('nrnivmodl mechanisms')
+os.system("nrnivmodl mechanisms")
 
 # Visualize morphology.
-neurom.viewer.draw(neurom.load_neuron('morphology/dend-C060114A7_axon-C060116A3_-_Clone_2.asc'))
+neurom.viewer.draw(neurom.load_neuron("morphology/dend-C060114A7_axon-C060116A3_-_Clone_2.asc"))
 
 # Load NEURON simulator.
-nrn.h.load_file('init.hoc')
+nrn.h.load_file("init.hoc")
 
 # Start the cell.
-nrn.h.create_cell(1) # argument 1 stands for 'load synapses'
+nrn.h.create_cell(1) # argument 1 stands for "load synapses"
 cell = nrn.h.cell
 soma = cell.soma[0]
 
@@ -48,16 +48,16 @@ stimulus.delay = 100  # ms
 stimulus.amp = 0.691907 # nA
 
 # Get current amplitudes.
-with open('current_amps.dat') as current_file:
+with open("current_amps.dat") as current_file:
     current_content = current_file.read()
 
-print('File content: ', current_content)
+print("File content: ", current_content)
 holding_current, step1_current, step2_current, step3_current = [float(x) for x in current_content.split()]
 
-print('Holding current: %f nA' % holding_current)
-print('Step 1: %f nA' % step1_current)
-print('Step 2: %f nA' % step2_current)
-print('Step 3: %f nA' % step3_current)
+print("Holding current: %f nA" % holding_current)
+print("Step 1: %f nA" % step1_current)
+print("Step 2: %f nA" % step2_current)
+print("Step 3: %f nA" % step3_current)
 
 # Activate recording of activity.
 nrn.h.create_recording() 
@@ -73,14 +73,14 @@ time = nrn.h.time
 voltage = nrn.h.voltage
 
 def plot_tv(time_array, voltage_array, show=True, label=None, constants=[]):
-    '''
+    """
     Plot time and voltage.
-    '''
+    """
     plt.plot(time_array, voltage_array, label=label)
     for constant in constants:
         plt.plot(time_array, constant*np.ones(len(time_array)))
-    plt.xlabel('Time (ms)')
-    plt.ylabel('Membrane voltage (mV)')
+    plt.xlabel("Time (ms)")
+    plt.ylabel("Membrane voltage (mV)")
     if show:
         plt.show()
     
@@ -88,21 +88,21 @@ plot_tv(time, voltage)
 
 # Define in-vivo like stimulus with Poisson process firing neurons and
 # presynaptic morphology type (m-type) specific rates.
-with open('synapses/mtype_map.tsv') as mtype_map_file:
+with open("synapses/mtype_map.tsv") as mtype_map_file:
     mtype_map_content = mtype_map_file.read()
     
 mtype_map = {}
-for line in mtype_map_content.split('\n')[:-1]:
+for line in mtype_map_content.split("\n")[:-1]:
     n, mtype = line.split()
     mtype_map[mtype] = int(n)
     
 print(mtype_map)
 
 def init_synapses(enabled_mtypes=[]):
-    '''
+    """
     Enable all the synapses that are projected onto this cell 
     from mtype listed in enabled_mtypes.
-    '''
+    """
     enabled_mtype_ints = [mtype_map[mtype] for mtype in enabled_mtypes]
     
     for i in range(0, int(cell.synapses.n_of_mtypes)): # Loop over all the m-type
@@ -123,14 +123,14 @@ init_synapses(enabled_mtypes=mtype_map.keys())
 
 # The in vivo fluctation driven regime: 
 # Depolarize at approx. 100%.
-# firing times are determined by synaptic drive 'fluctuations'.
+# firing times are determined by synaptic drive "fluctuations".
 stimulus.amp = holding_current + (step1_current/1.2) # Inject the 100% threshold.
 stimulus.dur = 100000 # Keep it on.
 
 # Configure m-type firing rates.
-exc_cells = ['L23_PC', 'L4_PC', 'L4_SS', 'L4_SP', 
-             'L5_TTPC1', 'L5_TTPC2', 'L5_STPC', 'L5_UTPC',
-             'L6_TPC_L1', 'L6_TPC_L4', 'L6_BPC', 'L6_IPC', 'L6_UTPC']
+exc_cells = ["L23_PC", "L4_PC", "L4_SS", "L4_SP", 
+             "L5_TTPC1", "L5_TTPC2", "L5_STPC", "L5_UTPC",
+             "L6_TPC_L1", "L6_TPC_L4", "L6_BPC", "L6_IPC", "L6_UTPC"]
 for mtype in mtype_map:
     if mtype in exc_cells:
         freq = 1.0 # [Hz]
