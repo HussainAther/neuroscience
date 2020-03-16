@@ -13,13 +13,13 @@ from nistats.design_matrix import make_design_matrix
 from scipy import stats
 from sklearn import neighbors
 
-'''
+"""
 Building a pipeline and tutorial for task fMRI analysis 
 in nistats and functional connectivity analysis in nilearn.
-'''
+"""
 
 def calculate_lsn_edges(A, labels):
-    '''
+    """
     Function calculates number of edges between and within predefined large-scale networks (LSNs).
     The function takes binary symetrical adjacency matrix, module assignment of each ROI and calculate number of edges between and within each
     large-scale network.
@@ -30,7 +30,7 @@ def calculate_lsn_edges(A, labels):
     Returns
     ------------
     array: M x M matrix with number of edges between each module
-    '''
+    """
     columns = np.unique(labels)
     lsn_matrix = np.zeros((len(labels), len(columns)))
     lsn_edges = np.zeros((len(columns), len(columns)))
@@ -46,21 +46,21 @@ def calculate_lsn_edges(A, labels):
     lsn_edges = lsn_matrix.T @ A @ lsn_matrix
     return lsn_edges
 
-main_folder = '/home/finc/Dropbox/GitHub/nilearn_task_networks/'
-top_dir = '/media/finc/Elements1/extracted_HCPWM/'
+main_folder = "/home/finc/Dropbox/GitHub/nilearn_task_networks/"
+top_dir = "/media/finc/Elements1/extracted_HCPWM/"
 
-fmri_list = glob.glob(top_dir + '1*/**/tfMRI_WM_RL.nii.gz', recursive=True) # if you want all tfMRI_WM_RL.nii.gz files hanging from topdir
-confounds_list = glob.glob(top_dir + '1*/**/Movement_Regressors.txt', recursive=True)
+fmri_list = glob.glob(top_dir + "1*/**/tfMRI_WM_RL.nii.gz", recursive=True) # if you want all tfMRI_WM_RL.nii.gz files hanging from topdir
+confounds_list = glob.glob(top_dir + "1*/**/Movement_Regressors.txt", recursive=True)
 
 fmri_list = sorted(fmri_list)
 confounds_list = sorted(confounds_list)
 
-print(f'Number of subjects: {len(fmri_list)}')
+print(f"Number of subjects: {len(fmri_list)}")
 
 # Load Power ROIs coordinates.
 
 power = datasets.fetch_coords_power_2011()
-power_coords = np.vstack((power.rois['x'], power.rois['y'], power.rois['z'])).T
+power_coords = np.vstack((power.rois["x"], power.rois["y"], power.rois["z"])).T
 
 # Create masker file.
 
@@ -104,7 +104,7 @@ _ = plt.plot(timeseries_all[0,:,:])
 t_r = 0.72
 n_scans = 405
 
-onsets_dir = '/home/finc/Dropbox/GitHub/nilearn_task_networks/support/onsets_HCP.csv'
+onsets_dir = "/home/finc/Dropbox/GitHub/nilearn_task_networks/support/onsets_HCP.csv"
 
 events = pd.read_csv(onsets_dir)
 events
@@ -115,12 +115,12 @@ frame_times
 design_matrix = make_design_matrix(frame_times, events, hrf_model = None)
 design_matrix = design_matrix.reset_index()
 
-plt.plot(design_matrix['0back'])
-plt.plot(design_matrix['2back'])
+plt.plot(design_matrix["0back"])
+plt.plot(design_matrix["2back"])
 plt.legend()
 
 # Calculate correlation matrices.
-conditions  = ['0back', '2back']
+conditions  = ["0back", "2back"]
 sub_n = timeseries_all.shape[0]
 rois_n = timeseries_all.shape[2]
 
@@ -129,9 +129,9 @@ correlation_matrices = np.zeros((sub_n, len(conditions), rois_n, rois_n))
 for sub in range(sub_n):
     for i, cond in enumerate(conditions):
     
-        task = timeseries_all[sub, design_matrix[cond].astype('bool').astype('bool'), :]
+        task = timeseries_all[sub, design_matrix[cond].astype("bool").astype("bool"), :]
         
-        correlation_measure = ConnectivityMeasure(kind='correlation')
+        correlation_measure = ConnectivityMeasure(kind="correlation")
     
         fc = correlation_measure.fit_transform([task])[0]
         np.fill_diagonal(fc, 0)
@@ -148,7 +148,7 @@ stat, pvalues = stats.ttest_rel(zero_back, two_back)
 
 import statsmodels.stats.multitest as ssm
 
-_, pvals_corrected, _, _ = ssm.multipletests(pvalues, alpha = 0.05, method = 'fdr_bh')
+_, pvals_corrected, _, _ = ssm.multipletests(pvalues, alpha = 0.05, method = "fdr_bh")
 
 pvals_corrected_thr = np.zeros((len(pvals_corrected)))
 
@@ -163,9 +163,9 @@ matrix_bin = vec_to_sym_matrix(pvals, diagonal = diag)
 plotting.plot_matrix(matrix_wei)
 
 # Load coordinates from activation analysis.
-activ = pd.read_csv('/home/finc/Dropbox/GitHub/nilearn_task_networks/support/coordinates_0back_2back.csv')
+activ = pd.read_csv("/home/finc/Dropbox/GitHub/nilearn_task_networks/support/coordinates_0back_2back.csv")
 
-activ_coords = pd.DataFrame(activ, columns = ['X', 'Y', 'Z']).values
+activ_coords = pd.DataFrame(activ, columns = ["X", "Y", "Z"]).values
 
 radius = 10
 
@@ -185,8 +185,8 @@ selector = A.sum(axis=1) == 0
 # Create final object.
 activ_clean = activ_coords[selector]
 
-print(f'Number of coordinates before cleaning: {len(activ_coords)}')
-print(f'Number of coordinates after cleaning: {len(activ_clean)}')
+print(f"Number of coordinates before cleaning: {len(activ_coords)}")
+print(f"Number of coordinates after cleaning: {len(activ_clean)}")
 
 activ_spheres = input_data.NiftiSpheresMasker(
     seeds = activ_clean, 
