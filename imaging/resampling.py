@@ -1,15 +1,15 @@
-import numpy as np
 import nibabel
+import numpy as np
 
-from scipy import ndimage, linalg
 from nibabel import Nifti1Image
+from scipy import ndimage, linalg
 
-'''
+"""
 Utilities to resample a Nifti Image
-'''
+"""
 
 def to_matrix_vector(transform):
-    '''
+    """
     Split a homogeneous transform into its matrix and vector components.
     The transformation must be represented in homogeneous coordinates.
     It is split into its linear transformation matrix and translation vector
@@ -20,7 +20,7 @@ def to_matrix_vector(transform):
     translation in 3 dimensions. Return matrix, vector: numpy.ndarray
     The matrix and vector components of the transform matrix. For an (N, N) 
     transform, matrix will be (N-1, N-1) and vector will be a 1D array of shape (N-1,).
-    '''
+    """
     ndimin = transform.shape[0] - 1
     ndimout = transform.shape[1] - 1
     matrix = transform[0:ndimin, 0:ndimout]
@@ -28,14 +28,14 @@ def to_matrix_vector(transform):
     return matrix, vector
 
 def from_matrix_vector(matrix, vector):
-    '''
+    """
     Combine a matrix and vector into a homogeneous transform.
     Combine a rotation matrix and translation vector into a transform
     in homogeneous coordinates.  matrix is (numpy.ndarray (N, N)) an array 
     representing the rotation matrix. vector is (numpy.ndarray (1, N)) an array 
     representing the translation. Return xform (numpy.ndarray), an (N+1, N+1) 
     transform matrix.
-    '''
+    """
     nin, nout = matrix.shape
     t = np.zeros((nin + 1, nout + 1), matrix.dtype)
     t[0:nin, 0:nout] = matrix
@@ -44,7 +44,7 @@ def from_matrix_vector(matrix, vector):
     return t
 
 def get_bounds(shape, affine):
-    '''
+    """
     Return the world-space bounds occupied by an array given an affine.
     The coordinates returned correspond to the **center** of the corner voxels.
     shape (tuple) is the shape of the array. Must have 3 integer values.
@@ -52,7 +52,7 @@ def get_bounds(shape, affine):
     between voxel coordinates and world-space coordinates.
     Return coord (list of tuples), a 2-tuple giving minimal and maximal coordinates 
     along the i-th axis.
-    '''
+    """
     adim, bdim, cdim = shape
     adim -= 1
     bdim -= 1
@@ -69,40 +69,40 @@ def get_bounds(shape, affine):
     box = np.dot(affine, box)[:3]
     return zip(box.min(axis=-1), box.max(axis=-1))
 
-def resample_img(niimg, target_affine=None, target_shape=None, interpolation='continuous', copy=True, order='F'):
-    ''' 
+def resample_img(niimg, target_affine=None, target_shape=None, interpolation="continuous", copy=True, order="F"):
+    """ 
     Resample a Nifti Image. niimg (nilearn nifti image)is the path to 
     a nifti file or nifti-like object. target_affine (numpy.ndarray) is an option that,
     if specified, the image is resampled corresponding to this new affine. target_affine 
     can be a 3x3 or a 4x4 matrix. target_shape (tuple or list) is an optio that,
     if specified, the image will be resized to match this new shape. len(target_shape) must be equal to 3.
     A target_affine has to be specified jointly with target_shape. interpolation (str), is optional and can 
-    be 'continuous' (default) or 'nearest' to indicate the resample method.
+    be "continuous" (default) or "nearest" to indicate the resample method.
     copy is an optional boolean that, if True, guarantees that output array has 
     no memory in common with input array. In all cases, input images are never 
-    modified by this function. order is 'F' or 'C' to indicate the data ordering in 
+    modified by this function. order is "F" or "C" to indicate the data ordering in 
     output array. This function is slightly faster with Fortran ordering.
     Return resampled (nibabel.Nifti1Image), an input image, resampled to have 
     respectively target_shape and target_affine as shape and affine.
-    '''
+    """
     # Do as many checks as possible before loading data, to avoid potentially
     # costly calls before raising an exception.
     if target_shape is not None and target_affine is None:
-        raise ValueError('If target_shape is specified, target_affine should'
-                         ' be specified too.')
+        raise ValueError("If target_shape is specified, target_affine should"
+                         " be specified too.")
 
     if target_shape is not None and not len(target_shape) == 3:
-        raise ValueError('The shape specified should be the shape of'
-                         'the 3D grid, and thus of length 3. %s was specified'
+        raise ValueError("The shape specified should be the shape of"
+                         "the 3D grid, and thus of length 3. %s was specified"
                          % str(target_shape))
 
-    if interpolation == 'continuous':
+    if interpolation == "continuous":
         interpolation_order = 3
-    elif interpolation == 'nearest':
+    elif interpolation == "nearest":
         interpolation_order = 0
     else:
-        raise ValueError('interpolation must be either 'continuous' '
-                         'or 'nearest'')
+        raise ValueError("interpolation must be either "continuous" "
+                         "or "nearest"")
 
     # noop cases
     if isinstance(niimg, basestring):
@@ -114,7 +114,7 @@ def resample_img(niimg, target_affine=None, target_shape=None, interpolation='co
     affine = niimg.get_affine()
 
     # We now know that some resampling must be done.
-    # The value of 'copy' is of no importance: output is always a separate
+    # The value of "copy" is of no importance: output is always a separate
     # array.
     data = niimg.get_data()
 
