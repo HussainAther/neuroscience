@@ -1,10 +1,10 @@
-import time
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 from numpy import concatenate as cc
 
-'''
+"""
 Compute the firing of a neuron via alpha function synapse and a (random) input spike train. The alpha function is often
 used for describing synaptic conductance with the expression
 
@@ -12,9 +12,9 @@ P_s = (P_max*t / tau_s) * exp((1-t)/tau_s)
 
 in which P_s is the opening probability of a postsynaptic channel. For an isolated snynapse at time t = 0,
 we can generate random spike inputs and compute the membrane voltage using an I & F implementation of dV/dt = - V/RC + I/C.
-Since we're using this I & F implementation, we'll be characterizing the alpha function with a slightly
+Since we"re using this I & F implementation, we"ll be characterizing the alpha function with a slightly
 different method of finding the conductance.
-'''
+"""
 
 np.random.seed(123)
 
@@ -27,9 +27,9 @@ thr = 0.9 # threshold for random spikes
 spike_train = np.random.rand(tstop) > thr
 
 def alphasynapse():
-    '''
+    """
     Alpha function for synaptic conductance
-    '''
+    """
     t_a = 100 # Max duration of syn conductance
     t_peak = 1 # ms
     g_peak = 0.05 # nS (peak synaptic conductance)
@@ -38,8 +38,8 @@ def alphasynapse():
     alpha_func = const * t_vec * (np.exp(-t_vec/t_peak)) # calculate alpha function
 
     plt.plot(t_vec[:80], alpha_func[:80])
-    plt.xlabel('t (in ms)')
-    plt.title('Alpha Function (Synaptic Conductance for Spike at t=0)')
+    plt.xlabel("t (in ms)")
+    plt.title("Alpha Function (Synaptic Conductance for Spike at t=0)")
     plt.draw()
 
 
@@ -64,12 +64,12 @@ t_trace = [0]
 
 fig, axs = plt.subplots(2, 1)
 axs[0].plot(np.arange(0,t_max,h), spike_train)
-axs[0].set_title('Input spike train')
+axs[0].set_title("Input spike train")
 
-'''
+"""
 Perform the simulation on the computed parameters to see how membrane voltage from
 the synpatic current vary over time.
-'''
+"""
 
 for t in range(tstop):
     # Compute input spike train
@@ -107,5 +107,5 @@ for t in range(tstop):
 
 axs[1].plot(t_trace,V_trace)
 plt.draw()
-axs[1].set_title('Output spike train')
+axs[1].set_title("Output spike train")
 plt.show()
