@@ -59,3 +59,17 @@ print(row.stage_name.values[0])
 # Container ID
 container_id = experiments[experiments.ophys_experiment_id==experiment_id]["container_id"].values[0]
 experiments.groupby("container_id").get_group(container_id)
+
+# Number of sessions
+experiments.groupby("container_id").size()
+
+# Get a session.
+session = cache.get_session(experiment_id)
+
+# Plot the max intensity projection and the segmentation mask.
+fig, ax = plt.subplots(1, 2)
+fig.set_size_inches(10, 5)
+ax[0].imshow(session.max_projection)
+ax[1].imshow(session.segmentation_mask_image)
+plt.tight_layout()
+
