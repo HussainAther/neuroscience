@@ -162,3 +162,23 @@ plt.tight_layout()
 # Plot the image that shows the largest response for this unit.
 plt.imshow(cache.get_natural_scene_template(105), cmap="gray")
 
+# Responses to natural scenes
+spike_stats = session.conditionwise_spike_statistics(stimulus_presentation_ids=stim_ids, unit_ids=unit_list)
+spike_stats.head()
+
+unit_id = 914686471
+response_mean = np.empty((len(frames)))
+response_sem = np.empty((len(frames)))
+for i,frame in enumerate(frames):
+    stim_id = stim_table[stim_table.frame==frame].stimulus_condition_id.iloc[0]
+    response_mean[i] = spike_stats.loc[(unit_id, stim_id)].spike_mean
+    response_sem[i] = spike_stats.loc[(unit_id, stim_id)].spike_sem
+plt.errorbar(range(118), response_mean[1:], yerr=response_sem[1:], fmt="o")
+plt.axhspan(response_mean[0]+response_sem[0], response_mean[0]-response_sem[0], color="gray", alpha=0.3)
+plt.axhline(y=response_mean[0], color="gray", ls="--")
+
+# Responses to natural scenes
+response_norm = response_mean - response_mean[0]
+N = float(len(response_norm))
+ls = ((1-(1/N) * ((np.power(response_norm.sum(),2)) / (np.power(response_norm,2).sum()))) / (1-(1/N)))
+print(ls)
