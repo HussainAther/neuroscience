@@ -337,3 +337,36 @@ duration = duration_steps/sampling_rate*1000
 plt.hist(duration, bins=30, range=(0,1))
 plt.ylabel("N units")
 plt.xlabel("Spike duration (ms)")
+
+duration_stored = session.units.loc[unit_list, "waveform_duration"]
+plt.scatter(duration, duration_stored)
+
+# Spike-field relationships
+# Get spike times and channel info for a single unit.
+unit_id = session.units.index.values[0]
+spikes = session.spike_times[unit_id]
+peak_ch = session.units.loc[unit_id, "peak_channel_id"]
+probe_id = session.units.loc[unit_id, "probe_id"]
+lfp_full = session.get_lfp(probe_id)
+channels = lfp_full.channel.values
+channel_closest = channels[np.argmin(np.abs(channels-peak_ch))]
+lfp_peak = lfp_full.loc[dict(channel=channel_closest)]
+
+# Time before and after spike
+pre_time = 1.
+post_time = 1.
+array_length = int(np.floor((pre_time+post_time)/(lfp_peak.time.values[1]-lfp_peak.time.values[0])))
+
+# Make list that will contain the LFP around each spike.
+spike_triggered_lfp = []
+
+spikes_subset = spikes[1000:-1000:50]
+# Loop through every spike.
+for i, spike in enumerate(spikes_subset):
+    t0 = spike - pre_time
+    t1 = spike + post_time
+    lfp_subset = lfp_peak.loc[dict(time=slice(t0, t1))].values[:array_length]
+    spike_triggered_lfp.append(lfp_subset)
+spike_triggered_lfp = np.array(spike_triggered_lfp)
+sta_lfp = np.mean(spike_triggered_lfp, axis=0)
+plt.plot(sta_lfp)
