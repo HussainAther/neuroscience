@@ -27,3 +27,15 @@ all_man_syn = dl.query_synapses("gsynapse_ai_manual_v2")
 all_man_syn["syn_num"]=all_man_syn.groupby("post_pt_root_id")["id"].transform(len)
 cellid = all_man_syn[all_man_syn.syn_num==34]["post_pt_root_id"].values[0]
 print(cellid)
+
+# Visualize the cell.
+mm = trimesh_io.MeshMeta(disk_cache_path="test/test_files")
+mesh = mm.mesh(filename ="/data/dynamic_brain_workshop/electron_microscopy/2019/meshes/%d.h5"%cellid)
+mesh_poly =trimesh_vtk.trimesh_to_vtk(mesh.vertices,mesh.faces,None)
+plt_actor = vtkplotter.Actor(mesh_poly)
+vtkplotter.embedWindow(backend="k3d")
+vp = vtkplotter.Plotter(bg="b")
+myactor = vtkplotter.Actor(plt_actor, c="r")
+myactor.GetMapper().Update()
+vp+=myactor
+vp.show()
