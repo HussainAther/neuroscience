@@ -3,6 +3,7 @@ import pandas as pd
 import scipy as sp
 import vtkplotter
 
+from matplotlib import cm
 from meshparty import trimesh_io, trimesh_vtk
 from analysisdatalink.datalink_ext import AnalysisDataLinkExt as AnalysisDataLink
 
@@ -144,3 +145,24 @@ ais_syn_df
 pre_ids, cts = np.unique(ais_syn_df["pre_pt_root_id"], return_counts=True)
 count_df = pd.DataFrame(data={"root_id":pre_ids, "synapses":cts})
 count_df
+
+# Visualize.
+ais_pts = np.vstack(ais_syn_df["ctr_pt_position"].values) * voxel_resolution
+ais_pre_ids = ais_syn_df["pre_pt_root_id"].values
+c_mapping = {}
+for ii, oid in enumerate(pre_ids):
+    c_mapping[oid] = cm.tab20.colors[ii]
+
+s_mapping = {}
+for ii, oid in enumerate(pre_ids):
+    s_mapping[oid]= cts[ii]
+    
+pt_colors = [c_mapping[oid] for oid in ais_pre_ids]
+pt_sizes = [100 * s_mapping[oid] for oid in ais_pre_ids]
+syn_actors = trimesh_vtk.point_cloud_actor(ais_pts, color=pt_colors, size=pt_sizes)
+vtkplotter.embedWindow(backend="k3d")
+vp = vtkplotter.Plotter(bg="b")
+plot_actor = vtkplotter.Actor(syn_actors,c="b")
+plot_actor.GetMapper().Update()
+vp+=plot_actor
+vp.show()
