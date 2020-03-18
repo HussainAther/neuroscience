@@ -176,3 +176,16 @@ ax.set_ylabel("Frequency")
 ax.legend(loc=0, frameon=False)
 sns.despine(fig)
 fig.tight_layout()
+
+# Compute the out-degree distribution for inhibitory-to-inhibitory
+# and inhibitory-to-excitatory connections. Compute the frequency
+# distributions of the number of connections from all inhibitory pre-
+# synaptic neurons to excitatory neurons (i-e connections).
+# Compute the frequency distributions of the number of connections from
+# all inhibitory presynaptic neurons to inhibitory neurons (i-i connections).
+# Plot.
+fig, ax = plt.subplots(1, 1, figsize=(3, 3))
+ax.hist(np.sum(A[:Ni, :Ni], axis=0), bins=range(0, 11), density=False, alpha=0.5, label="to inh.")
+ax.hist(np.sum(A[Ni:, :Ni], axis=0), bins=np.arange(0., 20, 2), density=True, alpha=0.5, label="to exc.")
+ax.set_xlabel("Num. outputs of inhibitory cells")
+ax.set_ylabel("Frequency")
