@@ -3,6 +3,11 @@ import numpy as np
 import os
 import pandas as pd
 
+from allensdk.brain_observatory.ecephys.ecephys_project_cache import EcephysProjectCache
+from allensdk.brain_observatory.ecephys import ecephys_session
+
+cache = EcephysProjectCache.fixed(manifest=manifest_path)
+
 """
 Neuropixels dataset from the Allen Institute
 """
