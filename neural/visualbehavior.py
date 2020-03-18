@@ -73,3 +73,9 @@ ax[0].imshow(session.max_projection)
 ax[1].imshow(session.segmentation_mask_image)
 plt.tight_layout()
 
+cell_specimen_ids = list(session.roi_masks.keys())
+plt.imshow(session.roi_masks[cell_specimen_ids[9]])
+
+# Get traces and timestamps.
+dff_traces = session.dff_traces
+ophys_timestamps = session.ophys_timestamps
