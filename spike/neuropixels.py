@@ -104,3 +104,36 @@ stim_ids = stim_table.index.values
 frames = session.get_stimulus_parameter_values(stimulus_presentation_ids=stim_ids, drop_nulls=False)["frame"]
 frames = np.sort(frames)
 frames
+
+# Calculate spikes in 5 ms bins.
+stim_presentation_ids = stim_table[stim_table.frame==46].index.values
+bin_width = 0.005
+duration = stim_table.duration.mean()
+pre_time = -duration
+post_time = 2*duration
+bins = np.arange(pre_time, post_time+bin_width, bin_width)   
+histograms = session.presentationwise_spike_counts(
+    bin_edges=bins,
+    stimulus_presentation_ids=stim_presentation_ids,
+    unit_ids=None
+)
+mean_histograms = histograms.mean(dim="stimulus_presentation_id")
+rates = mean_histograms/bin_width
+
+# Plot the peristimulus time histogram (PSTH).
+def plot_psth(unit_id, rates, ax=None, title=None):
+    #Default params
+    if not ax:
+        fig,ax = plt.subplots(1,1,figsize=(6,3))
+    rates.loc[{"unit_id":unit_id}].plot(ax=ax)
+    ax.axvspan(0, duration, color="gray", alpha=0.1)
+    ax.set_ylabel("Firing rate (spikes/second)")
+    ax.set_xlabel("Time (s)")
+    ax.set_xlim(pre_time,post_time)
+    if ax:
+        ax.set_title(title)
+        ax.set_xlabel("")
+        ax.set_ylabel("")
+
+unit_id = 914686471#unit_list[0]
+plot_psth(unit_id, rates)
