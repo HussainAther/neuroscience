@@ -41,5 +41,23 @@ vp+=myactor
 vp.show()
 
 # Find 10 largest synapses automatically extracted on this cell.
+post_synapse_df = dl.query_synapses("pni_synapses_i3", post_ids = np.array([cellid]))
 biggest_synapses = post_synapse_df.sort_values(by=["size"],ascending=False).head(10)
 print(biggest_synapses)
+
+# Visualize.
+mm = trimesh_io.MeshMeta(disk_cache_path="test/test_files")
+mesh = mm.mesh(filename ="/data/dynamic_brain_workshop/electron_microscopy/2019/meshes/%d.h5"%cellid)
+mesh_poly =trimesh_vtk.trimesh_to_vtk(mesh.vertices,mesh.faces,None)
+plt_actor = vtkplotter.Actor(mesh_poly)
+syn_pts = np.vstack(biggest_synapses["ctr_pt_position"].values) * voxel_resolution
+syn_sizes = biggest_synapses["size"]
+syn_actors = trimesh_vtk.point_cloud_actor(syn_pts, size=syn_sizes.values)
+vtkplotter.embedWindow(backend="k3d")
+vp = vtkplotter.Plotter(bg="b")
+myactor = vtkplotter.Actor(plt_actor, c="r")
+myactor.GetMapper().Update()
+mysynactor = vtkplotter.Actor(syn_actors, c="b")
+mysynactor.GetMapper().Update()
+vp+= mysynactor
+vp.show()
