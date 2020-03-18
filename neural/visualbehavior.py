@@ -86,3 +86,12 @@ print("shape of ophys_timestamps:",session.ophys_timestamps.shape)
 
 # Shape of the trace of one cell
 print("shape of one trace:",session.dff_traces.iloc[0]["dff"].shape)
+
+# Plot the dF/F trace for one cell using ophys timestamps for x-axis values
+# indexing method using row index with .iloc.
+cell_index = 0 
+dff_trace = session.dff_traces.iloc[cell_index]["dff"] # note that the column name is outside of the .iloc call
+plt.plot(session.ophys_timestamps, dff_trace)
+plt.xlabel("time (sec)");
+plt.ylabel("dF/F");
+plt.title("cell index: "+str(cell_index))
