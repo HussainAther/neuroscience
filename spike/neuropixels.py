@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
+import scipy.signal as signal
 
 from allensdk.brain_observatory.ecephys.ecephys_project_cache import EcephysProjectCache
 from allensdk.brain_observatory.ecephys import ecephys_session
@@ -248,3 +249,11 @@ axs[1, 0].set_ylabel("Spike count 1")
 axs[0, 1].set_title("Drifting gratings")
 axs[1, 1].plot(spike_train_2_drift)
 axs[1 ,1].set_xlabel("Time bins (10 ms)")
+
+# Compute the correlogram for spontaneous activity.
+xcorr_spont=signal.correlate(spike_train_1_spont,spike_train_2_spont)
+xcorr_drift=signal.correlate(spike_train_1_drift,spike_train_2_drift)
+
+# time steps
+time_shift_spont=np.arange(-len(xcorr_spont)/2,len(xcorr_spont)/2,1)
+time_shift_drift=np.arange(-len(xcorr_drift)/2,len(xcorr_drift)/2,1)
