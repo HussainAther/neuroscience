@@ -139,3 +139,8 @@ syn_locs = np.vstack(syn_df["ctr_pt_position"].values) * voxel_resolution
 _, syn_mesh_inds = mesh.kdtree.query(syn_locs)
 ais_syn_df = syn_df[is_ais[syn_mesh_inds]]
 ais_syn_df
+
+# Count how many synapses per presynaptic object there are.
+pre_ids, cts = np.unique(ais_syn_df["pre_pt_root_id"], return_counts=True)
+count_df = pd.DataFrame(data={"root_id":pre_ids, "synapses":cts})
+count_df
