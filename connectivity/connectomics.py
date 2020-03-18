@@ -77,3 +77,18 @@ print(mesh_folder +fname)
 mm = trimesh_io.MeshMeta()
 mesh = mm.mesh(filename=mesh_folder + "{}.h5".format(nrn_id))
 mesh_poly =trimesh_vtk.trimesh_to_vtk(mesh.vertices,mesh.faces,None)
+ais_bounds_df = dl.query_cell_ids("ais_bounds_v3")
+nrn_bounds_df = ais_bounds_df[ais_bounds_df["pt_root_id"] == nrn_id]
+voxel_resolution = np.array([4,4,40])
+ais_bounds_pts = np.vstack(nrn_bounds_df["pt_position"].values) * voxel_resolution
+pts_actor = trimesh_vtk.point_cloud_actor(ais_bounds_pts, size=1200, color=(0.2, 0.8, 0.2))
+print(ais_bounds_pts)
+vtkplotter.embedWindow(backend='k3d')
+vp = vtkplotter.Plotter(bg='b')
+mesh_poly_actor = vtkplotter.Actor(mesh_poly)
+mesh_poly_actor.GetMapper().Update()
+vp+=mesh_poly_actor
+plot_actor1 = vtkplotter.Actor(pts_actor,c='r')
+plot_actor1.GetMapper().Update()
+vp+=plot_actor1
+vp.show()
