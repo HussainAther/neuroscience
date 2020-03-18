@@ -166,3 +166,14 @@ plot_actor = vtkplotter.Actor(syn_actors,c="b")
 plot_actor.GetMapper().Update()
 vp+=plot_actor
 vp.show()
+
+# Plot.
+fig, ax = plt.subplots(1, 1, figsize=(3, 3))
+ax.hist(inh_dist, density=True, alpha=0.5, label='Inhibitory')
+ax.hist(ex_dist, density=True, alpha=0.5, label='Excitatory')
+ax.set_xlabel('Num. inhibitory input cells')
+ax.set_ylabel('Frequency')
+ax.legend(loc=0, frameon=False)
+
+sns.despine(fig)
+fig.tight_layout()
