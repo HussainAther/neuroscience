@@ -19,3 +19,6 @@ dl = AnalysisDataLink(dataset_name=dataset_name,
 
 mesh_folder = "/data/dynamic_brain_workshop/electron_microscopy/2019/"
 voxel_resolution = np.array([4,4,40])
+
+# Find all synapses.
+all_man_syn = dl.query_synapses("gsynapse_ai_manual_v2")
