@@ -44,3 +44,17 @@ cell_types_df.head()
 # Get cell type.
 print(cell_types_df["cell_type"].unique())
 
+# How many inhibitory cells and excitatory cells are labeled?
+inh_ids = cell_types_df.loc[cell_types_df["cell_type"] == "i"]["pt_root_id"]
+exc_ids = cell_types_df.loc[cell_types_df["cell_type"] == "e"]["pt_root_id"]
+all_ids = pd.concat((inh_ids, exc_ids))
+print(str(len(inh_ids))+" inhibitory")
+print(str(len(exc_ids))+" excitatory")
+print(str(len(all_ids))+" neuron ids")
+
+inh_ids = inh_ids.unique()
+exc_ids = exc_ids.unique()
+all_ids = all_ids.unique()
+print(str(len(inh_ids))+" unique inhibitory ids")
+print(str(len(exc_ids))+" unique excitatory ids")
+print(str(len(all_ids))+" unique neuron ids")
