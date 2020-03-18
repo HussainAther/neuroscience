@@ -110,3 +110,13 @@ plt.title("cell_specimen_id: "+str(cell_specimen_id))
 # Turn dff_traces into an array of cells x timepoints.
 dff_traces_array = np.vstack(session.dff_traces.dff.values)
 print("shape of dff_traces_array:",dff_traces_array.shape)
+
+# Plot a heatmap of all traces.
+fig, ax = plt.subplots(figsize=(20,5))
+cax = ax.pcolormesh(dff_traces_array, cmap="magma", vmin=0, vmax=np.percentile(dff_traces_array, 99))
+ax.set_yticks(np.arange(0, len(dff_traces_array)), 10)
+ax.set_ylabel("cells")
+ax.set_xlabel("time (sec)")
+ax.set_xticks(np.arange(0, len(session.ophys_timestamps), 600*31))
+ax.set_xticklabels(np.arange(0, session.ophys_timestamps[-1], 600))
+cb = plt.colorbar(cax, pad=0.015, label="dF/F")
