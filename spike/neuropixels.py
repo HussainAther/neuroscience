@@ -135,5 +135,26 @@ def plot_psth(unit_id, rates, ax=None, title=None):
         ax.set_xlabel("")
         ax.set_ylabel("")
 
-unit_id = 914686471#unit_list[0]
+unit_id = 914686471 #unit_list[0]
 plot_psth(unit_id, rates)
+
+unit_id = 914686471
+fig,ax = plt.subplots(15, 8, figsize=(18,20), sharex=True, sharey=True)
+ax = ax.ravel()
+
+# Calculate histograms for all presentations at once - this may take a minute.
+histograms = session.presentationwise_spike_counts(
+    bin_edges=bins,
+    stimulus_presentation_ids=stim_table.index.values,
+    unit_ids=None
+    )
+
+for i,frame in enumerate(frames):
+    stim_presentation_ids = stim_table[stim_table.frame==frame].index.values
+    # Select the histograms for this frame and average.
+    frame_histograms = histograms.loc[{"stimulus_presentation_id":stim_presentation_ids}]
+    mean_histograms = frame_histograms.mean(dim="stimulus_presentation_id")
+    rates = mean_histograms/bin_width
+    
+    plot_psth(unit_id, rates, ax=ax[i], title=frame)
+plt.tight_layout()
