@@ -59,3 +59,10 @@ for i, area in enumerate(vis_areas):
     plt.title(area) 
     plt.xlim(0,300)
     plt.show()
+
+# Inter-spike interval distribution (ISI distribution)
+unit_id = session.units.index.values[0]
+unit_spikes = session.spike_times[unit_id]
+isi = np.diff(unit_spikes)
+isi = isi*1000 # convert to ms
+print(isi[:20])
