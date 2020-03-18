@@ -16,3 +16,6 @@ dl = AnalysisDataLink(dataset_name=dataset_name,
                       sqlalchemy_database_uri=sqlalchemy_database_uri,
                       materialization_version=data_version,
                       verbose=False)
+
+mesh_folder = "/data/dynamic_brain_workshop/electron_microscopy/2019/"
+voxel_resolution = np.array([4,4,40])
