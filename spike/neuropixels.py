@@ -214,3 +214,37 @@ histograms_spont = session.presentationwise_spike_counts(
     stimulus_presentation_ids=spont.index,
     unit_ids=None
 )
+
+# Get the spike histograms for the first presentation of each stimulus only.
+spike_counts_spont = histograms_spont[0]
+spike_counts_drift = histograms_drift[0]
+
+# Be sure to use the equal amount of time for both histograms - use the duration of the drifting gratings.
+max_len=spike_counts_drift.shape[0]
+
+# Get two spike trains in spont activity.
+spike_train_1_spont=spike_counts_spont[:max_len, 1]
+spike_train_2_spont=spike_counts_spont[:max_len, 2]
+
+# Get two spike trains in drifting gratings activity.
+spike_train_1_drift=spike_counts_drift[:max_len, 1]
+spike_train_2_drift=spike_counts_drift[:max_len, 2]
+
+# Plot the spike trains for which the correlogram will be computed.
+
+fig, axs = plt.subplots(2, 2,figsize=(14,8))
+
+# Update the figure size.
+plt.rcParams.update({"font.size": 15})
+
+axs[0, 0].plot(spike_train_1_spont)
+axs[0, 0].set_ylabel("Spike count 2")
+axs[0, 0].set_title("Spontaneous activity")
+axs[1, 0].plot(spike_train_2_spont)
+axs[1 ,0].set_xlabel("Time bins (10 ms)")
+
+axs[0, 1].plot(spike_train_1_drift)
+axs[1, 0].set_ylabel("Spike count 1")
+axs[0, 1].set_title("Drifting gratings")
+axs[1, 1].plot(spike_train_2_drift)
+axs[1 ,1].set_xlabel("Time bins (10 ms)")
