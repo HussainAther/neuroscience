@@ -58,3 +58,7 @@ all_ids = all_ids.unique()
 print(str(len(inh_ids))+" unique inhibitory ids")
 print(str(len(exc_ids))+" unique excitatory ids")
 print(str(len(all_ids))+" unique neuron ids")
+
+# Get synapse dataframe and synapse information.
+synapse_df = dl.query_synapses("pni_synapses_i3", pre_ids=inh_ids, post_ids=all_ids)
+synapse_df.head()
