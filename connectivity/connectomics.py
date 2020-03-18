@@ -92,3 +92,20 @@ plot_actor1 = vtkplotter.Actor(pts_actor,c='r')
 plot_actor1.GetMapper().Update()
 vp+=plot_actor1
 vp.show()
+
+# Find the vertex indices of the mesh closest to the AIS bounds points.
+ds, mesh_inds = mesh.kdtree.query(ais_bounds_pts)
+dist_from_pts = np.linalg.norm(mesh.vertices[mesh_inds] - ais_bounds_pts, axis=1)
+print(dist_from_pts)
+mesh_pt_actor = trimesh_vtk.point_cloud_actor(mesh.vertices[mesh_inds],
+                                              size=1200, color=(0.9, 0, 0.8))
+
+vtkplotter.embedWindow(backend='k3d')
+vp = vtkplotter.Plotter(bg='b')
+plot_actor = vtkplotter.Actor(mesh_pt_actor,c='b')
+plot_actor.GetMapper().Update()
+vp+=plot_actor
+plot_actor1 = vtkplotter.Actor(pts_actor,c='r')
+plot_actor1.GetMapper().Update()
+vp+=plot_actor1
+vp.show()
