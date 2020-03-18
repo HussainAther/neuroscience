@@ -34,3 +34,28 @@ manifest_path = os.path.join(data_root, "dynamic-brain-workshop/visual_coding_ne
 
 # Get information.
 sessions = cache.get_sessions()
+sessions.head()
+
+# Recordings across visual areas
+cache = EcephysProjectCache.fixed(manifest=manifest_path)
+sessions = cache.get_sessions()
+vis_areas = ["VISp","VISl","VISal","VISrl","VISam","VISpm"]
+vis_session_list = []
+for session_id in sessions.index:
+    session_areas = sessions.structure_acronyms.loc[session_id]
+    vis_areas_in_session = [area for area in vis_areas if area in session_areas]
+    if len(vis_areas_in_session)==6:
+        vis_session_list.append(session_id)
+print(vis_session_list)
+session_id = vis_session_list[0]
+session = cache.get_session_data(session_id)
+
+# Visualize.
+for i, area in enumerate(vis_areas):
+    vis_unit_list = session.units[session.units.structure_acronym==area].index
+    for i,unit in enumerate(vis_unit_list[:20]):
+        spike_times =  session.spike_times[unit]                       
+        plt.plot(spike_times, np.repeat(i, len(spike_times)), "|", color="gray") 
+    plt.title(area) 
+    plt.xlim(0,300)
+    plt.show()
