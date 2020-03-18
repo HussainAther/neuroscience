@@ -88,3 +88,21 @@ ex_dist = np.sum(A[Ni:, :Ni], axis=1)
 # Compute frequency distributions of the number of connections from inhibitory neurons
 # to all inhibitory postsynaptic neurons (i-i connections).
 nh_dist = np.sum(A[:Ni, :Ni], axis=1)
+
+# Load the mesh.
+mesh_file = os.path.join(mesh_folder + str(inh_id)+".h5")
+print(mesh_file)
+mm = trimesh_io.MeshMeta(disk_cache_path="test/test_files")
+mesh = mm.mesh(filename =mesh_file)
+
+# Extract vertices and faces to make an "Actor" for vtkplotter.
+mesh_poly = trimesh_vtk.trimesh_to_vtk(mesh.vertices, mesh.faces, None)
+plt_actor = vtkp.Actor(mesh_poly, c="m")
+
+# Create a window to show the mesh.
+vtkp.embedWindow(backend='k3d')
+# Setup a plot that you can add actors to
+vp = vtkp.Plotter(bg="w")
+# add it to your plotter.
+vp+=plt_actor
+vp.show()
