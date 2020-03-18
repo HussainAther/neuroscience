@@ -38,5 +38,9 @@ voxel_resolution = np.array([4,4,40])
 print(dl.sqlalchemy_engine.table_names())
 
 # Get soma valence v2 information.
-cell_types_df = dl.query_cell_types('soma_valence_v2')
+cell_types_df = dl.query_cell_types("soma_valence_v2")
 cell_types_df.head()
+
+# Get cell type.
+print(cell_types_df["cell_type"].unique())
+
