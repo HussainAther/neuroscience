@@ -100,7 +100,34 @@ mesh_poly = trimesh_vtk.trimesh_to_vtk(mesh.vertices, mesh.faces, None)
 plt_actor = vtkp.Actor(mesh_poly, c="m")
 
 # Create a window to show the mesh.
-vtkp.embedWindow(backend='k3d')
+vtkp.embedWindow(backend="k3d")
+# Setup a plot that you can add actors to
+vp = vtkp.Plotter(bg="w")
+# add it to your plotter.
+vp+=plt_actor
+vp.show()
+
+# Visualize mesh for inhibitory neuron connecting
+# to at least 10 excitatory neurons.
+inh_10conn = np.where(K >= 10)[0]
+print(inh_10conn)
+inh_ind = np.random.choice(inh_10conn)
+inh_id = inh_ids[0]
+mesh_file = os.path.join(mesh_folder + str(inh_id)+".h5")
+print(mesh_file)
+mm = trimesh_io.MeshMeta(disk_cache_path="test/test_files")
+mesh = mm.mesh(filename =mesh_file)
+mesh_poly = trimesh_vtk.trimesh_to_vtk(mesh.vertices, mesh.faces, None)
+plt_actor = vtkp.Actor(mesh_poly, c="m")
+### set up the camera 
+### check "show" definition at https://github.com/marcomusy/vtkplotter/blob/master/vtkplotter/plotter.py
+voxel_size = np.array([4,4,40])
+root_cell = cell_types_df.loc[cell_types_df["pt_root_id"] == inh_id]
+vup = np.diff(root_cell["pt_position"].values[0])[0]*voxel_size
+vup = vup/np.linalg.norm(vup)
+mesh_center = np.mean(mesh.vertices, axis=0)
+cam_matrix = np.concatenate((mesh_center, mesh_center, vup), axis=0)
+vtkp.embedWindow(backend="k3d")
 # Setup a plot that you can add actors to
 vp = vtkp.Plotter(bg="w")
 # add it to your plotter.
