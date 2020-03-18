@@ -65,3 +65,15 @@ vp.show()
 # Find the axon initial segment (AIS) of a pyramidal cell.
 mesh_folder = "/data/dynamic_brain_workshop/electron_microscopy/2019/meshes/"
 
+# Query the AIS bounds table and find the AIS points with the pyramidal cell that
+# have the functional ID of 1. 
+nrn_ind = 1
+manual_ais_df = dl.query_cell_ids("manual_ais")
+nrn_id = manual_ais_df[manual_ais_df["func_id"]==nrn_ind]["pt_root_id"].values[0]
+fname  = "{}.h5".format(nrn_id)
+
+# Visualize.
+print(mesh_folder +fname)
+mm = trimesh_io.MeshMeta()
+mesh = mm.mesh(filename=mesh_folder + "{}.h5".format(nrn_id))
+mesh_poly =trimesh_vtk.trimesh_to_vtk(mesh.vertices,mesh.faces,None)
