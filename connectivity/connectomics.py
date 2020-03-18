@@ -116,3 +116,18 @@ ds = sp.sparse.csgraph.dijkstra(mesh.csgraph, indices=mesh_inds)
 d_padding = 2000
 ais_len = ds[0,mesh_inds[1]]
 is_ais = ds.sum(axis=0) < ais_len + d_padding
+
+# Visualize the AIS in the whole neuron mesh.
+ais_mesh = mesh.apply_mask(is_ais)
+rest_of_mesh = mesh.apply_mask(~is_ais)
+ama_poly =trimesh_vtk.trimesh_to_vtk(ais_mesh.vertices,ais_mesh.faces,None)
+rma_poly =trimesh_vtk.trimesh_to_vtk(rest_of_mesh.vertices,rest_of_mesh.faces,None)
+vtkplotter.embedWindow(backend='k3d')
+vp = vtkplotter.Plotter(bg='b')
+ama_poly_actor = vtkplotter.Actor(ama_poly,c='r')
+ama_poly_actor.GetMapper().Update()
+rma_poly_actor = vtkplotter.Actor(rma_poly,c='b')
+rma_poly_actor.GetMapper().Update()
+vp+=ama_poly_actor
+vp+=rma_poly_actor
+vp.show()
