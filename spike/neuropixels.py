@@ -182,3 +182,35 @@ response_norm = response_mean - response_mean[0]
 N = float(len(response_norm))
 ls = ((1-(1/N) * ((np.power(response_norm.sum(),2)) / (np.power(response_norm,2).sum()))) / (1-(1/N)))
 print(ls)
+
+# Population correlations and cross-correlograms of spiking activity
+drift = session.get_presentations_for_stimulus("drifting_gratings")
+
+# Get the info about the drifting gratings session.
+first_drift_id = drift.index.values[0]
+first_drift_duration = drift.loc[first_drift_id, "stop_time"] - drift.loc[first_drift_id, "start_time"]
+
+# Construct the time domain at 10 ms resolution.
+time_step = 1 / 100
+time_domain = np.arange(0.0, first_drift_duration + time_step, time_step)
+histograms_drift = session.presentationwise_spike_counts(
+    bin_edges=time_domain,
+    stimulus_presentation_ids=drift.index,
+    unit_ids=None
+)
+
+spont = session.get_presentations_for_stimulus("spontaneous")
+
+# Get the info about the first session of spontaneous acitivty.
+first_spont_id = spont.index.values[0]
+first_spont_duration = spont.loc[first_spont_id, "stop_time"] - spont.loc[first_spont_id, "start_time"]
+
+# Construct the time domain at 10 ms resolution.
+time_step = 1 / 100
+time_domain = np.arange(0.0, first_spont_duration + time_step, time_step)
+
+histograms_spont = session.presentationwise_spike_counts(
+    bin_edges=time_domain,
+    stimulus_presentation_ids=spont.index,
+    unit_ids=None
+)
