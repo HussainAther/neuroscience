@@ -79,3 +79,7 @@ plt.imshow(session.roi_masks[cell_specimen_ids[9]])
 # Get traces and timestamps.
 dff_traces = session.dff_traces
 ophys_timestamps = session.ophys_timestamps
+
+# Get shape of traces and timestamps.
+print("shape of dff_traces:",session.dff_traces.shape)
+print("shape of ophys_timestamps:",session.ophys_timestamps.shape)
