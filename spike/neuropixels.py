@@ -158,3 +158,7 @@ for i,frame in enumerate(frames):
     
     plot_psth(unit_id, rates, ax=ax[i], title=frame)
 plt.tight_layout()
+
+# Plot the image that shows the largest response for this unit.
+plt.imshow(cache.get_natural_scene_template(105), cmap="gray")
+
