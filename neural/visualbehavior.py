@@ -83,3 +83,6 @@ ophys_timestamps = session.ophys_timestamps
 # Get shape of traces and timestamps.
 print("shape of dff_traces:",session.dff_traces.shape)
 print("shape of ophys_timestamps:",session.ophys_timestamps.shape)
+
+# Shape of the trace of one cell
+print("shape of one trace:",session.dff_traces.iloc[0]["dff"].shape)
