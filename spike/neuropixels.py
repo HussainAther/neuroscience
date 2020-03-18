@@ -31,3 +31,6 @@ else:
     data_root = "/media/$USERNAME/Brain2019/"
 
 manifest_path = os.path.join(data_root, "dynamic-brain-workshop/visual_coding_neuropixels/2019/manifest.json")
+
+# Get information.
+sessions = cache.get_sessions()
