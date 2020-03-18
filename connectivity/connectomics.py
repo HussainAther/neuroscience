@@ -22,3 +22,8 @@ voxel_resolution = np.array([4,4,40])
 
 # Find all synapses.
 all_man_syn = dl.query_synapses("gsynapse_ai_manual_v2")
+
+# Find the postsynaptic cell ID with the most synapses that are manually annotated.
+all_man_syn["syn_num"]=all_man_syn.groupby("post_pt_root_id")["id"].transform(len)
+cellid = all_man_syn[all_man_syn.syn_num==34]["post_pt_root_id"].values[0]
+print(cellid)
