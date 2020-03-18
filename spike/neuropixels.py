@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
-import scipy.signal as signal
 import scipy.stats as stats
+import seaborn as sns
+import signal as signal
 
 from allensdk.brain_observatory.ecephys.ecephys_project_cache import EcephysProjectCache
 from allensdk.brain_observatory.ecephys import ecephys_session
@@ -370,3 +371,61 @@ for i, spike in enumerate(spikes_subset):
 spike_triggered_lfp = np.array(spike_triggered_lfp)
 sta_lfp = np.mean(spike_triggered_lfp, axis=0)
 plt.plot(sta_lfp)
+
+# Instantaneous phase of oscillatory LFP signals
+lfp_subset = lfp_peak.loc[dict(time=slice(10,20))]
+v = lfp_subset.values
+t = lfp_subset.time.values
+fs = 1/(t[1]-t[0])
+f, psd = signal.welch(v, fs, nperseg=1000)
+f_peak = f[np.argmax(psd)]
+print(f"peak frequency: {f_peak} Hz")
+freq_window = (f_peak-2, f_peak+2)
+filt_order = 3
+b, a = signal.butter(filt_order, freq_window, btype="bandpass", fs=fs)
+v_filtered = signal.lfilter(b, a, v)
+lfp_z = signal.hilbert(v_filtered)
+lfp_amp = np.abs(lfp_z)
+lfp_phase = np.angle(lfp_z)
+
+# Plot.
+plt.figure(figsize=(8,2))
+plt.plot(t, v_filtered,"b",label="filtered signal",alpha=.5)
+plt.plot(t, lfp_amp,"k",label="amplitude",alpha=.5)
+plt.legend(loc="best")
+plt.xlabel("Time (s)")
+plt.ylabel("Voltage (uV)")
+plt.figure(figsize=(8,4))
+plt.subplot(3,1,1)
+plt.plot(t, v_filtered,"k")
+plt.ylabel("Filtered\nVoltage (uV)")
+plt.subplot(3,1,2)
+plt.plot(t, lfp_amp,"k")
+plt.ylabel("Amplitude (uV)")
+plt.subplot(3,1,3)
+plt.plot(t, lfp_phase,"k")
+plt.xlabel("Time (s)")
+plt.ylabel("Phase (rad)")
+
+# Tuning curves
+stim_table = session.get_presentations_for_stimulus("static_gratings")
+stim_ids = stim_table.index.values
+session.get_stimulus_parameter_values(stimulus_presentation_ids=stim_ids)
+bin_edges = [0, stim_table.duration.min()]
+spike_stats = session.presentationwise_spike_counts(bin_edges,stimulus_presentation_ids=stim_ids, unit_ids=unit_list)
+spike_stats = spike_stats.to_dataframe().reset_index()
+spike_stats = pd.merge(spike_stats, stim_table, on="stimulus_presentation_id", right_index=True)
+spike_stats.head()
+unit_id = 914686471
+data = spike_stats[(spike_stats.unit_id==unit_id) & (spike_stats.spatial_frequency==0.16)]
+y = "spike_counts"
+x = "orientation"
+hue = "phase"
+sns.pointplot(data=data, x=x, y=y, hue=hue, dodge=True)
+data = spike_stats[(spike_stats.unit_id==unit_id)]
+data = data.replace("null", np.nan)
+y = "spike_counts"
+x = "orientation"
+hue = "phase"
+col = "spatial_frequency"
+sns.catplot(data=data, col=col, x=x, y=y, hue=hue, col_wrap=3, kind="point")
