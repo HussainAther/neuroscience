@@ -22,3 +22,14 @@ from sqlalchemy.orm import sessionmaker
 """
 Inhibitory cell connectomics
 """
+
+# Initialize.
+dataset_name = "pinky100"
+data_version = 175
+sqlalchemy_database_uri = ""
+dl = AnalysisDataLink(dataset_name=dataset_name,
+                      sqlalchemy_database_uri=sqlalchemy_database_uri,
+                      materialization_version=data_version,
+                      verbose=False)
+mesh_folder = "/data/dynamic_brain_workshop/electron_microscopy/2019/meshes/"
+voxel_resolution = np.array([4,4,40])
