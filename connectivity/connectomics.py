@@ -189,3 +189,13 @@ ax.hist(np.sum(A[:Ni, :Ni], axis=0), bins=range(0, 11), density=False, alpha=0.5
 ax.hist(np.sum(A[Ni:, :Ni], axis=0), bins=np.arange(0., 20, 2), density=True, alpha=0.5, label="to exc.")
 ax.set_xlabel("Num. outputs of inhibitory cells")
 ax.set_ylabel("Frequency")
+
+# Inhibitory neuron mesh
+K = A[:Ni].sum(axis=0)
+print(K)
+print(np.median(K))
+print(np.where(K == 3))
+inh_3conn_inds = np.where(K == 3)[0]
+inh_ind = np.random.choice(inh_3conn_inds)
+inh_id = inh_ids[inh_ind]
+print(inh_id)
