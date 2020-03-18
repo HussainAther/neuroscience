@@ -62,3 +62,14 @@ print(str(len(all_ids))+" unique neuron ids")
 # Get synapse dataframe and synapse information.
 synapse_df = dl.query_synapses("pni_synapses_i3", pre_ids=inh_ids, post_ids=all_ids)
 synapse_df.head()
+
+# Make an inhibitory-to-all connectivity matrix using the total synapse size between
+# two neurons as the connection strength.
+Ni = len(inh_ids)
+Ne = len(exc_ids)
+J = np.zeros((Ne+Ni, Ni)) # post, pre
+for j, pre in enumerate(inh_ids):
+    this_pre = synapse_df.loc[synapse_df["pre_pt_root_id"] == pre]
+    for i, post in enumerate(all_ids):
+        this_pre_post = this_pre.loc[this_pre["post_pt_root_id"] == post]
+        J[i, j] = this_pre_post["size"].sum()
