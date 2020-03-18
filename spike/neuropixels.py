@@ -66,3 +66,11 @@ unit_spikes = session.spike_times[unit_id]
 isi = np.diff(unit_spikes)
 isi = isi*1000 # convert to ms
 print(isi[:20])
+
+# Visualize.
+fig,ax = plt.subplots(1,2,figsize=(10,4),sharey=True)
+ax[0].hist(isi,bins=200,range=(0,200))
+ax[1].hist(isi,bins=20,range=(0,20))
+plt.ylabel("Count")
+plt.xlabel("Inter-spike interval (ms)")
+plt.show()
