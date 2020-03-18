@@ -95,3 +95,14 @@ plt.plot(session.ophys_timestamps, dff_trace)
 plt.xlabel("time (sec)");
 plt.ylabel("dF/F");
 plt.title("cell index: "+str(cell_index))
+
+# Plot the dF/F trace for one cell using ophys timestamps for x-axis values
+# indexing method using cell_specimen_id as index with .loc.
+# Get cell_specimen_id from a list of all cell_specimen_ids.
+cell_specimen_ids = session.dff_traces.index.values
+cell_specimen_id = cell_specimen_ids[cell_index]
+dff_trace = session.dff_traces.loc[cell_specimen_id, "dff"] # note how the column name is included in the .loc call
+plt.plot(session.ophys_timestamps, dff_trace)
+plt.xlabel("time (sec)");
+plt.ylabel("dF/F");
+plt.title("cell_specimen_id: "+str(cell_specimen_id))
