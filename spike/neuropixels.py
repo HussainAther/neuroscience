@@ -313,3 +313,17 @@ plt.imshow(np.log10(correlations_drift+1))
 plt.title("Drifting gratings")
 plt.xlabel("Units")
 plt.show()
+
+# Spike waveform features
+peak_waveforms = []
+for unit_id in unit_list:
+    peak_ch = session.units.loc[unit_id, "peak_channel_id"]
+    unit_mean_waveforms = session.mean_waveforms[unit_id]
+    peak_waveforms.append(unit_mean_waveforms.loc[{"channel_id": peak_ch}])
+
+wv = np.array(peak_waveforms)
+
+# Plot 100 waveforms in this data_set.
+fig,ax = plt.subplots(1,1,figsize=(6,4))
+for w in wv[:100]:
+    ax.plot(w,alpha=0.5)
