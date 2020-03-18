@@ -61,3 +61,7 @@ mysynactor = vtkplotter.Actor(syn_actors, c="b")
 mysynactor.GetMapper().Update()
 vp+= mysynactor
 vp.show()
+
+# Find the axon initial segment (AIS) of a pyramidal cell.
+mesh_folder = "/data/dynamic_brain_workshop/electron_microscopy/2019/meshes/"
+
