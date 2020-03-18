@@ -39,3 +39,7 @@ myactor = vtkplotter.Actor(plt_actor, c="r")
 myactor.GetMapper().Update()
 vp+=myactor
 vp.show()
+
+# Find 10 largest synapses automatically extracted on this cell.
+biggest_synapses = post_synapse_df.sort_values(by=["size"],ascending=False).head(10)
+print(biggest_synapses)
