@@ -257,3 +257,17 @@ xcorr_drift=signal.correlate(spike_train_1_drift,spike_train_2_drift)
 # time steps
 time_shift_spont=np.arange(-len(xcorr_spont)/2,len(xcorr_spont)/2,1)
 time_shift_drift=np.arange(-len(xcorr_drift)/2,len(xcorr_drift)/2,1)
+
+# Plot the cross-correlations for spontaneous and drifting gratings.
+plt.figure(figsize=(14,8))
+plt.subplot(121)
+plt.plot(time_shift_spont,xcorr_spont)
+plt.ylabel("Signal correlation")
+plt.xlabel("Time steps (10 ms)")
+plt.title("Spontaneous activity")
+plt.figure
+plt.subplot(122)
+plt.plot(time_shift_drift,xcorr_drift)
+plt.xlabel("Time steps (10 ms)")
+plt.title("Drifting gratings")
+plt.show()
