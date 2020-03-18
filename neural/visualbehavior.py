@@ -33,3 +33,9 @@ cache_path = os.path.join(data_root, "dynamic-brain-workshop/visual_behavior/201
 Visual behavior
 """
 
+# Load data.
+cache = bpc.BehaviorProjectCache(cache_path)
+
+experiments = cache.experiment_table
+selected_experiments = experiments[(experiments.full_genotype=="Vip-IRES-Cre/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt") & (experiments.imaging_depth==175) & (experiments.stage_name=="OPHYS_4_images_B")]
+selected_experiments
