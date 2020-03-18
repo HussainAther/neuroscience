@@ -79,3 +79,8 @@ fig, ax = plt.subplots(1, 1, figsize=(3, 3))
 ax.imshow(J, cmap="gray_r", aspect=0.1)
 ax.set_xlabel("Presynaptic")
 ax.set_ylabel("Postsynaptic")
+
+# Compute frequency distributions of connection number from excitatory neurons
+# to all inhibitory postsynaptic neurons (e-i connections).
+A = np.minimum(J, np.ones(J.shape))
+ex_dist = np.sum(A[Ni:, :Ni], axis=1)
