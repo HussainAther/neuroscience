@@ -33,3 +33,7 @@ dl = AnalysisDataLink(dataset_name=dataset_name,
                       verbose=False)
 mesh_folder = "/data/dynamic_brain_workshop/electron_microscopy/2019/meshes/"
 voxel_resolution = np.array([4,4,40])
+
+# Get tables from the dataset.
+print(dl.sqlalchemy_engine.table_names())
+
