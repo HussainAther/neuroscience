@@ -320,10 +320,20 @@ for unit_id in unit_list:
     peak_ch = session.units.loc[unit_id, "peak_channel_id"]
     unit_mean_waveforms = session.mean_waveforms[unit_id]
     peak_waveforms.append(unit_mean_waveforms.loc[{"channel_id": peak_ch}])
-
 wv = np.array(peak_waveforms)
 
 # Plot 100 waveforms in this data_set.
 fig,ax = plt.subplots(1,1,figsize=(6,4))
 for w in wv[:100]:
     ax.plot(w,alpha=0.5)
+
+# Compute trough-to-peak duration.
+duration_steps = np.argmax(wv,axis=1) - np.argmin(wv,axis=1)
+# Pull the sampling rate from the units table and convert timesteps to ms
+sampling_rate = session.units.loc[unit_list, "sampling_rate"]
+duration = duration_steps/sampling_rate*1000
+
+# Plot histogram of duration.
+plt.hist(duration, bins=30, range=(0,1))
+plt.ylabel("N units")
+plt.xlabel("Spike duration (ms)")
