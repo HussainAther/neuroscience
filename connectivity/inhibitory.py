@@ -84,3 +84,7 @@ ax.set_ylabel("Postsynaptic")
 # to all inhibitory postsynaptic neurons (e-i connections).
 A = np.minimum(J, np.ones(J.shape))
 ex_dist = np.sum(A[Ni:, :Ni], axis=1)
+
+# Compute frequency distributions of the number of connections from inhibitory neurons
+# to all inhibitory postsynaptic neurons (i-i connections).
+nh_dist = np.sum(A[:Ni, :Ni], axis=1)
