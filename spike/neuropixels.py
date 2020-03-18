@@ -3,6 +3,7 @@ import numpy as np
 import os
 import pandas as pd
 import scipy.signal as signal
+import scipy.stats as stats
 
 from allensdk.brain_observatory.ecephys.ecephys_project_cache import EcephysProjectCache
 from allensdk.brain_observatory.ecephys import ecephys_session
@@ -270,4 +271,45 @@ plt.subplot(122)
 plt.plot(time_shift_drift,xcorr_drift)
 plt.xlabel("Time steps (10 ms)")
 plt.title("Drifting gratings")
+plt.show()
+
+# Make an array to hold the correlations for all units.
+num_units = 100
+correlations_spont = np.zeros((num_units, num_units))
+correlations_drift = np.zeros((num_units, num_units))
+
+# Compute correlations for the spontaneous activity.
+for ii in range(num_units):
+    for jj in range(num_units):
+        spike_train_1=spike_counts_spont[:max_len, ii]
+        spike_train_2=spike_counts_spont[:max_len, jj]
+        # only linear correlations
+        correlations_spont[ii, jj] = stats.pearsonr(spike_train_1, spike_train_2)[0]
+        # correlation for constant values is zero
+        if np.isnan(correlations_spont[ii, jj]) == True:
+            correlations_spont[ii, jj]=0
+
+# Compute correlations for drifting gratings.
+for ii in range(num_units):
+    for jj in range(num_units):
+        spike_train_1=spike_counts_drift[:max_len, ii]
+        spike_train_2=spike_counts_drift[:max_len, jj]
+        # only linear correlations
+        correlations_drift[ii, jj] = stats.pearsonr(spike_train_1, spike_train_2)[0]
+        # correlation for constant values is zero
+        if np.isnan(correlations_drift[ii, jj]) == True:
+            correlations_drift[ii, jj]=0
+
+# Plot correlation matrix with log10.
+# Some units could be silent -> then there are no correlations.
+plt.figure(figsize=(14,8))
+plt.subplot(121)
+plt.imshow(np.log10(correlations_spont+1))
+plt.xlabel("Units")
+plt.ylabel("Units")
+plt.title("Spontaneous activity")
+plt.subplot(122)
+plt.imshow(np.log10(correlations_drift+1))
+plt.title("Drifting gratings")
+plt.xlabel("Units")
 plt.show()
