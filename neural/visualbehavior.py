@@ -44,3 +44,18 @@ selected_experiments
 print("targeted structures:", experiments.targeted_structure.unique())
 print("\ncre_lines:", experiments.full_genotype.unique())
 print("\nstage_types:", experiments.stage_name.unique())
+
+# Random active behavior experiment
+active_experiments = experiments[experiments.passive_session==False]
+experiment_id = active_experiments.ophys_experiment_id.sample(1).values[0]
+
+# Metadata
+row = experiments[experiments["ophys_experiment_id"] == experiment_id]
+print(row.targeted_structure.values[0])
+print(row.imaging_depth.values[0])
+print(row.full_genotype.values[0])
+print(row.stage_name.values[0])
+
+# Container ID
+container_id = experiments[experiments.ophys_experiment_id==experiment_id]["container_id"].values[0]
+experiments.groupby("container_id").get_group(container_id)
