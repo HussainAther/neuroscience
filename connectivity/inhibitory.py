@@ -73,3 +73,9 @@ for j, pre in enumerate(inh_ids):
     for i, post in enumerate(all_ids):
         this_pre_post = this_pre.loc[this_pre["post_pt_root_id"] == post]
         J[i, j] = this_pre_post["size"].sum()
+
+# View the matrix.
+fig, ax = plt.subplots(1, 1, figsize=(3, 3))
+ax.imshow(J, cmap="gray_r", aspect=0.1)
+ax.set_xlabel("Presynaptic")
+ax.set_ylabel("Postsynaptic")
