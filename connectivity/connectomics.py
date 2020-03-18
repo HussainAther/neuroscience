@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import scipy as sp
 import vtkplotter
 
 from meshparty import trimesh_io, trimesh_vtk
@@ -109,3 +110,9 @@ plot_actor1 = vtkplotter.Actor(pts_actor,c='r')
 plot_actor1.GetMapper().Update()
 vp+=plot_actor1
 vp.show()
+
+# Find the vertex indices of the mesh "between" the top and bottom parts.
+ds = sp.sparse.csgraph.dijkstra(mesh.csgraph, indices=mesh_inds)
+d_padding = 2000
+ais_len = ds[0,mesh_inds[1]]
+is_ais = ds.sum(axis=0) < ais_len + d_padding
