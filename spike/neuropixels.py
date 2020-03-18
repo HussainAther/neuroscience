@@ -97,3 +97,10 @@ for i,unit in enumerate(unit_list):
 plt.xlim(0,0.3)
 for i in ax:
     i.axis("off")
+
+# Explore responses to natural scenes.
+stim_table = session.get_presentations_for_stimulus("natural_scenes")
+stim_ids = stim_table.index.values
+frames = session.get_stimulus_parameter_values(stimulus_presentation_ids=stim_ids, drop_nulls=False)["frame"]
+frames = np.sort(frames)
+frames
