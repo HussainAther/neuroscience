@@ -24,7 +24,7 @@ elif ("amzn1" in platstring):
     # then on AWS
     data_root = "/data/"
 else:
-    # then linux (default here is for Ubuntu - insert your username; your distribution may differ)
+    # then linux (default here is for Ubuntu - insert your username your distribution may differ)
     data_root = "/media/$USERNAME/Brain2019"
     
 cache_path = os.path.join(data_root, "dynamic-brain-workshop/visual_behavior/2019")
@@ -37,7 +37,7 @@ Visual behavior
 cache = bpc.BehaviorProjectCache(cache_path)
 
 experiments = cache.experiment_table
-selected_experiments = experiments[(experiments.full_genotype=="Vip-IRES-Cre/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt") & (experiments.imaging_depth==175) & (experiments.stage_name=="OPHYS_4_images_B")]
+selected_experiments = experiments[(experiments.full_genotype=="Vip-IRES-Cre/wtAi148(TIT2L-GC6f-ICL-tTA2)/wt") & (experiments.imaging_depth==175) & (experiments.stage_name=="OPHYS_4_images_B")]
 selected_experiments
 
 # Print dataset dimensions.
@@ -92,8 +92,8 @@ print("shape of one trace:",session.dff_traces.iloc[0]["dff"].shape)
 cell_index = 0 
 dff_trace = session.dff_traces.iloc[cell_index]["dff"] # note that the column name is outside of the .iloc call
 plt.plot(session.ophys_timestamps, dff_trace)
-plt.xlabel("time (sec)");
-plt.ylabel("dF/F");
+plt.xlabel("time (sec)")
+plt.ylabel("dF/F")
 plt.title("cell index: "+str(cell_index))
 
 # Plot the dF/F trace for one cell using ophys timestamps for x-axis values
@@ -103,6 +103,10 @@ cell_specimen_ids = session.dff_traces.index.values
 cell_specimen_id = cell_specimen_ids[cell_index]
 dff_trace = session.dff_traces.loc[cell_specimen_id, "dff"] # note how the column name is included in the .loc call
 plt.plot(session.ophys_timestamps, dff_trace)
-plt.xlabel("time (sec)");
-plt.ylabel("dF/F");
+plt.xlabel("time (sec)")
+plt.ylabel("dF/F")
 plt.title("cell_specimen_id: "+str(cell_specimen_id))
+
+# Turn dff_traces into an array of cells x timepoints.
+dff_traces_array = np.vstack(session.dff_traces.dff.values)
+print("shape of dff_traces_array:",dff_traces_array.shape)
