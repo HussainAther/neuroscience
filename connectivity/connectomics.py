@@ -84,12 +84,12 @@ voxel_resolution = np.array([4,4,40])
 ais_bounds_pts = np.vstack(nrn_bounds_df["pt_position"].values) * voxel_resolution
 pts_actor = trimesh_vtk.point_cloud_actor(ais_bounds_pts, size=1200, color=(0.2, 0.8, 0.2))
 print(ais_bounds_pts)
-vtkplotter.embedWindow(backend='k3d')
-vp = vtkplotter.Plotter(bg='b')
+vtkplotter.embedWindow(backend="k3d")
+vp = vtkplotter.Plotter(bg="b")
 mesh_poly_actor = vtkplotter.Actor(mesh_poly)
 mesh_poly_actor.GetMapper().Update()
 vp+=mesh_poly_actor
-plot_actor1 = vtkplotter.Actor(pts_actor,c='r')
+plot_actor1 = vtkplotter.Actor(pts_actor,c="r")
 plot_actor1.GetMapper().Update()
 vp+=plot_actor1
 vp.show()
@@ -101,12 +101,12 @@ print(dist_from_pts)
 mesh_pt_actor = trimesh_vtk.point_cloud_actor(mesh.vertices[mesh_inds],
                                               size=1200, color=(0.9, 0, 0.8))
 
-vtkplotter.embedWindow(backend='k3d')
-vp = vtkplotter.Plotter(bg='b')
-plot_actor = vtkplotter.Actor(mesh_pt_actor,c='b')
+vtkplotter.embedWindow(backend="k3d")
+vp = vtkplotter.Plotter(bg="b")
+plot_actor = vtkplotter.Actor(mesh_pt_actor,c="b")
 plot_actor.GetMapper().Update()
 vp+=plot_actor
-plot_actor1 = vtkplotter.Actor(pts_actor,c='r')
+plot_actor1 = vtkplotter.Actor(pts_actor,c="r")
 plot_actor1.GetMapper().Update()
 vp+=plot_actor1
 vp.show()
@@ -122,12 +122,20 @@ ais_mesh = mesh.apply_mask(is_ais)
 rest_of_mesh = mesh.apply_mask(~is_ais)
 ama_poly =trimesh_vtk.trimesh_to_vtk(ais_mesh.vertices,ais_mesh.faces,None)
 rma_poly =trimesh_vtk.trimesh_to_vtk(rest_of_mesh.vertices,rest_of_mesh.faces,None)
-vtkplotter.embedWindow(backend='k3d')
-vp = vtkplotter.Plotter(bg='b')
-ama_poly_actor = vtkplotter.Actor(ama_poly,c='r')
+vtkplotter.embedWindow(backend="k3d")
+vp = vtkplotter.Plotter(bg="b")
+ama_poly_actor = vtkplotter.Actor(ama_poly,c="r")
 ama_poly_actor.GetMapper().Update()
-rma_poly_actor = vtkplotter.Actor(rma_poly,c='b')
+rma_poly_actor = vtkplotter.Actor(rma_poly,c="b")
 rma_poly_actor.GetMapper().Update()
 vp+=ama_poly_actor
 vp+=rma_poly_actor
 vp.show()
+
+# Get an array of synapse locations onto the same cell you looked at above.
+# Filter only those onto mesh points corresponding to the AIS.
+syn_df = dl.query_synapses("pni_synapses_i3", post_ids=[int(nrn_id)])
+syn_locs = np.vstack(syn_df["ctr_pt_position"].values) * voxel_resolution
+_, syn_mesh_inds = mesh.kdtree.query(syn_locs)
+ais_syn_df = syn_df[is_ais[syn_mesh_inds]]
+ais_syn_df
