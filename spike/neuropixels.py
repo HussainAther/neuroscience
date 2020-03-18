@@ -74,3 +74,26 @@ ax[1].hist(isi,bins=20,range=(0,20))
 plt.ylabel("Count")
 plt.xlabel("Inter-spike interval (ms)")
 plt.show()
+
+# Show in chart.
+snr_df = session.units.sort_values(by=["snr"], ascending=False)
+snr_df.head()
+
+# Get spike times for 50 units with highest SNR.
+unit_list = snr_df.index.values[:50]
+
+# Figure setup
+fig,ax = plt.subplots(5,10,figsize=(15,7),sharex=True)
+ax = ax.ravel()
+
+# Plot ISI distribution for each unit.
+for i,unit in enumerate(unit_list):
+    unit_spikes = session.spike_times[unit]
+    if len(unit_spikes) > 3000:
+        isi = np.diff(unit_spikes)
+        ax[i].hist(isi,bins=50,range=(0,0.3))
+        ax[i].set_title(str(unit_list[i]),fontsize=7)
+
+plt.xlim(0,0.3)
+for i in ax:
+    i.axis("off")
