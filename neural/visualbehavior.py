@@ -39,3 +39,8 @@ cache = bpc.BehaviorProjectCache(cache_path)
 experiments = cache.experiment_table
 selected_experiments = experiments[(experiments.full_genotype=="Vip-IRES-Cre/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt") & (experiments.imaging_depth==175) & (experiments.stage_name=="OPHYS_4_images_B")]
 selected_experiments
+
+# Print dataset dimensions.
+print("targeted structures:", experiments.targeted_structure.unique())
+print("\ncre_lines:", experiments.full_genotype.unique())
+print("\nstage_types:", experiments.stage_name.unique())
