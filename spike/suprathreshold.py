@@ -13,3 +13,10 @@ def Vt(I, R, phi, tau_m):
     membrane time constant tau_m, and resistance R.
     """
     return (np.average(I)*R-phi)/tau_m
+
+def rate(P, I, R, phi, tau_m):
+    """
+    With voltage term P(t) and the current term V(t) (defined above), return
+    the PSTH (peristimulus time histogram) rate.
+    """
+    return rate*Vt(I, R, phi, tau_m)
