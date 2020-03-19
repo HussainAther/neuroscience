@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
+import platform
 import scipy.stats as stats
 import seaborn as sns
 import signal as signal
@@ -16,7 +17,6 @@ Neuropixels dataset from the Allen Institute
 """
 
 # Load data.
-import platform
 platstring = platform.platform()
 
 if "Darwin" in platstring:
