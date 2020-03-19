@@ -4,10 +4,10 @@ import numpy as np
 class Neuron():
     
     def __init__(self):
-        self.C = .281  # Capacitance
-        self.gL = .030 
-        self.vR = -60.6 
-        self.vT = -50.4
+        self.C = .281  # capacitance
+        self.gL = .030 # voltage-independent conductance 
+        self.vR = -60.6 # rate of voltage change during injection 
+        self.vT = -50.4 # threshold voltage
     
     def createInjectionCurrent(self):
         self.currentInj = np.append(np.zeros(10), np.arange(100)/100)
