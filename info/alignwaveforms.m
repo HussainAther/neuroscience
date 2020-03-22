@@ -5,3 +5,9 @@ function out = align_waveforms(x)
     % Takes x as an MxN matrix of waveforms where x(m,:) is the 
     % nth waveform and outputs a vector of length M where out(m) is
     % the offset relative to the first wave.
+    n = size(x);
+    n = n(2);
+    out = [];
+    for  w = 1:n
+        c = xcorr(x(:, 1), x(:, w));
+
