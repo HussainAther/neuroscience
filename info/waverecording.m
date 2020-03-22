@@ -36,4 +36,7 @@ classdef pcm_recording < recording
 end 
 
 function dates = threshold_crossings(wav_filename, start_time)
-    % Takes the WAV file wav_filename
+    % Takes the WAV file wav_filename as input and the start time start_time
+    % of the WAV recording.
+    raw_data, sampling_raw = wavread(wav_filename);
+    above = raw_data > threshold;
