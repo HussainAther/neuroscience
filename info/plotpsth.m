@@ -10,3 +10,5 @@ function psth,bins= bin_for_psth(raw_dta, sampling_rate, threshold, trial_count,
     % only positive threshold crossings (not sustained activity above threshold)
     events = diff(events) == 1;
     events = [0 events];
+    events = reshape(events, trial_count, trial_length*sampling_rate);
+    % events should be MxN for M = trial and N = sample
