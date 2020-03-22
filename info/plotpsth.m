@@ -12,3 +12,15 @@ function psth,bins= bin_for_psth(raw_dta, sampling_rate, threshold, trial_count,
     events = [0 events];
     events = reshape(events, trial_count, trial_length*sampling_rate);
     % events should be MxN for M = trial and N = sample
+    summed_events = sum(events);
+    % summmed_events should be the sum of events at each sample relative to
+    % the start of the trial
+    max_event_count = max(summed_events);
+    for count = 0:max_event_count-1
+        above_count = find(summed_events > count);
+        event_offsets = [event_offsets above_count];
+    end
+    % event_offsets should be the offset in sample counts where events occur
+    event_times = event_offsets / sampling_rate;
+    [psth, bins] = hist(event_times, trial_length/bin_size);
+end
