@@ -11,3 +11,12 @@ classdef wav_recording < recording
         end
     end
 end 
+
+classdef pcm_recording < recording
+    methods
+        function obj = pcm_recording(filename, sample_rate)
+            obj = obj@recording(filename);
+            obj.sample_rate = sample_rate;
+        end
+        function r = sample_rate(obj)
+            return obj.sample_rate;
