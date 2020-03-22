@@ -8,6 +8,11 @@ function out = align_waveforms(x)
     n = size(x);
     n = n(2);
     out = [];
-    for  w = 1:n
+    for w = 1:n
         c = xcorr(x(:, 1), x(:, w));
+        s = find(c == max(c));
+        d = s - length(c)/2;
+        out = [out d];
+    end
+end 
 
