@@ -40,3 +40,7 @@ function dates = threshold_crossings(wav_filename, start_time)
     % of the WAV recording.
     raw_data, sampling_raw = wavread(wav_filename);
     above = raw_data > threshold;
+    threshold_crossings = diff(above) == 1;
+    threshold_times = find(threshold_crossings);
+    % threshold_times is the sample count since start_time
+    % for each threshold crossing
