@@ -34,3 +34,6 @@ classdef pcm_recording < recording
         end
     end
 end 
+
+function dates = threshold_crossings(wav_filename, start_time)
+    % Takes the WAV file wav_filename
