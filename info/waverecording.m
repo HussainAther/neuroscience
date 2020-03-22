@@ -20,3 +20,17 @@ classdef pcm_recording < recording
         end
         function r = sample_rate(obj)
             return obj.sample_rate;
+        end
+        function data = raw_data(obj)
+            fid = fopen(obj.filename, "r");
+            if fid == -1
+                error("Unable to open file" + obj.filename);
+                data = [];
+                return
+            else
+                data = fread(fid, inf, "unit16 = > double", 0, "l");
+                fclose(fid);
+            end
+        end
+    end
+end 
