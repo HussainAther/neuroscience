@@ -14,7 +14,7 @@ function coefs = simple_cwt(t, x, mother_wavelet, max_wavelet, scales, params)
     coefs = zeros(length(scales), length(x));
     points = length(x);
     t_scale = linspace( - max_wavelet, max_wavelet, points);
-    dt = (max_wavelet*2)/(points 2 1);
+    dt = (max_wavelet*2)/(points - 1);
     mom_wavelet = feval(mother_wavelet, t_scale, params);
     row = 1;
     for scale = scales
@@ -27,4 +27,5 @@ function coefs = simple_cwt(t, x, mother_wavelet, max_wavelet, scales, params)
         scale % Print scale to show progress.
         coefs(row,:) = abs(w);
         row = row + 1;
-   end 
+    end 
+end
