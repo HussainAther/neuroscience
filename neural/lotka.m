@@ -5,3 +5,17 @@ function lotka
     % Y2 --[k3]-->                 Predators death
     %
     % Y1 is number of prey species, Y2 is  number of predator species
+    tspan=[0 100];
+    y0=[1;1];
+    
+    [T,Y]=ode45(@f,tspan,y0);
+    figure;
+    subplot(121);
+    plot(T,Y(:,1),'b*-',T,Y(:,2),'ro-');
+    legend('Preys','Predators')
+    xlabel('Time')
+    ylabel('Y_1, Y_2')
+    subplot(122);
+    plot(Y(:,1),Y(:,2),'g');
+    xlabel('Y_1')
+    ylabel('Y_2')
