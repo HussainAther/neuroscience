@@ -19,3 +19,12 @@ function lotka
     plot(Y(:,1),Y(:,2),'g');
     xlabel('Y_1')
     ylabel('Y_2')
+end
+
+function dydt=f(t,y)
+    % Kinetic parameters
+    k1=1;k2=0.1;k3=0.1;
+    % System of ODEs
+    dydt = [ k1*y(1)-k2*y(1)*y(2)
+    k2*y(1)*y(2)-k3*y(2)];
+end
