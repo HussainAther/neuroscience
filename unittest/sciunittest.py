@@ -48,3 +48,32 @@ class ProducesOrbitalPosition(sciunit.Capability):
         r, theta = self.get_position(t)
         x, y = r*cos(theta), r*sin(theta)
         return x, y
+
+class PositionTest(sciunit.Test):
+    """A test of a planetary position at some specified time"""
+    
+    # This test can only operate on models that implement
+    # the `ProducesOrbitalPosition` capability.
+    required_capabilities = (ProducesOrbitalPosition,)
+    score_type = BooleanScore # This test's 'judge' method will return a BooleanScore.
+    
+    def generate_prediction(self, model):
+        """Generate a prediction from a model"""
+        t = self.observation['t'] # Get the time point from the test's observation
+        x, y = model.get_x_y(t) # Get the predicted x, y coordinates from the model
+        return {'t': t, 'x': x, 'y': y} # Roll this into a model prediction dictionary
+        
+    def compute_score(self, observation, prediction):
+        """Compute a test score based on the agreement between
+        the observation (data) and prediction (model)"""
+        # Compare observation and prediction to get an error measure
+        delta_x = observation['x'] - prediction['x']
+        delta_y = observation['y'] - prediction['y']
+        error = np.sqrt(delta_x**2 + delta_y**2)
+        
+        passing = bool(error < 1e5*pq.kilometer) # Turn this into a True/False score
+        score = self.score_type(passing) # Create a sciunit.Score object
+        score.set_raw(error) # Add some information about how this score was obtained
+        score.description = ("Passing score if the prediction is "
+                             "within < 100,000 km of the observation") # Describe the scoring logic
+        return score
