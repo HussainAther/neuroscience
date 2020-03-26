@@ -4,6 +4,7 @@ import sciunit
 
 from datetime import datetime, timedelta
 from math import pi, sqrt, sin, cos, tan, atan
+from sciunit.capabilities import ProducesNumber
 
 class ProducesOrbitalPosition(sciunit.Capability):
     """
