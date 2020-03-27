@@ -26,3 +26,6 @@ function isochrons(F,phases,x0)
                 i=i+1;
             end;
         end;
+        i=1;
+        while i<=size(iso,2)-1
+            d=sqrt(sum(sum((iso(:,i)-iso(:,i+1))./dx).^2)); % normalized distance
