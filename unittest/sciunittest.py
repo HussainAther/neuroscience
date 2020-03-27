@@ -7,7 +7,7 @@ from math import pi, sqrt, sin, cos, tan, atan
 from sciunit.capabilities import ProducesNumber
 
 """
-Testing SciUnit's abilities.
+Testing SciUnit"s abilities.
 """
 
 class ProducesOrbitalPosition(sciunit.Capability):
@@ -90,3 +90,33 @@ class PositionTest(sciunit.Test):
         score.description = ("Passing score if the prediction is "
                              "within < 100,000 km of the observation") # Describe the scoring logic.
         return score
+
+class StricterPositionTest(PositionTest):
+    # Optional observation units to validate against
+    units = pq.meter
+    
+    # Optional schema for the format of observed data
+    observation_schema = {"t": {"min": 0, "required": True},
+                          "x": {"units": True, "required": True},
+                          "y": {"units": True, "required": True},
+                          "phi": {"required": False}}
+    
+    def validate_observation(self, observation):
+        """Additional checks on the observation"""
+        assert isinstance(observation["t"], datetime)
+        return observation
+        
+    # Optional schema for the format of test parameters
+    params_schema = {"rotate": {"required": False}}
+
+    # Optional schema for the format of default test parameters
+    default_params = {"rotate": False}
+    
+    def compute_score(self, observation, prediction):
+        """Optionally use additional information to compute model/data agreement"""
+        observation_rotated = observation.copy()
+        if "phi" in observation:
+            # Project x and y values onto the plane defined by `phi`.
+            observation_rotated["x"] *= cos(observation["phi"])
+            observation_rotated["y"] *= cos(observation["phi"])
+        return super().compute_score(observation_rotated, prediction)
