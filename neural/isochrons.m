@@ -10,3 +10,7 @@ function isochrons(F,phases,x0)
     dx = (max(lc)-min(lc))’/m; % spatial resolution
     center = (max(lc)+min(lc))’/2; % center of the limit cycle
     iso = [x0-m^0.5*dx, x0+m^0.5*dx]; % isochron’s initial segment
+    [t,lc] = ode23s(F,0:tau:T,x0); % forward integration
+    dx = (max(lc)-min(lc))'/m; % spatial resolution
+    center = (max(lc)+min(lc))’/2; % center of the limit cycle
+    iso = [x0-m^0.5*dx, x0+m^0.5*dx]; % isochron's initial segment
