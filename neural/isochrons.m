@@ -40,3 +40,8 @@ function isochrons(F,phases,x0)
         end;
         if (mod(-t,T)<=tau/2) & (-t<k*T+tau) % Refresh the screen.
             cla;plot(lc(:,1),lc(:,2),'r'); hold on; % Plot the limit cycle.
+        end;
+        if min(abs(mod(-t,T)-phases))tau/2 % Plot the isochrons.
+            plot(iso(1,:),iso(2,:),'k-'); drawnow;
+        end;
+    end;
