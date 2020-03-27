@@ -29,3 +29,14 @@ function isochrons(F,phases,x0)
         i=1;
         while i<=size(iso,2)-1
             d=sqrt(sum(sum((iso(:,i)-iso(:,i+1))./dx).^2)); % normalized distance
+            if d > 2
+                iso = [iso(:,1:i), (iso(:,i)+iso(:,i+1))/2 ,iso(:,i+1:end)];
+            end;
+            if d < 0.5
+                iso = [iso(:,1:i), iso(:,i+1:end)];
+            else
+                i=i+1;
+            end;
+        end;
+        if (mod(-t,T)<=tau/2) & (-t<k*T+tau) % Refresh the screen.
+            cla;plot(lc(:,1),lc(:,2),'r'); hold on; % Plot the limit cycle.
