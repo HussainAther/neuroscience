@@ -17,3 +17,12 @@ function isochrons(F,phases,x0)
     for t=0:-tau:-(k+1)*T % backward integration
         for i=1:size(iso,2)
             iso(:,i)=iso(:,i)-tau*feval(F,t,iso(:,i)); % move one step
+        end
+        i=1;
+        while i<=size(iso,2) % remove infinite solutions
+            if any(abs(iso(:,i)-center)>1.5*m*dx) % check boundaries
+                iso = [iso(:,1:i-1), iso(:,i+1:end)]; % remove
+            else
+                i=i+1;
+            end;
+        end;
