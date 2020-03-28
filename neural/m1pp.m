@@ -58,8 +58,6 @@ ylabel('n','fontsize',14)
 box off
 hold off
 
-
-
 return
 
 function val = minf(V)
