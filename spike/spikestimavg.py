@@ -22,3 +22,26 @@ for interval in sepInterval:
         if spikeTimes[i+1] - spikeTimes[i] == interval:
             spikePairs.append(spikeTimes[i+1]) 
         i += 1
+    spikePairs = np.array(spikePairs)
+    sta = np.zeros((n_timeSteps,))
+    n_spikes = len(spikePairs)
+    for sp_time in spikePairs:
+        sta += stimVals[sp_time-n_timeSteps:sp_time]
+    sta /= n_spikes
+    diff_dict[interval*2] = abs(max(sta) - 2*MAX_SINGLE_RESPONSE)
+    plt.plot(sta, c=colors[j], alpha=0.6)
+    j += 1
+
+plt.title("Spike-Triggered Average for Spike Pair")
+plt.xlabel("Time Period (2ms)")
+plt.ylabel("Stimulus Value")
+plt.xticks(np.arange(0, 160, 10))
+plt.legend(handles, labels)
+plt.show()
+
+plt.figure(figsize=(15,5))
+plt.scatter(diff_dict.keys(), diff_dict.values())
+plt.xlabel("Time Interval, ms")
+plt.ylabel("Absolute diffrence")
+plt.title("Absolute diffrence between two STA and the sum of two single STA by Time Interval")
+plt.show()
