@@ -12,3 +12,13 @@ handles = [Rectangle((0,0),1,1,color=c,ec="k") for c in colors]
 labels = [str(int(x*2)) + " ms" for x in sepInterval]
 MAX_SINGLE_RESPONSE = 29.472907029165032
 diff_dict = dict()
+
+j = 0
+plt.figure(figsize=(15,5))
+for interval in sepInterval:
+    spikePairs = []
+    i = 0
+    while i < len(spikeTimes) - 1:
+        if spikeTimes[i+1] - spikeTimes[i] == interval:
+            spikePairs.append(spikeTimes[i+1]) 
+        i += 1
